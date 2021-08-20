@@ -14,4 +14,12 @@ return packer.startup(function()
       "wbthomason/packer.nvim",
       event = "VimEnter",
    }
+
+   -- Theme
+   use {
+      "arcticicestudio/nord-vim",
+      config = function()
+         require "plugins/nord"
+      end
+   }
 end)
