@@ -15,6 +15,22 @@ return packer.startup(function()
       event = "VimEnter",
    }
 
+   -- File managmeent
+   use {
+      "kyazdani42/nvim-tree.lua",
+      cmd = "NvimTreeToggle",
+      config = function()
+         require "plugins.nvimtree"
+      end,
+      setup = function()
+         require("mappings").nvimtree()
+      end,
+   }
+
+   use {
+      "kyazdani42/nvim-web-devicons"
+   }
+
    -- Theme
    use {
       "arcticicestudio/nord-vim",
