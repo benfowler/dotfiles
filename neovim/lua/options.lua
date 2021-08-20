@@ -1,8 +1,8 @@
 local opt = vim.opt
 local g = vim.g
 
--- options go here
---opt.foo = "bar"
+-- General options
+opt.termguicolors = true
 
 -- Disable builtin vim plugins
 local disabled_built_ins = {
