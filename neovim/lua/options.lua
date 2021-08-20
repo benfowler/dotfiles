@@ -55,16 +55,16 @@ opt.pumwidth = 30                -- Pmenu _minimum_ width
 opt.wildmode = "full"
 opt.wildmenu = true              -- enable ctrl-n and ctrl-p to scroll thru matches
 
---opt.wildignore=*.o,*.obj,*~    -- stuff to ignore when tab completing
---opt.wildignore+=*vim/backups*
---opt.wildignore+=*sass-cache*
---opt.wildignore+=*DS_Store*
---opt.wildignore+=vendor/rails/**
---opt.wildignore+=vendor/cache/**
---opt.wildignore+=*.gem
---opt.wildignore+=log/**
---opt.wildignore+=tmp/**
---opt.wildignore+=*.png,*.jpg,*.gif
+opt.wildignore = "*.o,*.obj,*~"  -- stuff to ignore when tab completing
+opt.wildignore:append "*vim/backups*"
+opt.wildignore:append "*sass-cache*"
+opt.wildignore:append "*DS_Store*"
+opt.wildignore:append "vendor/rails/**"
+opt.wildignore:append "vendor/cache/**"
+opt.wildignore:append "*.gem"
+opt.wildignore:append "log/**"
+opt.wildignore:append "tmp/**"
+opt.wildignore:append "*.png,*.jpg,*.gif"
 
 
 -- Scrolling
