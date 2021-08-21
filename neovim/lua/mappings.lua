@@ -157,6 +157,13 @@ M.nvimtree = function()
    map("n", m, ":NvimTreeToggle<CR>", opt)
 end
 
+M.truezen = function()
+   local m = user_map.truezen
+
+   map("n", m.ataraxisMode, ":TZAtaraxis<CR>", opt)
+   map("n", m.minimalisticmode, ":TZMinimalist<CR>", opt)
+   map("n", m.focusmode, ":TZFocus<CR>", opt)
+end
 
 return M
 
