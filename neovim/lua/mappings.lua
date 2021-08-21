@@ -43,7 +43,6 @@ M.user_map = {
       buffers = "<leader>fb",
       help_tags = "<leader>fh",
       oldfiles = "<leader>fo",
-      themes = "<leader>th",
    },
    fugitive = {
       Git = "<leader>gs",
@@ -88,7 +87,6 @@ M.user_map = {
       close_buffer = "<S-x>", -- close current focused buffer
       copywhole_file = "<C-a>",
       toggle_linenr = "<leader>n", -- show or hide line number
-      theme_toggle = "<leader>x",
       update_nvchad = "<leader>uu",
    },
 }
@@ -163,6 +161,18 @@ M.truezen = function()
    map("n", m.ataraxisMode, ":TZAtaraxis<CR>", opt)
    map("n", m.minimalisticmode, ":TZMinimalist<CR>", opt)
    map("n", m.focusmode, ":TZFocus<CR>", opt)
+end
+
+M.telescope = function()
+   local m = user_map.telescope
+
+   map("n", m.live_grep, ":Telescope live_grep<CR>", opt)
+   map("n", m.git_status, ":Telescope git_status <CR>", opt)
+   map("n", m.git_commits, ":Telescope git_commits <CR>", opt)
+   map("n", m.find_files, ":Telescope find_files <CR>", opt)
+   map("n", m.buffers, ":Telescope buffers<CR>", opt)
+   map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
+   map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
 end
 
 return M
