@@ -11,6 +11,16 @@ function hi(group, opts)
 	vim.cmd(c)
 end
 
+function hi_link(old, new, is_forced)
+    local c = "highlight" .. (is_forced and "!" or "") .. " link " .. old .. " " .. new
+    vim.cmd(c)
+end
+
+function hi_clear(name) 
+    local c = "highlight clear " .. name
+    vim.cmd(c)
+end
+
 
 -- Theme-agnostic setup
 function my_highlights_all()
@@ -59,10 +69,18 @@ function my_highlights_nord()
     hi("Folded", { guifg="#8FBCBB", gui="italic" })
 
     -- Git signs
-    vim.cmd[[hi! link GitSignsChangeNr CocHintSign]]
+    hi_link("GitSignsChangeNr", "CocHintSign", true)
+
+    -- Telescope 
+    hi_link("TelescopeSelection", "Visual", true)
+    hi_link("TelescopeSelectionCaret", "Annotation", true)
+    hi_link("TelescopeMultiSelection", "DiffAdd", true)
+    hi_link("TelescopeMatching", "String", true)
+    hi_link("TelescopePromptPrefix", "ALEErrorSign", true)
+    hi_link("TelescopeBorder", "Comment", true)
 
     -- Suppress overly-aggressive error highlighting under Treesitter
-    vim.cmd[[hi clear TSError]]
+    hi_clear("TSError")
 
     -- Theme config
     g.nord_italic = 1

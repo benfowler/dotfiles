@@ -4,6 +4,8 @@ if not present then
 end
 
 local actions = require('telescope.actions')
+local previewers = require('telescope.previewers')
+local sorters = require('telescope.sorters')
 
 
 telescope.setup {
@@ -47,9 +49,9 @@ telescope.setup {
          height = 0.80,
          preview_cutoff = 120,
       },
-      file_sorter = require("telescope.sorters").get_fuzzy_file,
+      file_sorter = sorters.get_fuzzy_file,
       file_ignore_patterns = {},
-      generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+      generic_sorter = sorters.get_generic_fuzzy_sorter,
       path_display = { "absolute" },
       winblend = 0,
       border = {},
@@ -57,11 +59,70 @@ telescope.setup {
       color_devicons = true,
       use_less = true,
       set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-      file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-      grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+      file_previewer = previewers.vim_buffer_cat.new,
+      grep_previewer = previewers.vim_buffer_vimgrep.new,
+      qflist_previewer = previewers.vim_buffer_qflist.new,
       -- Developer configurations: Not meant for general override
-      buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+      buffer_previewer_maker = previewers.buffer_previewer_maker,
+   },
+   pickers = {
+      buffers = {
+         sort_lastused = true,
+         theme = "dropdown",
+         mappings = {
+            i = {
+               ["<c-d>"] = actions.delete_buffer
+            }
+         },
+         layout_config = {
+            height = 0.40
+         },
+      },
+      find_files = {
+        sort_lastused = true,
+        theme = "ivy",
+      }, 
+      git_files = {
+        sort_lastused = true,
+        theme = "ivy",
+      }, 
+      git_branches = {
+        sort_lastused = true,
+        theme = "ivy",
+      }, 
+      git_stashes = {
+        sort_lastused = true,
+        theme = "ivy",
+        layout_config = {
+            height = 0.25,
+        }
+      }, 
+      colorscheme = {
+        sort_lastused = true,
+        theme = "dropdown",
+      }, 
+      oldfiles = {
+        sort_lastused = true,
+        theme = "ivy",
+        layout_config = {
+            height = 0.25,
+        }
+      },
+      spell_suggest = {
+        theme = "cursor"
+      },
+      lsp_reference = {
+        theme = "cursor"
+      },
+      lsp_code_actions = {
+        theme = "cursor"
+      },
+      lsp_implementations = {
+        theme = "cursor"
+      },
+      lsp_definitions = {
+        theme = "cursor"
+      },
    },
    extensions = {
       fzf = {
