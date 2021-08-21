@@ -33,40 +33,58 @@ end
 
 
 -- Nord-specific setup
+local nord0 = "#2E3440"
+local nord1 = "#3B4252"
+local nord2 = "#434C5E"
+local nord3 = "#4C566A"
+local nord3_bright = "#616E88"
+local nord4 = "#D8DEE9"
+local nord5 = "#E5E9F0"
+local nord6 = "#ECEFF4"
+local nord7 = "#8FBCBB"
+local nord8 = "#88C0D0"
+local nord9 = "#81A1C1"
+local nord10 = "#5E81AC"
+local nord11 = "#BF616A"
+local nord12 = "#D08770"
+local nord13 = "#EBCB8B"
+local nord14 = "#A3BE8C"
+local nord15 = "#B48EAD"
+
 function my_highlights_nord()
 
     -- (poor readability of some highlight groups)
     -- (Stock fg was: guifg=nord3_gui, ctermfg=nord3_term)
-    hi("SpecialKey", { guifg="#616E88", ctermfg=8 })
+    hi("SpecialKey", { guifg=nord3_bright, ctermfg=8 })
 
     -- (Stock fg was: guifg=nord2_gui, gui=bold, ctermfg=nord3_term)
-    hi("NonText", { guifg="#B48EAD", gui="NONE", ctermfg=5 })
+    hi("NonText", { guifg=nord15, gui="NONE", ctermfg=5 })
 
     -- (Pmenu: stock BG was: guibg=nord2_gui, ctermbg=nord1_term)
-    hi("Pmenu", { guibg="#4C566A", ctermbg=8 })
+    hi("Pmenu", { guibg=nord3, ctermbg=8 })
 
     -- (Pmenu: stock BG was: guibg=nord3_gui, ctermbg=nord3_term)
     hi("PmenuThumb", { guibg="#66738e", ctermbg=8 })
 
     -- QuickFix list's line numbers are unreadable
-    hi("qfFileName", { guifg="#5E81AC" })
-    hi("qfLineNr", { guifg="#88C0D0" })
-    hi("QuickFixLine", { guibg="#8FBCBB", guifg="Black" })
+    hi("qfFileName", { guifg=nord10 })
+    hi("qfLineNr", { guifg=nord8 })
+    hi("QuickFixLine", { guibg=nord7, guifg="Black" })
 
     -- LSP diagnostics: line number backgrounds and foregrounds
     -- ('black' is #667084; bg colours are a blend)
-    hi("LspDiagnosticsError", { guifg="#BF616A", guibg="#5C4C58" })
-    hi("LspDiagnosticsWarning", { guifg="#EBCB8B", guibg="#4F4B4C" })
-    hi("LspDiagnosticsInformation", { guifg="#88C0D0", guibg="#505D6D" })
-    hi("LspDiagnosticsHint", { guifg="#5E81AC", guibg="#485165" })
+    hi("LspDiagnosticsError", { guifg=nord11, guibg="#5C4C58" })
+    hi("LspDiagnosticsWarning", { guifg=nord13, guibg="#4F4B4C" })
+    hi("LspDiagnosticsInformation", { guifg=nord8, guibg="#505D6D" })
+    hi("LspDiagnosticsHint", { guifg=nord10, guibg="#485165" })
 
-    hi("LspDiagnosticsLineNrError", { guifg="#BF616A", guibg="#5C4C58" })
-    hi("LspDiagnosticsLineNrWarning", { guifg="#EBCB8B", guibg="#4F4B4C" })
-    hi("LspDiagnosticsLineNrInformation", { guifg="#88C0D0", guibg="#505D6D" })
-    hi("LspDiagnosticsLineNrHint", { guifg="#5E81AC", guibg="#485165" })
+    hi("LspDiagnosticsLineNrError", { guifg=nord11, guibg="#5C4C58" })
+    hi("LspDiagnosticsLineNrWarning", { guifg=nord13, guibg="#4F4B4C" })
+    hi("LspDiagnosticsLineNrInformation", { guifg=nord8, guibg="#505D6D" })
+    hi("LspDiagnosticsLineNrHint", { guifg=nord10, guibg="#485165" })
 
     -- Folds
-    hi("Folded", { guifg="#8FBCBB", gui="italic" })
+    hi("Folded", { guifg=nord7, gui="italic" })
 
     -- Git signs
     hi_link("GitSignsChangeNr", "CocHintSign", true)
