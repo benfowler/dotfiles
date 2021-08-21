@@ -23,6 +23,15 @@ return packer.startup(function()
       after = "packer.nvim",
    }
 
+   use {
+      "norcalli/nvim-colorizer.lua",
+      disable = not plugin_status.nvim_colorizer,
+      event = "BufRead",
+      config = function()
+         require("plugins.others").colorizer()
+      end,
+   }
+
    -- tmux integration
    use {
       "christoomey/vim-tmux-navigator",
