@@ -67,6 +67,23 @@ return packer.startup(function()
       end,
    }
 
+   use {
+      "nvim-telescope/telescope.nvim",
+      after = "plenary.nvim",
+      requires = {
+         {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            run = "make",
+         },
+      },
+      config = function()
+         require "plugins.telescope"
+      end,
+      setup = function()
+         require("mappings").telescope()
+      end,
+   }
+
    -- Git support
    use {
       "lewis6991/gitsigns.nvim",
