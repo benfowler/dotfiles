@@ -10,6 +10,9 @@ local opt = {}
 
 -- Global mappings by plugin, then "misc" for everything else.  
 -- Make sure you dont use same keys twice.
+
+vim.g.mapleader = " "
+
 M.user_map = {
    truezen = {
       ataraxisMode = "<leader>zz",
