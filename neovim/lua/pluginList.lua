@@ -17,6 +17,12 @@ return packer.startup(function()
       event = "VimEnter",
    }
 
+   -- Editing features
+   use {
+      "qpkorr/vim-bufkill",   -- 'BD' to kill a buffer without closing a split
+      after = "packer.nvim",
+   }
+
    -- tmux integration
    use {
       "christoomey/vim-tmux-navigator",
