@@ -17,6 +17,12 @@ return packer.startup(function()
       event = "VimEnter",
    }
 
+   use {
+      -- used by Packer, various Neovim plugins to do growl notifications
+      "rcarriga/nvim-notify",
+      after = "packer.nvim",
+   }
+
    -- Editing features
    use {
       "qpkorr/vim-bufkill",   -- 'BD' to kill a buffer without closing a split
