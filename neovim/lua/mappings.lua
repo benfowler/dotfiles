@@ -76,6 +76,12 @@ M.user_map = {
       prev_line = "<C-j>",
       next_line = "<C-k>",
    },
+   vim_tmux_navigator = {
+      pane_up = "<M-Up>",
+      pane_down = "<M-Down>",
+      pane_left = "<M-Left>",
+      pane_right = "<M-Right>",
+   },
    -- non plugin
    misc = {
       esc_Termmode = "jk", -- get out of terminal mode
@@ -125,6 +131,17 @@ M.fugitive = function()
    map("n", m.diffget_2, ":diffget //2<CR>", opt)
    map("n", m.diffget_3, ":diffget //3<CR>", opt)
    map("n", m.git_blame, ":Git blame<CR>", opt)
+end
+
+M.vim_tmux_navigator = function() 
+   local m = user_map.vim_tmux_navigator
+
+   map("n", m.pane_left, ":TmuxNavigateLeft<CR>", opt)
+   map("n", m.pane_down, ":TmuxNavigateDown<CR>", opt)
+   map("n", m.pane_up, ":TmuxNavigateUp<CR>", opt)
+   map("n", m.pane_right, ":TmuxNavigateRight<CR>", opt)
+
+   vim.g.tmux_navigator_no_mappings = 1
 end
 
 M.nvimtree = function()

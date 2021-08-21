@@ -17,6 +17,16 @@ return packer.startup(function()
       event = "VimEnter",
    }
 
+   -- tmux integration
+   use {
+      "christoomey/vim-tmux-navigator",
+      disable = not plugin_status.vim_tmux_navigator,
+      after = "packer.nvim",
+      setup = function()
+         require("mappings").vim_tmux_navigator()
+      end,
+   }
+
    -- File managmeent
    use {
       "kyazdani42/nvim-tree.lua",
