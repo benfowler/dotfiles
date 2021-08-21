@@ -124,6 +124,13 @@ local user_map = M.user_map
 local miscMap = M.user_map.misc
 
 
+M.comment_nvim = function()
+   local m = user_map.comment_nvim.comment_toggle
+
+   map("n", m, ":CommentToggle<CR>", opt)
+   map("v", m, ":CommentToggle<CR>", opt)
+end
+
 M.fugitive = function()
    local m = user_map.fugitive
 
