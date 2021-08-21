@@ -9,7 +9,7 @@ local opt = {}
 --
 
 -- Global mappings by plugin, then "misc" for everything else.  
--- Make sure you dont use same keys twice.
+-- Make sure you don't use same keys twice.
 
 vim.g.mapleader = " "
 
@@ -41,9 +41,10 @@ M.user_map = {
       git_commits = "<leader>cm",
       find_files = "<leader>ff",
       buffers = "<leader>fb",
-      buffers_quick = ";",        -- quick access (no preview)
+      buffers_quick = ";",        -- quick switch (no preview)
       help_tags = "<leader>fh",
       oldfiles = "<leader>fo",
+      spell_suggest = "z=",
    },
    fugitive = {
       Git = "<leader>gs",
@@ -151,6 +152,7 @@ M.telescope = function()
    map("n", m.buffers_quick, ":Telescope buffers previewer=false<CR>", opt)
    map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
    map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
+   map("n", m.spell_suggest, ":Telescope spell_suggest<CR>", opt)
 end
 
 return M

@@ -106,7 +106,11 @@ telescope.setup {
         }
       },
       spell_suggest = {
-        theme = "cursor"
+        theme = "cursor",
+        layout_config = {
+            height = 10,
+            width = 40
+        }
       },
       lsp_reference = {
         theme = "cursor"
