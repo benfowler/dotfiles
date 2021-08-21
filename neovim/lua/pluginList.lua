@@ -82,4 +82,18 @@ return packer.startup(function()
          require("mappings").fugitive()
       end,
    }
+
+   -- Misc plugins
+   use {
+      "terrortylor/nvim-comment",
+      disable = not plugin_status.nvim_comment,
+      cmd = "CommentToggle",
+      config = function()
+         require("plugins.others").comment()
+      end,
+      setup = function()
+         require("mappings").comment_nvim()
+      end,
+   }
+
 end)
