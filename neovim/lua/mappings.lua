@@ -51,6 +51,15 @@ M.user_map = {
       diffget_3 = "<leader>gl",
       git_blame = "<leader>gb",
    },
+   gitsigns = {
+      next_hunk = "]h",
+      prev_hunk = "[h",
+      stage_hunk = "<leader>hs",
+      undo_stage_hunk = "<leader>hu",
+      reset_hunk = "<leader>hr",
+      preview_hunk = "<leader>hp",
+      blame_line = "<leader>hb",
+   },
    terms = { -- below are NvChad mappings, not plugin mappings
       esc_termmode = "jk",
       esc_hide_termmode = "JK",
@@ -108,6 +117,15 @@ end
 local user_map = M.user_map
 local miscMap = M.user_map.misc
 
+
+M.fugitive = function()
+   local m = user_map.fugitive
+
+   map("n", m.Git, ":Git<CR>", opt)
+   map("n", m.diffget_2, ":diffget //2<CR>", opt)
+   map("n", m.diffget_3, ":diffget //3<CR>", opt)
+   map("n", m.git_blame, ":Git blame<CR>", opt)
+end
 
 M.nvimtree = function()
    local m = user_map.nvimtree.treetoggle

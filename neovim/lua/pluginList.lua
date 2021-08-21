@@ -1,6 +1,7 @@
+local plugin_status = require("pluginsEnabled").plugin_status
+
 local present, _ = pcall(require, "packerInit")
 local packer
-
 if present then
    packer = require "packer"
 else
@@ -8,6 +9,7 @@ else
 end
 
 local use = packer.use
+
 
 return packer.startup(function()
    use {
@@ -31,11 +33,37 @@ return packer.startup(function()
       "kyazdani42/nvim-web-devicons"
    }
 
+   use {
+      "nvim-lua/plenary.nvim",
+      after = "packer.nvim",
+   }
+
    -- Theme
    use {
       "arcticicestudio/nord-vim",
       config = function()
-         require "plugins/nord"
-      end
+         require "plugins.nord"
+      end,
+   }
+
+   -- Git support
+   use {
+      "lewis6991/gitsigns.nvim",
+      disable = not plugin_status.gitsigns,
+      after = "plenary.nvim",
+      config = function()
+         require "plugins.gitsigns"
+      end,
+   }
+
+   use {
+      "tpope/vim-fugitive",
+      disable = not plugin_status.vim_fugitive,
+      cmd = {
+         "Git",
+      },
+      setup = function()
+         require("mappings").fugitive()
+      end,
    }
 end)

@@ -58,6 +58,9 @@ function my_highlights_nord()
     -- Folds
     hi("Folded", { guifg="#8FBCBB", gui="italic" })
 
+    -- Git signs
+    vim.cmd[[hi! link GitSignsChangeNr CocHintSign]]
+
     -- Suppress overly-aggressive error highlighting under Treesitter
     vim.cmd[[hi clear TSError]]
 
