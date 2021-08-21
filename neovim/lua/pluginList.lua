@@ -46,6 +46,11 @@ return packer.startup(function()
    }
 
    use {
+      "tpope/vim-eunuch",
+      after = "packer.nvim",
+   }
+
+   use {
       "kyazdani42/nvim-web-devicons"
    }
 
@@ -93,6 +98,22 @@ return packer.startup(function()
       end,
       setup = function()
          require("mappings").comment_nvim()
+      end,
+   }
+
+   use {
+      "Pocco81/TrueZen.nvim",
+      disable = not plugin_status.truezen_nvim,
+      cmd = {
+         "TZAtaraxis",
+         "TZMinimalist",
+         "TZFocus",
+      },
+      config = function()
+         require "plugins.zenmode"
+      end,
+      setup = function()
+         require("mappings").truezen()
       end,
    }
 
