@@ -63,7 +63,7 @@ return packer.startup(function()
    use {
       "arcticicestudio/nord-vim",
       config = function()
-         require "plugins.nord"
+         require "plugins.theme"
       end,
    }
 
