@@ -41,6 +41,7 @@ M.user_map = {
       git_commits = "<leader>cm",
       find_files = "<leader>ff",
       buffers = "<leader>fb",
+      buffers_quick = ";",        -- quick access (no preview)
       help_tags = "<leader>fh",
       oldfiles = "<leader>fo",
    },
@@ -147,6 +148,7 @@ M.telescope = function()
    map("n", m.git_commits, ":Telescope git_commits <CR>", opt)
    map("n", m.find_files, ":Telescope find_files <CR>", opt)
    map("n", m.buffers, ":Telescope buffers<CR>", opt)
+   map("n", m.buffers_quick, ":Telescope buffers previewer=false<CR>", opt)
    map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
    map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
 end

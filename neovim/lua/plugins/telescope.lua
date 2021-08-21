@@ -74,9 +74,6 @@ telescope.setup {
                ["<c-d>"] = actions.delete_buffer
             }
          },
-         layout_config = {
-            height = 0.40
-         },
       },
       find_files = {
         sort_lastused = true,
