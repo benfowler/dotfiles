@@ -48,6 +48,11 @@ return packer.startup(function()
    }
 
    use {
+      "mattn/emmet-vim",
+      after = "packer.nvim",
+   }
+
+   use {
       "norcalli/nvim-colorizer.lua",
       disable = not plugin_status.nvim_colorizer,
       event = "BufRead",
