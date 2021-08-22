@@ -30,6 +30,19 @@ return packer.startup(function()
    }
 
    use {
+      "junegunn/vim-easy-align",
+      after = "packer.nvim",
+      cmd = {
+         "EasyAlign",
+         "EasyAlign!",
+         "LiveEasyAlign",
+      },
+      setup = function()
+         require("mappings").easy_align()
+      end,
+   }
+
+   use {
       "norcalli/nvim-colorizer.lua",
       disable = not plugin_status.nvim_colorizer,
       event = "BufRead",
