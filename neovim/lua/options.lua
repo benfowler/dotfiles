@@ -57,6 +57,8 @@ opt.foldmethod = "indent"
 opt.foldnestmax = 3
 opt.foldenable = false
 
+opt.whichwrap:append "<>hl"      -- Traverse through EOLs
+
 
 -- Completions - basic settings
 opt.pumheight = 12               -- Pmenu max height
