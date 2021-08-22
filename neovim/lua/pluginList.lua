@@ -51,6 +51,24 @@ return packer.startup(function()
       end,
    }
 
+   use {
+      "plasticboy/vim-markdown",
+      after = "packer.nvim",
+      setup = function()
+         require("plugins.others").markdown()
+      end,
+      ft = { "markdown" },
+   }
+
+   use {
+      "dkarter/bullets.vim",
+      after = "vim-markdown",
+      ft = { "markdown", "text" },
+      config = function()
+         require("plugins.others").bullets()
+      end,
+   }
+
    -- tmux integration
    use {
       "christoomey/vim-tmux-navigator",
