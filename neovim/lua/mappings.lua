@@ -176,6 +176,5 @@ M.telescope = function()
    map("n", m.spell_suggest, ":Telescope spell_suggest<CR>", opt)
 end
 
-
 return M
 
