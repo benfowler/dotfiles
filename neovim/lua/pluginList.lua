@@ -23,6 +23,15 @@ return packer.startup(function()
       after = "packer.nvim",
    }
 
+   use {
+      "glepnir/galaxyline.nvim",
+      disable = not plugin_status.galaxyline,
+      after = "nvim-web-devicons",
+      config = function()
+         require "plugins.statusline"
+      end,
+   }
+
    -- Editing features
    use {
       "qpkorr/vim-bufkill",   -- 'BD' to kill a buffer without closing a split
@@ -107,7 +116,8 @@ return packer.startup(function()
    }
 
    use {
-      "kyazdani42/nvim-web-devicons"
+      "kyazdani42/nvim-web-devicons",
+      after = "packer.nvim",
    }
 
    use {

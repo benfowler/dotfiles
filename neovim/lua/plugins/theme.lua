@@ -71,6 +71,15 @@ function my_highlights_nord()
     hi("qfLineNr", { guifg=nord8 })
     hi("QuickFixLine", { guibg=nord7, guifg="Black" })
 
+    -- Inactive statusbars: make a thin rule
+    hi_clear("StatusLineNC")
+    cmd("hi! StatusLineNC gui=underline guifg=" .. nord1)
+
+    -- Line numbers: tweaks to show current line
+    hi_clear("CursorLine")
+    hi_clear("CursorLineNr")
+    hi_link("CursorLineNr", "Bold", true)
+
     -- LSP diagnostics: line number backgrounds and foregrounds
     -- ('black' is #667084; bg colours are a blend)
     hi("LspDiagnosticsError", { guifg=nord11, guibg="#5C4C58" })
