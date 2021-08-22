@@ -3,17 +3,15 @@ local cmd = vim.cmd
 local M = {}
 local opt = {}
 
---
--- Keybindings, hoisted from the options and plugins configuration.
--- Expose and modify keybindings here.
---
-
--- Global mappings by plugin, then "misc" for everything else.  
--- Make sure you don't use same keys twice.
-
-vim.g.mapleader = " "
-
+-- Keybindings, hoisted from the options and plugins configuration. Expose and 
+-- modify keybindings here.  Make sure you don't use same keys twice.
 M.user_map = {
+   misc = {
+      mapleader = " ",
+      toggle_listchars = "<leader>,",
+      toggle_spellcheck = "<F6>",
+      toggle_number = "<leader>n",
+   },
    truezen = {
       ataraxisMode = "<leader>zz",
       minimalisticmode = "<leader>zm",
@@ -71,15 +69,9 @@ M.user_map = {
 }
 
 
--- These mappings will only be called during initialization
-M.misc = function()
-   -- Packer commands, because we are not loading it at startup
-   cmd "silent! command PackerCompile lua require 'pluginList' require('packer').compile()"
-   cmd "silent! command PackerInstall lua require 'pluginList' require('packer').install()"
-   cmd "silent! command PackerStatus lua require 'pluginList' require('packer').status()"
-   cmd "silent! command PackerSync lua require 'pluginList' require('packer').sync()"
-   cmd "silent! command PackerUpdate lua require 'pluginList' require('packer').update()"
-end
+-- (convenience locals)
+local user_map = M.user_map
+local miscMap = M.user_map.misc
 
 
 -- Make keybinding with optional options
@@ -92,14 +84,34 @@ local function map(mode, lhs, rhs, opts)
 end
 
 
+vim.g.mapleader = miscMap.mapleader
+
+
+-- (These mappings will be called during initialization)
+M.misc = function()
+
+   -- Toggle hidden characters
+   map("n", miscMap.toggle_listchars, ":set invlist <cr>", opts)
+
+   -- Toggle line numbers (hybrid mode)
+   map("n", miscMap.toggle_number, ":set invnumber<cr>:set invrelativenumber<cr>", opts)
+   
+   -- Toggle spellcheck
+   map("n", miscMap.toggle_spellcheck, ":set spell! <cr>", opts)
+   map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <cr>", opts)
+
+   -- Packer commands, because we are not loading it at startup
+   cmd "silent! command PackerCompile lua require 'pluginList' require('packer').compile()"
+   cmd "silent! command PackerInstall lua require 'pluginList' require('packer').install()"
+   cmd "silent! command PackerStatus lua require 'pluginList' require('packer').status()"
+   cmd "silent! command PackerSync lua require 'pluginList' require('packer').sync()"
+   cmd "silent! command PackerUpdate lua require 'pluginList' require('packer').update()"
+end
+
+
 --
 -- Plugin mappings
 --
-
--- (convenience locals)
-local user_map = M.user_map
-local miscMap = M.user_map.misc
-
 
 M.comment_nvim = function()
    local m = user_map.comment_nvim.comment_toggle
@@ -110,6 +122,7 @@ end
 
 M.easy_align = function() 
    -- TODO: how to do this idiomatically in Lua?
+   -- (This needs to be done this way, otherwise things like "gavip," won't work)
    cmd "nmap ga <Plug>(EasyAlign)"
    cmd "xmap ga <Plug>(EasyAlign)"
 end
