@@ -99,8 +99,11 @@ function my_highlights_nord()
     -- Folds
     hi("Folded", { guifg=nord7, gui="italic" })
 
-    -- Git signs
-    hi_link("GitSignsChangeNr", "CocHintSign", true)
+    -- Git gutter signs
+    hi("GitSignsAdd", { guifg=nord9 })
+    hi("GitSignsChange", { guifg="#565c68" })
+    hi("GitSignsDelete", { gui="bold", guifg="#ba5c65" })
+    hi("GitSignsChangeDelete", { gui="bold", guifg="#ba5c65", guibg=nord1 })
 
     -- Telescope 
     hi_link("TelescopeSelection", "Visual", true)
