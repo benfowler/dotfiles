@@ -27,6 +27,7 @@ return packer.startup(function()
    use {
       "qpkorr/vim-bufkill",   -- 'BD' to kill a buffer without closing a split
       after = "packer.nvim",
+      cmd = { "BUN", "BD", "BW", "BB", "BF", "BA" },
    }
 
    use {
