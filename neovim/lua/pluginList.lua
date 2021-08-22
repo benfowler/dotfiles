@@ -43,6 +43,11 @@ return packer.startup(function()
    }
 
    use {
+      "tpope/vim-surround",
+      after = "packer.nvim",
+   }
+
+   use {
       "norcalli/nvim-colorizer.lua",
       disable = not plugin_status.nvim_colorizer,
       event = "BufRead",
