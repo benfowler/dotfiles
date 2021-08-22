@@ -46,7 +46,13 @@ opt.tabstop = 4
 opt.shiftround = true            -- use multiple of shiftwidth when indenting with > and <
 
 opt.wrap = false
-opt.linebreak = true
+opt.linebreak = false
+
+
+-- Folding
+opt.foldmethod = "indent"
+opt.foldnestmax = 3
+opt.foldenable = false
 
 
 -- Completions - basic settings
@@ -138,4 +144,34 @@ vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
 -- File extension-specific tabbing
 vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
+
+
+-- File-specific settings: Markdown
+vim.cmd [[
+augroup filetype_markdown
+  autocmd!
+
+  autocmd FileType markdown set pumheight=7
+  autocmd FileType markdown set pumblend=5
+
+  " I _want_ wrapping_ in Markdown.  Anywhere else, not so much...
+  autocmd FileType markdown set wrap
+  autocmd FileType markdown set textwidth=78
+
+  autocmd FileType markdown set spell
+
+  " Spelling corrections from dict in omnicomplete by default
+  autocmd FileType markdown set complete+=k
+  autocmd FileType markdown set dictionary+=/usr/share/dict/words
+
+  " Highlight tweaks (Nord)
+  highlight! markdownUrl cterm=underline gui=underline
+
+  " Highlight To-Do items
+  match Todo /TODO/
+
+  nnoremap <leader>m :silent !open -a Marked\ 2.app '%:p'<cr>
+
+augroup END
+]]
 

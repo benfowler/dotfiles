@@ -20,6 +20,17 @@ M.escape = function()
    vim.g.better_escape_shortcut = { "jk" }
 end
 
+M.markdown = function()
+  vim.opt.comments = "b:>"
+  vim.opt.formatoptions = "jtcqlnr"
+  vim.g.vim_markdown_new_list_item_indent = 2
+  vim.g.vim_markdown_auto_insert_bullets = 0
+end
+
+M.bullets = function()
+  vim.g.bullets_outline_levels = { 'ROM', 'ABC', 'num', 'abc', 'rom', 'std-' }
+end
+
 M.lspkind = function()
    local present, lspkind = pcall(require, "lspkind")
    if present then
