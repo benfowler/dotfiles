@@ -10,7 +10,7 @@ opt.relativenumber = false
 opt.showcmd = true                            -- set incomplete commands down the bottom
 opt.visualbell = true                         -- disable beeps
 opt.autoread = true                           -- read files from disk automatically if they've changed elsewhere
-opt.cmdheight = 1                             -- reduce 'Press ENTER or type command' prompts
+opt.cmdheight = 2                             -- reduce 'Press ENTER or type command' prompts
 
 opt.hidden = true                             -- lets Vim keep buffers in the background w/o a window
 
@@ -22,11 +22,8 @@ opt.clipboard = "unnamed"                     -- bind yank to system clipboard b
 opt.termguicolors = true                      -- enable true colors support
 opt.signcolumn = "auto:1"                     -- make sign column grow automatically
 opt.cul = false                               -- highlight cursor row
+opt.colorcolumn = { 81 }
 opt.shortmess:append "a"
-
-
--- A single UI global setting...
-g.statusline_style = "arrow"
 
 
 -- Mouse
