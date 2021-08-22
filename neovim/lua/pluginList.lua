@@ -153,6 +153,12 @@ return packer.startup(function()
 
    -- Misc plugins
    use {
+      "andymass/vim-matchup",
+      disable = not plugin_status.vim_matchup,
+      event = "CursorMoved",
+   }
+
+   use {
       "terrortylor/nvim-comment",
       disable = not plugin_status.nvim_comment,
       cmd = "CommentToggle",
