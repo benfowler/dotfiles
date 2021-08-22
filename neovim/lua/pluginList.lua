@@ -107,7 +107,11 @@ return packer.startup(function()
    }
 
    use {
-      "kyazdani42/nvim-web-devicons"
+      "kyazdani42/nvim-web-devicons",
+      after = "packer.nvim",
+      setup = function() 
+         require "plugins/statusline"
+      end,
    }
 
    use {
