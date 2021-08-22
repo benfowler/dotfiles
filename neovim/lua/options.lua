@@ -5,7 +5,7 @@ local g = vim.g
 -- General options
 opt.backspace = { "indent", "eol", "start" }  -- allow backspacing through anything
 opt.undofile = true                           -- permanent undo
-opt.number = true                             -- line numbering
+opt.number = false                            -- line numbering.  Hybrid mode.
 opt.relativenumber = false
 opt.showcmd = true                            -- set incomplete commands down the bottom
 opt.visualbell = true                         -- disable beeps
@@ -28,6 +28,7 @@ opt.shortmess:append "a"
 
 -- Mouse
 opt.mouse:append "a"
+
 
 -- Turn off swapfiles and backups, like all the cool kids
 opt.swapfile = false
@@ -81,6 +82,10 @@ opt.smartcase = true
 opt.wildignorecase = true
 
 
+-- Hidden characters -- and mapping to switch it
+opt.listchars = "tab:»·,nbsp:␣,eol:↲,extends:»,precedes:«,trail:•"
+
+
 -- Security
 opt.secure = true                -- also load .vimrc from directory where Vim launched
 opt.modelines = 0
@@ -125,6 +130,10 @@ vim.cmd [[ let hidden_statusline = [ 'NvimTree', 'terminal' ] | autocmd BufEnter
 
 -- Open a file from its last left off position
 vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+
+
+-- c-l in INSERT mode, attempts to fix the last spelling error
+vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
 
 -- File extension-specific tabbing
