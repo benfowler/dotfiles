@@ -107,6 +107,12 @@ M.comment_nvim = function()
    map("v", m, ":CommentToggle<CR>", opt)
 end
 
+M.easy_align = function() 
+   -- TODO: how to do this idiomatically in Lua?
+   cmd "nmap ga <Plug>(EasyAlign)"
+   cmd "xmap ga <Plug>(EasyAlign)"
+end
+
 M.fugitive = function()
    local m = user_map.fugitive
 
