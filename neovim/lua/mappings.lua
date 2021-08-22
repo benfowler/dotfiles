@@ -94,7 +94,7 @@ M.misc = function()
    map("n", miscMap.toggle_listchars, ":set invlist <cr>", opts)
 
    -- Toggle line numbers (hybrid mode)
-   map("n", miscMap.toggle_number, ":set invnumber<cr>:set invrelativenumber<cr>", opts)
+   map("n", miscMap.toggle_number, ":set invnumber<cr>:set invrelativenumber<cr>:set invcursorline<cr>", opts)
    
    -- Toggle spellcheck
    map("n", miscMap.toggle_spellcheck, ":set spell! <cr>", opts)
