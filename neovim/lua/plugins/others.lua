@@ -15,11 +15,6 @@ M.comment = function()
    end
 end
 
-M.escape = function()
-   vim.g.better_escape_interval = 300
-   vim.g.better_escape_shortcut = { "jk" }
-end
-
 M.markdown = function()
   vim.opt.comments = "b:>"
   vim.opt.formatoptions = "jtcqlnr"
@@ -36,12 +31,6 @@ M.lspkind = function()
    if present then
       lspkind.init()
    end
-end
-
-M.neoscroll = function()
-   pcall(function()
-      require("neoscroll").setup()
-   end)
 end
 
 M.blankline = function()
