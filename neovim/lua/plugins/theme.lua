@@ -115,6 +115,11 @@ function my_highlights_nord()
 
     -- Suppress overly-aggressive error highlighting under Treesitter
     hi_clear("TSError")
+
+    -- Theme config
+    g.nord_italic = 1
+    g.nord_underline = 1
+    g.nord_cursor_line_number_background = 1
 end
 
 
@@ -127,15 +132,6 @@ augroup ColorSchemeOverrides
 augroup END
 ]], false)
 
-
-g.nord_contrast = false
-g.nord_enable_sidebar_background = false
-g.nord_disable_background = true
-g.nord_borders = true
-g.nord_cursorline_transparent = true
-g.nord_italic = false
-
-
 -- NOW apply the colorscheme.
-vim.cmd [[ colo nord ]]
+vim.cmd[[colorscheme nord]]
 
