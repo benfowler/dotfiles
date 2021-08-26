@@ -167,23 +167,17 @@ return packer.startup(function()
    }
 
    -- Misc plugins
--- use {
---    "andymass/vim-matchup",
---    disable = not plugin_status.vim_matchup,
---    event = "CursorMoved",
--- }
-
--- use {
---    "terrortylor/nvim-comment",
---    disable = not plugin_status.nvim_comment,
---    cmd = "CommentToggle",
---    config = function()
---       require("plugins.others").comment()
---    end,
---    setup = function()
---       require("mappings").comment_nvim()
---    end,
--- }
+   use {
+      "terrortylor/nvim-comment",
+      disable = not plugin_status.nvim_comment,
+      cmd = "CommentToggle",
+      config = function()
+         require("plugins.others").comment()
+      end,
+      setup = function()
+         require("mappings").comment_nvim()
+      end,
+   }
 
 -- use {
 --    "Pocco81/TrueZen.nvim",
