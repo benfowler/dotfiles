@@ -118,12 +118,12 @@ return packer.startup(function()
    }
 
 -- -- Theme
--- use {
---    "arcticicestudio/nord-vim",
---    config = function()
---       require "plugins.theme"
---    end,
--- }
+   use {
+      "arcticicestudio/nord-vim",
+      config = function()
+         require "plugins.theme"
+      end,
+   }
 
  -- Telescope: powerful fuzzy finder for Neovim
    use {
