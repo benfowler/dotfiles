@@ -73,11 +73,11 @@ function my_highlights_nord()
     hi("QuickFixLine", { guibg=nord7, guifg="Black" })
 
     -- Active statusbar: override 'StatusLine' highlight with Nord-ish colours
-    hi("StatusLine", { guifg=nord4, guibg=nord2 })
+    hi("StatusLine", { guifg=nord4, guibg=nord3 })
 
     -- Inactive statusbars: make a thin rule
     hi_clear("StatusLineNC")
-    hi("StatusLineNC", { gui="underline", guifg=nord2 })
+    hi("StatusLineNC", { gui="underline", guifg=nord3 })
 
     -- Line numbers: tweaks to show current line
     hi_clear("CursorLine")
