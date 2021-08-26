@@ -52,6 +52,16 @@ return packer.startup(function()
       end,
    }
 
+   -- LSP stuff
+   use {
+      "nvim-treesitter/nvim-treesitter",
+      event = "BufRead",
+      config = function()
+         require "plugins.treesitter"
+      end,
+   }
+   
+   -- Plugins for editing prose
    use {
       "plasticboy/vim-markdown",
       after = "packer.nvim",
