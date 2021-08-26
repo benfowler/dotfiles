@@ -44,7 +44,7 @@ return packer.startup(function()
    }
 
    use {
-      "tpope/vim-surround", 
+      "tpope/vim-surround",
       after = "packer.nvim",
    }
 
@@ -120,15 +120,13 @@ return packer.startup(function()
       after = "packer.nvim",
    }
 
+   -- Theme
    use {
-      'kunzaatko/nord.nvim',
-      requires = {'rktjmp/lush.nvim', opt = true},
+      "arcticicestudio/nord-vim",
       config = function()
-          -- ColorSchemeOverrides autogroup must be set up before :colorscheme is invoked
-          require "plugins.theme"
-          vim.cmd "colorscheme nord"
+         require "plugins.theme"
       end,
-   } 
+   }
 
    use {
       "nvim-telescope/telescope.nvim",
