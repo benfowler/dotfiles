@@ -28,8 +28,12 @@ M.user_map = {
    },
    telescope = {
       live_grep = "<leader>fw",
-      git_status = "<leader>gt",
-      git_commits = "<leader>cm",
+      git_status = "<leader>gs",
+      git_commits = "<leader>gc",
+      git_bcommits = "<leader>gC",
+      git_branches = "<leader>gb",
+      git_stash = "<leader>gS",
+      git_files= "<leader>fg",
       find_files = "<leader>ff",
       buffers = "<leader>fb",
       buffers_quick = ";",          -- quick switch (no preview)
@@ -39,10 +43,10 @@ M.user_map = {
       spell_suggest = "z=",
    },
    fugitive = {
-      Git = "<leader>gs",
+      Git = "<leader>gg",
       diffget_2 = "<leader>gh",
       diffget_3 = "<leader>gl",
-      git_blame = "<leader>gb",
+      git_blame = "<leader>ga",
    },
    gitsigns = {
       next_hunk = "]h",
@@ -162,14 +166,18 @@ M.telescope = function()
    local m = user_map.telescope
 
    map("n", m.live_grep, ":Telescope live_grep<CR>", opt)
-   map("n", m.git_status, ":Telescope git_status <CR>", opt)
-   map("n", m.git_commits, ":Telescope git_commits <CR>", opt)
+   map("n", m.git_status, ":Telescope git_status<CR>", opt)
+   map("n", m.git_commits, ":Telescope git_commits<CR>", opt)
+   map("n", m.git_bcommits, ":Telescope git_bcommits<CR>", opt)
+   map("n", m.git_branches, ":Telescope git_branches<CR>", opt)
+   map("n", m.git_stash, ":Telescope git_stash<CR>", opt)
+   map("n", m.git_files, ":Telescope git_files<CR>", opt)
    map("n", m.find_files, ":Telescope find_files <CR>", opt)
    map("n", m.buffers, ":Telescope buffers<CR>", opt)
-   map("n", m.buffers_quick, ":Telescope buffers previewer=false<CR>", opt)
+   map("n", m.buffers_quick, ":Telescope buffers theme=get_dropdown previewer=false layout_config={'height':8,'width':.5}<CR>", opt)
    map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
    map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
-   map("n", m.oldfiles_quick, ":Telescope oldfiles theme=get_dropdown previewer=false <CR>", opt)
+   map("n", m.oldfiles_quick, ":Telescope oldfiles theme=get_dropdown previewer=false layout_config={'height':8,'width':.5}<CR>", opt)
    map("n", m.spell_suggest, ":Telescope spell_suggest<CR>", opt)
 end
 
