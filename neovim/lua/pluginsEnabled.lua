@@ -23,7 +23,7 @@ M.plugin_status = {
    autosave_nvim = true,
    nvim_comment = true,
    neoscroll_nvim = true,
-   telescope_media = true,
+   ultisnips = true,
    cheatsheet = true,
 }
 

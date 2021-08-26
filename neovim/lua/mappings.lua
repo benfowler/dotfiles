@@ -26,13 +26,6 @@ M.user_map = {
    neoformat = {
       format = "<leader>fm",
    },
-   dashboard = {
-      open = "<leader>db",
-      newfile = "<leader>fn",
-      bookmarks = "<leader>bm",
-      sessionload = "<leader>l",
-      sessionsave = "<leader>s",
-   },
    telescope = {
       live_grep = "<leader>fw",
       git_status = "<leader>gt",
@@ -59,6 +52,10 @@ M.user_map = {
       reset_hunk = "<leader>hr",
       preview_hunk = "<leader>hp",
       blame_line = "<leader>hb",
+   },
+   ultisnips = {
+      select_snippet = "<leader>s",
+      edit_snippets = "<leader>S",
    },
    vim_tmux_navigator = {
       pane_up = "<M-Up>",
@@ -136,7 +133,7 @@ M.fugitive = function()
    map("n", m.git_blame, ":Git blame<CR>", opt)
 end
 
-M.vim_tmux_navigator = function() 
+M.vim_tmux_navigator = function()
    local m = user_map.vim_tmux_navigator
 
    map("n", m.pane_left, ":TmuxNavigateLeft<CR>", opt)
@@ -174,6 +171,13 @@ M.telescope = function()
    map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
    map("n", m.oldfiles_quick, ":Telescope oldfiles theme=get_dropdown previewer=false <CR>", opt)
    map("n", m.spell_suggest, ":Telescope spell_suggest<CR>", opt)
+end
+
+M.ultisnips = function() 
+   local m = user_map.ultisnips
+
+   map("n", m.select_snippet, ":Telescope ultisnips theme=get_dropdown layout_config={'height':0.5}<CR>", opt)
+   map("n", m.edit_snippets, ":UltiSnipsEdit<CR>", opt)
 end
 
 return M
