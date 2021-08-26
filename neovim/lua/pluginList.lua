@@ -33,11 +33,7 @@ return packer.startup(function()
    use {
       "junegunn/vim-easy-align",
       after = "packer.nvim",
-      cmd = {
-         "EasyAlign",
-         "EasyAlign!",
-         "LiveEasyAlign",
-      },
+      cmd = { "EasyAlign", "EasyAlign!", "LiveEasyAlign", },
       setup = function()
          require("mappings").easy_align()
       end,
@@ -117,22 +113,15 @@ return packer.startup(function()
       end,
    }
 
-   use {
-      "tpope/vim-eunuch",
-      after = "packer.nvim",
-   }
+   use "tpope/vim-eunuch"
 
+   -- Load custom statusline (no plugin)
    use {
       "kyazdani42/nvim-web-devicons",
       after = "packer.nvim",
       setup = function() 
          require "plugins/statusline"
       end,
-   }
-
-   use {
-      "nvim-lua/plenary.nvim",
-      after = "packer.nvim",
    }
 
    -- Theme
@@ -143,22 +132,22 @@ return packer.startup(function()
       end,
    }
 
+   -- Telescope: powerful fuzzy finder for Neovim
+   use {
+      "nvim-lua/plenary.nvim",
+      after = "packer.nvim",
+   }
+
    use {
       "nvim-telescope/telescope.nvim",
       after = { "plenary.nvim" },
       requires = {
-         {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            run = "make",
-         },
-         {
-            "fhill2/telescope-ultisnips.nvim",
-         }
+         { "nvim-lua/plenary.nvim" },
+         { "nvim-telescope/telescope-fzf-native.nvim", run = "make", },
+         { "fhill2/telescope-ultisnips.nvim", }
       },
       config = function()
          require "plugins.telescope"
-      end,
-      setup = function()
          require("mappings").telescope()
       end,
    }
@@ -176,9 +165,6 @@ return packer.startup(function()
    use {
       "tpope/vim-fugitive",
       disable = not plugin_status.vim_fugitive,
-      cmd = {
-         "Git",
-      },
       setup = function()
          require("mappings").fugitive()
       end,
@@ -206,15 +192,9 @@ return packer.startup(function()
    use {
       "Pocco81/TrueZen.nvim",
       disable = not plugin_status.truezen_nvim,
-      cmd = {
-         "TZAtaraxis",
-         "TZMinimalist",
-         "TZFocus",
-      },
-      config = function()
-         require "plugins.zenmode"
-      end,
+      cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", },
       setup = function()
+         require "plugins.zenmode"
          require("mappings").truezen()
       end,
    }

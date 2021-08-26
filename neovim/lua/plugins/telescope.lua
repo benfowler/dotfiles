@@ -86,8 +86,23 @@ telescope.setup {
       git_branches = {
         sort_lastused = true,
         theme = "ivy",
+        layout_config = {
+            height = 0.25,
+        }
       }, 
-      git_stashes = {
+      git_commits = {
+        sort_lastused = true,
+        theme = "ivy",
+      }, 
+      git_bcommits = {
+        sort_lastused = true,
+        theme = "ivy",
+      }, 
+      git_status = {
+        sort_lastused = true,
+        theme = "ivy",
+      }, 
+      git_stash = {
         sort_lastused = true,
         theme = "ivy",
         layout_config = {
@@ -101,9 +116,6 @@ telescope.setup {
       oldfiles = {
         sort_lastused = true,
         theme = "ivy",
-        layout_config = {
-            height = 0.25,
-        }
       },
       spell_suggest = {
         theme = "cursor",
