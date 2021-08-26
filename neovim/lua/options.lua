@@ -22,8 +22,9 @@ opt.clipboard = "unnamed"                     -- bind yank to system clipboard b
 
 -- Appearance settings
 opt.termguicolors = true                      -- enable true colors support
-opt.signcolumn = "auto:1"                     -- make sign column grow automatically
+opt.signcolumn = "yes:1"                      -- make sign column grow automatically
 opt.cul = false                               -- highlight cursor row
+-- opt.colorcolumn = { 81 }                   -- right-hand margin
 opt.shortmess:append "a"
 
 
@@ -61,20 +62,23 @@ opt.whichwrap:append "<>hl"      -- Traverse through EOLs
 -- Completions - basic settings
 opt.pumheight = 12               -- Pmenu max height
 opt.pumwidth = 30                -- Pmenu _minimum_ width
+opt.pumblend = 5                 -- Pmenu pseudotransparency
 
 opt.wildmode = "full"
 opt.wildmenu = true              -- enable ctrl-n and ctrl-p to scroll thru matches
 
-opt.wildignore = "*.o,*.obj,*~"  -- stuff to ignore when tab completing
-opt.wildignore:append "*vim/backups*"
-opt.wildignore:append "*sass-cache*"
-opt.wildignore:append "*DS_Store*"
-opt.wildignore:append "vendor/rails/**"
-opt.wildignore:append "vendor/cache/**"
-opt.wildignore:append "*.gem"
-opt.wildignore:append "log/**"
-opt.wildignore:append "tmp/**"
-opt.wildignore:append "*.png,*.jpg,*.gif"
+opt.wildignore = {
+  "*.o,*.obj,*~",                -- stuff to ignore when tab completing
+  "*vim/backups*",
+  "*sass-cache*",
+  "*DS_Store*",
+  "vendor/rails/**",
+  "vendor/cache/**",
+  "*.gem",
+  "log/**",
+  "tmp/**",
+  "*.png,*.jpg,*.gif",
+}
 
 
 -- Scrolling
@@ -155,26 +159,23 @@ augroup filetype_markdown
   autocmd!
 
   autocmd FileType markdown set pumheight=7
-  autocmd FileType markdown set pumblend=5
 
-  " I _want_ wrapping_ in Markdown.  Anywhere else, not so much...
   autocmd FileType markdown set wrap
+  autocmd FileType markdown set conceallevel=2
+  autocmd FileType markdown set signcolumn=yes:1
   autocmd FileType markdown set textwidth=78
-
-  autocmd FileType markdown set spell
 
   " Spelling corrections from dict in omnicomplete by default
   autocmd FileType markdown set complete+=k
   autocmd FileType markdown set dictionary+=/usr/share/dict/words
 
-  " Highlight tweaks (Nord)
-  highlight! markdownUrl cterm=underline gui=underline
-
-  " Highlight To-Do items
-  match Todo /TODO/
-
-  nnoremap <leader>m :silent !open -a Marked\ 2.app '%:p'<cr>
+  autocmd FileType markdown nnoremap <leader>mp :silent !open -a Marked\ 2.app '%:p'<cr>
+  autocmd FileType markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr>
 
 augroup END
 ]]
+
+
+vim.cmd [[  autocmd FileType markdown nnoremap <leader>mp :silent !open -a Marked\ 2.app '%:p'<cr> ]]
+vim.cmd [[  autocmd FileType markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr> ]]
 

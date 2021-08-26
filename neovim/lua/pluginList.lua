@@ -99,7 +99,7 @@ return packer.startup(function()
    -- File managmeent
    use {
       "kyazdani42/nvim-tree.lua",
-      cmd = "NvimTreeToggle",
+      cmd = { "NvimTreeToggle", "NvimTreeFocus" },
       config = function()
          require "plugins.nvimtree"
       end,
@@ -137,6 +137,7 @@ return packer.startup(function()
       requires = {
          { "nvim-lua/plenary.nvim" },
          { "nvim-telescope/telescope-fzf-native.nvim", run = "make", },
+         { "crispgm/telescope-heading.nvim", },
          { "fhill2/telescope-ultisnips.nvim", }
       },
       config = function()
