@@ -4,7 +4,7 @@ local cmd = vim.cmd
 
 
 -- Utility method to make setting highlights not suck
-local function hi(group, opts)
+function hi(group, opts)
 	local c = "highlight " .. group
 	for k, v in pairs(opts) do
 		c = c .. " " .. k .. "=" .. v
@@ -12,14 +12,24 @@ local function hi(group, opts)
 	vim.cmd(c)
 end
 
-local function hi_link(old, new, is_forced)
+function hi_link(old, new, is_forced)
     local c = "highlight" .. (is_forced and "!" or "") .. " link " .. old .. " " .. new
     vim.cmd(c)
 end
 
-local function hi_clear(name) 
+function hi_clear(name) 
     local c = "highlight clear " .. name
     vim.cmd(c)
+end
+
+
+-- Theme-agnostic setup
+function my_highlights_all()
+
+   -- Transparent background, including signcolumn and foldcolumn, but not linenr
+    hi("Normal", { guibg="NONE", ctermbg="NONE" })
+    hi("SignColumn", { guibg="NONE", ctermbg="NONE" })
+    hi("FoldColumn", { guibg="NONE", ctermbg="NONE" })
 end
 
 
@@ -41,7 +51,6 @@ local nord12 = "#D08770"
 local nord13 = "#EBCB8B"
 local nord14 = "#A3BE8C"
 local nord15 = "#B48EAD"
-
 
 function my_highlights_nord()
 
@@ -114,23 +123,15 @@ function my_highlights_nord()
 end
 
 
--- Theme-agnostic setup
-function my_highlights_all()
-
-   -- Transparent background, including signcolumn and foldcolumn, but not linenr
-    hi("Normal", { guibg="NONE", ctermbg="NONE" })
-    hi("SignColumn", { guibg="NONE", ctermbg="NONE" })
-    hi("FoldColumn", { guibg="NONE", ctermbg="NONE" })
-end
-
-
 -- NOTE!  Theme config, e.g. lets, _must_ precede the 'colorscheme' cmd to work
-
 vim.api.nvim_exec([[
 augroup ColorSchemeOverrides
-autocmd!
-autocmd ColorScheme nord luado my_highlights_nord()
-autocmd ColorScheme *    luado my_highlights_all()
+  autocmd!
+  autocmd ColorScheme *    luado my_highlights_all()
+  autocmd ColorScheme nord luado my_highlights_nord()
 augroup END
 ]], false)
+
+-- NOW apply the colorscheme.
+vim.cmd[[colorscheme nord]]
 
