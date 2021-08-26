@@ -17,12 +17,6 @@ return packer.startup(function()
       event = "VimEnter",
    }
 
--- use {
---    -- used by Packer, various Neovim plugins to do growl notifications
---    "rcarriga/nvim-notify",
---    after = "packer.nvim",
--- }
-
    -- Editing features
    use {
       "qpkorr/vim-bufkill",   -- 'BD' to kill a buffer without closing a split
@@ -102,16 +96,16 @@ return packer.startup(function()
 -- }
 
    -- File managmeent
--- use {
---    "kyazdani42/nvim-tree.lua",
---    cmd = "NvimTreeToggle",
---    config = function()
---       require "plugins.nvimtree"
---    end,
---    setup = function()
---       require("mappings").nvimtree()
---    end,
--- }
+   use {
+      "kyazdani42/nvim-tree.lua",
+      cmd = "NvimTreeToggle",
+      config = function()
+         require "plugins.nvimtree"
+      end,
+      setup = function()
+         require("mappings").nvimtree()
+      end,
+   }
 
 -- use "tpope/vim-eunuch"
 
