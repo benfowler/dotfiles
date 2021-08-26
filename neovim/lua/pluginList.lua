@@ -133,19 +133,19 @@ return packer.startup(function()
       after = "packer.nvim",
    }
 
--- use {
---    "nvim-telescope/telescope.nvim",
---    after = { "plenary.nvim" },
---    requires = {
---       { "nvim-lua/plenary.nvim" },
---       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", },
+   use {
+      "nvim-telescope/telescope.nvim",
+      after = { "plenary.nvim" },
+      requires = {
+         { "nvim-lua/plenary.nvim" },
+         { "nvim-telescope/telescope-fzf-native.nvim", run = "make", },
 --       { "fhill2/telescope-ultisnips.nvim", }
---    },
---    config = function()
---       require "plugins.telescope"
---       require("mappings").telescope()
---    end,
--- }
+      },
+      config = function()
+         require "plugins.telescope"
+         require("mappings").telescope()
+      end,
+   }
 
    -- Git support
    use {
