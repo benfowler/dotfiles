@@ -148,5 +148,5 @@ telescope.setup {
    },
 }
 
-require("telescope").load_extension "ultisnips"
+--require("telescope").load_extension "ultisnips"
 
