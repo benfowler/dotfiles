@@ -108,8 +108,6 @@ return packer.startup(function()
       end,
    }
 
--- use "tpope/vim-eunuch"
-
    -- Load custom statusline (no plugin)
    use {
       "kyazdani42/nvim-web-devicons",
