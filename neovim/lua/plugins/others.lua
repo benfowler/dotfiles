@@ -1,5 +1,10 @@
 local M = {}
 
+local g = vim.g
+local w = vim.w
+local opt = vim.opt
+
+
 M.colorizer = function()
    local present, colorizer = pcall(require, "colorizer")
    if present then
@@ -16,18 +21,20 @@ M.comment = function()
 end
 
 M.markdown = function()
-  vim.opt.comments = "b:>"
-  vim.opt.formatoptions = "jtcqlnr"
-  vim.g.vim_markdown_new_list_item_indent = 2
-  vim.g.vim_markdown_auto_insert_bullets = 0
+  -- required for sane bullet-list editing
+  opt.comments = "b:>"
+  opt.formatoptions = "jtcqlnr"
+
+  g.vim_markdown_new_list_item_indent = 2
+  g.vim_markdown_auto_insert_bullets = 0
 end
 
 M.ultisnips = function()
-  vim.g.UltiSnipsEditSplit = "context"
+  g.UltiSnipsEditSplit = "context"
 end
 
 M.bullets = function()
-  vim.g.bullets_outline_levels = { 'ROM', 'ABC', 'num', 'abc', 'rom', 'std-' }
+  g.bullets_outline_levels = { 'ROM', 'ABC', 'num', 'abc', 'rom', 'std-' }
 end
 
 M.lspkind = function()
@@ -38,14 +45,14 @@ M.lspkind = function()
 end
 
 M.blankline = function()
-   vim.g.indentLine_enabled = 1
-   vim.g.indent_blankline_char = "▏"
+   g.indentLine_enabled = 1
+   g.indent_blankline_char = "▏"
 
-   vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard", "packer" }
-   vim.g.indent_blankline_buftype_exclude = { "terminal" }
+   g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard", "packer" }
+   g.indent_blankline_buftype_exclude = { "terminal" }
 
-   vim.g.indent_blankline_show_trailing_blankline_indent = false
-   vim.g.indent_blankline_show_first_indent_level = false
+   g.indent_blankline_show_trailing_blankline_indent = false
+   g.indent_blankline_show_first_indent_level = false
 end
 
 M.signature = function()

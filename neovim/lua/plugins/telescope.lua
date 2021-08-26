@@ -30,7 +30,7 @@ telescope.setup {
          "--smart-case",
       },
       prompt_prefix = "   ",
-      selection_caret = "  ",
+      selection_caret = "❯ ",
       entry_prefix = "  ",
       initial_mode = "insert",
       selection_strategy = "reset",
@@ -77,6 +77,9 @@ telescope.setup {
       },
       find_files = {
         sort_lastused = true,
+        theme = "ivy",
+      }, 
+      file_browser = {
         theme = "ivy",
       }, 
       git_files = {
@@ -149,4 +152,5 @@ telescope.setup {
 }
 
 require("telescope").load_extension "ultisnips"
+require('telescope').load_extension('heading') 
 

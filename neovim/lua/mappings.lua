@@ -3,14 +3,18 @@ local cmd = vim.cmd
 local M = {}
 local opt = {}
 
--- Keybindings, hoisted from the options and plugins configuration. Expose and 
+-- Keybindings, hoisted from the options and plugins configuration. Expose and
 -- modify keybindings here.  Make sure you don't use same keys twice.
 M.user_map = {
    misc = {
       mapleader = " ",
       toggle_listchars = "<leader>,",
       toggle_spellcheck = "<F6>",
-      toggle_number = "<leader>n",
+      toggle_number = "<leader>N",
+      toggle_wrap = "<leader>W",
+      new_split = "<leader>-",
+      new_vsplit = "<leader><bar>",
+      write_file = "<leader>w",
    },
    truezen = {
       ataraxisMode = "<leader>zz",
@@ -21,25 +25,41 @@ M.user_map = {
       comment_toggle = "<leader>/",
    },
    nvimtree = {
-      treetoggle = "<C-n>", -- file manager
+      treetoggle = "<leader>n", -- file manager
+      treefocus = "<leader>F", -- file manager
    },
    neoformat = {
       format = "<leader>fm",
    },
    telescope = {
-      live_grep = "<leader>fw",
+      telescope_main = "<leader>tt",
+
+      -- Search everywhere
+      live_grep = "<leader>A",
+
+      -- Git objects
       git_status = "<leader>gs",
       git_commits = "<leader>gc",
       git_bcommits = "<leader>gC",
       git_branches = "<leader>gb",
       git_stash = "<leader>gS",
+
+      -- Files
       git_files= "<leader>fg",
       find_files = "<leader>ff",
-      buffers = "<leader>fb",
-      buffers_quick = ";",          -- quick switch (no preview)
-      help_tags = "<leader>fh",
+      file_browser = "<leader>fb",
       oldfiles = "<leader>fo",
       oldfiles_quick = "<C-p>",     -- quick file access (no preview)
+
+      -- Buffers
+      buffers = "<leader>bb",
+      buffers_quick = ";",          -- quick switch (no preview)
+
+      -- Help (and helpful things)
+      help_tags = "<leader>hh",
+      keymaps= "<leader>hk",
+      highlights = "<leader>hi",
+
       spell_suggest = "z=",
    },
    fugitive = {
@@ -76,10 +96,10 @@ local miscMap = M.user_map.misc
 
 
 -- Make keybinding with optional options
-local function map(mode, lhs, rhs, opts)
+local function map(mode, lhs, rhs, extra_opts)
    local options = { noremap = true, silent = true }
-   if opts then
-      options = vim.tbl_extend("force", options, opts)
+   if extra_opts then
+      options = vim.tbl_extend("force", options, extra_opts)
    end
    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
@@ -91,15 +111,37 @@ vim.g.mapleader = miscMap.mapleader
 -- (These mappings will be called during initialization)
 M.misc = function()
 
-   -- Toggle hidden characters
-   map("n", miscMap.toggle_listchars, ":set invlist <cr>", opts)
+   -- Fast write-file shortcut
+   map("n", miscMap.write_file, ":update<CR>", opt)
 
-   -- Toggle line numbers (hybrid mode)
-   map("n", miscMap.toggle_number, ":set invnumber<cr>:set invrelativenumber<cr>:set invcursorline<cr>", opts)
-   
-   -- Toggle spellcheck
-   map("n", miscMap.toggle_spellcheck, ":set spell! <cr>", opts)
-   map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <cr>", opts)
+   -- Setting toggles
+   map("n", miscMap.toggle_spellcheck, ":set spell! <CR>", opt)
+   map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <CR>", opt)
+
+   map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
+   map("n", miscMap.toggle_number, ":set invnumber<CR>:set invrelativenumber<CR>:set invcursorline<CR>", opt)
+   map("n", miscMap.toggle_listchars, ":set invlist <CR>", opt)
+
+   -- Indent: leave selection intact
+   map("v", ">", ">gv", opt)
+   map("v", "<", "<gv", opt)
+
+   -- Fast splits
+   map("n", miscMap.new_split, ":below split<cr>", opt)
+   map("n", miscMap.new_vsplit, ":below vsplit<cr>", opt)
+
+   -- Fast quickfix and location list navigation
+   map("n", "[l", ":lprev<CR>zv", opt)
+   map("n", "]l", ":lnext<CR>zv", opt)
+   map("n", "[q", ":cprev<CR>zv", opt)
+   map("n", "]q", ":cnext<CR>zv", opt)
+
+   -- C-j and C-k to navigate in popup ('pum') menu and wildmenu
+   cmd [[ inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>" ]]
+   cmd [[ inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>" ]]
+   cmd [[ cnoremap <expr><C-j> wildmenumode() ? "\<C-n>" : "\<C-j>" ]]
+   cmd [[ cnoremap <expr><C-k> wildmenumode() ? "\<C-p>" : "\<C-h>" ]]
+
 
    -- Packer commands, because we are not loading it at startup
    cmd "silent! command PackerCompile lua require 'pluginList' require('packer').compile()"
@@ -121,7 +163,7 @@ M.comment_nvim = function()
    map("v", m, ":CommentToggle<CR>", opt)
 end
 
-M.easy_align = function() 
+M.easy_align = function()
    -- TODO: how to do this idiomatically in Lua?
    -- (This needs to be done this way, otherwise things like "gavip," won't work)
    cmd "nmap ga <Plug>(EasyAlign)"
@@ -149,9 +191,10 @@ M.vim_tmux_navigator = function()
 end
 
 M.nvimtree = function()
-   local m = user_map.nvimtree.treetoggle
+   local m = user_map.nvimtree
 
-   map("n", m, ":NvimTreeToggle<CR>", opt)
+   map("n", m.treetoggle, ":NvimTreeToggle<CR>", opt)
+   map("n", m.treefocus, ":NvimTreeFocus<CR>", opt)
 end
 
 M.truezen = function()
@@ -165,26 +208,42 @@ end
 M.telescope = function()
    local m = user_map.telescope
 
-   map("n", m.live_grep, ":Telescope live_grep<CR>", opt)
-   map("n", m.git_status, ":Telescope git_status<CR>", opt)
-   map("n", m.git_commits, ":Telescope git_commits<CR>", opt)
-   map("n", m.git_bcommits, ":Telescope git_bcommits<CR>", opt)
-   map("n", m.git_branches, ":Telescope git_branches<CR>", opt)
-   map("n", m.git_stash, ":Telescope git_stash<CR>", opt)
-   map("n", m.git_files, ":Telescope git_files<CR>", opt)
-   map("n", m.find_files, ":Telescope find_files <CR>", opt)
-   map("n", m.buffers, ":Telescope buffers<CR>", opt)
+   -- All available pickers
+   map("n", m.telescope_main, ":silent! Telescope builtin theme=get_dropdown previewer=false layout_config={'width':40,'height':0.5}<CR>", opt)
+
+   -- Search everywhere
+   map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
+
+   -- Git objects
+   map("n", m.git_status, ":silent! Telescope git_status<CR>", opt)
+   map("n", m.git_commits, ":silent! Telescope git_commits<CR>", opt)
+   map("n", m.git_bcommits, ":silent! Telescope git_bcommits<CR>", opt)
+   map("n", m.git_branches, ":silent! Telescope git_branches<CR>", opt)
+   map("n", m.git_stash, ":silent! Telescope git_stash<CR>", opt)
+   map("n", m.git_files, ":silent! Telescope git_files<CR>", opt)
+
+   -- Files
+   map("n", m.find_files, ":silent! Telescope find_files <CR>", opt)
+   map("n", m.file_browser, ":silent! Telescope file_browser<CR>", opt)
+   map("n", m.oldfiles, ":silent! Telescope oldfiles<CR>", opt)
+   map("n", m.oldfiles_quick, ":Telescope oldfiles theme=get_dropdown previewer=false layout_config={'height':8,'width':0.7}<CR>", opt)
+
+   -- Buffers
+   map("n", m.buffers, ":silent! Telescope buffers<CR>", opt)
    map("n", m.buffers_quick, ":Telescope buffers theme=get_dropdown previewer=false layout_config={'height':8,'width':.5}<CR>", opt)
-   map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
-   map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
-   map("n", m.oldfiles_quick, ":Telescope oldfiles theme=get_dropdown previewer=false layout_config={'height':8,'width':.5}<CR>", opt)
-   map("n", m.spell_suggest, ":Telescope spell_suggest<CR>", opt)
+
+   -- Help (and helpful things)
+   map("n", m.help_tags, ":silent! Telescope help_tags<CR>", opt)
+   map("n", m.keymaps, ":silent! Telescope keymaps<CR>", opt)
+   map("n", m.highlights, ":silent! Telescope highlights<CR>", opt)
+
+   map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
 end
 
-M.ultisnips = function() 
+M.ultisnips = function()
    local m = user_map.ultisnips
 
-   map("n", m.select_snippet, ":Telescope ultisnips theme=get_dropdown layout_config={'height':0.5}<CR>", opt)
+   map("n", m.select_snippet, ":silent! Telescope ultisnips theme=get_dropdown layout_config={'height':0.5}<CR>", opt)
    map("n", m.edit_snippets, ":UltiSnipsEdit<CR>", opt)
 end
 
