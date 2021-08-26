@@ -52,23 +52,23 @@ return packer.startup(function()
       end,
    }
 
--- use {
---    "plasticboy/vim-markdown",
---    after = "packer.nvim",
---    setup = function()
---       require("plugins.others").markdown()
---    end,
---    ft = { "markdown" },
--- }
+   use {
+      "plasticboy/vim-markdown",
+      after = "packer.nvim",
+      ft = { "markdown" },
+      setup = function()
+         require("plugins.others").markdown()
+      end,
+   }
 
--- use {
---    "dkarter/bullets.vim",
---    after = "vim-markdown",
---    ft = { "markdown", "text" },
---    config = function()
---       require("plugins.others").bullets()
---    end,
--- }
+   use {
+      "dkarter/bullets.vim",
+      after = "vim-markdown",
+      ft = { "markdown", "text" },
+      config = function()
+         require("plugins.others").bullets()
+      end,
+   }
 
    -- Snippets
 -- use {
