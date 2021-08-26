@@ -153,14 +153,14 @@ return packer.startup(function()
 -- }
 
    -- Git support
--- use {
---    "lewis6991/gitsigns.nvim",
---    disable = not plugin_status.gitsigns,
---    after = "plenary.nvim",
---    config = function()
---       require "plugins.gitsigns"
---    end,
--- }
+   use {
+      "lewis6991/gitsigns.nvim",
+      disable = not plugin_status.gitsigns,
+      after = "plenary.nvim",
+      config = function()
+         require "plugins.gitsigns"
+      end,
+   }
 
    use {
       "tpope/vim-fugitive",
