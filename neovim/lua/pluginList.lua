@@ -24,24 +24,24 @@ return packer.startup(function()
       cmd = { "BUN", "BD", "BW", "BB", "BF", "BA" },
    }
 
--- use {
---    "junegunn/vim-easy-align",
---    after = "packer.nvim",
---    cmd = { "EasyAlign", "EasyAlign!", "LiveEasyAlign", },
---    setup = function()
---       require("mappings").easy_align()
---    end,
--- }
+   use {
+      "junegunn/vim-easy-align",
+      after = "packer.nvim",
+      cmd = { "EasyAlign", "EasyAlign!", "LiveEasyAlign", },
+      setup = function()
+         require("mappings").easy_align()
+      end,
+   }
 
--- use {
---    "tpope/vim-surround",
---    after = "packer.nvim",
--- }
+   use {
+      "tpope/vim-surround",
+      after = "packer.nvim",
+   }
 
--- use {
---    "mattn/emmet-vim",
---    after = "packer.nvim",
--- }
+   use {
+      "mattn/emmet-vim",
+      after = "packer.nvim",
+   }
 
    use {
       "norcalli/nvim-colorizer.lua",
