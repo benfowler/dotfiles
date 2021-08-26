@@ -42,4 +42,9 @@ return packer.init {
    auto_clean = true,
    compile_on_sync = true,
    --    auto_reload_compiled = true
+   log = { level = 'warn' }, -- The default print log level. One of: "trace", "debug", "info", "warn", "error", "fatal".
+   profile = {
+      enable = true,
+      threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+  }
 }
