@@ -86,14 +86,15 @@ return packer.startup(function()
 -- }
 
    -- tmux integration
--- use {
---    "christoomey/vim-tmux-navigator",
---    disable = not plugin_status.vim_tmux_navigator,
---    after = "packer.nvim",
---    setup = function()
---       require("mappings").vim_tmux_navigator()
---    end,
--- }
+   use {
+      "christoomey/vim-tmux-navigator",
+      disable = not plugin_status.vim_tmux_navigator,
+      cmd = { "TmuxNaviateLeft", "TmuxNavigateRight", "TmuxNavigateLeft", "TmuxNavigateRight", "TmuxNavigatePrevious" },
+      after = "packer.nvim",
+      setup = function()
+         require("mappings").vim_tmux_navigator()
+      end,
+   }
 
    -- File managmeent
    use {
