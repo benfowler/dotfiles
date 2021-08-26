@@ -179,14 +179,14 @@ return packer.startup(function()
       end,
    }
 
--- use {
---    "Pocco81/TrueZen.nvim",
---    disable = not plugin_status.truezen_nvim,
---    cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", },
---    setup = function()
---       require "plugins.zenmode"
---       require("mappings").truezen()
---    end,
--- }
+   use {
+      "Pocco81/TrueZen.nvim",
+      disable = not plugin_status.truezen_nvim,
+      cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", },
+      setup = function()
+         require "plugins.zenmode"
+         require("mappings").truezen()
+      end,
+   }
 
 end)
