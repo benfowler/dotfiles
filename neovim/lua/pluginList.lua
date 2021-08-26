@@ -71,19 +71,19 @@ return packer.startup(function()
    }
 
    -- Snippets
--- use {
---    "SirVer/ultisnips",
---    disable = not plugin_status.ultisnips,
---    requires = { 
---        { "honza/vim-snippets", }
---    },
---    config = function() 
---       require("plugins.others").ultisnips()
---    end,
---    setup = function()
---       require("mappings").ultisnips()
---    end,
--- }
+   use {
+      "SirVer/ultisnips",
+      disable = not plugin_status.ultisnips,
+      requires = { 
+          { "honza/vim-snippets", }
+      },
+      config = function() 
+         require("plugins.others").ultisnips()
+      end,
+      setup = function()
+         require("mappings").ultisnips()
+      end,
+   }
 
    -- tmux integration
    use {
@@ -137,7 +137,7 @@ return packer.startup(function()
       requires = {
          { "nvim-lua/plenary.nvim" },
          { "nvim-telescope/telescope-fzf-native.nvim", run = "make", },
---       { "fhill2/telescope-ultisnips.nvim", }
+         { "fhill2/telescope-ultisnips.nvim", }
       },
       config = function()
          require "plugins.telescope"
