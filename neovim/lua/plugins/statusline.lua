@@ -119,8 +119,13 @@ M.get_filetype = function()
   local icon = require'nvim-web-devicons'.get_icon(file_name, file_ext, { default = true })
   local filetype = vim.bo.filetype
 
-  if filetype == '' then return '' end
-  return string.format(' %s %s ', icon, filetype):lower()
+  if filetype == '' then return nil, nil end
+  return icon, filetype
+end
+
+M.format_filetype = function(_, icon, label)
+  if label == nil then return '' end
+  return string.format(' %s %s ', icon, label):lower()
 end
 
 M.get_line_col = function(self)
@@ -136,9 +141,10 @@ M.set_active = function(self)
   local mode_alt = colors.mode_alt .. self.separators[active_sep][1]
   local git = colors.git .. self:get_git_status()
   local git_alt = colors.git_alt .. self.separators[active_sep][1]
+  local filetype_icon, filetype_label = self:get_filetype()
   local filename = colors.active .. self:get_filename()
   local filetype_alt = colors.filetype_alt .. self.separators[active_sep][2]
-  local filetype = colors.filetype .. self:get_filetype()
+  local filetype = colors.filetype .. self:format_filetype(filetype_icon, filetype_label) 
   local line_col = colors.line_col .. self:get_line_col()
   local line_col_alt = colors.line_col_alt .. self.separators[active_sep][2]
 
