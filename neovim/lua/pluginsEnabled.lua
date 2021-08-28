@@ -11,6 +11,7 @@ M.plugin_status = {
    truezen_nvim = true,
    better_esc = true,
    vim_tmux_navigator = true,
+   statusline = true,
    -- lsp stuff
    lspkind = true,
    lspsignature = true,

@@ -1,10 +1,15 @@
 -- Handwritten statusline
 -- Based on <https://elianiva.my.id/post/neovim-lua-statusline>
 
+local present, enabled_plugins = pcall(require, 'pluginsEnabled')
+if not present or (enabled_plugins.plugin_status.statusline == false) then return end
+
+
 local fn = vim.fn
 local api = vim.api
 
 local M = {}
+
 
 -- possible values are 'arrow' | 'rounded' | 'blank'
 local active_sep = 'blank'
