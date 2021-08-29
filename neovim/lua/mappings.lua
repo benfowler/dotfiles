@@ -52,8 +52,7 @@ M.user_map = {
       oldfiles_quick = "<C-p>",     -- quick file access (no preview)
 
       -- Buffers
-      buffers = "<leader>bb",
-      buffers_quick = ";",          -- quick switch (no preview)
+      buffers = ";",
 
       -- Help (and helpful things)
       help_tags = "<leader>hh",
@@ -230,7 +229,6 @@ M.telescope = function()
 
    -- Buffers
    map("n", m.buffers, ":silent! Telescope buffers<CR>", opt)
-   map("n", m.buffers_quick, ":Telescope buffers theme=get_dropdown previewer=false layout_config={'height':8,'width':.5}<CR>", opt)
 
    -- Help (and helpful things)
    map("n", m.help_tags, ":silent! Telescope help_tags<CR>", opt)
