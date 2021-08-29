@@ -61,11 +61,24 @@ return packer.startup(function()
       end,
    }
 
-   use { 
-       "nvim-treesitter/playground", 
+   use {
+       "nvim-treesitter/playground",
        after = "nvim-treesitter",
     }
-   
+
+   use {
+      "kabouzeid/nvim-lspinstall",
+      event = "BufRead",
+   }
+
+   use {
+      "neovim/nvim-lspconfig",
+      after = "nvim-lspinstall",
+      config = function()
+         require "plugins.lspconfig"
+      end,
+   }
+
    -- Plugins for editing prose
    use {
       "plasticboy/vim-markdown",
