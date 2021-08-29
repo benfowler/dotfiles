@@ -60,6 +60,11 @@ return packer.startup(function()
          require "plugins.treesitter"
       end,
    }
+
+   use { 
+       "nvim-treesitter/playground", 
+       after = "nvim-treesitter",
+    }
    
    -- Plugins for editing prose
    use {
@@ -127,7 +132,7 @@ return packer.startup(function()
       end,
    }
 
--- -- Theme
+   -- Theme
    use {
       "arcticicestudio/nord-vim",
       config = function()
