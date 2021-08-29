@@ -194,6 +194,11 @@ return packer.startup(function()
    }
 
    use {
+      "rafcamlet/nvim-luapad",
+      cmd = { "Luapad", "LuaRun", },
+   }
+
+   use {
       "Pocco81/TrueZen.nvim",
       disable = not plugin_status.truezen_nvim,
       cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus", },
