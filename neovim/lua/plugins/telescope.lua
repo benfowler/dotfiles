@@ -5,14 +5,22 @@ end
 
 local actions = require('telescope.actions')
 local previewers = require('telescope.previewers')
-local sorters = require('telescope.sorters')
 
 
 telescope.setup {
    defaults = {
+      vimgrep_arguments = {
+         'rg',
+         '--color=never',
+         '--no-heading',
+         '--with-filename',
+         '--line-number',
+         '--column',
+         '--smart-case'
+      },
       mappings = {
         -- INSERT MODE
-        i = { 
+        i = {
           ["<esc>"] = actions.close,          -- I have no use for Normal mode!
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
@@ -20,54 +28,17 @@ telescope.setup {
           ["<C-p>"] = actions.preview_scrolling_down,
         },
       },
-      vimgrep_arguments = {
-         "rg",
-         "--color=never",
-         "--no-heading",
-         "--with-filename",
-         "--line-number",
-         "--column",
-         "--smart-case",
-      },
       prompt_prefix = "   ",
       selection_caret = "❯ ",
-      entry_prefix = "  ",
-      initial_mode = "insert",
-      selection_strategy = "reset",
-      sorting_strategy = "descending",
-      layout_strategy = "horizontal",
-      layout_config = {
-         horizontal = {
-            prompt_position = "top",
-            preview_width = 0.55,
-            results_width = 0.8,
-         },
-         vertical = {
-            mirror = false,
-         },
-         width = 0.87,
-         height = 0.80,
-         preview_cutoff = 120,
-      },
-      file_sorter = sorters.get_fuzzy_file,
-      file_ignore_patterns = {},
-      generic_sorter = sorters.get_generic_fuzzy_sorter,
-      path_display = { "absolute" },
-      winblend = 0,
-      border = {},
-      borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      path_display = { "smart" },
       color_devicons = true,
-      use_less = true,
-      set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-      file_previewer = previewers.vim_buffer_cat.new,
-      grep_previewer = previewers.vim_buffer_vimgrep.new,
-      qflist_previewer = previewers.vim_buffer_qflist.new,
+      sort_lastused = true,
+
       -- Developer configurations: Not meant for general override
       buffer_previewer_maker = previewers.buffer_previewer_maker,
    },
    pickers = {
       buffers = {
-         sort_lastused = true,
          theme = "dropdown",
          mappings = {
             i = {
@@ -76,48 +47,39 @@ telescope.setup {
          },
       },
       find_files = {
-        sort_lastused = true,
         theme = "ivy",
-      }, 
+      },
       file_browser = {
         theme = "ivy",
-      }, 
+      },
       git_files = {
-        sort_lastused = true,
         theme = "ivy",
-      }, 
+      },
       git_branches = {
-        sort_lastused = true,
         theme = "ivy",
         layout_config = {
             height = 0.25,
         }
-      }, 
+      },
       git_commits = {
-        sort_lastused = true,
         theme = "ivy",
-      }, 
+      },
       git_bcommits = {
-        sort_lastused = true,
         theme = "ivy",
-      }, 
+      },
       git_status = {
-        sort_lastused = true,
         theme = "ivy",
-      }, 
+      },
       git_stash = {
-        sort_lastused = true,
         theme = "ivy",
         layout_config = {
             height = 0.25,
         }
-      }, 
+      },
       colorscheme = {
-        sort_lastused = true,
         theme = "dropdown",
-      }, 
+      },
       oldfiles = {
-        sort_lastused = true,
         theme = "ivy",
       },
       spell_suggest = {
@@ -151,6 +113,6 @@ telescope.setup {
    },
 }
 
-require("telescope").load_extension "ultisnips"
-require('telescope').load_extension('heading') 
+require("telescope").load_extension("ultisnips")
+require('telescope').load_extension('heading')
 
