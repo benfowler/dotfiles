@@ -35,6 +35,27 @@ M.colors = {
   line_col_alt  = '%#LineColAlt#',
 }
 
+M.lsp_diags_hl_group_prefix = 'StatusLine'
+
+M.lsp_diags_config = {
+  errors = {
+    key = 'Error',
+    icon = '',
+  },
+  warnings = {
+    key = 'Warning',
+    icon = '',
+  },
+  info = {
+    key = 'Information',
+    icon = '',
+  },
+  hints = {
+    key = 'Hint',
+    icon = '',
+  },
+}
+
 -- HACK: make all highlight groups the default color for now
 api.nvim_exec([[
 " hi! link StatusLine Mode
@@ -50,6 +71,7 @@ api.nvim_exec([[
 M.trunc_width = setmetatable({
   mode       = 80,
   git_status = 90,
+  lsp_diags  = 90,
   filename   = 140,
   line_col   = 60,
 }, {
@@ -148,15 +170,16 @@ M.set_active = function(self)
   local git_alt = colors.git_alt .. self.separators[active_sep][1]
   local filetype_icon, filetype_label = self:get_filetype()
   local filename = colors.active .. self:get_filename()
+  local lsp_diagnostic = self:get_lsp_diagnostic()
   local filetype_alt = colors.filetype_alt .. self.separators[active_sep][2]
-  local filetype = colors.filetype .. self:format_filetype(filetype_icon, filetype_label) 
+  local filetype = colors.filetype .. self:format_filetype(filetype_icon, filetype_label)
   local line_col = colors.line_col .. self:get_line_col()
   local line_col_alt = colors.line_col_alt .. self.separators[active_sep][2]
 
   return table.concat({
     colors.active, mode, mode_alt, git, git_alt,
     "%=", filename, "%=",
-    filetype_alt, filetype, line_col_alt, line_col
+    lsp_diagnostic, filetype_alt, filetype, line_col_alt, line_col
   })
 end
 
@@ -204,27 +227,31 @@ api.nvim_exec([[
 --  I now use `tabline` to display these errors, go to `_bufferline.lua` if you
 --  want to check that out
 ----]]
--- Statusline.get_lsp_diagnostic = function(self)
---   local result = {}
---   local levels = {
---     errors = 'Error',
---     warnings = 'Warning',
---     info = 'Information',
---     hints = 'Hint'
---   }
+Statusline.get_lsp_diagnostic = function(self)
 
---   for k, level in pairs(levels) do
---     result[k] = vim.lsp.diagnostic.get_count(0, level)
---   end
+  -- Statusline too short
+  if self:is_truncated(self.trunc_width.lsp_diags) then return '' end
 
---   if self:is_truncated(120) then
---     return ''
---   else
---     return string.format(
---       "| :%s :%s :%s :%s ",
---       result['errors'] or 0, result['warnings'] or 0,
---       result['info'] or 0, result['hints'] or 0
---     )
---   end
--- end
+  -- LSP supported, but not connected
+  if #vim.lsp.buf_get_clients() == 0 then
+    return ' '
+  end
+
+  -- Otherwise, fish out and display stats
+  local lsp_status = ''
+
+  for _, level in pairs(self.lsp_diags_config) do
+    local count = vim.lsp.diagnostic.get_count(0, level.key)
+    if count > 0 then
+      lsp_status = lsp_status .. '%#' .. M.lsp_diags_hl_group_prefix .. level.key .. '#' .. level.icon .. ' ' .. count .. ' '
+   end
+  end
+
+  if lsp_status ~= '' then
+    return lsp_status
+  else
+    -- No errors
+    return ' '
+  end
+end
 

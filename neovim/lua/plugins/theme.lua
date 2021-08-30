@@ -34,6 +34,16 @@ local nord13 = "#EBCB8B"
 local nord14 = "#A3BE8C"
 local nord15 = "#B48EAD"
 
+-- Diagnostic signature colours
+local error_fg = nord11
+local warning_fg = nord13
+local information_fg = nord8
+local hint_fg = nord9
+
+local statusline_active_fg = "#9DA6B9"  -- halfway between nord3_bright and nord4
+local statusline_active_bg = nord1
+
+
 function my_highlights_nord()
 
     -- (poor readability of some u.Highlight groups)
@@ -55,7 +65,12 @@ function my_highlights_nord()
     u.Hi("QuickFixLine", { guibg=nord7, guifg="Black" })
 
     -- Active statusbar: override 'StatusLine' u.Highlight with Nord-ish colours
-    u.Hi("StatusLine", { guifg=nord4, guibg=nord3 })
+    u.Hi("StatusLine", { guifg=statusline_active_fg, guibg=statusline_active_bg })
+
+    u.Hi("StatusLineError", { guifg=error_fg, guibg=statusline_active_bg })
+    u.Hi("StatusLineWarning", { guifg=warning_fg, guibg=statusline_active_bg })
+    u.Hi("StatusLineInformation", { guifg=information_fg, guibg=statusline_active_bg })
+    u.Hi("StatusLineHint", { guifg=hint_fg, guibg=statusline_active_bg })
 
     -- Inactive statusbars: make a thin rule
     u.HiClear("StatusLineNC")
@@ -67,16 +82,35 @@ function my_highlights_nord()
     u.HiLink("CursorLineNr", "Bold", true)
 
     -- LSP diagnostics: line number backgrounds and foregrounds
-    -- ('black' is #667084; bg colours are a blend)
-    u.Hi("LspDiagnosticsError", { guifg=nord11, guibg="#5C4C58" })
-    u.Hi("LspDiagnosticsWarning", { guifg=nord13, guibg="#4F4B4C" })
-    u.Hi("LspDiagnosticsInformation", { guifg=nord8, guibg="#505D6D" })
-    u.Hi("LspDiagnosticsHint", { guifg=nord10, guibg="#485165" })
+    --('black' is #667084; bg colours are a blend)
+    u.Hi("LspDiagnosticsDefaultError", { guifg=error_fg})
+    u.Hi("LspDiagnosticsDefaultWarning", { guifg=warning_fg})
+    u.Hi("LspDiagnosticsDefaultInformation", { guifg=information_fg })
+    u.Hi("LspDiagnosticsDefaultHint", { guifg=hint_fg })
 
-    u.Hi("LspDiagnosticsLineNrError", { guifg=nord11, guibg="#5C4C58" })
-    u.Hi("LspDiagnosticsLineNrWarning", { guifg=nord13, guibg="#4F4B4C" })
-    u.Hi("LspDiagnosticsLineNrInformation", { guifg=nord8, guibg="#505D6D" })
-    u.Hi("LspDiagnosticsLineNrHint", { guifg=nord10, guibg="#485165" })
+    u.Hi("LspDiagnosticsUnderlineError", { guifg=error_fg, gui="underline" })
+    u.Hi("LspDiagnosticsUnderlineWarning", { guifg=warning_fg, gui="underline" })
+    u.Hi("LspDiagnosticsUnderlineInformation", { guifg=information_fg, gui="underline" })
+    u.Hi("LspDiagnosticsUnderlineHint", { guifg=hint_fg, gui="underline" })
+
+    u.Hi("LspDiagnosticsVirtualTextError", { guifg=error_fg, gui="italic" })
+    u.Hi("LspDiagnosticsVirtualTextWarning", { guifg=warning_fg, gui="italic" })
+    u.Hi("LspDiagnosticsVirtualTextInformation", { guifg=information_fg, gui="italic" })
+    u.Hi("LspDiagnosticsVirtualTextHint", { guifg=hint_fg, gui="italic" })
+
+    u.HiLink("LspDiagnosticsError", "LspDiagnosticsDefaultError", true)
+    u.HiLink("LspDiagnosticsWarning", "LspDiagnosticsDefaultWarning", true)
+    u.HiLink("LspDiagnosticsInformation", "LspDiagnosticsDefaultInformation", true)
+    u.HiLink("LspDiagnosticsHint", "LspDiagnosticsDefaultHint", true)
+
+    u.HiLink("LspDiagnosticsLineNrError", "LspDiagnosticsDefaultError", true)
+    u.HiLink("LspDiagnosticsLineNrWarning", "LspDiagnosticsDefaultWarning", true)
+    u.HiLink("LspDiagnosticsLineNrInformation", "LspDiagnosticsDefaultInformation", true)
+    u.HiLink("LspDiagnosticsLineNrHint", "LspDiagnosticsDefaultHint", true)
+
+    u.Hi("LspReferenceRead", { guifg=nord14, gui="bold,underline" })
+    u.Hi("LspReferenceText", { guifg=nord10, gui="bold,underline" })
+    u.Hi("LspReferenceWrite", { guifg=nord15, gui="bold,underline" })
 
     -- Folds
     u.Hi("Folded", { guifg=nord7, gui="italic" })
@@ -85,7 +119,7 @@ function my_highlights_nord()
     u.Hi("GitSignsAdd", { guifg=nord9 })
     u.Hi("GitSignsChange", { guifg=nord3 })
     u.Hi("GitSignsDelete", { gui="bold", guifg=nord11 })
-    u.Hi("GitSignsChangeDelete", { gui="bold", guifg=nord11, guibg=nord1 })
+    u.Hi("GitSignsChangeDelete", { gui="bold", guifg=nord11 })
 
     -- Telescope (lifted from FZF Nord theme)
     u.Hi("TelescopeSelection", { gui="bold" })

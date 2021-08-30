@@ -13,8 +13,8 @@ M.Hi = function(group, opts)
 end
 
 
-M.HiLink = function(old, new, is_forced)
-    local c = "highlight" .. (is_forced and "!" or "") .. " link " .. old .. " " .. new
+M.HiLink = function(group, linked_to_group, is_forced)
+    local c = "highlight" .. (is_forced and "!" or "") .. " link " .. group .. " " .. linked_to_group
     vim.cmd(c)
 end
 

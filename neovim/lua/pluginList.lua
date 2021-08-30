@@ -79,6 +79,9 @@ return packer.startup(function()
       end,
    }
 
+   -- Not used for the time being -- can make do without it
+   -- use "nvim-lua/lsp-status.nvim"
+
    -- Plugins for editing prose
    use {
       "plasticboy/vim-markdown",
@@ -102,10 +105,10 @@ return packer.startup(function()
    use {
       "SirVer/ultisnips",
       disable = not plugin_status.ultisnips,
-      requires = { 
+      requires = {
           { "honza/vim-snippets", }
       },
-      config = function() 
+      config = function()
          require("plugins.others").ultisnips()
       end,
       setup = function()
@@ -140,7 +143,7 @@ return packer.startup(function()
    use {
       "kyazdani42/nvim-web-devicons",
       after = "packer.nvim",
-      setup = function() 
+      setup = function()
          require "plugins/statusline"
       end,
    }
