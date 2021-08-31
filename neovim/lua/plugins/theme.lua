@@ -39,6 +39,7 @@ local error_fg = nord11
 local warning_fg = nord13
 local information_fg = nord8
 local hint_fg = nord9
+local ok_fg = nord14
 
 local statusline_active_fg = "#9DA6B9"  -- halfway between nord3_bright and nord4
 local statusline_active_bg = nord1
@@ -71,6 +72,7 @@ function my_highlights_nord()
     u.Hi("StatusLineWarning", { guifg=warning_fg, guibg=statusline_active_bg })
     u.Hi("StatusLineInformation", { guifg=information_fg, guibg=statusline_active_bg })
     u.Hi("StatusLineHint", { guifg=hint_fg, guibg=statusline_active_bg })
+    u.Hi("StatusLineOk", { guifg=ok_fg, guibg=statusline_active_bg })
 
     -- Inactive statusbars: make a thin rule
     u.HiClear("StatusLineNC")
