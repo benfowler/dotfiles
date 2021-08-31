@@ -12,13 +12,15 @@ local M = {}
 
 
 -- possible values are 'arrow' | 'rounded' | 'blank'
-local active_sep = 'blank'
+local active_sep = 'custom'
 
 -- change them if you want to different separator
 M.separators = {
   arrow = { '', '' },
+  arrow_light = { '', '' },
   rounded = { '', '' },
   blank = { '', '' },
+  custom = { '', '' },
 }
 
 -- highlight groups
@@ -31,8 +33,8 @@ M.colors = {
   git_alt       = '%#GitAlt#',
   filetype      = '%#Filetype#',
   filetype_alt  = '%#FiletypeAlt#',
-  line_col      = '%#LineCol#',
-  line_col_alt  = '%#LineColAlt#',
+  line_info      = '%#LineCol#',
+  line_info_alt  = '%#LineColAlt#',
 }
 
 M.lsp_diags_hl_group_prefix = 'StatusLine'
@@ -56,6 +58,10 @@ M.lsp_diags_config = {
   },
 }
 
+M.git_icon = ''
+
+M.git_show_changes = false
+
 -- HACK: make all highlight groups the default color for now
 api.nvim_exec([[
 " hi! link StatusLine Mode
@@ -73,7 +79,7 @@ M.trunc_width = setmetatable({
   git_status = 90,
   lsp_diags  = 90,
   filename   = 140,
-  line_col   = 60,
+  line_info   = 60,
 }, {
   __index = function()
       return 80
@@ -112,10 +118,12 @@ M.modes = setmetatable({
   end
 })
 
+M.use_long_modes = false
+
 M.get_current_mode = function(self)
   local current_mode = api.nvim_get_mode().mode
 
-  if self:is_truncated(self.trunc_width.mode) then
+  if not self.use_long_modes or self:is_truncated(self.trunc_width.mode) then
     return string.format(' %s ', self.modes[current_mode][2]):upper()
   end
   return string.format(' %s ', self.modes[current_mode][1]):upper()
@@ -126,19 +134,18 @@ M.get_git_status = function(self)
   local signs = vim.b.gitsigns_status_dict or {head = '', added = 0, changed = 0, removed = 0}
   local is_head_empty = signs.head ~= ''
 
-  if self:is_truncated(self.trunc_width.git_status) then
-    return is_head_empty and string.format('  %s ', signs.head or '') or ''
+  if (not self.git_show_changes) or self:is_truncated(self.trunc_width.git_status) then
+    return is_head_empty and string.format(' %s %s ', self.git_icon, signs.head or '') or ''
   end
 
   return is_head_empty and string.format(
-    ' +%s ~%s -%s |  %s ',
-    signs.added, signs.changed, signs.removed, signs.head
+    ' %s %s | +%s ~%s -%s ',
+    self.git_icon, signs.head, signs.added, signs.changed, signs.removed
   ) or ''
 end
 
-M.get_filename = function(self)
-  if self:is_truncated(self.trunc_width.filename) then return " %<%f " end
-  return " %<%F "
+M.get_filename = function(_)
+  return "%<%f"
 end
 
 M.get_filetype = function()
@@ -150,14 +157,27 @@ M.get_filetype = function()
   return icon, filetype
 end
 
+M.format_filename= function(_, icon, name)
+  if name == nil then return '' end
+
+  if icon == nil then
+    return string.format(' %s ', name)
+  else
+    return string.format(' %s %s ', icon, name)
+  end
+end
+
 M.format_filetype = function(_, icon, label)
   if label == nil then return '' end
   return string.format(' %s %s ', icon, label):lower()
 end
 
-M.get_line_col = function(self)
-  if self:is_truncated(self.trunc_width.line_col) then return ' %l:%c ' end
-  return ' Ln %l, Col %c '
+M.get_line_info = function(self)
+  if self:is_truncated(self.trunc_width.line_info) then
+    return " %{line('.')}:%-2v %{line('$')}L "
+  else
+    return " %{line('.')}:%-2v %p%% %{line('$')}L "
+  end
 end
 
 
@@ -166,20 +186,22 @@ M.set_active = function(self)
 
   local mode = colors.mode .. self:get_current_mode()
   local mode_alt = colors.mode_alt .. self.separators[active_sep][1]
-  local git = colors.git .. self:get_git_status()
-  local git_alt = colors.git_alt .. self.separators[active_sep][1]
   local filetype_icon, filetype_label = self:get_filetype()
-  local filename = colors.active .. self:get_filename()
+  local filename = colors.active .. self:format_filename(filetype_icon, self:get_filename())
   local lsp_diagnostic = self:get_lsp_diagnostic()
+  local git = colors.git .. self:get_git_status()
+  local git_alt = colors.git_alt .. self.separators[active_sep][2]
   local filetype_alt = colors.filetype_alt .. self.separators[active_sep][2]
   local filetype = colors.filetype .. self:format_filetype(filetype_icon, filetype_label)
-  local line_col = colors.line_col .. self:get_line_col()
-  local line_col_alt = colors.line_col_alt .. self.separators[active_sep][2]
+  local line_info = colors.line_info .. self:get_line_info()
+  local line_info_alt = colors.line_info_alt .. self.separators[active_sep][2]
 
   return table.concat({
-    colors.active, mode, mode_alt, git, git_alt,
-    "%=", filename, "%=",
-    lsp_diagnostic, filetype_alt, filetype, line_col_alt, line_col
+    colors.active, mode, mode_alt, filename,
+    "%=",
+    -- leave centre vacant
+    "%=",
+    lsp_diagnostic, git_alt, git, filetype_alt, filetype, line_info_alt, line_info
   })
 end
 
@@ -243,7 +265,7 @@ Statusline.get_lsp_diagnostic = function(self)
   for _, level in pairs(self.lsp_diags_config) do
     local count = vim.lsp.diagnostic.get_count(0, level.key)
     if count > 0 then
-      lsp_status = lsp_status .. '%#' .. M.lsp_diags_hl_group_prefix .. level.key .. '#' .. level.icon .. ' ' .. count .. ' '
+      lsp_status = ' ' .. lsp_status .. '%#' .. M.lsp_diags_hl_group_prefix .. level.key .. '#' .. level.icon .. ' ' .. count .. ' '
    end
   end
 
@@ -251,7 +273,7 @@ Statusline.get_lsp_diagnostic = function(self)
     return lsp_status
   else
     -- No errors
-    return ' '
+    return ' %#' .. M.lsp_diags_hl_group_prefix .. 'Ok#' .. '  '
   end
 end
 
