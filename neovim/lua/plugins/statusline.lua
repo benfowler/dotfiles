@@ -197,7 +197,7 @@ M.set_active = function(self)
   local line_info_alt = colors.line_info_alt .. self.separators[active_sep][2]
 
   return table.concat({
-    colors.active, mode, mode_alt, filename,
+    colors.active, filename,
     "%=",
     -- leave centre vacant
     "%=",
