@@ -42,6 +42,8 @@ if not (present1 or present2) then
     return
 end
 
+local configs = require "lspconfig/configs"
+
 local lsp_status_present, lsp_status = pcall(require, "lsp-status") -- get LSP diagnostics updates
 if lsp_status_present then
     lsp_status.register_progress()
@@ -146,8 +148,35 @@ client_caps.textDocument.completion.completionItem.snippetSupport = true
 -- Sumneko Lua Language Server, Lemminx XML, and the 'diagnostics' server
 -- (an ALE-like linter language server), require a lot more work to set up.
 
+-- TODO: *** EXAMPLE ONLY.  THIS FUNCTION DOES NOT GET CALLED. ***
+-- TODO: Add clangd etc
+local function configure_custom_installers()
+    --     -- 1. get the default config from nvim-lspconfig
+    --     local config = require("lspinstall/util").extract_config "bashls"
+    --     -- 2. update the cmd. relative paths are allowed, lspinstall automatically adjusts the cmd and cmd_cwd for us!
+    --     config.default_config.cmd[1] = "./node_modules/.bin/bash-language-server"
+    --
+    --     -- 3. extend the config with an install_script and (optionally) uninstall_script
+    --     require("lspinstall/servers").bash = vim.tbl_extend("error", config, {
+    --         -- lspinstall will automatically create/delete the install directory for every server
+    --         install_script = [[
+    --             ! test -f package.json && npm init -y --scope=lspinstall || true
+    --             npm install bash-language-server@latest
+    --         ]],
+    --         uninstall_script = nil, -- can be omitted
+    --     })
+end
+
+-- Set up LSP servers.  First initialize all servers installed via lsp-install.
+-- Then, hack in a couple of extra servers that are not yet covered by
+-- lsp-install.
+--
+-- TODO: write custom installers for clangd and lemminx
+-- TODO: then, split out configuration for each plugin into separate Lua modules
+--
 local function setup_servers()
     lspinstall.setup()
+    configure_custom_installers()
     local servers = lspinstall.installed_servers()
 
     for _, lang in pairs(servers) do
@@ -179,8 +208,24 @@ local function setup_servers()
                     },
                 },
             }
+        elseif lang == "cpp" then -- clangd
+
+            -- Special handling for lsp-status
+            local status_handlers = configs[lang].handlers  -- preserve existing
+            if lsp_status_present then
+                status_handlers = lsp_status.extensions.clangd.setup()
+            end
+
+            lspconfig[lang].setup {
+                handlers = status_handlers,
+                init_options = {
+                    clangdFileStatus = true,
+                },
+                on_attach = on_attach,
+                capabilities = client_caps,
+            }
         elseif lang == "diagnosticls" then -- diagnosticls (general linting language server)
-            lspconfig["diagnosticls"].setup {
+            lspconfig[lang].setup {
                 filetypes = {
                     "javascript",
                     "javascriptreact",
@@ -328,6 +373,27 @@ local function setup_servers()
             }
         end
     end
+
+    -- Now set up language servers that are NOT managed using lsp-install.
+    -- NOTE: this is a hack, and will go away, once I add custom installers to lsp-install (see above)
+    -- -- Eclipse LemMinX (XML, Maven)
+    -- for _, lsp in ipairs { "lemminx" } do
+    --     lspconfig.lemminx.setup {
+    --         default_config = {
+    --             --  cmd = {'java', '-jar', '/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar',
+    --             --                 '-classpath', "'/Users/bfowler/Library/LanguageServers/xml/maven/*'",
+    --             --                 '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005'
+    --             cmd = { "java", "-jar", "/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar" },
+    --             filetypes = { "xml" },
+    --             root_dir = function(fname)
+    --                 return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+    --             end,
+    --             settings = {},
+    --         },
+    --         on_attach = on_attach,
+    --         capabilities = client_caps,
+    --     }
+    -- end
 end
 
 setup_servers()
