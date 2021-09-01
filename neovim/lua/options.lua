@@ -145,6 +145,10 @@ vim.cmd [[ let hidden_statusline = [ 'NvimTree', 'terminal' ] | autocmd BufEnter
 vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 
 
+-- Strip trailing whitespace on save for certain filetypes
+vim.cmd [[ autocmd FileType markdown,c,cpp,java,py,lua autocmd BufWritePre <buffer> %s/\s\+$//e ]]
+
+
 -- c-l in INSERT mode, attempts to fix the last spelling error
 vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
