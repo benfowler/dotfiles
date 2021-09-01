@@ -1,6 +1,6 @@
 local present, tree_c = pcall(require, "nvim-tree.config")
 if not present then
-   return
+    return
 end
 
 local tree_cb = tree_c.nvim_tree_callback
@@ -32,55 +32,54 @@ g.nvim_tree_group_empty = 1 -- 0 by default, compact folders that only contain a
 g.nvim_tree_lsp_diagnostics = 1 -- 0 by default, will show LSP diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
 g.nvim_tree_disable_window_picker = 1
 
-g.nvim_tree_icon_padding = '  '
+g.nvim_tree_icon_padding = "  "
 g.nvim_tree_update_cwd = 0
 g.nvim_tree_respect_buf_cwd = 1
 
 -- List of filenames that gets highlighted with NvimTreeSpecialFile
 g.nvim_tree_special_files = {
-  ["Cargo.toml"] = true,
-  Makefile = true,
-  ['pom.xml'] = true,
-  ['package.json'] = true,
-  ['Dockerfile'] = true
+    ["Cargo.toml"] = true,
+    Makefile = true,
+    ["pom.xml"] = true,
+    ["package.json"] = true,
+    ["Dockerfile"] = true,
 }
 
 g.nvim_tree_show_icons = {
-   git = 0,
-   folders = 1,
-   files = 1,
-   -- folder_arrows = 1
+    git = 0,
+    folders = 1,
+    files = 1,
+    -- folder_arrows = 1
 }
 
 g.nvim_tree_icons = {
-   default = "",
-   symlink = "",
-   git = {
-      unstaged = "",
-      staged = "",
-      unmerged = "",
-      renamed = "➜",
-      untracked = "★",
-      deleted = "",
-      ignored = "◌",
-   },
-   folder = {
-      -- Disable indent_markers option to get arrows working or if you want both
-      -- arrows and indent then just add the arrow icons in front ofthe default
-      -- and opened folders below!
-      -- arrow_open = "",
-      -- arrow_closed = "",
-      default = "",
-      open = "",
-      empty = "", -- 
-      empty_open = "",
-      -- default = "",
-      -- open = "",
-      -- empty = "", -- 
-      -- empty_open = "",
-      symlink = "",
-      symlink_open = "",
-      -- symlink_open = "",
-   },
+    default = "",
+    symlink = "",
+    git = {
+        unstaged = "",
+        staged = "",
+        unmerged = "",
+        renamed = "➜",
+        untracked = "★",
+        deleted = "",
+        ignored = "◌",
+    },
+    folder = {
+        -- Disable indent_markers option to get arrows working or if you want both
+        -- arrows and indent then just add the arrow icons in front ofthe default
+        -- and opened folders below!
+        -- arrow_open = "",
+        -- arrow_closed = "",
+        default = "",
+        open = "",
+        empty = "", -- 
+        empty_open = "",
+        -- default = "",
+        -- open = "",
+        -- empty = "", -- 
+        -- empty_open = "",
+        symlink = "",
+        symlink_open = "",
+        -- symlink_open = "",
+    },
 }
-
