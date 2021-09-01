@@ -1,13 +1,15 @@
 -- Handwritten statusline
 -- Based on <https://elianiva.my.id/post/neovim-lua-statusline>
 
-local present, enabled_plugins = pcall(require, "pluginsEnabled")
-if not present or (enabled_plugins.plugin_status.statusline == false) then
+local fn = vim.fn
+local api = vim.api
+
+local enabled_plugins_present, enabled_plugins = pcall(require, "pluginsEnabled")
+if not enabled_plugins_present or (enabled_plugins.plugin_status.statusline == false) then
     return
 end
 
-local fn = vim.fn
-local api = vim.api
+local lsp_status_present, lsp_status = pcall(require, "lsp-status")
 
 local M = {}
 
@@ -57,6 +59,8 @@ M.lsp_diags_config = {
         icon = "",
     },
 }
+
+M.lsp_last_message = ""
 
 M.git_icon = ""
 
@@ -209,15 +213,15 @@ M.set_active = function(self)
     local line_info_alt = colors.line_info_alt .. self.separators[active_sep][2]
 
    -- stylua: ignore
-	return table.concat({
+    return table.concat({
       -- left hand side
-		colors.active, filename,
-		"%=",
-		-- leave centre vacant
-		"%=",
+        colors.active, filename,
+        "%=",
+        -- leave centre vacant
+        "%=",
       -- right hand side
-		lsp_diagnostic, git_alt, git, filetype_alt, filetype, line_info_alt, line_info,
-	})
+        lsp_diagnostic, git_alt, git, filetype_alt, filetype, line_info_alt, line_info,
+    })
 end
 
 M.set_inactive = function(self)
@@ -272,6 +276,41 @@ api.nvim_exec( [[
 --  want to check that out
 ----]]
 Statusline.get_lsp_diagnostic = function(self)
+    -- Check that lsp-status.nvim is loaded
+    if not lsp_status_present then
+        return ""
+    end
+
+    local function isempty(s)
+        return s == nil or s == ""
+    end
+
+    -- Messages; just write them out
+    local messages = lsp_status.messages()
+    for _, msg in ipairs(messages) do
+        -- DEBUG: print(vim.inspect(msg))
+        fmt_msg = ""
+        if not isempty(msg.title) or not isempty(msg.message) then
+            if not isempty(msg.title) and not isempty(msg.message) then
+                str = string.format("%s: %s", msg.title, msg.message)
+            elseif not isempty(msg.message) then
+                str = msg.message
+            else
+                str = msg.title
+            end
+
+            if msg.percentage ~= nil then
+                fmt_msg = string.format("[LSP] %s: %s (%s%%)", msg.name, str, math.floor(msg.percentage))
+            else
+                fmt_msg = string.format("[LSP] %s: %s", msg.name, str)
+            end
+        end
+        if fmt_msg ~= self.lsp_last_message then
+            print(fmt_msg)
+        end
+        self.lsp_last_message = fmt_msg
+    end
+
     -- Statusline too short
     if self:is_truncated(self.trunc_width.lsp_diags) then
         return ""
@@ -282,24 +321,23 @@ Statusline.get_lsp_diagnostic = function(self)
         return " "
     end
 
-    -- Otherwise, fish out and display stats
-    local lsp_status = ""
+    -- Otherwise, fish out and display stats-    local lsp_status = ""
+    local lsp_status_str = ""
 
-    for _, level in pairs(self.lsp_diags_config) do
-        local count = vim.lsp.diagnostic.get_count(0, level.key)
+    for key, level in pairs(self.lsp_diags_config) do
+        local count = lsp_status.diagnostics()[key]
         if count > 0 then
-         -- stylua: ignore
-			lsp_status =
-            " " ..
-                lsp_status ..
-                "%#" .. M.lsp_diags_hl_group_prefix .. level.key .. "#" ..
-                level.icon .. " " .. count ..
-            " "
+             -- stylua: ignore
+            lsp_status_str =
+                " " ..
+                    lsp_status_str ..
+                    "%#" .. M.lsp_diags_hl_group_prefix .. level.key .. "#" ..
+                    level.icon .. " " .. count ..
+                " "
         end
     end
-
-    if lsp_status ~= "" then
-        return lsp_status
+    if lsp_status_str ~= "" then
+        return lsp_status_str
     else
         -- No errors
         return " %#" .. M.lsp_diags_hl_group_prefix .. "Ok#" .. "  "
