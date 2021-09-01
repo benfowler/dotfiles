@@ -209,9 +209,8 @@ local function setup_servers()
                 },
             }
         elseif lang == "cpp" then -- clangd
-
             -- Special handling for lsp-status
-            local status_handlers = configs[lang].handlers  -- preserve existing
+            local status_handlers = configs[lang].handlers -- preserve existing
             if lsp_status_present then
                 status_handlers = lsp_status.extensions.clangd.setup()
             end
@@ -377,23 +376,24 @@ local function setup_servers()
     -- Now set up language servers that are NOT managed using lsp-install.
     -- NOTE: this is a hack, and will go away, once I add custom installers to lsp-install (see above)
     -- -- Eclipse LemMinX (XML, Maven)
-    -- for _, lsp in ipairs { "lemminx" } do
-    --     lspconfig.lemminx.setup {
-    --         default_config = {
-    --             --  cmd = {'java', '-jar', '/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar',
-    --             --                 '-classpath', "'/Users/bfowler/Library/LanguageServers/xml/maven/*'",
-    --             --                 '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005'
-    --             cmd = { "java", "-jar", "/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar" },
-    --             filetypes = { "xml" },
-    --             root_dir = function(fname)
-    --                 return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-    --             end,
-    --             settings = {},
-    --         },
-    --         on_attach = on_attach,
-    --         capabilities = client_caps,
-    --     }
-    -- end
+    configs["lemminx_xml"] = {
+        default_config = {
+            --  cmd = {'java', '-jar', '/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar',
+            --                 '-classpath', "'/Users/bfowler/Library/LanguageServers/xml/maven/*'",
+            --                 '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005'
+            cmd = { "java", "-jar", "/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar" },
+            filetypes = { "xml" },
+            root_dir = function(fname)
+                return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+            end,
+            settings = {},
+        },
+    }
+
+    lspconfig["lemminx_xml"].setup {
+        on_attach = on_attach,
+        capabilities = client_caps,
+    }
 end
 
 setup_servers()
