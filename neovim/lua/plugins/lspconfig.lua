@@ -381,8 +381,14 @@ local function setup_servers()
             --  cmd = {'java', '-jar', '/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar',
             --                 '-classpath', "'/Users/bfowler/Library/LanguageServers/xml/maven/*'",
             --                 '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005'
-            cmd = { "java", "-jar", "/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar" },
-            filetypes = { "xml" },
+
+            -- cmd = { "java", "-jar", "/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar" },
+
+            cmd = { "java", "-cp", "/Users/bfowler/Library/LanguageServers/xml/lib/*",
+                            "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
+                            -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
+                            "org.eclipse.lemminx.XMLServerLauncher" },
+            filetypes = { "xml", "pom", "xsd", "xsl", "svg" },
             root_dir = function(fname)
                 return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
             end,
