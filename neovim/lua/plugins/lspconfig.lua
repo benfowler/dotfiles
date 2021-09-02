@@ -49,6 +49,8 @@ if lsp_status_present then
     lsp_status.register_progress()
 end
 
+local debounce_text_changes_msec = 150 -- msec
+
 -- on_attach():
 --
 -- This callback is passed to each language server upon startup to configure
@@ -182,9 +184,6 @@ local function setup_servers()
     for _, lang in pairs(servers) do
         if lang == "lua" then
             lspconfig[lang].setup {
-                on_attach = on_attach,
-                capabilities = client_caps,
-                root_dir = vim.loop.cwd,
                 settings = {
                     Lua = {
                         runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
@@ -207,6 +206,10 @@ local function setup_servers()
                         },
                     },
                 },
+                on_attach = on_attach,
+                capabilities = client_caps,
+                root_dir = vim.loop.cwd,
+                flags = { debounce_text_changes = debounce_text_changes_msec },
             }
         elseif lang == "cpp" then -- clangd
             -- Special handling for lsp-status
@@ -222,6 +225,7 @@ local function setup_servers()
                 },
                 on_attach = on_attach,
                 capabilities = client_caps,
+                flags = { debounce_text_changes = debounce_text_changes_msec },
             }
         elseif lang == "diagnosticls" then -- diagnosticls (general linting language server)
             lspconfig[lang].setup {
@@ -362,6 +366,7 @@ local function setup_servers()
                 },
                 on_attach = on_attach,
                 capabilities = client_caps,
+                flags = { debounce_text_changes = debounce_text_changes_msec },
             }
         else
             -- Everything else
@@ -369,6 +374,7 @@ local function setup_servers()
                 on_attach = on_attach,
                 capabilities = client_caps,
                 root_dir = vim.loop.cwd,
+                flags = { debounce_text_changes = debounce_text_changes_msec },
             }
         end
     end
@@ -376,18 +382,16 @@ local function setup_servers()
     -- Now set up language servers that are NOT managed using lsp-install.
     -- NOTE: this is a hack, and will go away, once I add custom installers to lsp-install (see above)
     -- -- Eclipse LemMinX (XML, Maven)
+
+    -- stylua: ignore
     configs["lemminx_xml"] = {
         default_config = {
-            --  cmd = {'java', '-jar', '/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar',
-            --                 '-classpath', "'/Users/bfowler/Library/LanguageServers/xml/maven/*'",
-            --                 '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005'
-
-            -- cmd = { "java", "-jar", "/Users/bfowler/Library/LanguageServers/xml/org.eclipse.lemminx-uber.jar" },
-
-            cmd = { "java", "-cp", "/Users/bfowler/Library/LanguageServers/xml/lib/*",
-                            "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
-                            -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
-                            "org.eclipse.lemminx.XMLServerLauncher" },
+            cmd = {
+                "java", "-cp", "/Users/bfowler/Library/LanguageServers/xml/lib/*",
+                "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
+                -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
+                "org.eclipse.lemminx.XMLServerLauncher",
+            },
             filetypes = { "xml", "pom", "xsd", "xsl", "svg" },
             root_dir = function(fname)
                 return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
@@ -399,6 +403,7 @@ local function setup_servers()
     lspconfig["lemminx_xml"].setup {
         on_attach = on_attach,
         capabilities = client_caps,
+        flags = { debounce_text_changes = debounce_text_changes_msec },
     }
 end
 
