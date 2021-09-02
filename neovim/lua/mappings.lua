@@ -14,6 +14,10 @@ M.user_map = {
         toggle_wrap = "<leader>W",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
+        new_terminal_quick = "<leader>tt",   -- subject to change
+        new_terminal_here = "<leader>th",
+        new_terminal_split = "<leader>tx",
+        new_terminal_vsplit = "<leader>tv",
         write_file = "<leader>w",
     },
 
@@ -130,8 +134,8 @@ M.misc = function()
     map("v", "<", "<gv", opt)
 
     -- Fast splits
-    map("n", miscMap.new_split, ":below split<cr>", opt)
-    map("n", miscMap.new_vsplit, ":below vsplit<cr>", opt)
+    map("n", miscMap.new_split, ":split<CR>", opt)
+    map("n", miscMap.new_vsplit, ":vsplit<CR>", opt)
 
     -- Fast quickfix and location list navigation
     map("n", "[l", ":lprev<CR>zv", opt)

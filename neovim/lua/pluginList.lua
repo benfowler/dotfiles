@@ -62,7 +62,7 @@ return packer.startup(function()
 
     use {
         "nvim-treesitter/playground",
-        after = "nvim-treesitter",
+        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     }
 
     use {
@@ -73,12 +73,11 @@ return packer.startup(function()
     use {
         "neovim/nvim-lspconfig",
         after = "nvim-lspinstall",
+        requires = { "nvim-lua/lsp-status.nvim" },
         config = function()
             require "plugins.lspconfig"
         end,
     }
-
-    use "nvim-lua/lsp-status.nvim"
 
     -- Plugins for editing prose
     use {
@@ -103,15 +102,18 @@ return packer.startup(function()
     use {
         "SirVer/ultisnips",
         disable = not plugin_status.ultisnips,
-        requires = {
-            { "honza/vim-snippets" },
-        },
+        event = "InsertEnter",
         config = function()
             require("plugins.others").ultisnips()
         end,
         setup = function()
             require("mappings").ultisnips()
         end,
+    }
+
+    use {
+        "honza/vim-snippets",
+        after = "ultisnips",
     }
 
     -- tmux integration
@@ -146,7 +148,7 @@ return packer.startup(function()
     -- Load custom statusline (no plugin)
     use {
         "kyazdani42/nvim-web-devicons",
-        after = "packer.nvim",
+        after = "nord-vim",
         setup = function()
             require "plugins/statusline"
         end,
@@ -203,7 +205,7 @@ return packer.startup(function()
     use {
         "tpope/vim-fugitive",
         disable = not plugin_status.vim_fugitive,
-        cmd = { "Git", "Gread" }, -- add any other Fugitive commands to lazy-load on
+        cmd = { "Git", "Gread", "Gwrite", "Gdiff" }, -- add any other Fugitive commands to lazy-load on
         setup = function()
             require("mappings").fugitive()
         end,
