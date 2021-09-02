@@ -106,8 +106,8 @@ function my_highlights_nord()
     u.HiLink("LspDiagnosticsLineNrHint", "LspDiagnosticsDefaultHint", true)
 
     u.Hi("LspReferenceRead", { guifg = nord14, gui = "bold,underline" })
-    u.Hi("LspReferenceText", { guifg = nord10, gui = "bold,underline" })
     u.Hi("LspReferenceWrite", { guifg = nord15, gui = "bold,underline" })
+    u.Hi("LspReferenceText", { gui = "bold,underline" })
 
     -- Folds
     u.Hi("Folded", { guifg = nord7, gui = "italic" })
@@ -143,7 +143,6 @@ function my_highlights_nord()
     u.HiClear "TSError"
 
     u.Hi("markdownUrl", { gui = "underline", cterm = "underline" })
-    vim.cmd [[ match Todo /TODO/ ]]
 end
 
 -- NOTE!  Theme config, e.g. lets, _must_ precede the 'colorscheme' cmd to work
@@ -161,6 +160,8 @@ g.nord_italic = 1
 g.nord_italic_comments = 1
 g.nord_underline = 1
 g.nord_cursor_line_number_background = 1
+
+g.python_multiline_string_as_comment = 1 -- Python's stock (non-TS) highlighting definition
 
 -- NOW apply the colorscheme.
 vim.cmd [[ colorscheme nord ]]

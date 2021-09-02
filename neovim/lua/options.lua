@@ -44,7 +44,7 @@ opt.expandtab = true                          -- soft tabs always!
 opt.tabstop = 4
 opt.shiftround = true                         -- use multiple of shiftwidth when indenting with > and <
 
-opt.wrap = false
+opt.wrap = false                              -- most file types don't get wrapped by default
 opt.linebreak = false
 
 -- Folding
@@ -92,8 +92,6 @@ opt.listchars = "tab:»·,nbsp:␣,eol:↲,extends:»,precedes:«,trail:•"
 
 -- Security
 opt.secure = true                             -- also load .vimrc from directory where Vim launched
-opt.modelines = 0
-opt.modeline = false
 
 -- stylua: ignore end
 
@@ -123,47 +121,63 @@ for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
 
--- Don't show any numbers inside terminals
-vim.cmd [[ au TermOpen term://* setlocal nonumber norelativenumber ]]
-
--- Don't show status line on certain windows
-vim.cmd [[ au TermOpen term://* setfiletype terminal ]]
-vim.cmd [[ let hidden_statusline = [ 'NvimTree', 'terminal' ] | autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif ]]
-
--- Open a file from its last left off position
-vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
-
--- Strip trailing whitespace on save for certain filetypes
-vim.cmd [[ autocmd FileType markdown,c,cpp,java,py,lua autocmd BufWritePre <buffer> %s/\s\+$//e ]]
-
 -- c-l in INSERT mode, attempts to fix the last spelling error
 vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
--- File extension-specific tabbing
-vim.cmd [[ autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
+
+-- Autogroup for autocommands
+
+vim.cmd [[
+    augroup global_settings_options
+    autocmd!
+
+    " Open a file from its last left off position
+    autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+    " Strip trailing whitespace on save for certain filetypes
+    autocmd FileType markdown,c,cpp,java,py,lua autocmd BufWritePre <buffer> %s/\s\+$//e
+
+    " File extension-specific tabbing
+    autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+    " Don't show any numbers inside terminals
+    autocmd TermOpen term://* setlocal nonumber norelativenumber
+
+    " Open Terminal in insert mode
+    autocmd TermOpen term://* startinsert
+
+    " Don't show status line on certain windows
+    autocmd TermOpen term://* setfiletype terminal
+    let hidden_statusline = [ 'NvimTree', 'terminal' ] | autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif
+
+    augroup END
+]]
+
 
 -- File-specific settings: Markdown
 -- stylua: ignore
 vim.cmd [[
-   augroup filetype_markdown
-   autocmd!
+    augroup filetype_markdown
+    autocmd!
 
-   autocmd FileType markdown set pumheight=7
+    autocmd FileType markdown set pumheight=7
 
-   autocmd FileType markdown set wrap
-   autocmd FileType markdown set conceallevel=2
-   autocmd FileType markdown set signcolumn=yes:1
-   autocmd FileType markdown set textwidth=78
+    autocmd FileType markdown set conceallevel=2
+    autocmd FileType markdown set textwidth=80
 
-   " Spelling corrections from dict in omnicomplete by default
-   autocmd FileType markdown set complete+=k
-   autocmd FileType markdown set dictionary+=/usr/share/dict/words
+    " Spelling corrections from dict in omnicomplete by default
+    autocmd FileType markdown set complete+=k
+    autocmd FileType markdown set dictionary+=/usr/share/dict/words
 
-   autocmd FileType markdown nnoremap <leader>mp :silent !open -a Marked\ 2.app '%:p'<cr>
-   autocmd FileType markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr>
+    autocmd FileType markdown match Todo /TODO:\|WARNING:\|NOTE:\|FIXME:\|XXX:/
 
-   augroup END
+    "
+    " TODO: move to mappings and migrate once autogroup Lua bindings exist
+    "
+
+    autocmd FileType markdown nnoremap <leader>mm :silent !open -a Marked\ 2.app '%:p'<cr>
+    autocmd FileType markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr>
+
+    augroup END
 ]]
 
-vim.cmd [[  autocmd FileType markdown nnoremap <leader>mp :silent !open -a Marked\ 2.app '%:p'<cr> ]]
-vim.cmd [[  autocmd FileType markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr> ]]
