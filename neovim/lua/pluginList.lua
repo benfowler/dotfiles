@@ -61,6 +61,14 @@ return packer.startup(function()
     }
 
     use {
+        "kosayoda/nvim-lightbulb",
+        event = "BufRead",
+        config = function()
+            require("plugins.others").lightbulb()
+        end,
+    }
+
+    use {
         "nvim-treesitter/playground",
         cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     }
