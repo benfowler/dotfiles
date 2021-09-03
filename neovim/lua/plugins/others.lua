@@ -43,6 +43,18 @@ M.lspkind = function()
     end
 end
 
+M.lightbulb = function()
+    -- stylua: ignore
+    vim.cmd [[
+        augroup customisation_plugin_lightbulb
+            autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+            au ColorScheme * highlight LightBulbFloatWin ctermfg= ctermbg= guifg= guibg=
+            au ColorScheme * highlight LightBulbVirtualText ctermfg= ctermbg= guifg= guibg=
+            sign define LightBulbSign text=ﯧ texthl=Annotation linehl= numhl=
+        augroup END
+    ]]
+end
+
 M.blankline = function()
     g.indentLine_enabled = 1
     g.indent_blankline_char = "▏"
