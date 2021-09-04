@@ -155,7 +155,8 @@ client_caps.textDocument.completion.completionItem.snippetSupport = true
 local function configure_custom_installers()
     --     -- 1. get the default config from nvim-lspconfig
     --     local config = require("lspinstall/util").extract_config "bashls"
-    --     -- 2. update the cmd. relative paths are allowed, lspinstall automatically adjusts the cmd and cmd_cwd for us!
+    --     -- 2. update the cmd. relative paths are allowed, lspinstall automatically adjusts
+    --     the cmd and cmd_cwd for us!
     --     config.default_config.cmd[1] = "./node_modules/.bin/bash-language-server"
     --
     --     -- 3. extend the config with an install_script and (optionally) uninstall_script
@@ -328,6 +329,21 @@ local function setup_servers()
                                 style = "hint",
                             },
                         },
+                        luacheck = {
+                            sourceName = 'luacheck',
+                            command = 'luacheck',
+                            debounce = 100,
+                            args = {'--codes', '--no-color', '--quiet', '-'},
+                            offsetLine = 0,
+                            offsetColumn = 0,
+                            formatLines = 1,
+                            formatPattern = {
+                                [[^.*:(\d+):(\d+):\s\(([W|E])\d+\)\s(.*)(\r|\n)*$]],
+                                {line = 1, column = 2, security = 3, message = {'[luacheck] ', 4}},
+                            },
+                            securities = {E = 'error', W = 'warning'},
+                            rootPatterns = {'.luacheckrc'},
+                        }
                     },
                     filetypes = {
                         javascript = "eslint",
@@ -337,6 +353,7 @@ local function setup_servers()
                         markdown = "markdownlint",
                         python = "mypy",
                         sh = "shellcheck",
+                        lua = "luacheck",
                     },
                     formatters = {
                         prettierEslint = {
