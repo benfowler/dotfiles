@@ -41,10 +41,21 @@ M.user_map = {
     },
 
     telescope = {
-        telescope_main = "<leader>tt",
+        Telescope_main = "<leader>TT",
+
+        -- Telescope-specific mapping: help etc
+        marks = "<leader>MM",
+        registers = "<leader>RR",
+        jumplist = "<leader>JJ",
+        autocommands = "<leader>Ta",
+        help_tags = "<leader>Th",
+        man_pages = "<leader>Tm",
+        keymaps = "<leader>Tk",
+        highlights = "<leader>Ti",
+
 
         -- Search everywhere
-        live_grep = "<leader>A",
+        live_grep = "<leader>TA",    -- slower alternative to fzf
 
         -- Git objects
         git_status = "<leader>gs",
@@ -62,11 +73,6 @@ M.user_map = {
 
         -- Buffers
         buffers = ";",
-
-        -- Help (and helpful things)
-        help_tags = "<leader>hh",
-        keymaps = "<leader>hk",
-        highlights = "<leader>hi",
 
         spell_suggest = "z=",
     },
@@ -137,6 +143,13 @@ M.misc = function()
     map("n", miscMap.new_split, ":split<CR>", opt)
     map("n", miscMap.new_vsplit, ":vsplit<CR>", opt)
 
+    -- Fast terminals
+    local shell = vim.env.SHELL
+    map("n", miscMap.new_terminal_quick, string.format(":15sp term://%s<CR>", shell), opt)
+    map("n", miscMap.new_terminal_here, ":terminal<CR>", opt)
+    map("n", miscMap.new_terminal_split, string.format(":sp term://%s<CR>", shell), opt)
+    map("n", miscMap.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), opt)
+
     -- Fast quickfix and location list navigation
     map("n", "[l", ":lprev<CR>zv", opt)
     map("n", "]l", ":lnext<CR>zv", opt)
@@ -192,6 +205,11 @@ M.vim_tmux_navigator = function()
     map("n", m.pane_up, ":TmuxNavigateUp<CR>", opt)
     map("n", m.pane_right, ":TmuxNavigateRight<CR>", opt)
 
+    map("t", m.pane_left, "<C-\\><C-n>:TmuxNavigateLeft<CR>", opt)
+    map("t", m.pane_down, "<C-\\><C-n>:TmuxNavigateDown<CR>", opt)
+    map("t", m.pane_up, "<C-\\><C-n>:TmuxNavigateUp<CR>", opt)
+    map("t", m.pane_right, "<C-\\><C-n>:TmuxNavigateRight<CR>", opt)
+
     vim.g.tmux_navigator_no_mappings = 1
 end
 
@@ -215,7 +233,18 @@ M.telescope = function()
 
 	-- All available pickers
    -- stylua: ignore
-	map( "n", m.telescope_main, ":silent! Telescope builtin theme=get_dropdown previewer=false layout_config={'width':40,'height':0.5}<CR>", opt)
+	map( "n", m.Telescope_main, ":silent! Telescope builtin theme=get_dropdown previewer=false layout_config={'width':40,'height':0.5}<CR>", opt)
+
+    -- Fast shortcuts to core Vim state
+    map("n", m.marks, ":silent! Telescope marks<CR>", opt)
+    map("n", m.registers, ":silent! Telescope registers<CR>", opt)
+    map("n", m.jumplist, ":silent! Telescope jumplist<CR>", opt)
+    map("n", m.help_tags, ":silent! Telescope help_tags<CR>", opt)
+    map("n", m.man_pages, ":silent! Telescope man_pages<CR>", opt)
+    map("n", m.keymaps, ":silent! Telescope keymaps<CR>", opt)
+    map("n", m.highlights, ":silent! Telescope highlights<CR>", opt)
+    map("n", m.autocommands, ":silent! Telescope autocommands<CR>", opt)
+
 
     -- Search everywhere
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
@@ -236,11 +265,6 @@ M.telescope = function()
 
     -- Buffers
     map("n", m.buffers, ":silent! Telescope buffers<CR>", opt)
-
-    -- Help (and helpful things)
-    map("n", m.help_tags, ":silent! Telescope help_tags<CR>", opt)
-    map("n", m.keymaps, ":silent! Telescope keymaps<CR>", opt)
-    map("n", m.highlights, ":silent! Telescope highlights<CR>", opt)
 
     map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
 end

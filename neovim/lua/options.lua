@@ -47,6 +47,10 @@ opt.shiftround = true                         -- use multiple of shiftwidth when
 opt.wrap = false                              -- most file types don't get wrapped by default
 opt.linebreak = false
 
+-- Splits
+opt.splitbelow = true
+opt.splitright = true
+
 -- Folding
 opt.foldmethod = "indent"
 opt.foldnestmax = 3
@@ -126,7 +130,7 @@ vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
 
 -- Autogroup for autocommands
-
+-- stylua: ignore
 vim.cmd [[
     augroup global_settings_options
     autocmd!
@@ -140,15 +144,23 @@ vim.cmd [[
     " File extension-specific tabbing
     autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
+    " Don't show status line on certain windows
+    let hidden_statusline = [ 'NvimTree', ]
+    autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif
+
+    "
+    " NeoVim's terminal defaults are bad; fix them
+    "
+
     " Don't show any numbers inside terminals
     autocmd TermOpen term://* setlocal nonumber norelativenumber
+    autocmd TermOpen term://* setfiletype terminal
 
-    " Open Terminal in insert mode
+    " Open new terminals in insert mode
     autocmd TermOpen term://* startinsert
 
-    " Don't show status line on certain windows
-    autocmd TermOpen term://* setfiletype terminal
-    let hidden_statusline = [ 'NvimTree', 'terminal' ] | autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif
+    " If terminal is running default shell, I don't care about the exit status
+    autocmd TermClose $SHELL\|zsh :bd
 
     augroup END
 ]]
