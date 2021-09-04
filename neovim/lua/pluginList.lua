@@ -191,15 +191,6 @@ return packer.startup(function()
         end,
     }
 
-    use {
-        "nvim-telescope/telescope-frecency.nvim",
-        after = { "telescope.nvim" },
-        requires = { "tami5/sql.nvim" },
-        config = function()
-            require("telescope").load_extension "frecency"
-        end,
-    }
-
     -- Git support
     use {
         "lewis6991/gitsigns.nvim",
