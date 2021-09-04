@@ -107,7 +107,7 @@ function my_highlights_nord()
 
     u.Hi("LspReferenceRead", { guifg = nord14, gui = "bold,underline" })
     u.Hi("LspReferenceWrite", { guifg = nord15, gui = "bold,underline" })
-    u.Hi("LspReferenceText", { gui = "bold,underline" })
+    u.Hi("LspReferenceText", { gui = "bold" })
 
     -- Folds
     u.Hi("Folded", { guifg = nord7, gui = "italic" })
