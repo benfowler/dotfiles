@@ -261,7 +261,7 @@ M.telescope = function()
     map("n", m.find_files, ":silent! Telescope find_files <CR>", opt)
     map("n", m.file_browser, ":silent! Telescope file_browser<CR>", opt)
     map("n", m.oldfiles, ":silent! Telescope oldfiles<CR>", opt)
-    map("n", m.recent_files, ":Telescope frecency theme=get_dropdown layout_config={'width':0.6}<CR>", opt)
+    map("n", m.recent_files, ":silent! Telescope oldfiles theme=get_dropdown layout_config={'width':0.6}<CR>", opt)
 
     -- Buffers
     map("n", m.buffers, ":silent! Telescope buffers<CR>", opt)
