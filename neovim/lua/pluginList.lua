@@ -170,7 +170,7 @@ return packer.startup(function()
         end,
     }
 
-    -- Telescope: powerful fuzzy finder for Neovim
+    -- Telescope: powerful (... buggy, slow) fuzzy finder for Neovim
     use {
         "nvim-lua/plenary.nvim",
         after = "packer.nvim",
@@ -188,6 +188,16 @@ return packer.startup(function()
         config = function()
             require "plugins.telescope"
             require("mappings").telescope()
+        end,
+    }
+
+    -- fzf: use this for common tasks because it's much quicker
+    use {
+        "junegunn/fzf.vim",
+        event = "VimEnter",
+        requires = { "junegunn/fzf" },
+        config = function()
+            require "plugins.fzf"
         end,
     }
 

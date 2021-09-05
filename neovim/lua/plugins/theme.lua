@@ -126,6 +126,28 @@ function my_highlights_nord()
     u.Hi("TelescopePromptPrefix", { guifg = "#bf6069" })
     u.Hi("TelescopeBorder", { guifg = nord3_bright })
 
+    -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
+    -- existing highlight groups, but I am using 'Nord' colours which look
+    -- better than the stock colors.
+
+    -- stylua: ignore start
+    u.Hi("FzfFg",      { guifg = "#e5e9f0", guibg=nord3 })
+    u.Hi("FzfBg",      { guibg = "#2e3440" })
+    u.Hi("FzfHl",      { guifg = "#81a1c1", guibg=nord3 })
+
+    u.Hi("FzfFg_",     { guifg = "#e5e9f0", gui="bold", guibg=nord1 })
+    u.Hi("FzfBg_",     {                    gui="bold", guibg=nord1 })
+    u.Hi("FzfHl_",     { guifg = "#81a1c1", gui="bold", guibg=nord1 })
+
+    u.Hi("FzfInfo",    { guifg = "#eacb8a" })
+    u.Hi("FzfBorder",  { guifg = "#616E88" })
+    u.Hi("FzfPrompt",  { guifg = "#bf6069" })
+    u.Hi("FzfPointer", { guifg = "#b48dac" })
+    u.Hi("FzfMarker",  { guifg = "#a3be8b" })
+    u.Hi("FzfSpinner", { guifg = "#b48dac" })
+    u.Hi("FzfHeader",  { guifg = "#a3be8b" })
+    -- stylua: ignore end
+
     -- nvim-tree
     u.Hi("NvimTreeNormal", { guifg = nord4 })
     u.Hi("NvimTreeIndentMarker", { guifg = nord1 })
