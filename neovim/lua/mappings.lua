@@ -11,6 +11,7 @@ M.user_map = {
         toggle_listchars = "<leader>,",
         toggle_spellcheck = "<F6>",
         toggle_number = "<leader>N",
+        toggle_colorcolumn = "<leader>C",
         toggle_wrap = "<leader>W",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
@@ -134,6 +135,7 @@ M.misc = function()
 
     map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
     map("n", miscMap.toggle_number, ":set invnumber<CR>:set invrelativenumber<CR>:set invcursorline<CR>", opt)
+
     map("n", miscMap.toggle_listchars, ":set invlist <CR>", opt)
 
     -- Indent: leave selection intact
