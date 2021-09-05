@@ -87,8 +87,8 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "gO", " <Cmd>lua vim.lsp.buf.outgoing_calls()<CR>", opts)
     buf_set_keymap("n", "<Leader>gw", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>gW", "<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
-    buf_set_keymap("n", "<Leader>aa", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    buf_set_keymap("n", "<Leader>al", "<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+    buf_set_keymap("n", "<Leader>a", ":Telescope lsp_code_actions<CR>", opts)
+    buf_set_keymap("n", "<Leader>l", "<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
     buf_set_keymap("n", "<Leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<Leader>e", "<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
     buf_set_keymap("n", "<Leader>=", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
@@ -231,16 +231,17 @@ local function setup_servers()
         elseif lang == "diagnosticls" then -- diagnosticls (general linting language server)
             lspconfig[lang].setup {
                 filetypes = {
+                    "css",
+                    "go",
                     "javascript",
                     "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                    "css",
-                    "scss",
+                    "lua",
                     "markdown",
                     "python",
+                    "scss",
                     "sh",
-                    "lua",
+                    "typescript",
+                    "typescriptreact",
                 },
                 init_options = {
                     linters = {
@@ -330,20 +331,35 @@ local function setup_servers()
                             },
                         },
                         luacheck = {
-                            sourceName = 'luacheck',
-                            command = 'luacheck',
+                            sourceName = "luacheck",
+                            command = "luacheck",
                             debounce = 100,
-                            args = {'--codes', '--no-color', '--quiet', '-'},
+                            args = { "--codes", "--no-color", "--quiet", "-" },
                             offsetLine = 0,
                             offsetColumn = 0,
                             formatLines = 1,
                             formatPattern = {
                                 [[^.*:(\d+):(\d+):\s\(([W|E])\d+\)\s(.*)(\r|\n)*$]],
-                                {line = 1, column = 2, security = 3, message = {'[luacheck] ', 4}},
+                                { line = 1, column = 2, security = 3, message = { "[luacheck] ", 4 } },
                             },
-                            securities = {E = 'error', W = 'warning'},
-                            rootPatterns = {'.luacheckrc'},
-                        }
+                            securities = { E = "error", W = "warning" },
+                            rootPatterns = { ".luacheckrc" },
+                        },
+                        golangci_lint = {
+                            sourceName = "golangci_lint",
+                            command = "golangci-lint",
+                            args = { "run", "--out-format", "json" },
+                            debounce = 100,
+                            parseJson = {
+                                sourceNameFilter = true,
+                                sourceName = "Pos.Filename",
+                                errorsRoot = "Issues",
+                                line = "Pos.Line",
+                                column = "Pos.Column",
+                                message = "[golangci_lint] ${Text} [${FromLinter}]",
+                            },
+                            rootPatterns = { ".git", "go.mod" },
+                        },
                     },
                     filetypes = {
                         javascript = "eslint",
@@ -354,6 +370,7 @@ local function setup_servers()
                         python = "mypy",
                         sh = "shellcheck",
                         lua = "luacheck",
+                        go = "golangci_lint",
                     },
                     formatters = {
                         prettierEslint = {

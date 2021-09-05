@@ -143,6 +143,7 @@ vim.cmd [[
 
     " File extension-specific tabbing
     autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+    autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 
     " Don't show status line on certain windows
     let hidden_statusline = [ 'NvimTree', ]
