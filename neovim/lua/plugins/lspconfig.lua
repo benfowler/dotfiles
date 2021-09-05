@@ -91,13 +91,9 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "<Leader>l", "<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
     buf_set_keymap("n", "<Leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<Leader>e", "<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "<Leader>=", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    buf_set_keymap("v", "<Leader>=", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     buf_set_keymap("n", "<C-k>", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "[d", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap("n", "<C-j>", "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+    buf_set_keymap("n", "[d", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap("n", "]d", "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
     buf_set_keymap("n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<Leader>Wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
@@ -105,9 +101,10 @@ local function on_attach(client, bufnr)
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     elseif client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+        buf_set_keymap("n", "<Leader>f", "<Cmd>lua filter_resolved_cap('document_formatting', vim.lsp.buf.formatting)<CR>", opts)
     end
 
     -- Extra setup, which depends on the final resolved set of capabilities
@@ -126,9 +123,112 @@ local function on_attach(client, bufnr)
 end
 
 --
--- Configure client capabilities here.  Fed into each lsp server's setup()
--- function on startup to request additional functionality beyond the default.
+-- Provide a way to enforce only a single running client at a time providing a
+-- given resolved capability.
 --
+-- MOTIVATION: When doing formatting, use this to choose a formatter and
+-- suppress the "Choose a language client:" menu.
+--
+
+-- Dictionary of resolved capabilities, to a map of LSP clients preferred for a
+-- given file type.  When filtered through this function, only ONE client is
+-- allowed to expose that capability.
+local resolved_capability_filters = {
+    ["document_formatting"] = { ["go"] = "go" },   -- diagnosticls not set up to fmt Lua, but says it can?
+}
+
+local filter_nil = function(value)
+    if value ~= nil then
+        return value
+    else
+        return "nil"
+    end
+end
+
+local filter_bool = function(value)
+    if value == true then
+        return "true"
+    else
+        return "false"
+    end
+end
+
+function filter_resolved_cap(cap_to_filter, callback)
+    local filetype = vim.bo.filetype
+    local clients = vim.lsp.buf_get_clients(0)
+
+    print("FORMATTER CHECK: filetype is: " .. filetype)
+    local filters = resolved_capability_filters[cap_to_filter]
+    print("FORMATTER CHECK: looking for ft/client filters for capability '" .. cap_to_filter .. "'")
+    print(filter_nil(filters))
+
+    if filters == nil then
+        callback()    -- nothing else to
+        return
+    end
+
+    local preferred_fmt_client = filters[filetype]
+    print("FORMATTER CHECK: preferred code formatter is: " .. filter_nil(preferred_fmt_client))
+
+    -- Count clients that offer document formatting.
+    print "FORMATTER CHECK: getting counts:"
+    local num_formatting_clients = 0
+    local preferred_fmt_client_seen = false
+    for _, client in pairs(clients) do
+        if client.resolved_capabilities[cap_to_filter] == true then
+            print("-   " .. client.name .. ": doc formatting supported")
+            num_formatting_clients = num_formatting_clients + 1
+            if client.name == preferred_fmt_client then
+                print "FORMATTER CHECK: spotted our favourite!!"
+                preferred_fmt_client_seen = true
+            end
+        else
+            print("-   " .. client.name .. ": doc formatting NOT supported")
+        end
+    end
+
+    print("FORMATTER CHECK: there are " .. num_formatting_clients .. " attached clients which can format documents")
+    print(
+        "FORMATTER CHECK: was preferred formatter (" .. filter_nil(preferred_fmt_client) .. ") seen? " .. filter_bool(preferred_fmt_client_seen)
+    )
+
+    if preferred_fmt_client_seen then
+        -- If the preferred client is running, suppress the others
+        print "FORMATTER CHECK: favourite formatter found running.  Killing all the others."
+        for _, client in pairs(clients) do
+            if client.resolved_capabilities[cap_to_filter] == true then
+                if client.name ~= preferred_fmt_client then
+                    client.resolved_capabilities[cap_to_filter] = false
+                end
+            end
+        end
+    else
+        -- If not, just spare the first one, suppress the othes
+        print "FORMATTER CHECK: _no_ favorite formatter is running and enabled.  Killing all except the first."
+        local saved_one = false
+        for _, client in pairs(clients) do
+            if client.resolved_capabilities[cap_to_filter] == true then
+                if saved_one == false then
+                    saved_one = true
+                else
+                    client.resolved_capabilities[cap_to_filter] = false
+                end
+            end
+        end
+    end
+
+    print "FORMATTER CHECK: dumping final state:"
+    for _, client in pairs(clients) do
+        if client.resolved_capabilities[cap_to_filter] == true then
+            print("-   " .. client.name .. ": doc formatting supported")
+        else
+            print("-   " .. client.name .. ": doc formatting NOT supported")
+        end
+    end
+
+    callback()
+end
+
 
 local client_caps = {}
 
