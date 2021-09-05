@@ -55,7 +55,8 @@ M.user_map = {
 
 
         -- Search everywhere
-        live_grep = "<leader>TA",    -- slower alternative to fzf
+        ripgrep =  "<Leader>A",
+        live_grep = "<leader>TA",    -- Telescope's slower alternative to fzf
 
         -- Git objects
         git_status = "<leader>gs",
@@ -247,6 +248,7 @@ M.telescope = function()
 
 
     -- Search everywhere
+    map("n", m.ripgrep, ":silent! Rg<CR>", opt)
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
 
     -- Git objects
@@ -261,10 +263,10 @@ M.telescope = function()
     map("n", m.find_files, ":silent! Telescope find_files <CR>", opt)
     map("n", m.file_browser, ":silent! Telescope file_browser<CR>", opt)
     map("n", m.oldfiles, ":silent! Telescope oldfiles<CR>", opt)
-    map("n", m.recent_files, ":silent! Telescope oldfiles theme=get_dropdown layout_config={'width':0.6}<CR>", opt)
+    map("n", m.recent_files, ":silent! Files<CR>", opt)
 
     -- Buffers
-    map("n", m.buffers, ":silent! Telescope buffers<CR>", opt)
+    map("n", m.buffers, ":silent! Buffers<CR>", opt)
 
     map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
 end
