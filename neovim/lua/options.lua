@@ -81,7 +81,7 @@ opt.wildignore = {
 
 -- Scrolling
 opt.scrolloff = 5                             -- keep some lines visible
-opt.sidescrolloff = 15
+opt.sidescrolloff = 5
 opt.sidescroll = 1
 
 -- Searching
@@ -128,6 +128,8 @@ end
 -- c-l in INSERT mode, attempts to fix the last spelling error
 vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
+-- Useful custom command to yank current location
+vim.cmd [[ command! YankLocation let @+ = join([expand('%'),  line(".")], ':') ]]
 
 -- Autogroup for autocommands
 -- stylua: ignore
