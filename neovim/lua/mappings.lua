@@ -56,7 +56,6 @@ M.user_map = {
 
 
         -- Search everywhere
-        ripgrep =  "<Leader>A",
         live_grep = "<leader>TA",    -- Telescope's slower alternative to fzf
 
         -- Git objects
@@ -71,12 +70,14 @@ M.user_map = {
         find_files = "<leader>ff",
         file_browser = "<leader>fb",
         oldfiles = "<leader>fo",
-        recent_files = "<C-p>", -- quick file access
-
-        -- Buffers
-        buffers = ";",
 
         spell_suggest = "z=",
+    },
+
+    fzf = {
+        buffers = ";",
+        recent_files = "<C-p>", -- quick file access
+        ripgrep =  "<Leader>A", -- search everywhere (but fast)
     },
 
     fugitive = {
@@ -250,7 +251,6 @@ M.telescope = function()
 
 
     -- Search everywhere
-    map("n", m.ripgrep, ":silent! Rg<CR>", opt)
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
 
     -- Git objects
@@ -265,12 +265,15 @@ M.telescope = function()
     map("n", m.find_files, ":silent! Telescope find_files <CR>", opt)
     map("n", m.file_browser, ":silent! Telescope file_browser<CR>", opt)
     map("n", m.oldfiles, ":silent! Telescope oldfiles<CR>", opt)
-    map("n", m.recent_files, ":silent! Files<CR>", opt)
-
-    -- Buffers
-    map("n", m.buffers, ":silent! Buffers<CR>", opt)
 
     map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
+end
+
+M.fzf = function()
+    local m = user_map.fzf
+    map("n", m.recent_files, ":silent! Files<CR>", opt)
+    map("n", m.buffers, ":silent! Buffers<CR>", opt)
+    map("n", m.ripgrep, ":silent! Rg<CR>", opt)
 end
 
 M.ultisnips = function()

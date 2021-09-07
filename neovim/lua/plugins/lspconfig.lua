@@ -104,7 +104,7 @@ local function on_attach(client, bufnr)
         buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
         buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     elseif client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<Leader>f", "<Cmd>lua resolve_resolved_cap_conflict('document_formatting', vim.lsp.buf.formatting)<CR>", opts)
+        buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
 
     -- Extra setup, which depends on the final resolved set of capabilities

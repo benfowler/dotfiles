@@ -51,6 +51,23 @@ return packer.startup(function()
         end,
     }
 
+    -- Load custom statusline (no plugin)
+    use {
+        "kyazdani42/nvim-web-devicons",
+        after = "nord-vim",
+        setup = function()
+            require "plugins/statusline"
+        end,
+    }
+
+    -- Theme
+    use {
+        "arcticicestudio/nord-vim",
+        config = function()
+            require "plugins.theme"
+        end,
+    }
+
     -- LSP stuff
     use {
         "nvim-treesitter/nvim-treesitter",
@@ -153,24 +170,6 @@ return packer.startup(function()
         end,
     }
 
-    -- Load custom statusline (no plugin)
-    use {
-        "kyazdani42/nvim-web-devicons",
-        after = "nord-vim",
-        setup = function()
-            require "plugins/statusline"
-        end,
-    }
-
-    -- Theme
-    use {
-        "arcticicestudio/nord-vim",
-        config = function()
-            require "plugins.theme"
-        end,
-    }
-
-    -- Telescope: powerful (... buggy, slow) fuzzy finder for Neovim
     use {
         "nvim-lua/plenary.nvim",
         after = "packer.nvim",
@@ -180,7 +179,6 @@ return packer.startup(function()
         "nvim-telescope/telescope.nvim",
         after = { "plenary.nvim" },
         requires = {
-            { "nvim-lua/plenary.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
             { "crispgm/telescope-heading.nvim" },
             { "fhill2/telescope-ultisnips.nvim" },
@@ -191,13 +189,15 @@ return packer.startup(function()
         end,
     }
 
-    -- fzf: use this for common tasks because it's much quicker
     use {
         "junegunn/fzf.vim",
         event = "VimEnter",
         requires = { "junegunn/fzf" },
         config = function()
             require "plugins.fzf"
+        end,
+        setup = function()
+            require("mappings").fzf()
         end,
     }
 
