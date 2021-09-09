@@ -3,6 +3,11 @@ if not present then
     return
 end
 
+
+--Auto-close file exploer when quiting, in case a single buffer is left
+vim.cmd([[ autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'nvimtree') | q | endif ]])
+
+
 local tree_cb = tree_c.nvim_tree_callback
 local g = vim.g
 
