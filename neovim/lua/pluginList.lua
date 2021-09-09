@@ -123,6 +123,22 @@ return packer.startup(function()
         end,
     }
 
+    -- Snippets support
+    use {
+        "L3MON4D3/LuaSnip",
+        event = "InsertEnter",
+        requires = "rafamadriz/friendly-snippets",
+        config = function()
+            require("plugins.others").luasnip()
+            require("mappings").luasnip()
+        end,
+    }
+    --
+    -- use {
+    --    "saadparwaiz1/cmp_luasnip",
+    --    after = "LuaSnip",
+    -- }
+
     -- tmux integration
     use {
         "christoomey/vim-tmux-navigator",

@@ -15,7 +15,7 @@ M.user_map = {
         toggle_wrap = "<leader>W",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
-        new_terminal_quick = "<leader>tt",   -- subject to change
+        new_terminal_quick = "<leader>tt", -- subject to change
         new_terminal_here = "<leader>th",
         new_terminal_split = "<leader>tx",
         new_terminal_vsplit = "<leader>tv",
@@ -54,9 +54,8 @@ M.user_map = {
         keymaps = "<leader>Tk",
         highlights = "<leader>Ti",
 
-
         -- Search everywhere
-        live_grep = "<leader>TA",    -- Telescope's slower alternative to fzf
+        live_grep = "<leader>TA", -- Telescope's slower alternative to fzf
 
         -- Git objects
         git_status = "<leader>gs",
@@ -77,7 +76,7 @@ M.user_map = {
     fzf = {
         buffers = ";",
         recent_files = "<C-p>", -- quick file access
-        ripgrep =  "<Leader>A", -- search everywhere (but fast)
+        ripgrep = "<Leader>A", -- search everywhere (but fast)
     },
 
     fugitive = {
@@ -187,6 +186,23 @@ M.easy_align = function()
     cmd "xmap ga <Plug>(EasyAlign)"
 end
 
+M.luasnip = function()
+    cmd [[
+        imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+        inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+        snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+        snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+        inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(1)<Cr>
+        inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
+        snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
+        snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+        imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+        smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+    ]]
+end
+
 M.fugitive = function()
     local m = user_map.fugitive
 
@@ -243,7 +259,6 @@ M.telescope = function()
     map("n", m.keymaps, ":silent! Telescope keymaps<CR>", opt)
     map("n", m.highlights, ":silent! Telescope highlights<CR>", opt)
     map("n", m.autocommands, ":silent! Telescope autocommands<CR>", opt)
-
 
     -- Search everywhere
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
