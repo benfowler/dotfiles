@@ -28,10 +28,6 @@ M.markdown = function()
     g.vim_markdown_auto_insert_bullets = 0
 end
 
-M.ultisnips = function()
-    g.UltiSnipsEditSplit = "context"
-end
-
 M.bullets = function()
     g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
 end

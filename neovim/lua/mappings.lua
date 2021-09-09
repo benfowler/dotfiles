@@ -97,11 +97,6 @@ M.user_map = {
         blame_line = "<leader>hb",
     },
 
-    ultisnips = {
-        select_snippet = "<leader>s",
-        edit_snippets = "<leader>S",
-    },
-
     vim_tmux_navigator = {
         pane_up = "<M-Up>",
         pane_down = "<M-Down>",
@@ -274,13 +269,6 @@ M.fzf = function()
     map("n", m.recent_files, ":silent! Files<CR>", opt)
     map("n", m.buffers, ":silent! Buffers<CR>", opt)
     map("n", m.ripgrep, ":silent! Rg<CR>", opt)
-end
-
-M.ultisnips = function()
-    local m = user_map.ultisnips
-
-    map("n", m.select_snippet, ":silent! Telescope ultisnips theme=get_dropdown layout_config={'height':0.5}<CR>", opt)
-    map("n", m.edit_snippets, ":UltiSnipsEdit<CR>", opt)
 end
 
 return M

@@ -123,24 +123,6 @@ return packer.startup(function()
         end,
     }
 
-    -- Snippets
-    use {
-        "SirVer/ultisnips",
-        disable = not plugin_status.ultisnips,
-        event = "InsertEnter",
-        config = function()
-            require("plugins.others").ultisnips()
-        end,
-        setup = function()
-            require("mappings").ultisnips()
-        end,
-    }
-
-    use {
-        "honza/vim-snippets",
-        after = "ultisnips",
-    }
-
     -- tmux integration
     use {
         "christoomey/vim-tmux-navigator",
@@ -181,7 +163,6 @@ return packer.startup(function()
         requires = {
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
             { "crispgm/telescope-heading.nvim" },
-            { "fhill2/telescope-ultisnips.nvim" },
         },
         config = function()
             require "plugins.telescope"

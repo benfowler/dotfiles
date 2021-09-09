@@ -24,7 +24,6 @@ M.plugin_status = {
     autosave_nvim = true,
     nvim_comment = true,
     neoscroll_nvim = true,
-    ultisnips = true,
     cheatsheet = true,
 }
 
