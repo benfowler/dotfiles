@@ -59,6 +59,7 @@ opt.foldenable = false
 opt.whichwrap:append("<>hl")                  -- Traverse through EOLs
 
 -- Completions - basic settings
+opt.completeopt = "menu"                      -- Onmicomplete to not create annoying split when activated
 opt.pumheight = 12                            -- Pmenu max height
 opt.pumwidth = 30                             -- Pmenu _minimum_ width
 opt.pumblend = 5                              -- Pmenu pseudotransparency
