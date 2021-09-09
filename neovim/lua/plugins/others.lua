@@ -19,11 +19,22 @@ M.comment = function()
     end
 end
 
+M.luasnip = function()
+    local present, luasnip = pcall(require, "luasnip")
+    if not present then
+        return
+    end
+    luasnip.config.set_config {
+        history = true,
+        updateevents = "TextChanged,TextChangedI",
+    }
+    require("luasnip/loaders/from_vscode").load { paths = { "./vscode-snippets" } }
+end
+
 M.markdown = function()
     -- required for sane bullet-list editing
     opt.comments = "b:>"
     opt.formatoptions = "jtcqlnr"
-
     g.vim_markdown_new_list_item_indent = 2
     g.vim_markdown_auto_insert_bullets = 0
 end
