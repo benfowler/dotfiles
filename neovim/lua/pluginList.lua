@@ -34,12 +34,12 @@ return packer.startup(function()
 
     use {
         "tpope/vim-surround",
-        after = "packer.nvim",
+        event = "InsertEnter",
     }
 
     use {
         "mattn/emmet-vim",
-        after = "packer.nvim",
+        event = "InsertEnter",
     }
 
     use {
@@ -51,20 +51,24 @@ return packer.startup(function()
         end,
     }
 
-    -- Load custom statusline (no plugin)
-    use {
-        "kyazdani42/nvim-web-devicons",
-        after = "nord-vim",
-        setup = function()
-            require "plugins/statusline"
-        end,
-    }
-
     -- Theme
     use {
         "arcticicestudio/nord-vim",
         config = function()
             require "plugins.theme"
+        end,
+    }
+
+    -- Eagerly loaded (needed at startup by nvim-tree)
+    use {
+        "kyazdani42/nvim-web-devicons",
+    }
+
+    -- Load custom statusline (local plugin).  Eagerly loaded.
+    use {
+        "~/.nvim-lua/nvim/local-plugins/statusline",
+        config = function()
+            require("plugins.others").statusline()
         end,
     }
 
@@ -107,9 +111,8 @@ return packer.startup(function()
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
-        after = "packer.nvim",
         ft = { "markdown" },
-        setup = function()
+        config = function()
             require("plugins.others").markdown()
         end,
     }
@@ -188,7 +191,6 @@ return packer.startup(function()
 
     use {
         "junegunn/fzf.vim",
-        event = "VimEnter",
         requires = { "junegunn/fzf" },
         config = function()
             require "plugins.fzf"
