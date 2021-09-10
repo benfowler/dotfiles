@@ -20,6 +20,8 @@ opt.switchbuf:append("useopen")               -- When using :sbuffer, jump to op
 opt.updatetime = 2000                         -- number of milliseconds before CursorHold autocommand event fired
 opt.clipboard = "unnamed"                     -- bind yank to system clipboard by default
 
+opt.nrformats= ''                             -- Force decimal-only for C-a and C-x
+
 -- Appearance settings
 opt.termguicolors = true                      -- enable true colors support
 opt.signcolumn = "yes:1"                      -- make sign column grow automatically
@@ -43,6 +45,10 @@ opt.shiftwidth = 4
 opt.expandtab = true                          -- soft tabs always!
 opt.tabstop = 4
 opt.shiftround = true                         -- use multiple of shiftwidth when indenting with > and <
+
+opt.breakindent = true                        -- soft wrapping: 'indent' wrapped text
+opt.breakindentopt = 'shift:2'
+opt.showbreak = '↳'
 
 opt.wrap = false                              -- most file types don't get wrapped by default
 opt.linebreak = false
