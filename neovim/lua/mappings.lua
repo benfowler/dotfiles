@@ -148,11 +148,29 @@ M.misc = function()
     map("n", miscMap.new_terminal_split, string.format(":sp term://%s<CR>", shell), opt)
     map("n", miscMap.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), opt)
 
-    -- Fast quickfix and location list navigation
-    map("n", "[l", ":lprev<CR>zv", opt)
-    map("n", "]l", ":lnext<CR>zv", opt)
-    map("n", "[q", ":cprev<CR>zv", opt)
-    map("n", "]q", ":cnext<CR>zv", opt)
+    -- Fast quickfix and location list navigation.  Centre editing line when navigating.
+    map("n", "[l", ":lprev<CR>zzzv", opt)
+    map("n", "]l", ":lnext<CR>zzzv", opt)
+    map("n", "[q", ":cprev<CR>zzzv", opt)
+    map("n", "]q", ":cnext<CR>zzzv", opt)
+
+    map("n", "{", "{zz", opt)
+    map("n", "}", "}zz", opt)
+    map("n", "n", "nzz", opt)
+    map("n", "N", "Nzz", opt)
+    map("n", "]c", "]czz", opt)
+    map("n", "[c", "[czz", opt)
+    map("n", "[j", "<C-o>zz", opt)
+    map("n", "]j", "<C-i>zz", opt)
+    map("n", "]s", "]szz", opt)
+    map("n", "[s", "[szz", opt)
+
+    map("n", "g;", "g;zz", opt)
+
+    -- Change doesn't overwrite the unnamed register (clipboard for me).
+    -- I can change/paste, and not lose the clipboard contents I'm about to paste.
+    map("n", "c", "\"_c", opt)
+    map("n", "C", "\"_C", opt)    -- "_ is the blackhole register
 
     -- C-j and C-k to navigate in popup ('pum') menu and wildmenu
     cmd [[ inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>" ]]
