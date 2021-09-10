@@ -161,12 +161,11 @@ end
 
 M.get_filetype = function()
     local file_name, file_ext = fn.expand "%:t", fn.expand "%:e"
-    local icon = require("nvim-web-devicons").get_icon(file_name, file_ext, { default = true })
     local filetype = vim.bo.filetype
-
     if filetype == "" then
         return nil, nil
     end
+    local icon = require("nvim-web-devicons").get_icon(file_name, file_ext, { default = true })
     return icon, filetype
 end
 
@@ -255,17 +254,20 @@ Statusline = setmetatable(M, {
     end,
 })
 
--- set statusline
--- TODO: replace this once we can define autocmd using lua
--- stylua: ignore
-api.nvim_exec( [[
-  augroup Statusline
-  au!
-  au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline('active')
-  au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline('inactive')
-  au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline('explorer')
-  augroup END
-]], false)
+
+-- Entry point to this module
+M.setup = function()
+    -- stylua: ignore
+    api.nvim_exec( [[
+        augroup Statusline
+        au!
+        au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline('active')
+        au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline('inactive')
+        au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline('explorer')
+        augroup END
+    ]], false)
+end
+
 
 ----[[
 --  NOTE: I don't use this since the statusline already has
@@ -321,7 +323,7 @@ Statusline.get_lsp_diagnostic = function(self)
         return " "
     end
 
-    -- Otherwise, fish out and display stats-    local lsp_status = ""
+    -- Otherwise, fish out and display stats
     local lsp_status_str = ""
 
     for key, level in pairs(self.lsp_diags_config) do
@@ -343,3 +345,7 @@ Statusline.get_lsp_diagnostic = function(self)
         return " %#" .. M.lsp_diags_hl_group_prefix .. "Ok#" .. "  "
     end
 end
+
+
+return M
+

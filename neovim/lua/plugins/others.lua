@@ -12,6 +12,10 @@ M.colorizer = function()
     end
 end
 
+M.statusline = function()
+    local statusline = require("statusline").setup()
+end
+
 M.comment = function()
     local present, nvim_comment = pcall(require, "nvim_comment")
     if present then
