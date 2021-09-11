@@ -19,20 +19,20 @@ return packer.startup(function()
     -- Editing features
     use {
         "qpkorr/vim-bufkill", -- 'BD' to kill a buffer without closing a split
-        after = "packer.nvim",
         cmd = { "BUN", "BD", "BW", "BB", "BF", "BA" },
     }
 
     use {
         "junegunn/vim-easy-align",
-        after = "packer.nvim",
         cmd = { "EasyAlign", "EasyAlign!", "LiveEasyAlign" },
+        keys = "<Plug>(EasyAlign)",
         setup = function()
             require("mappings").easy_align()
         end,
     }
 
     use {
+
         "tpope/vim-surround",
         event = "InsertEnter",
     }
@@ -54,6 +54,7 @@ return packer.startup(function()
     -- Theme
     use {
         "arcticicestudio/nord-vim",
+        disable = not plugin_status.nord,
         config = function()
             require "plugins.theme"
         end,
@@ -95,6 +96,7 @@ return packer.startup(function()
     }
 
     use {
+        -- required by lspconfig init to enumerate installed servers
         "kabouzeid/nvim-lspinstall",
         event = "BufRead",
     }
@@ -212,27 +214,49 @@ return packer.startup(function()
         after = "packer.nvim",
     }
 
+    -- TODO: Telescope isn't yet lazy-loaded, because lazy-loading it
+    --       prevents LSP from initialising, and requires an LSP
+    --       restart (:e) to launch.
     use {
         "nvim-telescope/telescope.nvim",
-        after = { "plenary.nvim" },
+        disable = not plugin_status.telescope,
+        after = "plenary.nvim",
+        --cmd =  "Telescope" ,
         requires = {
-            { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-            { "crispgm/telescope-heading.nvim" },
+            { "plenary.nvim" },
         },
         config = function()
             require "plugins.telescope"
-            require("mappings").telescope()
         end,
     }
 
     use {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "make",
+        module = "telescope._extensions.fzf",
+    }
+
+    use {
+        "crispgm/telescope-heading.nvim",
+        module = "telescope._extensions.heading",
+    }
+
+    --stylua: ignore
+    use {
+        "junegunn/fzf",
+        disable = not plugin_status.fzf,
+        cmd = {
+            "Files", "GFiles", "GFiles?", "Buffers", "Colors", "Ag", "Rg", "Lines", "BLines",
+            "Tags", "BTags", "Marks", "Windows", "Locate", "History", "History", "History/",
+            "Snippets", "Commits", "BCommits", "Commands", "Maps", "Helptags", "Filetypes"
+        },
+    }
+
+    use {
         "junegunn/fzf.vim",
-        requires = { "junegunn/fzf" },
+        after = "fzf",
         config = function()
             require "plugins.fzf"
-        end,
-        setup = function()
-            require("mappings").fzf()
         end,
     }
 

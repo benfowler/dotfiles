@@ -178,6 +178,14 @@ M.misc = function()
     cmd [[ cnoremap <expr><C-j> wildmenumode() ? "\<C-n>" : "\<C-j>" ]]
     cmd [[ cnoremap <expr><C-k> wildmenumode() ? "\<C-p>" : "\<C-h>" ]]
 
+
+    -----------------------------------------------------------------------
+    -- Lazy-loaded plugins still require mappings and commands,
+    -- for when Packer needs to lazy-load off them.
+
+    M.telescope()
+    M.fzf()
+
     -- Packer commands, because we are not loading it at startup
     cmd "silent! command PackerCompile lua require 'pluginList' require('packer').compile()"
     cmd "silent! command PackerInstall lua require 'pluginList' require('packer').install()"

@@ -1,3 +1,6 @@
+-- Bail early, because Packer loads configs, regardless of disabled flag.
+if require("pluginsEnabled").plugin_status.nord == false then return end
+
 local u = require "utils"
 local g = vim.g
 

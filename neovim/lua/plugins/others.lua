@@ -3,6 +3,9 @@ local M = {}
 local g = vim.g
 local opt = vim.opt
 
+local ps = require("pluginsEnabled").plugin_status
+
+
 M.autopairs = function()
     local present1, autopairs = pcall(require, "nvim-autopairs")
     local present2, autopairs_completion = pcall(require, "nvim-autopairs.completion.cmp")
@@ -19,21 +22,21 @@ M.autopairs = function()
 end
 
 M.colorizer = function()
-    local present, colorizer = pcall(require, "colorizer")
-    if present then
-        colorizer.setup()
+    if ps.colorizer == true then
+        require("colorizer").setup()
         vim.cmd "ColorizerReloadAllBuffers"
     end
 end
 
 M.statusline = function()
-    require("statusline").setup()
+    if ps.statusline == true then
+        require("statusline").setup()
+    end
 end
 
 M.comment = function()
-    local present, nvim_comment = pcall(require, "nvim_comment")
-    if present then
-        nvim_comment.setup()
+    if ps.nvim_comment == true then
+        require("nvim_comment").setup()
     end
 end
 
@@ -60,13 +63,6 @@ end
 
 M.bullets = function()
     g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
-end
-
-M.lspkind = function()
-    local present, lspkind = pcall(require, "lspkind")
-    if present then
-        lspkind.init()
-    end
 end
 
 M.lightbulb = function()
