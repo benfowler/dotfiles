@@ -1,8 +1,22 @@
 local M = {}
 
 local g = vim.g
-local w = vim.w
 local opt = vim.opt
+
+M.autopairs = function()
+    local present1, autopairs = pcall(require, "nvim-autopairs")
+    local present2, autopairs_completion = pcall(require, "nvim-autopairs.completion.cmp")
+
+    if not (present1 or present2) then
+        return
+    end
+
+    autopairs.setup()
+    autopairs_completion.setup {
+        map_complete = true, -- insert () func completion
+        map_cr = true,
+    }
+end
 
 M.colorizer = function()
     local present, colorizer = pcall(require, "colorizer")
@@ -13,7 +27,7 @@ M.colorizer = function()
 end
 
 M.statusline = function()
-    local statusline = require("statusline").setup()
+    require("statusline").setup()
 end
 
 M.comment = function()
@@ -32,6 +46,7 @@ M.luasnip = function()
         history = true,
         updateevents = "TextChanged,TextChangedI",
     }
+    require("luasnip/loaders/from_vscode").load()
     require("luasnip/loaders/from_vscode").load { paths = { "./vscode-snippets" } }
 end
 

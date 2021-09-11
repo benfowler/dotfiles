@@ -108,6 +108,15 @@ return packer.startup(function()
         end,
     }
 
+    use {
+        "ray-x/lsp_signature.nvim",
+        disable = not plugin_status.lspsignature,
+        after = "nvim-lspconfig",
+        config = function()
+            require("plugins.others").signature()
+        end,
+    }
+
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
@@ -126,21 +135,48 @@ return packer.startup(function()
         end,
     }
 
-    -- Snippets support
+    -- Autocomplete support
+    use {
+        "rafamadriz/friendly-snippets",
+        event = "InsertEnter",
+    }
+
+    use {
+        "hrsh7th/nvim-cmp",
+        after = "friendly-snippets",
+        config = function()
+            require "plugins.cmp"
+        end,
+    }
+
     use {
         "L3MON4D3/LuaSnip",
-        event = "InsertEnter",
-        requires = "rafamadriz/friendly-snippets",
+        after = "nvim-cmp",
         config = function()
             require("plugins.others").luasnip()
             require("mappings").luasnip()
         end,
     }
-    --
-    -- use {
-    --    "saadparwaiz1/cmp_luasnip",
-    --    after = "LuaSnip",
-    -- }
+
+    use {
+        "saadparwaiz1/cmp_luasnip",
+        after = "LuaSnip",
+    }
+
+    use {
+        "hrsh7th/cmp-nvim-lua",
+        after = "cmp_luasnip",
+    }
+
+    use {
+        "hrsh7th/cmp-nvim-lsp",
+        after = "cmp-nvim-lua",
+    }
+
+    use {
+        "hrsh7th/cmp-buffer",
+        after = "cmp-nvim-lsp",
+    }
 
     -- tmux integration
     use {
@@ -220,6 +256,14 @@ return packer.startup(function()
     }
 
     -- Misc plugins
+    use {
+        "windwp/nvim-autopairs",
+        after = "nvim-cmp",
+        config = function()
+            require("plugins.others").autopairs()
+        end,
+    }
+
     use {
         "terrortylor/nvim-comment",
         disable = not plugin_status.nvim_comment,
