@@ -114,3 +114,4 @@ telescope.setup {
 
 require("telescope").load_extension "heading"
 require("telescope").load_extension "fzf"
+require("telescope").load_extension "luasnip"
