@@ -134,7 +134,7 @@ end
 -- given file type.  When filtered through this function, only ONE client is
 -- allowed to expose that capability.
 local resolved_capability_filters = {
-    ["document_formatting"] = { ["go"] = "go" },   -- diagnosticls not set up to fmt Lua, but says it can?
+    ["document_formatting"] = { ["go"] = "go" }, -- diagnosticls not set up to fmt Lua, but says it can?
 }
 
 function resolve_resolved_cap_conflict(cap_to_filter, callback)
@@ -143,7 +143,7 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
 
     local filters = resolved_capability_filters[cap_to_filter]
     if filters == nil then
-        callback()    -- nothing else to
+        callback() -- nothing else to
         return
     end
 
@@ -179,10 +179,22 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
         for _, client in pairs(clients) do
             if client.resolved_capabilities[cap_to_filter] == true then
                 if saved_one == false then
-                    print("[LSP]: WARNING: randomly making server '" .. client.name .. "' sole provider of '" .. cap_to_filter .. "'")
+                    print(
+                        "[LSP]: WARNING: randomly making server '"
+                            .. client.name
+                            .. "' sole provider of '"
+                            .. cap_to_filter
+                            .. "'"
+                    )
                     saved_one = true
                 else
-                    print("[LSP]: WARNING: server '" .. client.name .. "' prevented from providing '" .. cap_to_filter .. "'")
+                    print(
+                        "[LSP]: WARNING: server '"
+                            .. client.name
+                            .. "' prevented from providing '"
+                            .. cap_to_filter
+                            .. "'"
+                    )
                     client.resolved_capabilities[cap_to_filter] = false
                 end
             end
@@ -191,7 +203,6 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
 
     callback()
 end
-
 
 local client_caps = {}
 
@@ -373,6 +384,33 @@ local function setup_servers()
                                 error = "error",
                             },
                         },
+                        pyliint = {
+                            sourceName = "pylint",
+                            args = {
+                                "--output-format",
+                                "text",
+                                "--score",
+                                "no",
+                                "--msg-template",
+                                [['{line}:{column}:{category}:{msg} ({msg_id}:{symbol})']],
+                                "%file",
+                            },
+                            offsetColumn = 1,
+                            formatLines = 1,
+                            formatPattern = {
+                                [[^(\d+?):(\d+?):([a-z]+?):(.*)$]],
+                                { line = 1, column = 2, security = 3, message = { "[pylint] ", 4 } },
+                            },
+                            securities = {
+                                informational = "hint",
+                                refactor = "info",
+                                convention = "info",
+                                warning = "warning",
+                                error = "error",
+                                fatal = "error",
+                            },
+                            rootPatterns = { ".git", "pyproject.toml", "setup.py" },
+                        },
                         shellcheck = {
                             command = "shellcheck",
                             debounce = 100,
@@ -430,7 +468,8 @@ local function setup_servers()
                         typescript = "eslint",
                         typescriptreact = "eslint",
                         markdown = "markdownlint",
-                        python = "mypy",
+                        --python = "mypy",
+                        python = "pylint",
                         sh = "shellcheck",
                         lua = "luacheck",
                         go = "golangci_lint",
@@ -449,6 +488,15 @@ local function setup_servers()
                             command = "stylua",
                             args = { "-s", "-" },
                         },
+                        black = {
+                            command = "black",
+                            args = { "--quiet", "-" },
+                            rootPatterns = {
+                                ".git",
+                                "pyproject.toml",
+                                "setup.py",
+                            },
+                        },
                     },
                     formatFiletypes = {
                         css = "prettier",
@@ -459,6 +507,7 @@ local function setup_servers()
                         scss = "prettier",
                         typescript = "prettierEslint",
                         typescriptreact = "prettierEslint",
+                        python = "black",
                     },
                 },
                 on_attach = on_attach,
