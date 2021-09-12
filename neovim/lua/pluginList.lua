@@ -241,6 +241,12 @@ return packer.startup(function()
         module = "telescope._extensions.heading",
     }
 
+    -- WARNING: won't actually find any snippets until LuaSnip is loaded
+    use {
+        "benfowler/telescope-luasnip.nvim",
+        module = { "telescope._extensions.luasnip" },
+    }
+
     --stylua: ignore
     use {
         "junegunn/fzf",

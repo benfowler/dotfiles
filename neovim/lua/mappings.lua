@@ -57,6 +57,9 @@ M.user_map = {
         -- Search everywhere
         live_grep = "<leader>TA", -- Telescope's slower alternative to fzf
 
+        -- LuaSnip
+        select_snippet = "<leader>s",
+
         -- Git objects
         git_status = "<leader>gs",
         git_commits = "<leader>gc",
@@ -272,9 +275,9 @@ end
 M.telescope = function()
     local m = user_map.telescope
 
-	-- All available pickers
+    -- All available pickers
    -- stylua: ignore
-	map( "n", m.Telescope_main, ":silent! Telescope builtin theme=get_dropdown previewer=false layout_config={'width':40,'height':0.5}<CR>", opt)
+    map( "n", m.Telescope_main, ":silent! Telescope builtin theme=get_dropdown previewer=false layout_config={'width':40,'height':0.5}<CR>", opt)
 
     -- Fast shortcuts to core Vim state
     map("n", m.marks, ":silent! Telescope marks<CR>", opt)
@@ -288,6 +291,9 @@ M.telescope = function()
 
     -- Search everywhere
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
+
+    -- Pick snippet to preview and insert
+    map("n", m.select_snippet, ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5}<CR>", opt)
 
     -- Git objects
     map("n", m.git_status, ":silent! Telescope git_status<CR>", opt)
