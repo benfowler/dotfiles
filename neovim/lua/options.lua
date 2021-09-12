@@ -145,7 +145,18 @@ vim.cmd [[
     autocmd!
 
     " Open a file from its last left off position
-    autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    " See :help last-position-jump
+    function! JumpToLastEditOnOpen()
+    if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        exe "normal! g`\""
+    endif
+    endfunction
+
+    autocmd BufReadPost * call JumpToLastEditOnOpen()
+
+
+    " I have a habit of accidentally typing :W instead of :w, and getting :Windows (fzf)
+    cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 
     " Strip trailing whitespace on save for certain filetypes
     autocmd FileType markdown,c,cpp,java,py,lua autocmd BufWritePre <buffer> %s/\s\+$//e
@@ -155,8 +166,17 @@ vim.cmd [[
     autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 
     " Don't show status line on certain windows
-    let hidden_statusline = [ 'NvimTree', ]
-    autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif
+    let g:hidden_statusline = [ 'NvimTree', ]
+
+    function! HideStatusbarOnOpen()
+    if index(g:hidden_statusline, &ft) >= 0
+        set laststatus=0
+    else
+        set laststatus=2
+    endif
+    endfunction
+
+    autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested call HideStatusbarOnOpen()
 
     "
     " NeoVim's terminal defaults are bad; fix them
