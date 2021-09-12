@@ -2,6 +2,21 @@
 
 local M = {}
 
+-- Globals - usable from command mode
+
+-- put(): shorthand for print(vim.inspect(...))
+function _G.put(...)
+  local objects = {}
+  for i = 1, select('#', ...) do
+    local v = select(i, ...)
+    table.insert(objects, vim.inspect(v))
+  end
+
+  print(table.concat(objects, '\n'))
+  return ...
+end
+
+
 -- Utility method to make setting highlights not suck
 M.Hi = function(group, opts)
     local c = "highlight " .. group
