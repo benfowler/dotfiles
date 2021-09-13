@@ -156,7 +156,6 @@ return packer.startup(function()
         after = "nvim-cmp",
         config = function()
             require("plugins.others").luasnip()
-            require("mappings").luasnip()
         end,
     }
 
