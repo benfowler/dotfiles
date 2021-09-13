@@ -80,7 +80,7 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "<F1>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap("n", "gk", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     buf_set_keymap("n", "gt", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
     buf_set_keymap("n", "gI", "<Cmd>lua vim.lsp.buf.incoming_calls()<CR>", opts)
@@ -469,7 +469,6 @@ local function setup_servers()
                         typescriptreact = "eslint",
                         markdown = "markdownlint",
                         --python = "mypy",
-                        python = "pylint",
                         sh = "shellcheck",
                         lua = "luacheck",
                         go = "golangci_lint",
