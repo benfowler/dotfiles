@@ -10,7 +10,7 @@ M.user_map = {
         mapleader = " ",
         toggle_listchars = "<leader>,",
         toggle_spellcheck = "<F6>",
-        toggle_number = "<leader>N",
+        toggle_number = "<leader>n",
         toggle_colorcolumn = "<leader>C",
         toggle_wrap = "<leader>W",
         new_split = "<leader>-",
@@ -33,7 +33,7 @@ M.user_map = {
     },
 
     nvimtree = {
-        treetoggle = "<leader>n", -- file manager
+        treetoggle = "<C-n>", -- file manager
         treefocus = "<leader>F", -- file manager
     },
 
