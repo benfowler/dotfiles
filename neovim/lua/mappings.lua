@@ -216,23 +216,6 @@ M.easy_align = function()
     cmd "xmap ga <Plug>(EasyAlign)"
 end
 
-M.luasnip = function()
-    cmd [[
-        imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-        inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-        snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-        snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-        inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(1)<Cr>
-        inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
-        snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
-        snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-        imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-        smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-    ]]
-end
-
 M.fugitive = function()
     local m = user_map.fugitive
 
