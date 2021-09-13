@@ -23,8 +23,8 @@ telescope.setup {
                 ["<esc>"] = actions.close, -- I have no use for Normal mode!
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                ["<C-n>"] = actions.preview_scrolling_up,
-                ["<C-p>"] = actions.preview_scrolling_down,
+                ["<C-p>"] = actions.preview_scrolling_up,
+                ["<C-n>"] = actions.preview_scrolling_down,
             },
         },
         prompt_prefix = "   ",
