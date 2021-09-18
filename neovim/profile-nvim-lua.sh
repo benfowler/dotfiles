@@ -5,14 +5,12 @@ iterations=10
 # -----------------------------------------------------------------------------
 # Create array of results
 
-export XDG_CONFIG_HOME=/Users/bfowler/.nvim-lua
-
 declare -a results
 
 for i in $(seq 1 $iterations);
 do
-  nvim --startuptime vim.log -c 'q'
-  latest=$(awk '/./{line=$0} END{print line}' vim.log | awk '{ print $1}')
+  nvim --startuptime nvim.log -c 'q'
+  latest=$(awk '/./{line=$0} END{print line}' nvim.log | awk '{ print $1}')
   results+=( $latest )
 done
 
