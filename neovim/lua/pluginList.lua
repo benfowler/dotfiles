@@ -67,7 +67,7 @@ return packer.startup(function()
 
     -- Load custom statusline (local plugin).  Eagerly loaded.
     use {
-        "~/.nvim-lua/nvim/local-plugins/statusline",
+        "~/.config/nvim/local-plugins/statusline",
         config = function()
             require("plugins.others").statusline()
         end,

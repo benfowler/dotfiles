@@ -1,9 +1,7 @@
 #!/bin/bash
 
-export XDG_CONFIG_HOME=/Users/bfowler/.nvim-lua
+rm nvim-startup.log 
 
-rm vim-startup.log 
-
-rm -f vim-startup.log && nvim --startuptime vim-startup.log -c 'q' && cat vim-startup.log
+rm -f nvim-startup.log && nvim --startuptime nvim-startup.log -c 'q' && cat nvim-startup.log
 
 
