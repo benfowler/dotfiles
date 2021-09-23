@@ -47,11 +47,11 @@ M.lsp_diags_config = {
         icon = "",
     },
     warnings = {
-        key = "Warning",
+        key = "Warn",
         icon = "",
     },
     info = {
-        key = "Information",
+        key = "Info",
         icon = "",
     },
     hints = {

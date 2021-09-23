@@ -561,18 +561,18 @@ lspinstall.post_install_hook = function()
 end
 
 -- Replace the default LSP diagnostic symbols
-local function lspSymbol(name, icon)
-    vim.fn.sign_define("LspDiagnosticsSign" .. name, {
+local function lspSymbol(key, icon)
+    vim.fn.sign_define("DiagnosticSign" .. key, {
         text = icon,
-        texthl = "LspDiagnostics" .. name,
+        texthl = "DiagnosticSign" .. key,
         linehl = nil,
-        numhl = "LspDiagnosticsLineNr" .. name,
+        numhl = "DiagnosticLineNr" .. key,
     })
 end
 
 lspSymbol("Error", "")
-lspSymbol("Warning", "")
-lspSymbol("Information", "")
+lspSymbol("Warn", "")
+lspSymbol("Info", "")
 lspSymbol("Hint", "")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {

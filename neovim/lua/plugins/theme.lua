@@ -36,8 +36,8 @@ local nord15 = "#B48EAD"
 
 -- Diagnostic signature colours
 local error_fg = nord11
-local warning_fg = nord13
-local information_fg = nord8
+local warn_fg = nord13
+local info_fg = nord8
 local hint_fg = nord9
 local ok_fg = nord14
 
@@ -67,8 +67,8 @@ function my_highlights_nord()
     u.Hi("StatusLine", { guifg = statusline_active_fg, guibg = statusline_active_bg })
 
     u.Hi("StatusLineError", { guifg = error_fg, guibg = statusline_active_bg })
-    u.Hi("StatusLineWarning", { guifg = warning_fg, guibg = statusline_active_bg })
-    u.Hi("StatusLineInformation", { guifg = information_fg, guibg = statusline_active_bg })
+    u.Hi("StatusLineWarn", { guifg = warn_fg, guibg = statusline_active_bg })
+    u.Hi("StatusLineInfo", { guifg = info_fg, guibg = statusline_active_bg })
     u.Hi("StatusLineHint", { guifg = hint_fg, guibg = statusline_active_bg })
     u.Hi("StatusLineOk", { guifg = ok_fg, guibg = statusline_active_bg })
 
@@ -83,30 +83,20 @@ function my_highlights_nord()
 
     -- LSP diagnostics: line number backgrounds and foregrounds
     --('black' is #667084; bg colours are a blend)
-    u.Hi("LspDiagnosticsDefaultError", { guifg = error_fg })
-    u.Hi("LspDiagnosticsDefaultWarning", { guifg = warning_fg })
-    u.Hi("LspDiagnosticsDefaultInformation", { guifg = information_fg })
-    u.Hi("LspDiagnosticsDefaultHint", { guifg = hint_fg })
+    u.Hi("DiagnosticError", { guifg = error_fg })
+    u.Hi("DiagnosticWarn", { guifg = warn_fg })
+    u.Hi("DiagnosticInfo", { guifg = info_fg })
+    u.Hi("DiagnosticHint", { guifg = hint_fg })
 
-    u.Hi("LspDiagnosticsUnderlineError", { guifg = error_fg, gui = "underline" })
-    u.Hi("LspDiagnosticsUnderlineWarning", { guifg = warning_fg, gui = "underline" })
-    u.Hi("LspDiagnosticsUnderlineInformation", { guifg = information_fg, gui = "underline" })
-    u.Hi("LspDiagnosticsUnderlineHint", { guifg = hint_fg, gui = "underline" })
+    u.Hi("DiagnosticUnderlineError", { guifg = error_fg, gui = "underline" })
+    u.Hi("DiagnosticUnderlineWarn", { guifg = warn_fg, gui = "underline" })
+    u.Hi("DiagnosticUnderlineInfo", { guifg = info_fg, gui = "underline" })
+    u.Hi("DiagnosticUnderlineHint", { guifg = hint_fg, gui = "underline" })
 
-    u.Hi("LspDiagnosticsVirtualTextError", { guifg = error_fg, gui = "italic" })
-    u.Hi("LspDiagnosticsVirtualTextWarning", { guifg = warning_fg, gui = "italic" })
-    u.Hi("LspDiagnosticsVirtualTextInformation", { guifg = information_fg, gui = "italic" })
-    u.Hi("LspDiagnosticsVirtualTextHint", { guifg = hint_fg, gui = "italic" })
-
-    u.HiLink("LspDiagnosticsError", "LspDiagnosticsDefaultError", true)
-    u.HiLink("LspDiagnosticsWarning", "LspDiagnosticsDefaultWarning", true)
-    u.HiLink("LspDiagnosticsInformation", "LspDiagnosticsDefaultInformation", true)
-    u.HiLink("LspDiagnosticsHint", "LspDiagnosticsDefaultHint", true)
-
-    u.HiLink("LspDiagnosticsLineNrError", "LspDiagnosticsDefaultError", true)
-    u.HiLink("LspDiagnosticsLineNrWarning", "LspDiagnosticsDefaultWarning", true)
-    u.HiLink("LspDiagnosticsLineNrInformation", "LspDiagnosticsDefaultInformation", true)
-    u.HiLink("LspDiagnosticsLineNrHint", "LspDiagnosticsDefaultHint", true)
+    u.HiLink("DiagnosticLineNrError", "DiagnosticError", true)
+    u.HiLink("DiagnosticLineNrWarn", "DiagnosticWarn", true)
+    u.HiLink("DiagnosticLineNrInfo", "DiagnosticInfo", true)
+    u.HiLink("DiagnosticLineNrHint", "DiagnosticHint", true)
 
     u.Hi("LspReferenceRead", { guifg = nord14, gui = "bold,underline" })
     u.Hi("LspReferenceWrite", { guifg = nord15, gui = "bold,underline" })
