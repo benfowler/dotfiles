@@ -26,7 +26,6 @@ g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
 
 g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
 g.nvim_tree_group_empty = 1 -- 0 by default, compact folders that only contain a single folder into one node in the file tree
-g.nvim_tree_lsp_diagnostics = 1 -- 0 by default, will show LSP diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
 g.nvim_tree_disable_window_picker = 1
 
 g.nvim_tree_icon_padding = "  "
@@ -78,6 +77,12 @@ g.nvim_tree_icons = {
         symlink_open = "",
         -- symlink_open = "",
     },
+    lsp = {
+        error = "",
+        warning= "",
+        info = "",
+        hint = "",
+    }
 }
 
 
@@ -90,6 +95,7 @@ require'nvim-tree'.setup {
   auto_close          = true,
   open_on_tab         = false,
   hijack_cursor       = false,
+  lsp_diagnostics     = true,
   update_cwd          = false,
   update_focused_file = {
     enable      = true,
