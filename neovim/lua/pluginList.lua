@@ -19,7 +19,7 @@ return packer.startup(function()
     -- Editing features
     use {
         "qpkorr/vim-bufkill", -- 'BD' to kill a buffer without closing a split
-        cmd = { "BUN", "BD", "BW", "BB", "BF", "BA" },
+        event = "VimEnter",
     }
 
     use {
