@@ -61,6 +61,15 @@ M.markdown = function()
     g.vim_markdown_auto_insert_bullets = 0
 end
 
+--Plug 'lervag/vimtex'
+M.vimtex = function()
+    g.tex_flavor = 'latex'
+    g.vimtex_view_method = 'skim'
+    g.vimtex_quickfix_mode = 0
+    opt.conceallevel = 1
+    g.tex_conceal = 'abdmg'
+end
+
 M.bullets = function()
     g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
 end

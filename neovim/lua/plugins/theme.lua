@@ -159,6 +159,14 @@ function my_highlights_nord()
     u.HiLink("NvimTreeEmptyFolderIcon", "NvimTreeFolderIcon", true)
     u.HiLink("NvimTreeEmptyFolderName", "NvimTreeFolderIcon", true)
 
+    -- Latex tweaks
+    u.Hi("texCmdEnv", { guifg = nord15, gui = "bold" })
+    u.Hi("texCmdEnvM", { guifg = nord7, gui = "bold" })
+    u.Hi("texDelim", { guifg = nord3 })
+    u.Hi("texMathDelim", { guifg = nord10, gui = "bold" })
+    u.Hi("texMathTextConcArg", { guifg = nord3_bright, gui = "italic" })
+    u.Hi("texSICmd", { guifg = nord14 })
+
     -- Suppress overly-aggressive error u.Highlighting under Treesitter
     u.HiClear "TSError"
 
