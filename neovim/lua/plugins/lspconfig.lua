@@ -599,9 +599,8 @@ lspinstall.post_install_hook = function()
     vim.cmd "bufdo e"
 end
 
--- Replace the default LSP diagnostic symbols
-local function lspSymbol(key, icon)
-    vim.fn.sign_define("DiagnosticSign" .. key, {
+local function lspSymbol(key, icon, sign_name)
+    vim.fn.sign_define(sign_name, {
         text = icon,
         texthl = "DiagnosticSign" .. key,
         linehl = nil,
@@ -609,10 +608,17 @@ local function lspSymbol(key, icon)
     })
 end
 
-lspSymbol("Error", "")
-lspSymbol("Warn", "")
-lspSymbol("Info", "")
-lspSymbol("Hint", "")
+-- (Neovim 5.0+)
+lspSymbol("Error", "", "DiagnosticSignError")
+lspSymbol("Warn", "", "DiagnosticSignWarn")
+lspSymbol("Info", "", "DiagnosticSignInfo")
+lspSymbol("Hint", "", "DiagnosticSignHint")
+
+-- (Neovim 6.0 nightlies onwards (26th Sep 2021))
+lspSymbol("Error", "", "LspDiagnosticsSignError")
+lspSymbol("Warn", "", "LspDiagnosticsSignWarning")
+lspSymbol("Info", "", "LspDiagnosticsSignInformation")
+lspSymbol("Hint", "", "LspDiagnosticsSignHint")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
