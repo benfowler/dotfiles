@@ -13,6 +13,7 @@ M.user_map = {
         toggle_number = "<leader>n",
         toggle_colorcolumn = "<leader>C",
         toggle_wrap = "<leader>W",
+        cycle_conceal = "<leader>c",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
         new_terminal_quick = "<leader>tt", -- subject to change
@@ -129,13 +130,13 @@ M.misc = function()
     map("n", miscMap.write_file, ":update<CR>", opt)
 
     -- Setting toggles
+    map("n", miscMap.toggle_listchars, ":set invlist <CR>", opt)
     map("n", miscMap.toggle_spellcheck, ":set spell! <CR>", opt)
     map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <CR>", opt)
-
-    map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
     map("n", miscMap.toggle_number, ":set invnumber<CR>:set invrelativenumber<CR>:set invcursorline<CR>", opt)
-
-    map("n", miscMap.toggle_listchars, ":set invlist <CR>", opt)
+    map("n", miscMap.toggle_colorcolumn, ":silent! if &colorcolumn==121 | let &colorcolumn = 81 | elseif &colorcolumn==81 | let &colorcolumn='' | else | let &colorcolumn=121 | endif<CR>", opt)
+    map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
+    map("n", miscMap.cycle_conceal, ":silent! if &conceallevel==0 | let &conceallevel= 1 | elseif &conceallevel==1 | let &conceallevel=2 | else | let &conceallevel=0 | endif<CR>", opt)
 
     -- Indent: leave selection intact
     map("v", ">", ">gv", opt)
