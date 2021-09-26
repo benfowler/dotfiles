@@ -26,7 +26,6 @@ opt.nrformats= ''                             -- Force decimal-only for C-a and 
 opt.termguicolors = true                      -- enable true colors support
 opt.signcolumn = "yes:1"                      -- make sign column grow automatically
 opt.cul = false                               -- highlight cursor row
--- opt.colorcolumn = { 81 }                   -- right-hand margin
 opt.shortmess:append("a")
 
 -- Mouse
@@ -159,7 +158,7 @@ vim.cmd [[
     cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 
     " Strip trailing whitespace on save for certain filetypes
-    autocmd FileType markdown,c,cpp,java,py,lua autocmd BufWritePre <buffer> %s/\s\+$//e
+    autocmd FileType markdown,c,cpp,java,py,lua,tex autocmd BufWritePre <buffer> %s/\s\+$//e
 
     " File extension-specific tabbing
     autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
