@@ -22,7 +22,7 @@ M.autopairs = function()
 end
 
 M.colorizer = function()
-    if ps.colorizer == true then
+    if ps.nvim_colorizer == true then
         require("colorizer").setup()
         vim.cmd "ColorizerReloadAllBuffers"
     end
