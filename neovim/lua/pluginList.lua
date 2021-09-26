@@ -137,6 +137,14 @@ return packer.startup(function()
         end,
     }
 
+    use {
+        "lervag/vimtex",
+        ft = "tex",
+        config = function()
+            require("plugins.others").vimtex()
+        end,
+    }
+
     -- Autocomplete support
     use {
         "rafamadriz/friendly-snippets",
