@@ -52,11 +52,11 @@ M.lsp_diags_config = {
     },
     info = {
         key = "Info",
-        icon = "",
+        icon = "",
     },
     hints = {
         key = "Hint",
-        icon = "",
+        icon = "",
     },
 }
 
