@@ -1,5 +1,7 @@
 -- Bail early, because Packer loads configs, regardless of disabled flag.
-if require("pluginsEnabled").plugin_status.nord == false then return end
+if require("pluginsEnabled").plugin_status.nord == false then
+    return
+end
 
 local u = require "utils"
 local g = vim.g
@@ -57,6 +59,14 @@ function my_highlights_nord()
 
     -- (Pmenu: stock BG was: guibg=nord3_gui, ctermbg=nord3_term)
     u.Hi("PmenuThumb", { guibg = "#66738e", ctermbg = 8 })
+
+    -- (nvim-cmp's custom-drawn autocompletion menu)
+    u.Hi("CmpItemAbbr", { guifg = nord5 })
+    u.Hi("CmpItemAbbrDeprecated", { guifg = nord4 })
+    u.Hi("CmpItemAbbrMatch", { guifg = nord15, gui = "bold" })
+    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord9, gui="bold" })
+    u.Hi("CmpItemKind", { guifg = nord8 })
+    u.Hi("CmpItemMenu", { guifg = nord4 })
 
     -- QuickFix list's line numbers are unreadable
     u.Hi("qfFileName", { guifg = nord10 })

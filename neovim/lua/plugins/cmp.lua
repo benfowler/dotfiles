@@ -35,15 +35,15 @@ cmp.setup {
         ["<C-J>"] = cmp.mapping.select_next_item(),
         ["<C-D>"] = cmp.mapping.scroll_docs(-4),
         ["<C-F>"] = cmp.mapping.scroll_docs(4),
-        ["<C-N>"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-E>"] = cmp.mapping.close(),
         ["<CR>"] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
         ["<TAB>"] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+            if cmp.visible() then
+                cmp.select_next_item()
             elseif require("luasnip").expand_or_jumpable() then
                 vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
             else
@@ -51,8 +51,8 @@ cmp.setup {
             end
         end,
         ["<S-TAB>"] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+            if cmp.visible() then
+                cmp.select_prev_item()
             elseif require("luasnip").jumpable(-1) then
                 vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
             else
