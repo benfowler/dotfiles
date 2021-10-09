@@ -278,7 +278,7 @@ M.telescope = function()
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
 
     -- Pick snippet to preview and insert
-    map("n", m.select_snippet, ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':90}<CR>", opt)
+    map("n", m.select_snippet, ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>", opt)
 
     -- Git objects
     map("n", m.git_status, ":silent! Telescope git_status<CR>", opt)
