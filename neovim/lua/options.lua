@@ -1,4 +1,5 @@
 local opt = vim.opt
+local fn = vim.fn
 local g = vim.g
 
 
@@ -18,7 +19,23 @@ opt.hidden = true                             -- lets Vim keep buffers in the ba
 opt.switchbuf:append("useopen")               -- When using :sbuffer, jump to open window if available
 
 opt.updatetime = 2000                         -- number of milliseconds before CursorHold autocommand event fired
-opt.clipboard = "unnamed"                     -- bind yank to system clipboard by default
+opt.clipboard:append("unnamedplus")           -- bind yank to system clipboard by default
+
+-- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
+if fn.has('win16') or fn.has('win32') then
+    g.clipboard = {
+        name = 'win32yank-wsl',
+        copy = {
+            ['+'] = 'win32yank.exe -i --crlf',
+            ['*'] = 'win32yank.exe -i --crlf',
+        },
+        paste = {
+            ['+'] = 'win32yank.exe -o --lf',
+            ['*'] = 'win32yank.exe -o --lf',
+        },
+        cache_enabled = 0,
+    }
+end
 
 opt.nrformats= ''                             -- Force decimal-only for C-a and C-x
 
