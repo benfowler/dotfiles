@@ -77,12 +77,6 @@ g.nvim_tree_icons = {
         symlink_open = "",
         -- symlink_open = "",
     },
-    lsp = {
-        error = "",
-        warning= "",
-        info = "",
-        hint = "",
-    }
 }
 
 
@@ -95,7 +89,6 @@ require'nvim-tree'.setup {
   auto_close          = true,
   open_on_tab         = false,
   hijack_cursor       = false,
-  lsp_diagnostics     = true,
   update_cwd          = false,
   update_focused_file = {
     enable      = true,
@@ -106,5 +99,14 @@ require'nvim-tree'.setup {
     cmd  = nil,
     args = {}
   },
+  diagnostics = {
+    enable = true,
+    icons  = {
+      error = "",
+      warning = "",
+      info = "",
+      hint = "",
+    },
+  }
 }
 
