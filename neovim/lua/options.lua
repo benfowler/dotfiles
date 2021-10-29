@@ -22,7 +22,7 @@ opt.updatetime = 2000                         -- number of milliseconds before C
 opt.clipboard:append("unnamedplus")           -- bind yank to system clipboard by default
 
 -- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
-if fn.has('win16') or fn.has('win32') then
+if fn.has('win16') == 1 or fn.has('win32') == 1 then
     g.clipboard = {
         name = 'win32yank-wsl',
         copy = {
