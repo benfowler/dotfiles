@@ -15,6 +15,7 @@ function my_highlights_all()
     u.Hi("Normal", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("SignColumn", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("FoldColumn", { guibg = "NONE", ctermbg = "NONE" })
+    u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE" })
 end
 
 -- Nord-specific setup
@@ -82,9 +83,10 @@ function my_highlights_nord()
     u.Hi("StatusLineHint", { guifg = hint_fg, guibg = statusline_active_bg })
     u.Hi("StatusLineOk", { guifg = ok_fg, guibg = statusline_active_bg })
 
-    -- Inactive statusbars: make a thin rule
+    -- Inactive statusbars: make a thin rule; align VertSplit to match.
     u.HiClear "StatusLineNC"
     u.Hi("StatusLineNC", { gui = "underline", guifg = nord3_bright })
+    u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE", guifg = nord3_bright })
 
     -- Line numbers: tweaks to show current line
     u.HiClear "CursorLine"
