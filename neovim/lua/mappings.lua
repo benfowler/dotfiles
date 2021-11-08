@@ -134,7 +134,7 @@ M.misc = function()
     map("n", miscMap.toggle_spellcheck, ":set spell! <CR>", opt)
     map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <CR>", opt)
     map("n", miscMap.toggle_number, ":set invnumber<CR>:set invrelativenumber<CR>:set invcursorline<CR>", opt)
-    map("n", miscMap.toggle_colorcolumn, ":silent! if &colorcolumn==121 | let &colorcolumn = 81 | elseif &colorcolumn==81 | let &colorcolumn='' | else | let &colorcolumn=121 | endif<CR>", opt)
+    map("n", miscMap.toggle_colorcolumn, ":silent! if &colorcolumn==81 | let &colorcolumn = 121 | elseif &colorcolumn==121 | let &colorcolumn='' | else | let &colorcolumn=81 | endif<CR>", opt)
     map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
     map("n", miscMap.cycle_conceal, ":silent! if &conceallevel==0 | let &conceallevel= 1 | elseif &conceallevel==1 | let &conceallevel=2 | else | let &conceallevel=0 | endif<CR>", opt)
 
