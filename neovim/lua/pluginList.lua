@@ -160,24 +160,24 @@ return packer.startup(function()
     }
 
     use {
-        "hrsh7th/nvim-cmp",
-        after = "friendly-snippets",
-        config = function()
-            require "plugins.cmp"
-        end,
-    }
-
-    use {
         "L3MON4D3/LuaSnip",
-        after = "nvim-cmp",
+        after = "friendly-snippets",
         config = function()
             require("plugins.others").luasnip()
         end,
     }
 
     use {
-        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/nvim-cmp",
         after = "LuaSnip",
+        config = function()
+            require "plugins.cmp"
+        end,
+    }
+
+    use {
+        "saadparwaiz1/cmp_luasnip",
+        after = "nvim-cmp",
     }
 
     use {
