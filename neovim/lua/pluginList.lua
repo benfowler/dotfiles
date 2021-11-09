@@ -119,6 +119,14 @@ return packer.startup(function()
         end,
     }
 
+    use {
+        "onsails/lspkind-nvim",
+        after = "lsp_signature.nvim",
+        config = function()
+            require "plugins.lspkind_icons"
+        end,
+    }
+
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
@@ -183,8 +191,18 @@ return packer.startup(function()
     }
 
     use {
-        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
         after = "cmp-nvim-lsp",
+    }
+
+    use {
+        "hrsh7th/cmp-buffer",
+        after = "cmp-path",
+    }
+
+    use {
+        "hrsh7th/cmp-cmdline",
+        after = "cmp-buffer",
     }
 
     -- tmux integration
