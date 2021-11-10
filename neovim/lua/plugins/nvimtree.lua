@@ -82,7 +82,7 @@ g.nvim_tree_icons = {
 
 -- Breaking change: authors moved a bunch of config into new setup() function
 require'nvim-tree'.setup {
-  disable_netrw       = true,
+  disable_netrw       = false,
   hijack_netrw        = true,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},
