@@ -16,6 +16,12 @@ function my_highlights_all()
     u.Hi("SignColumn", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("FoldColumn", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE" })
+
+    -- To get undercurl working nicely
+    u.Hi("SpellBad", { guifg = "NONE", guibg = "NONE" })
+    u.Hi("SpellCap", { guifg = "NONE", guibg = "NONE" })
+    u.Hi("SpellLocal", { guifg = "NONE", guibg = "NONE" })
+    u.Hi("SpellRare", { guifg = "NONE", guibg = "NONE" })
 end
 
 -- Nord-specific setup
