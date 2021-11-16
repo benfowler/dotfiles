@@ -5,7 +5,6 @@ local opt = vim.opt
 
 local ps = require("pluginsEnabled").plugin_status
 
-
 M.autopairs = function()
     local present1, autopairs = pcall(require, "nvim-autopairs")
     local present2, autopairs_completion = pcall(require, "nvim-autopairs.completion.cmp")
@@ -23,7 +22,15 @@ end
 
 M.colorizer = function()
     if ps.nvim_colorizer == true then
-        require("colorizer").setup()
+        require("colorizer").setup({
+            "*";
+            css = { css = true; };
+            html = { css = true; };
+        }, {
+            RGB = true;
+            names = false;
+        })
+
         vim.cmd "ColorizerReloadAllBuffers"
     end
 end
@@ -63,11 +70,11 @@ end
 
 --Plug 'lervag/vimtex'
 M.vimtex = function()
-    g.tex_flavor = 'latex'
-    g.vimtex_view_method = 'skim'
+    g.tex_flavor = "latex"
+    g.vimtex_view_method = "skim"
     g.vimtex_quickfix_mode = 0
     opt.conceallevel = 1
-    g.tex_conceal = 'abdmg'
+    g.tex_conceal = "abdmg"
 end
 
 M.bullets = function()
@@ -118,7 +125,7 @@ M.signature = function()
             zindex = 200, -- by default it will be on top of all floating windows, set to 50 send it to bottom
             padding = " ", -- character to pad on left and right of signature can be ' ', or '|'  etc
             timer_interval = 100,
-            toggle_key = "<F1>"
+            toggle_key = "<F1>",
         }
     end
 end
