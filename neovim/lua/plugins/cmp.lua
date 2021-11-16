@@ -16,9 +16,6 @@ cmp.setup {
             require("luasnip").lsp_expand(args.body)
         end,
     },
-    completion = {
-        autocomplete = true,
-    },
     formatting = {
         format = require("lspkind").cmp_format {
             with_text = true,

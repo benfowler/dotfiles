@@ -62,18 +62,20 @@ function my_highlights_nord()
     u.Hi("NonText", { guifg = nord10, gui = "NONE", ctermfg = 5 })
 
     -- (Pmenu: stock BG was: guibg=nord2_gui, ctermbg=nord1_term)
-    u.Hi("Pmenu", { guibg = nord3, ctermbg = 8 })
+    u.Hi("Pmenu", { guibg = nord2, ctermbg = 8 })
 
     -- (Pmenu: stock BG was: guibg=nord3_gui, ctermbg=nord3_term)
-    u.Hi("PmenuThumb", { guibg = "#66738e", ctermbg = 8 })
+    u.Hi("PmenuThumb", { guibg = nord3_bright, ctermbg = 8 })
+
+    u.Hi("PmenuSel", { guibg = nord8, guifg = nord1, gui = "NONE" })
 
     -- (nvim-cmp's custom-drawn autocompletion menu)
     u.Hi("CmpItemAbbr", { guifg = nord5 })
     u.Hi("CmpItemAbbrDeprecated", { guifg = nord4 })
-    u.Hi("CmpItemAbbrMatch", { guifg = nord15, gui = "bold" })
-    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord9, gui="bold" })
-    u.Hi("CmpItemKind", { guifg = nord8 })
-    u.Hi("CmpItemMenu", { guifg = nord4 })
+    u.Hi("CmpItemAbbrMatch", { guifg = nord8 })
+    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord12 })
+    u.Hi("CmpItemKind", { guifg = nord15 })
+    u.Hi("CmpItemMenu", { guifg = nord3_bright })
 
     -- QuickFix list's line numbers are unreadable
     u.Hi("qfFileName", { guifg = nord10 })
