@@ -108,6 +108,11 @@ function my_highlights_nord()
     u.Hi("DiagnosticInfo", { guifg = info_fg })
     u.Hi("DiagnosticHint", { guifg = hint_fg })
 
+    u.Hi("DiagnosticVirtualTextError", { guifg = error_fg, guibg="#5C4C58", gui="italic" })
+    u.Hi("DiagnosticVirtualTextWarn", { guifg = warn_fg, guibg="#4F4B4C ", gui="italic" })
+    u.Hi("DiagnosticVirtualTextInfo", { guifg = info_fg, guibg="#505D6D", gui="italic" })
+    u.Hi("DiagnosticVirtualTextHint", { guifg = hint_fg, guibg="#485165", gui="italic" })
+
     u.Hi("DiagnosticUnderlineError", { guifg = "NONE", guisp = error_fg, gui = "undercurl" })
     u.Hi("DiagnosticUnderlineWarn", { guifg = "NONE", guisp = warn_fg, gui = "undercurl" })
     u.Hi("DiagnosticUnderlineInfo", { guifg = "NONE", guisp = info_fg, gui = "undercurl" })
