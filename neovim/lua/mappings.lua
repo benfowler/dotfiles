@@ -102,10 +102,10 @@ M.user_map = {
     },
 
     vim_tmux_navigator = {
-        pane_up = "<M-Up>",
-        pane_down = "<M-Down>",
-        pane_left = "<M-Left>",
-        pane_right = "<M-Right>",
+        pane_left = "<M-h>",
+        pane_down = "<M-j>",
+        pane_up = "<M-k>",
+        pane_right = "<M-l>",
     },
 }
 
