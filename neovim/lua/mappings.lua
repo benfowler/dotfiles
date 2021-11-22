@@ -77,6 +77,10 @@ M.user_map = {
         spell_suggest = "z=",
     },
 
+    trouble = {
+        trouble = "<leader>j",
+    },
+
     fzf = {
         buffers = ";",
         windows = "<leader>;",
@@ -294,6 +298,11 @@ M.telescope = function()
     map("n", m.oldfiles, ":silent! Telescope oldfiles<CR>", opt)
 
     map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
+end
+
+M.trouble = function()
+    local m =user_map.trouble
+    map("n", m.trouble, ":silent! Trouble <CR>", opt)
 end
 
 M.fzf = function()
