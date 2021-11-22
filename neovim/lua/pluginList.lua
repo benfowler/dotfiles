@@ -134,6 +134,9 @@ return packer.startup(function()
         config = function()
             require "plugins.trouble"
         end,
+        setup = function()
+            require("mappings").trouble()
+        end,
     }
 
     -- Plugins for editing prose
