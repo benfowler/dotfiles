@@ -17,11 +17,13 @@ function my_highlights_all()
     u.Hi("FoldColumn", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE" })
 
-    -- To get undercurl working nicely
-    u.Hi("SpellBad", { guifg = "NONE", guibg = "NONE" })
-    u.Hi("SpellCap", { guifg = "NONE", guibg = "NONE" })
-    u.Hi("SpellLocal", { guifg = "NONE", guibg = "NONE" })
-    u.Hi("SpellRare", { guifg = "NONE", guibg = "NONE" })
+    -- Terminal supports undercurl and coloured underlines?
+    if string.find(vim.env.TERM, "xterm-kitty", 1, true) ~= nil then
+        u.Hi("SpellBad", { guifg = "NONE", guibg = "NONE", gui = "undercurl" })
+        u.Hi("SpellCap", { guifg = "NONE", guibg = "NONE", gui = "undercurl" })
+        u.Hi("SpellLocal", { guifg = "NONE", guibg = "NONE", gui = "undercurl" })
+        u.Hi("SpellRare", { guifg = "NONE", guibg = "NONE", gui = "undercurl" })
+    end
 end
 
 -- Nord-specific setup
@@ -49,6 +51,11 @@ local warn_fg = nord13
 local info_fg = nord8
 local hint_fg = nord9
 local ok_fg = nord14
+
+local spell_bad_fg = nord11
+local spell_cap_fg = nord13
+local spell_rare_fg = nord8
+local spell_local_fg = nord15
 
 local statusline_active_fg = "#9DA6B9" -- halfway between nord3_bright and nord4
 local statusline_active_bg = nord1
@@ -108,15 +115,29 @@ function my_highlights_nord()
     u.Hi("DiagnosticInfo", { guifg = info_fg })
     u.Hi("DiagnosticHint", { guifg = hint_fg })
 
-    u.Hi("DiagnosticVirtualTextError", { guifg = error_fg, guibg="#5C4C58", gui="italic" })
-    u.Hi("DiagnosticVirtualTextWarn", { guifg = warn_fg, guibg="#4F4B4C ", gui="italic" })
-    u.Hi("DiagnosticVirtualTextInfo", { guifg = info_fg, guibg="#505D6D", gui="italic" })
-    u.Hi("DiagnosticVirtualTextHint", { guifg = hint_fg, guibg="#485165", gui="italic" })
+    u.Hi("DiagnosticVirtualTextError", { guifg = error_fg, guibg = "#5C4C58", gui = "italic" })
+    u.Hi("DiagnosticVirtualTextWarn", { guifg = warn_fg, guibg = "#4F4B4C ", gui = "italic" })
+    u.Hi("DiagnosticVirtualTextInfo", { guifg = info_fg, guibg = "#505D6D", gui = "italic" })
+    u.Hi("DiagnosticVirtualTextHint", { guifg = hint_fg, guibg = "#485165", gui = "italic" })
 
-    u.Hi("DiagnosticUnderlineError", { guifg = "NONE", guisp = error_fg, gui = "undercurl" })
-    u.Hi("DiagnosticUnderlineWarn", { guifg = "NONE", guisp = warn_fg, gui = "undercurl" })
-    u.Hi("DiagnosticUnderlineInfo", { guifg = "NONE", guisp = info_fg, gui = "undercurl" })
-    u.Hi("DiagnosticUnderlineHint", { guifg = "NONE", guisp = hint_fg, gui = "undercurl" })
+    -- Are we running 'kitty' and support undercurl and coloured underlines?
+    if string.find(vim.env.TERM, "xterm-kitty", 1, true) ~= nil then
+        u.Hi("DiagnosticUnderlineError", { guifg = "NONE", guibg = "NONE", guisp = error_fg, gui = "undercurl" })
+        u.Hi("DiagnosticUnderlineWarn", { guifg = "NONE", guibg = "NONE", guisp = warn_fg, gui = "undercurl" })
+        u.Hi("DiagnosticUnderlineInfo", { guifg = "NONE", guibg = "NONE", guisp = info_fg, gui = "undercurl" })
+        u.Hi("DiagnosticUnderlineHint", { guifg = "NONE", guibg = "NONE", guisp = hint_fg, gui = "undercurl" })
+
+        -- Tweak undercurl colour with Nord colours
+        u.Hi("SpellBad", { guisp = spell_bad_fg })
+        u.Hi("SpellCap", { guisp = spell_cap_fg })
+        u.Hi("SpellLocal", { guisp = spell_local_fg })
+        u.Hi("SpellRare", { guisp = spell_rare_fg })
+    else
+        u.Hi("DiagnosticUnderlineError", { guifg = error_fg, guibg = "NONE", gui = "underline" })
+        u.Hi("DiagnosticUnderlineWarn", { guifg = warn_fg, guibg = "NONE", gui = "underline" })
+        u.Hi("DiagnosticUnderlineInfo", { guifg = info_fg, guibg = "NONE", gui = "underline" })
+        u.Hi("DiagnosticUnderlineHint", { guifg = hint_fg, guibg = "NONE", gui = "underline" })
+    end
 
     u.HiLink("DiagnosticLineNrError", "DiagnosticError", true)
     u.HiLink("DiagnosticLineNrWarn", "DiagnosticWarn", true)
