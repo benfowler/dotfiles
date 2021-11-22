@@ -127,6 +127,15 @@ return packer.startup(function()
         end,
     }
 
+    use {
+        "folke/trouble.nvim",
+        cmd = { "Trouble", "TroubleToggle" },
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require "plugins.trouble"
+        end,
+    }
+
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
