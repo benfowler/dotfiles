@@ -201,6 +201,9 @@ M.misc = function()
     cmd "silent! command PackerStatus lua require 'pluginList' require('packer').status()"
     cmd "silent! command PackerSync lua require 'pluginList' require('packer').sync()"
     cmd "silent! command PackerUpdate lua require 'pluginList' require('packer').update()"
+    cmd "command! PC PackerCompile"
+    cmd "command! PS PackerStatus"
+    cmd "command! PU PackerSync"
 end
 
 --
