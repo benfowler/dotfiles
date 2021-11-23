@@ -43,6 +43,14 @@ return packer.startup(function()
     }
 
     use {
+        "nacro90/numb.nvim",
+        event = "BufRead",
+        config = function()
+            require("plugins.others").numb()
+        end,
+    }
+
+    use {
         "norcalli/nvim-colorizer.lua",
         disable = not plugin_status.nvim_colorizer,
         event = "BufRead",

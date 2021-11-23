@@ -20,6 +20,10 @@ M.autopairs = function()
     }
 end
 
+M.numb = function()
+    require("numb").setup()
+end
+
 M.colorizer = function()
     if ps.nvim_colorizer == true then
         require("colorizer").setup({
