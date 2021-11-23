@@ -27,7 +27,8 @@ M.colorizer = function()
             css = { css = true; };
             html = { css = true; };
         }, {
-            RGB = true;
+            RRGGBB = true;
+            RGB = false;
             names = false;
         })
 
