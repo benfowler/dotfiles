@@ -223,8 +223,6 @@ vim.cmd [[
     autocmd FileType markdown set complete+=k
     autocmd FileType markdown set dictionary+=/usr/share/dict/words
 
-    autocmd FileType markdown match Todo /TODO:\|WARNING:\|NOTE:\|FIXME:\|XXX:/
-
     "
     " TODO: move to mappings and migrate once autogroup Lua bindings exist
     "

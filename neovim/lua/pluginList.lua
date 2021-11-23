@@ -147,6 +147,15 @@ return packer.startup(function()
         end,
     }
 
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            -- Left empty to use the default settings
+            require("todo-comments").setup()
+        end,
+    }
+
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
