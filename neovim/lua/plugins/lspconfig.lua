@@ -37,7 +37,7 @@
 --
 
 local present1, lspconfig = pcall(require, "lspconfig")
-local present2, lspinstall = pcall(require, "lspinstall")
+local present2, lsp_installer = pcall(require, "nvim-lsp-installer")
 if not (present1 or present2) then
     return
 end
@@ -204,6 +204,7 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
     callback()
 end
 
+
 local client_caps = {}
 
 -- Stock client capabilities...
@@ -217,387 +218,332 @@ end
 -- ... plus some additional one-offs we want to enable...
 client_caps.textDocument.completion.completionItem.snippetSupport = true
 
+
 -- With the "on_attach()" buffer configuration callback, and the 'capabilities'
 -- object in hand, we are now ready to configure each language server.
---
--- Most language servers are trivial to set up, but others, like the
--- Sumneko Lua Language Server, Lemminx XML, and the 'diagnostics' server
--- (an ALE-like linter language server), require a lot more work to set up.
 
--- TODO: *** EXAMPLE ONLY.  THIS FUNCTION DOES NOT GET CALLED. ***
--- TODO: Add clangd etc
-local function configure_custom_installers()
-    --     -- 1. get the default config from nvim-lspconfig
-    --     local config = require("lspinstall/util").extract_config "bashls"
-    --     -- 2. update the cmd. relative paths are allowed, lspinstall automatically adjusts
-    --     the cmd and cmd_cwd for us!
-    --     config.default_config.cmd[1] = "./node_modules/.bin/bash-language-server"
-    --
-    --     -- 3. extend the config with an install_script and (optionally) uninstall_script
-    --     require("lspinstall/servers").bash = vim.tbl_extend("error", config, {
-    --         -- lspinstall will automatically create/delete the install directory for every server
-    --         install_script = [[
-    --             ! test -f package.json && npm init -y --scope=lspinstall || true
-    --             npm install bash-language-server@latest
-    --         ]],
-    --         uninstall_script = nil, -- can be omitted
-    --     })
-end
-
--- Set up LSP servers.  First initialize all servers installed via lsp-install.
--- Then, hack in a couple of extra servers that are not yet covered by
--- lsp-install.
---
--- TODO: write custom installers for clangd and lemminx
--- TODO: then, split out configuration for each plugin into separate Lua modules
---
-local function setup_servers()
-    lspinstall.setup()
-    configure_custom_installers()
-    local servers = lspinstall.installed_servers()
-
-    for _, lang in pairs(servers) do
-        if lang == "lua" then
-            lspconfig[lang].setup {
-                settings = {
-                    Lua = {
-                        runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-                        completion = { enable = true, callSnippet = "Both" },
-                        diagnostics = {
-                            enable = true,
-                            globals = { "vim", "describe" },
-                            disable = { "lowercase-global" },
-                        },
-                        workspace = {
-                            library = {
-                                [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                                [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-                            },
-                            maxPreload = 100000,
-                            preloadFileSize = 10000,
-                        },
-                        telemetry = {
-                            enable = false,
-                        },
-                    },
+local lsp_server_configs = {
+    sumneko_lua = {
+        settings = {
+            Lua = {
+                runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+                completion = { enable = true, callSnippet = "Both" },
+                diagnostics = {
+                    enable = true,
+                    globals = { "vim", "describe" },
+                    disable = { "lowercase-global" },
                 },
-                on_attach = on_attach,
-                capabilities = client_caps,
-                root_dir = vim.loop.cwd,
-                flags = { debounce_text_changes = debounce_text_changes_msec },
-            }
-        elseif lang == "latex" then -- texlab
-            lspconfig[lang].setup {
-                settings = {
-                    texlab = {
-                        build = {
-                            -- See `tectonic --help` for the format
-                            executable = "tectonic",
-                            args = {
-                                -- Input
-                                "%f",
-                                -- Flags
-                                "--synctex", "--keep-logs", "--keep-intermediates"
-                                -- Options
-                                -- OPTIONAL: If you want a custom out directory,
-                                -- uncomment the following line.
-                                --"--outdir out",
-                            },
-                            forwardSearchAfter = true,
-                            onSave = true,
-                        },
-                        forwardSearch = {
-                            executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-                            args = { "-g", "%l", "%p", "%f" },
-                            onSave = true,
-                        },
-                        chktex = {
-                            onOpenAndSave = true,   -- extra lints
-                            onEdit = true,          -- give me lints, good and hard
-                        }
-                        -- OPTIONAL: The server needs to be configured
-                        -- to read the logs from the out directory as well.
-                        -- auxDirectory = "out",
+                workspace = {
+                    library = {
+                        [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                        [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
                     },
+                    maxPreload = 100000,
+                    preloadFileSize = 10000,
                 },
-                on_attach = on_attach,
-                capabilities = client_caps,
-                root_dir = vim.loop.cwd,
-                flags = { debounce_text_changes = debounce_text_changes_msec },
-            }
-        elseif lang == "cpp" then -- clangd
-            -- Special handling for lsp-status
-            local status_handlers = configs[lang].handlers -- preserve existing
-            if lsp_status_present then
-                status_handlers = lsp_status.extensions.clangd.setup()
-            end
-
-            lspconfig[lang].setup {
-                handlers = status_handlers,
-                init_options = {
-                    clangdFileStatus = true,
+                telemetry = {
+                    enable = false,
                 },
-                on_attach = on_attach,
-                capabilities = client_caps,
-                flags = { debounce_text_changes = debounce_text_changes_msec },
-            }
-        elseif lang == "diagnosticls" then -- diagnosticls (general linting language server)
-            lspconfig[lang].setup {
-                filetypes = {
-                    "css",
-                    "go",
-                    "javascript",
-                    "javascriptreact",
-                    "lua",
-                    "markdown",
-                    "python",
-                    "scss",
-                    "sh",
-                    "typescript",
-                    "typescriptreact",
-                },
-                init_options = {
-                    linters = {
-                        eslint = {
-                            command = "eslint",
-                            rootPatterns = { ".git" },
-                            debounce = 100,
-                            args = { "--stdin", "--stdin-filename", "%filepath", "--format", "json" },
-                            sourceName = "eslint",
-                            parseJson = {
-                                errorsRoot = "[0].messages",
-                                line = "line",
-                                column = "column",
-                                endLine = "endLine",
-                                endColumn = "endColumn",
-                                message = "[eslint] ${message} [${ruleId}]",
-                                security = "severity",
-                            },
-                            securities = {
-                                [2] = "error",
-                                [1] = "warning",
-                            },
-                        },
-                        markdownlint = {
-                            command = "markdownlint",
-                            rootPatterns = { ".git" },
-                            isStderr = true,
-                            debounce = 100,
-                            args = { "--stdin" },
-                            offsetLine = 0,
-                            offsetColumn = 0,
-                            sourceName = "markdownlint",
-                            securities = {
-                                undefined = "hint",
-                            },
-                            formatLines = 1,
-                            formatPattern = {
-                                "^.*?:\\s?(\\d+)(:(\\d+)?)?\\s(MD\\d{3}\\/[A-Za-z0-9-/]+)\\s(.*)$",
-                                {
-                                    line = 1,
-                                    column = 3,
-                                    message = { "[", 4, "]: ", 5 },
-                                },
-                            },
-                        },
-                        mypy = {
-                            sourceName = "mypy",
-                            command = "mypy",
-                            args = {
-                                "--no-color-output",
-                                "--no-error-summary",
-                                "--show-column-numbers",
-                                "--follow-imports=silent",
-                                "%file",
-                            },
-                            formatPattern = {
-                                "^.*:(\\d+?):(\\d+?): ([a-z]+?): (.*)$",
-                                {
-                                    line = 1,
-                                    column = 2,
-                                    security = 3,
-                                    message = 4,
-                                },
-                            },
-                            securities = {
-                                error = "error",
-                            },
-                        },
-                        pyliint = {
-                            sourceName = "pylint",
-                            args = {
-                                "--output-format",
-                                "text",
-                                "--score",
-                                "no",
-                                "--msg-template",
-                                [['{line}:{column}:{category}:{msg} ({msg_id}:{symbol})']],
-                                "%file",
-                            },
-                            offsetColumn = 1,
-                            formatLines = 1,
-                            formatPattern = {
-                                [[^(\d+?):(\d+?):([a-z]+?):(.*)$]],
-                                { line = 1, column = 2, security = 3, message = { "[pylint] ", 4 } },
-                            },
-                            securities = {
-                                informational = "hint",
-                                refactor = "info",
-                                convention = "info",
-                                warning = "warning",
-                                error = "error",
-                                fatal = "error",
-                            },
-                            rootPatterns = { ".git", "pyproject.toml", "setup.py" },
-                        },
-                        shellcheck = {
-                            command = "shellcheck",
-                            debounce = 100,
-                            args = { "--format", "json", "-" },
-                            sourceName = "shellcheck",
-                            parseJson = {
-                                line = "line",
-                                column = "column",
-                                endLine = "endLine",
-                                endColumn = "endColumn",
-                                message = "${message} [${code}]",
-                                security = "level",
-                            },
-                            securities = {
-                                error = "error",
-                                warning = "warning",
-                                info = "info",
-                                style = "hint",
-                            },
-                        },
-                        luacheck = {
-                            sourceName = "luacheck",
-                            command = "luacheck",
-                            debounce = 100,
-                            args = { "--codes", "--no-color", "--quiet", "-" },
-                            offsetLine = 0,
-                            offsetColumn = 0,
-                            formatLines = 1,
-                            formatPattern = {
-                                [[^.*:(\d+):(\d+):\s\(([W|E])\d+\)\s(.*)(\r|\n)*$]],
-                                { line = 1, column = 2, security = 3, message = { "[luacheck] ", 4 } },
-                            },
-                            securities = { E = "error", W = "warning" },
-                            rootPatterns = { ".luacheckrc" },
-                        },
-                        golangci_lint = {
-                            sourceName = "golangci_lint",
-                            command = "golangci-lint",
-                            args = { "run", "--out-format", "json" },
-                            debounce = 100,
-                            parseJson = {
-                                sourceNameFilter = true,
-                                sourceName = "Pos.Filename",
-                                errorsRoot = "Issues",
-                                line = "Pos.Line",
-                                column = "Pos.Column",
-                                message = "[golangci_lint] ${Text} [${FromLinter}]",
-                            },
-                            rootPatterns = { ".git", "go.mod" },
-                        },
-                    },
-                    filetypes = {
-                        javascript = "eslint",
-                        javascriptreact = "eslint",
-                        typescript = "eslint",
-                        typescriptreact = "eslint",
-                        markdown = "markdownlint",
-                        --python = "mypy",
-                        sh = "shellcheck",
-                        lua = "luacheck",
-                        go = "golangci_lint",
-                    },
-                    formatters = {
-                        prettierEslint = {
-                            command = "prettier-eslint",
-                            args = { "--stdin" },
-                            rootPatterns = { ".git" },
-                        },
-                        prettier = {
-                            command = "prettier",
-                            args = { "--stdin-filepath", "%filename" },
-                        },
-                        stylua = {
-                            command = "stylua",
-                            args = { "-s", "-" },
-                        },
-                        black = {
-                            command = "black",
-                            args = { "--quiet", "-" },
-                            rootPatterns = {
-                                ".git",
-                                "pyproject.toml",
-                                "setup.py",
-                            },
-                        },
-                    },
-                    formatFiletypes = {
-                        css = "prettier",
-                        javascript = "prettierEslint",
-                        javascriptreact = "prettierEslint",
-                        json = "prettier",
-                        lua = "stylua",
-                        scss = "prettier",
-                        typescript = "prettierEslint",
-                        typescriptreact = "prettierEslint",
-                        python = "black",
-                    },
-                },
-                on_attach = on_attach,
-                capabilities = client_caps,
-                flags = { debounce_text_changes = debounce_text_changes_msec },
-            }
-        else
-            -- Everything else
-            lspconfig[lang].setup {
-                on_attach = on_attach,
-                capabilities = client_caps,
-                root_dir = vim.loop.cwd,
-                flags = { debounce_text_changes = debounce_text_changes_msec },
-            }
-        end
-    end
-
-    -- Now set up language servers that are NOT managed using lsp-install.
-    -- NOTE: this is a hack, and will go away, once I add custom installers to lsp-install (see above)
-    -- -- Eclipse LemMinX (XML, Maven)
-
-    -- stylua: ignore
-    configs["lemminx_xml"] = {
-        default_config = {
-            cmd = {
-                "java", "-cp", "/Users/bfowler/Library/LanguageServers/xml/lib/*",
-                "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
-                -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
-                "org.eclipse.lemminx.XMLServerLauncher",
             },
-            filetypes = { "xml", "pom", "xsd", "xsl", "svg" },
-            root_dir = function(fname)
-                return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-            end,
-            settings = {},
         },
-    }
-
-    lspconfig["lemminx_xml"].setup {
+        on_attach = on_attach,
+        capabilities = client_caps,
+        root_dir = vim.loop.cwd,
+        flags = { debounce_text_changes = debounce_text_changes_msec },
+    },
+    texlab = {
+        settings = {
+            texlab = {
+                build = {
+                    -- See `tectonic --help` for the format
+                    executable = "tectonic",
+                    args = {
+                        -- Input
+                        "%f",
+                        -- Flags
+                        "--synctex", "--keep-logs", "--keep-intermediates"
+                        -- Options
+                        -- OPTIONAL: If you want a custom out directory,
+                        -- uncomment the following line.
+                        --"--outdir out",
+                    },
+                    forwardSearchAfter = true,
+                    onSave = true,
+                },
+                forwardSearch = {
+                    executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+                    args = { "-g", "%l", "%p", "%f" },
+                    onSave = true,
+                },
+                chktex = {
+                    onOpenAndSave = true,   -- extra lints
+                    onEdit = true,          -- give me lints, good and hard
+                }
+                -- OPTIONAL: The server needs to be configured
+                -- to read the logs from the out directory as well.
+                -- auxDirectory = "out",
+            },
+        },
+        on_attach = on_attach,
+        capabilities = client_caps,
+        root_dir = vim.loop.cwd,
+        flags = { debounce_text_changes = debounce_text_changes_msec },
+    },
+    clangd = {
+        handlers = lsp_status.extensions.clangd.setup(),
+        init_options = {
+            clangdFileStatus = true,
+        },
+        on_attach = on_attach,
+        capabilities = client_caps,
+        flags = { debounce_text_changes = debounce_text_changes_msec },
+    },
+    lemminx = {
+        cmd = {
+            "java", "-cp", "/Users/bfowler/Library/LanguageServers/xml/lib/*",
+            "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
+            -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
+            "org.eclipse.lemminx.XMLServerLauncher",
+        },
+        filetypes = { "xml", "pom", "xsd", "xsl", "svg" },
+        root_dir = function(fname)
+            return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+        end,
+        on_attach = on_attach,
+        capabilities = client_caps,
+        flags = { debounce_text_changes = debounce_text_changes_msec },
+    },
+    diagnosticls = {
+        filetypes = {
+            "css",
+            "go",
+            "javascript",
+            "javascriptreact",
+            "lua",
+            "markdown",
+            "python",
+            "scss",
+            "sh",
+            "typescript",
+            "typescriptreact",
+        },
+        init_options = {
+            linters = {
+                eslint = {
+                    command = "eslint",
+                    rootPatterns = { ".git" },
+                    debounce = 100,
+                    args = { "--stdin", "--stdin-filename", "%filepath", "--format", "json" },
+                    sourceName = "eslint",
+                    parseJson = {
+                        errorsRoot = "[0].messages",
+                        line = "line",
+                        column = "column",
+                        endLine = "endLine",
+                        endColumn = "endColumn",
+                        message = "[eslint] ${message} [${ruleId}]",
+                        security = "severity",
+                    },
+                    securities = {
+                        [2] = "error",
+                        [1] = "warning",
+                    },
+                },
+                markdownlint = {
+                    command = "markdownlint",
+                    rootPatterns = { ".git" },
+                    isStderr = true,
+                    debounce = 100,
+                    args = { "--stdin" },
+                    offsetLine = 0,
+                    offsetColumn = 0,
+                    sourceName = "markdownlint",
+                    securities = {
+                        undefined = "hint",
+                    },
+                    formatLines = 1,
+                    formatPattern = {
+                        "^.*?:\\s?(\\d+)(:(\\d+)?)?\\s(MD\\d{3}\\/[A-Za-z0-9-/]+)\\s(.*)$",
+                        {
+                            line = 1,
+                            column = 3,
+                            message = { "[", 4, "]: ", 5 },
+                        },
+                    },
+                },
+                mypy = {
+                    sourceName = "mypy",
+                    command = "mypy",
+                    args = {
+                        "--no-color-output",
+                        "--no-error-summary",
+                        "--show-column-numbers",
+                        "--follow-imports=silent",
+                        "%file",
+                    },
+                    formatPattern = {
+                        "^.*:(\\d+?):(\\d+?): ([a-z]+?): (.*)$",
+                        {
+                            line = 1,
+                            column = 2,
+                            security = 3,
+                            message = 4,
+                        },
+                    },
+                    securities = {
+                        error = "error",
+                    },
+                },
+                pyliint = {
+                    sourceName = "pylint",
+                    args = {
+                        "--output-format",
+                        "text",
+                        "--score",
+                        "no",
+                        "--msg-template",
+                        [['{line}:{column}:{category}:{msg} ({msg_id}:{symbol})']],
+                        "%file",
+                    },
+                    offsetColumn = 1,
+                    formatLines = 1,
+                    formatPattern = {
+                        [[^(\d+?):(\d+?):([a-z]+?):(.*)$]],
+                        { line = 1, column = 2, security = 3, message = { "[pylint] ", 4 } },
+                    },
+                    securities = {
+                        informational = "hint",
+                        refactor = "info",
+                        convention = "info",
+                        warning = "warning",
+                        error = "error",
+                        fatal = "error",
+                    },
+                    rootPatterns = { ".git", "pyproject.toml", "setup.py" },
+                },
+                shellcheck = {
+                    command = "shellcheck",
+                    debounce = 100,
+                    args = { "--format", "json", "-" },
+                    sourceName = "shellcheck",
+                    parseJson = {
+                        line = "line",
+                        column = "column",
+                        endLine = "endLine",
+                        endColumn = "endColumn",
+                        message = "${message} [${code}]",
+                        security = "level",
+                    },
+                    securities = {
+                        error = "error",
+                        warning = "warning",
+                        info = "info",
+                        style = "hint",
+                    },
+                },
+                luacheck = {
+                    sourceName = "luacheck",
+                    command = "luacheck",
+                    debounce = 100,
+                    args = { "--codes", "--no-color", "--quiet", "-" },
+                    offsetLine = 0,
+                    offsetColumn = 0,
+                    formatLines = 1,
+                    formatPattern = {
+                        [[^.*:(\d+):(\d+):\s\(([W|E])\d+\)\s(.*)(\r|\n)*$]],
+                        { line = 1, column = 2, security = 3, message = { "[luacheck] ", 4 } },
+                    },
+                    securities = { E = "error", W = "warning" },
+                    rootPatterns = { ".luacheckrc" },
+                },
+                golangci_lint = {
+                    sourceName = "golangci_lint",
+                    command = "golangci-lint",
+                    args = { "run", "--out-format", "json" },
+                    debounce = 100,
+                    parseJson = {
+                        sourceNameFilter = true,
+                        sourceName = "Pos.Filename",
+                        errorsRoot = "Issues",
+                        line = "Pos.Line",
+                        column = "Pos.Column",
+                        message = "[golangci_lint] ${Text} [${FromLinter}]",
+                    },
+                    rootPatterns = { ".git", "go.mod" },
+                },
+            },
+            filetypes = {
+                javascript = "eslint",
+                javascriptreact = "eslint",
+                typescript = "eslint",
+                typescriptreact = "eslint",
+                markdown = "markdownlint",
+                --python = "mypy",
+                sh = "shellcheck",
+                lua = "luacheck",
+                go = "golangci_lint",
+            },
+            formatters = {
+                prettierEslint = {
+                    command = "prettier-eslint",
+                    args = { "--stdin" },
+                    rootPatterns = { ".git" },
+                },
+                prettier = {
+                    command = "prettier",
+                    args = { "--stdin-filepath", "%filename" },
+                },
+                stylua = {
+                    command = "stylua",
+                    args = { "-s", "-" },
+                },
+                black = {
+                    command = "black",
+                    args = { "--quiet", "-" },
+                    rootPatterns = {
+                        ".git",
+                        "pyproject.toml",
+                        "setup.py",
+                    },
+                },
+            },
+            formatFiletypes = {
+                css = "prettier",
+                javascript = "prettierEslint",
+                javascriptreact = "prettierEslint",
+                json = "prettier",
+                lua = "stylua",
+                scss = "prettier",
+                typescript = "prettierEslint",
+                typescriptreact = "prettierEslint",
+                python = "black",
+            },
+        },
         on_attach = on_attach,
         capabilities = client_caps,
         flags = { debounce_text_changes = debounce_text_changes_msec },
     }
-end
+}
 
-setup_servers()
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function()
-    setup_servers() -- reload installed servers
-    vim.cmd "bufdo e"
-end
+-- Configure each installed LSP server with an override configuration (see above)
+-- or some sensible fallback defaults.
+local default_server_opts = {
+    on_attach = on_attach,
+    capabilities = client_caps,
+    root_dir = vim.loop.cwd,
+    flags = { debounce_text_changes = debounce_text_changes_msec },
+}
+
+lsp_installer.on_server_ready(function(server)
+    local opts = lsp_server_configs[server.name]
+    if opts ~= nil then
+        server:setup(opts)
+    else
+        server:setup(default_server_opts)
+    end
+end)
+
 
 local function lspSymbol(key, icon, sign_name)
     vim.fn.sign_define(sign_name, {
