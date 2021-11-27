@@ -105,13 +105,12 @@ return packer.startup(function()
 
     use {
         -- required by lspconfig init to enumerate installed servers
-        "kabouzeid/nvim-lspinstall",
-        event = "BufRead",
+        "williamboman/nvim-lsp-installer",
     }
 
     use {
         "neovim/nvim-lspconfig",
-        after = "nvim-lspinstall",
+        after = "nvim-lsp-installer",
         requires = { "nvim-lua/lsp-status.nvim" },
         config = function()
             require "plugins.lspconfig"
