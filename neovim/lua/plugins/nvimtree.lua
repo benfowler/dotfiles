@@ -104,8 +104,8 @@ require'nvim-tree'.setup {
     icons  = {
       error = "",
       warning = "",
-      info = "",
-      hint = "",
+      info = "",
+      hint = "",
     },
   }
 }
