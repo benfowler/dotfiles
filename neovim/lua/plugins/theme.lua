@@ -84,6 +84,24 @@ function my_highlights_nord()
     u.Hi("CmpItemKind", { guifg = nord15 })
     u.Hi("CmpItemMenu", { guifg = nord3_bright })
 
+    -- (VS Code-like highlighting of kinds)
+    -- gray
+    u.Hi("CmpItemAbbrDeprecated", { guifg = "#808080", gui="strikethrough" })
+    -- blue
+    u.Hi("CmpItemAbbrMatch", { guifg = "#569CD6" })
+    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = "#569CD6" })
+    -- light blue
+    u.Hi("CmpItemKindVariable", { guifg = "#9CDCFE" })
+    u.Hi("CmpItemKindInterface", { guifg = "#9CDCFE" })
+    u.Hi("CmpItemKindText", { guifg = "#9CDCFE" })
+    -- pink
+    u.Hi("CmpItemKindFunction", { guifg = "#C586C0" })
+    u.Hi("CmpItemKindMethod", { guifg = "#C586C0" })
+    -- front
+    u.Hi("CmpItemKindKeyword", { guifg = "#D4D4D4" })
+    u.Hi("CmpItemKindProperty", { guifg = "#D4D4D4" })
+    u.Hi("CmpItemKindUnit", { guifg = "#D4D4D4" })
+
     -- QuickFix list's line numbers are unreadable
     u.Hi("qfFileName", { guifg = nord10 })
     u.Hi("qfLineNr", { guifg = nord8 })
