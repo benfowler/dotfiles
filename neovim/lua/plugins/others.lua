@@ -93,7 +93,7 @@ M.lightbulb = function()
             autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
             au ColorScheme * highlight LightBulbFloatWin ctermfg= ctermbg= guifg= guibg=
             au ColorScheme * highlight LightBulbVirtualText ctermfg= ctermbg= guifg= guibg=
-            sign define LightBulbSign text=ﯧ texthl=Annotation linehl= numhl=
+            sign define LightBulbSign text= texthl=Annotation linehl= numhl=
         augroup END
     ]]
 end
