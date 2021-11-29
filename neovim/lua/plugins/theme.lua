@@ -191,6 +191,8 @@ function my_highlights_nord()
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
     -- existing highlight groups, but I am using 'Nord' colours which look
     -- better than the stock colors.
+    --
+    -- XXX: Use the FZF color picker:  https://minsw.github.io/fzf-color-picker/
 
     -- stylua: ignore start
     u.Hi("FzfFg",      { guifg = "#e5e9f0", guibg=nord3 })
