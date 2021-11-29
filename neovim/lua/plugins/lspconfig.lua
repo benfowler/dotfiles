@@ -557,14 +557,14 @@ end
 -- (Neovim 5.0+)
 lspSymbol("Error", "", "DiagnosticSignError")
 lspSymbol("Warn", "", "DiagnosticSignWarn")
-lspSymbol("Info", "", "DiagnosticSignInfo")
-lspSymbol("Hint", "", "DiagnosticSignHint")
+lspSymbol("Info", "", "DiagnosticSignInfo")
+lspSymbol("Hint", "", "DiagnosticSignHint")
 
 -- (Neovim 6.0 nightlies onwards (26th Sep 2021))
 lspSymbol("Error", "", "LspDiagnosticsSignError")
 lspSymbol("Warn", "", "LspDiagnosticsSignWarning")
-lspSymbol("Info", "", "LspDiagnosticsSignInformation")
-lspSymbol("Hint", "", "LspDiagnosticsSignHint")
+lspSymbol("Info", "", "LspDiagnosticsSignInformation")
+lspSymbol("Hint", "", "LspDiagnosticsSignHint")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
