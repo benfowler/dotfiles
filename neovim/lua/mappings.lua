@@ -84,7 +84,8 @@ M.user_map = {
     fzf = {
         buffers = ";",
         windows = "<leader>;",
-        recent_files = "<C-p>", -- quick file access
+        fzf_files = "<C-p>", -- quick file access
+        fzf_gfiles = "<M-p>", -- quick file access (Git)
         ripgrep = "<Leader>A", -- search everywhere (but fast)
     },
 
@@ -310,7 +311,8 @@ end
 
 M.fzf = function()
     local m = user_map.fzf
-    map("n", m.recent_files, ":silent! Files<CR>", opt)
+    map("n", m.fzf_files, ":silent! Files<CR>", opt)
+    map("n", m.fzf_gfiles, ":silent! GFiles<CR>", opt)
     map("n", m.buffers, ":silent! Buffers<CR>", opt)
     map("n", m.windows, ":silent! Windows<CR>", opt)
     map("n", m.ripgrep, ":silent! Rg<CR>", opt)

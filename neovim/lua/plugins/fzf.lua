@@ -88,6 +88,8 @@ vim.cmd [[
 
 " Pop up Fuzzy Finder in a window when using Neovim
 command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, g:fzf_custom_win_files, <bang>0)
+command! -bang -nargs=? -complete=dir GFiles call fzf#vim#gitfiles(<q-args>, g:fzf_custom_win_files, <bang>0)
+command! -bang -nargs=? -complete=dir GitFiles call fzf#vim#gitfiles(<q-args>, g:fzf_custom_win_files, <bang>0)
 command! -bang -nargs=? -complete=buffer Buffers call fzf#vim#buffers(<q-args>, g:fzf_custom_win_buffers, <bang>0)
 command! -bar -bang Windows call fzf#vim#windows(g:fzf_custom_win_windows, <bang>0)
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, g:fzf_custom_win_grep, <bang>0)
