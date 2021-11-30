@@ -78,21 +78,17 @@ function my_highlights_nord()
 
     -- (nvim-cmp's custom-drawn autocompletion menu)
     u.Hi("CmpItemAbbr", { guifg = nord5 })
-    u.Hi("CmpItemAbbrDeprecated", { guifg = nord4 })
-    u.Hi("CmpItemAbbrMatch", { guifg = nord8 })
+    u.Hi("CmpItemAbbrDeprecated", { guifg = nord4, gui="strikethrough" })
+    u.Hi("CmpItemAbbrMatch", { guifg = nord9 })
     u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord12 })
     u.Hi("CmpItemKind", { guifg = nord15 })
     u.Hi("CmpItemMenu", { guifg = nord3_bright })
 
     -- (VS Code-like highlighting of kinds)
-    -- gray
-    u.Hi("CmpItemAbbrDeprecated", { guifg = "#808080", gui="strikethrough" })
-    -- blue
-    u.Hi("CmpItemAbbrMatch", { guifg = "#569CD6" })
-    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = "#569CD6" })
     -- light blue
     u.Hi("CmpItemKindVariable", { guifg = "#9CDCFE" })
     u.Hi("CmpItemKindInterface", { guifg = "#9CDCFE" })
+    u.Hi("CmpItemKindText", { guifg = "#9CDCFE" })
     u.Hi("CmpItemKindText", { guifg = "#9CDCFE" })
     -- pink
     u.Hi("CmpItemKindFunction", { guifg = "#C586C0" })
