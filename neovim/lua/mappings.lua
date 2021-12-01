@@ -188,6 +188,9 @@ M.misc = function()
     cmd [[ cnoremap <expr><C-j> wildmenumode() ? "\<C-n>" : "\<C-j>" ]]
     cmd [[ cnoremap <expr><C-k> wildmenumode() ? "\<C-p>" : "\<C-h>" ]]
 
+    -- Command-mode history tweak (to be more shell-like, avoid arrow keys)
+    cmd [[ cnoremap <C-p> <Up> ]]
+    cmd [[ cnoremap <C-n> <Down> ]]
 
     -----------------------------------------------------------------------
     -- Lazy-loaded plugins still require mappings and commands,
