@@ -347,6 +347,12 @@ return packer.startup(function()
         end,
     }
 
+    -- UI extension hooks
+    use { "stevearc/dressing.nvim" }
+
+    use { "rcarriga/nvim-notify" }
+
+    -- Commenting help
     use {
         "terrortylor/nvim-comment",
         disable = not plugin_status.nvim_comment,
