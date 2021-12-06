@@ -232,7 +232,7 @@ function my_highlights_nord()
     -- Suppress overly-aggressive error u.Highlighting under Treesitter
     u.HiClear "TSError"
 
-    u.Hi("markdownUrl", { gui = "underline", cterm = "underline" })
+    u.Hi("markdownLinkText", { gui = "underline", guifg = nord9 })
 end
 
 -- NOTE!  Theme config, e.g. lets, _must_ precede the 'colorscheme' cmd to work
