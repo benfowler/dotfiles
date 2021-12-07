@@ -42,8 +42,6 @@ if not (present1 or present2) then
     return
 end
 
-local configs = require "lspconfig/configs"
-
 local lsp_status_present, lsp_status = pcall(require, "lsp-status") -- get LSP diagnostics updates
 if lsp_status_present then
     lsp_status.register_progress()
@@ -394,7 +392,7 @@ local lsp_server_configs = {
                         error = "error",
                     },
                 },
-                pyliint = {
+                pylint = {
                     sourceName = "pylint",
                     args = {
                         "--output-format",
@@ -422,16 +420,18 @@ local lsp_server_configs = {
                     rootPatterns = { ".git", "pyproject.toml", "setup.py" },
                 },
                 shellcheck = {
+                    sourceName = "shellcheck",
                     command = "shellcheck",
                     debounce = 100,
-                    args = { "--format", "json", "-" },
-                    sourceName = "shellcheck",
+                    args = { "--format", "json1", "-" },
                     parseJson = {
+                        errorsRoot = "comments",
+                        sourceName = "file",
                         line = "line",
                         column = "column",
                         endLine = "endLine",
                         endColumn = "endColumn",
-                        message = "${message} [${code}]",
+                        message = "[shellcheck] ${message} [SC${code}]",
                         security = "level",
                     },
                     securities = {
@@ -478,7 +478,6 @@ local lsp_server_configs = {
                 typescript = "eslint",
                 typescriptreact = "eslint",
                 markdown = "markdownlint",
-                --python = "mypy",
                 sh = "shellcheck",
                 lua = "luacheck",
                 go = "golangci_lint",
