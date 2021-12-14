@@ -78,7 +78,7 @@ opt.foldmethod = "indent"
 opt.foldnestmax = 3
 opt.foldenable = false
 
-opt.whichwrap:append("<>hl")                  -- Traverse through EOLs
+--opt.whichwrap:append("<>hl")                  -- Traverse through EOLs
 
 -- Completions - basic settings
 opt.completeopt = "menu"                      -- Onmicomplete to not create annoying split when activated
