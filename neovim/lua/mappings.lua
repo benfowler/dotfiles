@@ -147,6 +147,9 @@ M.misc = function()
     map("v", ">", ">gv", opt)
     map("v", "<", "<gv", opt)
 
+    -- Quick-select last paste
+    vim.cmd [[ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]' ]]
+
     -- Fast splits
     map("n", miscMap.new_split, ":split<CR>", opt)
     map("n", miscMap.new_vsplit, ":vsplit<CR>", opt)
