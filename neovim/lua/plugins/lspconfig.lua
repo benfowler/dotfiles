@@ -86,7 +86,8 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "<Leader>gw", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>gW", "<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>a", ":Telescope lsp_code_actions<CR>", opts)
-    buf_set_keymap("n", "<Leader>l", "<Cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+    buf_set_keymap("n", "<Leader>l", "<Cmd>lua vim.lsp.codelens.run()<CR>", {silent = true;})
+    buf_set_keymap("n", "<Leader>L", "<Cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<Leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<Leader>e", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
     buf_set_keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
@@ -103,6 +104,11 @@ local function on_attach(client, bufnr)
         buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     elseif client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+
+    -- CodeLens
+    if client.resolved_capabilities.code_lens then
+        vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
     end
 
     -- Extra setup, which depends on the final resolved set of capabilities
