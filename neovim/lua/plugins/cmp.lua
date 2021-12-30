@@ -7,7 +7,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = "menu,menuone,noinsert"
 
 -- nvim-cmp setup
 cmp.setup {
@@ -20,16 +20,12 @@ cmp.setup {
         format = require("lspkind").cmp_format {
             with_text = true,
             menu = {
-                buffer = "[Buffer]",
                 nvim_lsp = "[LSP]",
-                luasnip = "[LuaSnip]",
                 nvim_lua = "[Lua]",
+                luasnip = "[LuaSnip]",
+                buffer = "[Buffer]",
             },
         },
-    },
-    completion = {
-        autocomplete = false,
-        keyword_length = 2,
     },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
@@ -66,9 +62,9 @@ cmp.setup {
     },
     sources = {
         { name = "nvim_lsp" },
+        { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "buffer" },
-        { name = "nvim_lua" },
     },
     experimental = {
         ghost_text = {
