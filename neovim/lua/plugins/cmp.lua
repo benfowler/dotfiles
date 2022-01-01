@@ -60,6 +60,10 @@ cmp.setup {
           end
         end, { "i", "s" }),
     },
+    documentation = {
+        border = "rounded",
+        winhighlight = "FloatBorder:CmpDocFloatBorder",
+    },
     sources = {
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
