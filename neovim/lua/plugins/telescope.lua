@@ -45,15 +45,6 @@ telescope.setup {
                 },
             },
         },
-        find_files = {
-            theme = "ivy",
-        },
-        file_browser = {
-            theme = "ivy",
-        },
-        git_files = {
-            theme = "ivy",
-        },
         git_branches = {
             theme = "ivy",
             layout_config = {
@@ -75,11 +66,12 @@ telescope.setup {
                 height = 0.25,
             },
         },
+        builtin = {
+            theme = "dropdown",
+            previewer = false,
+        },
         colorscheme = {
             theme = "dropdown",
-        },
-        oldfiles = {
-            theme = "ivy",
         },
         spell_suggest = {
             theme = "cursor",
@@ -88,17 +80,32 @@ telescope.setup {
                 width = 40,
             },
         },
-        lsp_reference = {
-            theme = "cursor",
-        },
         lsp_code_actions = {
             theme = "cursor",
         },
-        lsp_implementations = {
-            theme = "cursor",
+        lsp_diagnostics = {
+            theme = "ivy",
         },
         lsp_definitions = {
-            theme = "cursor",
+            theme = "ivy",
+        },
+        lsp_type_definitions = {
+            theme = "ivy",
+        },
+        lsp_implementations = {
+            theme = "ivy",
+        },
+        lsp_references = {
+            theme = "ivy",
+        },
+        lsp_workspace_symbols = {
+            theme = "ivy",
+        },
+        lsp_document_symbols = {
+            theme = "ivy",
+        },
+        lsp_reference = {
+            theme = "ivy",
         },
     },
     extensions = {
@@ -115,3 +122,4 @@ telescope.setup {
 require("telescope").load_extension "heading"
 require("telescope").load_extension "fzf"
 require("telescope").load_extension "luasnip"
+require("telescope").load_extension "notify"

@@ -43,8 +43,6 @@ M.user_map = {
     },
 
     telescope = {
-        Telescope_main = "<leader>TT",
-
         -- Telescope-specific mapping: help etc
         marks = "<leader>MM",
         registers = "<leader>RR",
@@ -58,8 +56,17 @@ M.user_map = {
         -- Search everywhere
         live_grep = "<leader>TA", -- Telescope's slower alternative to fzf
 
-        -- LuaSnip
-        select_snippet = "<leader>s",
+        -- LSP
+        lsp_diagnostics = "<leader>dd",
+        lsp_diagnostics_doc = "<leader>DD",
+
+        lsp_symbols = "<leader>LL",
+        lsp_symbols_doc = "<leader>ll",
+
+        lsp_definitions = "<leader>ld",
+        lsp_implementations = "<leader>li",
+        lsp_references = "<leader>lr",
+        lsp_type_definitions = "<leader>lt",
 
         -- Git objects
         git_status = "<leader>gs",
@@ -74,6 +81,9 @@ M.user_map = {
         file_browser = "<leader>fb",
         oldfiles = "<leader>fo",
 
+        -- LuaSnip
+        select_snippet = "<leader>s",
+
         spell_suggest = "z=",
     },
 
@@ -86,7 +96,7 @@ M.user_map = {
         windows = "<leader>;",
         fzf_files = "<C-p>", -- quick file access
         fzf_gfiles = "<M-p>", -- quick file access (Git)
-        ripgrep = "<Leader>A", -- search everywhere (but fast)
+        ripgrep = "<Leader>R", -- search everywhere (but fast)
     },
 
     fugitive = {
@@ -182,15 +192,14 @@ M.misc = function()
 
     -- Change doesn't overwrite the unnamed register (clipboard for me).
     -- I can change/paste, and not lose the clipboard contents I'm about to paste.
-    map("n", "c", "\"_c", opt)
-    map("n", "C", "\"_C", opt)    -- "_ is the blackhole register
+    map("n", "c", '"_c', opt)
+    map("n", "C", '"_C', opt) -- "_ is the blackhole register
 
     -- C-j and C-k to navigate in popup ('pum') menu and wildmenu
     cmd [[ inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>" ]]
     cmd [[ inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>" ]]
     cmd [[ cnoremap <expr><C-j> wildmenumode() ? "\<C-n>" : "\<C-j>" ]]
     cmd [[ cnoremap <expr><C-k> wildmenumode() ? "\<C-p>" : "\<C-h>" ]]
-
 
     -----------------------------------------------------------------------
     -- Lazy-loaded plugins still require mappings and commands,
@@ -273,7 +282,6 @@ M.telescope = function()
 
     -- All available pickers
    -- stylua: ignore
-    map( "n", m.Telescope_main, ":silent! Telescope builtin theme=get_dropdown previewer=false layout_config={'width':40,'height':0.5}<CR>", opt)
 
     -- Fast shortcuts to core Vim state
     map("n", m.marks, ":silent! Telescope marks<CR>", opt)
@@ -289,7 +297,24 @@ M.telescope = function()
     map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
 
     -- Pick snippet to preview and insert
-    map("n", m.select_snippet, ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>", opt)
+    map(
+        "n",
+        m.select_snippet,
+        ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>",
+        opt
+    )
+
+    -- LSP
+    map("n", m.lsp_diagnostics, ":Telescope diagnostics<CR>", opt)
+    map("n", m.lsp_diagnostics_doc, ":Telescope diagnostics bufnr=0<CR>", opt)
+
+    map("n", m.lsp_symbols, ":Telescope lsp_workspace_symbols<CR>", opt)
+    map("n", m.lsp_symbols_doc, ":Telescope lsp_document_symbols<CR>", opt)
+
+    map("n", m.lsp_definitions, ":Telescope lsp_definitions<CR>", opt)
+    map("n", m.lsp_implementations, ":Telescope lsp_implementations<CR>", opt)
+    map("n", m.lsp_references, ":Telescope lsp_references<CR>", opt)
+    map("n", m.lsp_type_definitions, ":Telescope lsp_type_definitions<CR>", opt)
 
     -- Git objects
     map("n", m.git_status, ":silent! Telescope git_status<CR>", opt)
@@ -308,8 +333,8 @@ M.telescope = function()
 end
 
 M.trouble = function()
-    local m =user_map.trouble
-    map("n", m.trouble, ":silent! Trouble <CR>", opt)
+    local m = user_map.trouble
+    map("n", m.trouble, ":silent! TroubleToggle <CR>", opt)
 end
 
 M.fzf = function()
