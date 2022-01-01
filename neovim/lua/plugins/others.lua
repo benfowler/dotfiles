@@ -51,6 +51,23 @@ M.comment = function()
     end
 end
 
+M.dressing = function()
+    require("dressing").setup({
+        input = {
+            winblend = 0,
+            winhighlight = "FloatBorder:DressingFloatBorder",
+        },
+    })
+end
+
+M.notify = function ()
+    local notify = require("notify")
+    notify.setup({
+        background_colour = "#2E3440",
+    })
+    vim.notify = notify
+end
+
 M.luasnip = function()
     local present, luasnip = pcall(require, "luasnip")
     if not present then

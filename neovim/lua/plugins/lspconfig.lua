@@ -86,14 +86,14 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "<Leader>gw", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>gW", "<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>a", ":Telescope lsp_code_actions<CR>", opts)
-    buf_set_keymap("n", "<Leader>l", "<Cmd>lua vim.lsp.codelens.run()<CR>", {silent = true;})
+    buf_set_keymap("n", "<Leader>l", "<Cmd>lua vim.lsp.codelens.run()<CR>", { silent = true })
     buf_set_keymap("n", "<Leader>L", "<Cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<Leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<Leader>e", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "<C-j>", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+    buf_set_keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.goto_prev({float={border=\"rounded\"}})<CR>", opts)
+    buf_set_keymap("n", "<C-j>", "<Cmd>lua vim.diagnostic.goto_next({float={border=\"rounded\"}})<CR>", opts)
+    buf_set_keymap("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev({float={border=\"rounded\"}})<CR>", opts)
+    buf_set_keymap("n", "]d", "<Cmd>lua vim.diagnostic.goto_next({float={border=\"rounded\"}})<CR>", opts)
     buf_set_keymap("n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<Leader>Wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
@@ -116,13 +116,16 @@ local function on_attach(client, bufnr)
 
     -- stylua: ignore
     if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec([[
+        vim.api.nvim_exec(
+            [[
             augroup lsp_document_highlight
             autocmd! * <buffer>
             autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
             autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
             augroup END
-        ]], false)
+            ]],
+            false
+        )
     end
 end
 
@@ -169,7 +172,11 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
 
     if preferred_cap_client_seen then
         -- If the preferred client is running, suppress the others
-        print("[LSP]: NOTE: set server '" .. preferred_cap_client .. "' as sole provider of '" .. cap_to_filter .. "'")
+        vim.notify(
+            "Set server '" .. preferred_cap_client .. "' as sole provider of '" .. cap_to_filter .. "'",
+            "warn",
+            { title = "LSP" }
+        )
         for _, client in pairs(clients) do
             if client.resolved_capabilities[cap_to_filter] == true then
                 if client.name ~= preferred_cap_client then
@@ -183,21 +190,17 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
         for _, client in pairs(clients) do
             if client.resolved_capabilities[cap_to_filter] == true then
                 if saved_one == false then
-                    print(
-                        "[LSP]: WARNING: randomly making server '"
-                            .. client.name
-                            .. "' sole provider of '"
-                            .. cap_to_filter
-                            .. "'"
+                    vim.notify(
+                        "Randomly making server '" .. client.name .. "' sole provider of '" .. cap_to_filter .. "'",
+                        "warn",
+                        { title = "LSP" }
                     )
                     saved_one = true
                 else
-                    print(
-                        "[LSP]: WARNING: server '"
-                            .. client.name
-                            .. "' prevented from providing '"
-                            .. cap_to_filter
-                            .. "'"
+                    vim.notify(
+                        "Server '" .. client.name .. "' prevented from providing '" .. cap_to_filter .. "'",
+                        "warn",
+                        { title = "LSP" }
                     )
                     client.resolved_capabilities[cap_to_filter] = false
                 end
@@ -207,7 +210,6 @@ function resolve_resolved_cap_conflict(cap_to_filter, callback)
 
     callback()
 end
-
 
 local client_caps = {}
 
@@ -221,7 +223,6 @@ end
 
 -- ... plus some additional one-offs we want to enable...
 client_caps.textDocument.completion.completionItem.snippetSupport = true
-
 
 -- With the "on_attach()" buffer configuration callback, and the 'capabilities'
 -- object in hand, we are now ready to configure each language server.
@@ -265,7 +266,9 @@ local lsp_server_configs = {
                         -- Input
                         "%f",
                         -- Flags
-                        "--synctex", "--keep-logs", "--keep-intermediates"
+                        "--synctex",
+                        "--keep-logs",
+                        "--keep-intermediates",
                         -- Options
                         -- OPTIONAL: If you want a custom out directory,
                         -- uncomment the following line.
@@ -280,9 +283,9 @@ local lsp_server_configs = {
                     onSave = true,
                 },
                 chktex = {
-                    onOpenAndSave = true,   -- extra lints
-                    onEdit = true,          -- give me lints, good and hard
-                }
+                    onOpenAndSave = true, -- extra lints
+                    onEdit = true, -- give me lints, good and hard
+                },
                 -- OPTIONAL: The server needs to be configured
                 -- to read the logs from the out directory as well.
                 -- auxDirectory = "out",
@@ -304,7 +307,9 @@ local lsp_server_configs = {
     },
     lemminx = {
         cmd = {
-            "java", "-cp", "/Users/bfowler/Library/LanguageServers/xml/lib/*",
+            "java",
+            "-cp",
+            "/Users/bfowler/Library/LanguageServers/xml/lib/*",
             "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
             -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
             "org.eclipse.lemminx.XMLServerLauncher",
@@ -527,9 +532,8 @@ local lsp_server_configs = {
         on_attach = on_attach,
         capabilities = client_caps,
         flags = { debounce_text_changes = debounce_text_changes_msec },
-    }
+    },
 }
-
 
 -- Configure each installed LSP server with an override configuration (see above)
 -- or some sensible fallback defaults.
@@ -548,7 +552,6 @@ lsp_installer.on_server_ready(function(server)
         server:setup(default_server_opts)
     end
 end)
-
 
 local function lspSymbol(key, icon, sign_name)
     vim.fn.sign_define(sign_name, {
@@ -577,10 +580,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
         spacing = 6,
     },
     signs = true,
+    severity_sort = true,
     underline = true,
     -- set this to true if you want diagnostics to show in insert mode
     update_in_insert = true,
 })
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 -- Suppress error messages from lang servers
 vim.notify = function(msg, log_level)

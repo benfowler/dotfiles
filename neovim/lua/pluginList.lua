@@ -348,9 +348,19 @@ return packer.startup(function()
     }
 
     -- UI extension hooks
-    use { "stevearc/dressing.nvim" }
+    use {
+        "stevearc/dressing.nvim",
+        config = function ()
+            require("plugins.others").dressing()
+        end,
+    }
 
-    use { "rcarriga/nvim-notify" }
+    use {
+        "rcarriga/nvim-notify",
+        config = function ()
+            require("plugins.others").notify()
+        end,
+    }
 
     -- Commenting help
     use {

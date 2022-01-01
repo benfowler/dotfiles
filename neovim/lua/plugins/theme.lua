@@ -32,6 +32,7 @@ local nord1 = "#3B4252"
 local nord2 = "#434C5E"
 local nord3 = "#4C566A"
 local nord3_bright = "#616E88"
+local nord4_dim = "#9DA6B9"
 local nord4 = "#D8DEE9"
 local nord5 = "#E5E9F0"
 local nord6 = "#ECEFF4"
@@ -57,7 +58,7 @@ local spell_cap_fg = nord13
 local spell_rare_fg = nord8
 local spell_local_fg = nord15
 
-local statusline_active_fg = "#9DA6B9" -- halfway between nord3_bright and nord4
+local statusline_active_fg = nord4_dim   -- halfway between nord3_bright and nord4
 local statusline_active_bg = nord1
 
 function my_highlights_nord()
@@ -183,6 +184,33 @@ function my_highlights_nord()
     u.Hi("TelescopeMatching", { guifg = nord9 })
     u.Hi("TelescopePromptPrefix", { guifg = "#bf6069" })
     u.Hi("TelescopeBorder", { guifg = nord3_bright })
+
+
+    -- Floating info and rename/select popups (latter via stevearc/nvim-dressing)
+
+    -- NOTE: for future use with 'smart' diag popups
+    u.Hi("ErrorFloatBorder", { guifg = error_fg })
+    u.Hi("WarnFloatBorder", { guifg = warn_fg })
+    u.Hi("InfoFloatBorder", { guifg = info_fg})
+    u.Hi("HintFloatBorder", { guifg = hint_fg })
+    u.Hi("OkFloatBorder", { guifg = ok_fg })
+    u.Hi("DimFloatBorder", { guifg = nord3_bright })
+
+    u.Hi("NormalFloat", { guibg = nord0 })
+    u.Hi("FloatTitle", { guifg = nord4, gui = "bold" })
+    u.HiLink("FloatBorder", "DimFloatBorder", true)
+
+    -- ... popups that are informational are highlighted like info
+    -- TODO: find way to attach these to LSP config
+    u.HiLink("LspHoverFloatBorder", "InfoFloatBorder", true)
+    u.HiLink("LspSignatureHelpFloatBorder", "InfoFloatBorder", true)
+
+    -- ... popups that change stuff are highlighted like warnings
+    u.HiLink("DressingFloatBorder", "WarnFloatBorder", true)
+
+    -- ... nvim-cmp doc floats must be explicitly set
+    u.HiLink("CmpDocFloatBorder", "DimFloatBorder", true)
+
 
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
     -- existing highlight groups, but I am using 'Nord' colours which look
