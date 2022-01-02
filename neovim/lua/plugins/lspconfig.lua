@@ -36,9 +36,9 @@
 --   https://github.com/neovim/nvim-lspconfig/blob/master/README.md#debugging
 --
 
-local present1, lspconfig = pcall(require, "lspconfig")
-local present2, lsp_installer = pcall(require, "nvim-lsp-installer")
-if not (present1 or present2) then
+local has_lspconfig, lspconfig = pcall(require, "lspconfig")
+local has_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
+if not (has_lspconfig or has_lsp_installer) then
     return
 end
 
@@ -86,26 +86,27 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "<Leader>gw", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>gW", "<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
     buf_set_keymap("n", "<Leader>a", ":Telescope lsp_code_actions<CR>", opts)
-    buf_set_keymap("n", "<Leader>A", "<Cmd>lua vim.lsp.codelens.run()<CR>", { silent = true })
+    buf_set_keymap("n", "<Leader>A", "<Cmd>lua vim.lsp.codelens.run()<CR>", opts)
     buf_set_keymap("n", "<Leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<Cmd>lua vim.diagnostic.goto_prev({float={border=\"rounded\"}})<CR>", opts)
-    buf_set_keymap("n", "<C-j>", "<Cmd>lua vim.diagnostic.goto_next({float={border=\"rounded\"}})<CR>", opts)
-    buf_set_keymap("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev({float={border=\"rounded\"}})<CR>", opts)
-    buf_set_keymap("n", "]d", "<Cmd>lua vim.diagnostic.goto_next({float={border=\"rounded\"}})<CR>", opts)
+    buf_set_keymap("n", "<C-k>", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
+    buf_set_keymap("n", "<C-j>", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
+    buf_set_keymap("n", "[d", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
+    buf_set_keymap("n", "]d", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
     buf_set_keymap("n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<Leader>Wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_range_formatting then
+    if client.resolved_capabilities.document_range_formatting == true then
         buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
         buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_formatting then
+    elseif client.resolved_capabilities.document_formatting == true then
         buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
 
     -- CodeLens
-    if client.resolved_capabilities.code_lens then
+    if client.resolved_capabilities.code_lens == true then
+        vim.notify("CodeLens is enabled", "info", { title = "LSP"})
         vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
     end
 
@@ -113,7 +114,7 @@ local function on_attach(client, bufnr)
     -- provided by the language server, like identifier read/write highlighting.
 
     -- stylua: ignore
-    if client.resolved_capabilities.document_highlight then
+    if client.resolved_capabilities.document_highlight == true then
         vim.api.nvim_exec(
             [[
             augroup lsp_document_highlight
@@ -293,6 +294,34 @@ local lsp_server_configs = {
         capabilities = client_caps,
         root_dir = vim.loop.cwd,
         flags = { debounce_text_changes = debounce_text_changes_msec },
+    },
+    gopls = {
+        cmd = { "gopls", "serve" },
+        root_dir = function(fname)
+            if has_lspconfig then
+                local util = lspconfig.util
+                return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
+            end
+        end,
+        settings = {
+            gopls = {
+                analyses = {
+                    unusedparams = true,
+                    unreachable = false,
+                },
+                codelenses = {
+                    generate = true, -- show the `go generate` lens.
+                    gc_details = true, --  // Show a code lens toggling the display of gc's choices.
+                    test = true,
+                    tidy = true,
+                },
+                usePlaceholders = true,
+                completeUnimported = true,
+                staticcheck = true,
+                matcher = "Fuzzy",
+            },
+        },
+        flags = { allow_incremental_sync = true, debounce_text_changes = 500 },
     },
     clangd = {
         handlers = lsp_status.extensions.clangd.setup(),
