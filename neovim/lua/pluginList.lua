@@ -16,6 +16,23 @@ return packer.startup(function()
         event = "VimEnter",
     }
 
+    -- UI extension hooks
+    use {
+        "stevearc/dressing.nvim",
+        event = "VimEnter",
+        config = function ()
+            require("plugins.others").dressing()
+        end,
+    }
+
+    use {
+        "rcarriga/nvim-notify",
+        event = "VimEnter",
+        config = function ()
+            require("plugins.others").notify()
+        end,
+    }
+
     -- Editing features
     use {
         "qpkorr/vim-bufkill", -- 'BD' to kill a buffer without closing a split
@@ -344,21 +361,6 @@ return packer.startup(function()
         after = "nvim-cmp",
         config = function()
             require("plugins.others").autopairs()
-        end,
-    }
-
-    -- UI extension hooks
-    use {
-        "stevearc/dressing.nvim",
-        config = function ()
-            require("plugins.others").dressing()
-        end,
-    }
-
-    use {
-        "rcarriga/nvim-notify",
-        config = function ()
-            require("plugins.others").notify()
         end,
     }
 
