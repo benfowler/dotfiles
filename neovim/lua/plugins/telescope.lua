@@ -83,7 +83,7 @@ telescope.setup {
         lsp_code_actions = {
             theme = "cursor",
         },
-        lsp_diagnostics = {
+        diagnostics = {
             theme = "ivy",
         },
         lsp_definitions = {

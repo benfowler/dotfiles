@@ -44,6 +44,7 @@ M.user_map = {
 
     telescope = {
         -- Telescope-specific mapping: help etc
+        buffers_ = "<leader>bb",
         marks = "<leader>MM",
         registers = "<leader>RR",
         jumplist = "<leader>JJ",
@@ -78,7 +79,7 @@ M.user_map = {
         -- Files
         git_files = "<leader>fg",
         find_files = "<leader>ff",
-        file_browser = "<leader>fb",
+        file_browser = "<leader>fm",
         oldfiles = "<leader>fo",
 
         -- LuaSnip
@@ -284,6 +285,7 @@ M.telescope = function()
    -- stylua: ignore
 
     -- Fast shortcuts to core Vim state
+    map("n", m.buffers_, ":silent! Telescope buffers<CR>", opt)
     map("n", m.marks, ":silent! Telescope marks<CR>", opt)
     map("n", m.registers, ":silent! Telescope registers<CR>", opt)
     map("n", m.jumplist, ":silent! Telescope jumplist<CR>", opt)
@@ -317,12 +319,12 @@ M.telescope = function()
     map("n", m.lsp_type_definitions, ":Telescope lsp_type_definitions<CR>", opt)
 
     -- Git objects
-    map("n", m.git_status, ":silent! Telescope git_status<CR>", opt)
-    map("n", m.git_commits, ":silent! Telescope git_commits<CR>", opt)
-    map("n", m.git_bcommits, ":silent! Telescope git_bcommits<CR>", opt)
-    map("n", m.git_branches, ":silent! Telescope git_branches<CR>", opt)
-    map("n", m.git_stash, ":silent! Telescope git_stash<CR>", opt)
-    map("n", m.git_files, ":silent! Telescope git_files<CR>", opt)
+    map("n", m.git_status, ":Telescope git_status<CR>", opt)
+    map("n", m.git_commits, ":Telescope git_commits<CR>", opt)
+    map("n", m.git_bcommits, ":Telescope git_bcommits<CR>", opt)
+    map("n", m.git_branches, ":Telescope git_branches<CR>", opt)
+    map("n", m.git_stash, ":Telescope git_stash<CR>", opt)
+    map("n", m.git_files, ":Telescope git_files<CR>", opt)
 
     -- Files
     map("n", m.find_files, ":silent! Telescope find_files <CR>", opt)
