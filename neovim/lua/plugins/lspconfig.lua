@@ -106,7 +106,7 @@ local function on_attach(client, bufnr)
 
     -- CodeLens
     if client.resolved_capabilities.code_lens == true then
-        vim.notify("CodeLens is enabled", "info", { title = "LSP"})
+        vim.notify("CodeLens is enabled", "info", { title = "LSP" })
         vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
     end
 
@@ -626,4 +626,14 @@ vim.notify = function(msg, log_level)
     else
         vim.api.nvim_echo({ { msg } }, true, {})
     end
+end
+
+-- Tweak appearance of LSPInfo window, etc
+local lspconfig_win = require "lspconfig.ui.windows"
+local lspconfig_win_default_opts = lspconfig_win.default_opts
+
+lspconfig_win.default_opts = function(options)
+    local opts = lspconfig_win_default_opts(options)
+    opts.border = "rounded"
+    return opts
 end
