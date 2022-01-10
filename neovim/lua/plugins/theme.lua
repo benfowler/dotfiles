@@ -50,8 +50,8 @@ local nord15 = "#B48EAD"
 local error_fg = nord11
 local warn_fg = nord13
 local info_fg = nord8
-local hint_fg = nord9
-local ok_fg = nord14
+local hint_fg = nord14
+local ok_fg = nord12
 
 local spell_bad_fg = nord11
 local spell_cap_fg = nord13
@@ -133,7 +133,7 @@ function my_highlights_nord()
     u.Hi("DiagnosticVirtualTextError", { guifg = error_fg, guibg = "#5C4C58", gui = "italic" })
     u.Hi("DiagnosticVirtualTextWarn", { guifg = warn_fg, guibg = "#4F4B4C ", gui = "italic" })
     u.Hi("DiagnosticVirtualTextInfo", { guifg = info_fg, guibg = "#505D6D", gui = "italic" })
-    u.Hi("DiagnosticVirtualTextHint", { guifg = hint_fg, guibg = "#485165", gui = "italic" })
+    u.Hi("DiagnosticVirtualTextHint", { guifg = hint_fg, guibg = "#243F0D", gui = "italic" })
 
     -- Are we running 'kitty' and support undercurl and coloured underlines?
     if string.find(vim.env.TERM, "xterm-kitty", 1, true) ~= nil then
