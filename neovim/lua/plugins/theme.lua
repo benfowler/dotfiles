@@ -53,7 +53,7 @@ local info_fg  = nord9
 local hint_fg  = nord7
 local misc_fg  = nord15
 
-local ok_fg    = nord4_dim
+local ok_fg    = nord12
 
 local spell_bad_fg = error_fg
 local spell_cap_fg = warn_fg

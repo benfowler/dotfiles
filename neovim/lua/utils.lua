@@ -36,4 +36,20 @@ M.HiClear = function(name)
     vim.cmd(c)
 end
 
+-- Diagnostic icons
+M.diagnostic_icons = {
+    filled = {
+        error = '',
+        warn = '',
+        info = '',
+        hint = '',
+    },
+    outline = {
+        error = '',
+        warn = '',
+        info = '',
+        hint = '',
+    }
+}
+
 return M
