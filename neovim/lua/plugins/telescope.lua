@@ -119,7 +119,8 @@ telescope.setup {
     },
 }
 
-require("telescope").load_extension "heading"
-require("telescope").load_extension "fzf"
-require("telescope").load_extension "luasnip"
-require("telescope").load_extension "notify"
+telescope.load_extension "heading"
+telescope.load_extension "fzf"
+telescope.load_extension "luasnip"
+telescope.load_extension "notify"
+
