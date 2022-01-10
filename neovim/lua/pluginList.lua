@@ -250,6 +250,11 @@ return packer.startup(function()
         after = "cmp-buffer",
     }
 
+    use {
+        "kdheepak/cmp-latex-symbols",
+        after = "cmp-cmdline",
+    }
+
     -- tmux integration
     use {
         "christoomey/vim-tmux-navigator",
