@@ -150,6 +150,10 @@ vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 -- Useful custom command to yank current location
 vim.cmd [[ command! YankLocation let @+ = join([expand('%'),  line(".")], ':') ]]
 
+-- Expose helpers to (dis)able autocompletion popups
+vim.cmd [[ command! EnableAutoCmp lua require('utils').EnableAutoCmp() ]]
+vim.cmd [[ command! DisableAutoCmp lua require('utils').DisableAutoCmp() ]]
+
 -- Autogroup for autocommands
 -- stylua: ignore
 vim.cmd [[
