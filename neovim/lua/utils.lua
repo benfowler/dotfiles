@@ -16,26 +16,6 @@ function _G.put(...)
   return ...
 end
 
-
--- Utility method to make setting highlights not suck
-M.Hi = function(group, opts)
-    local c = "highlight " .. group
-    for k, v in pairs(opts) do
-        c = c .. " " .. k .. "=" .. v
-    end
-    vim.cmd(c)
-end
-
-M.HiLink = function(group, linked_to_group, is_forced)
-    local c = "highlight" .. (is_forced and "!" or "") .. " link " .. group .. " " .. linked_to_group
-    vim.cmd(c)
-end
-
-M.HiClear = function(name)
-    local c = "highlight clear " .. name
-    vim.cmd(c)
-end
-
 -- Diagnostic icons
 M.diagnostic_icons = {
     filled = {
@@ -51,5 +31,50 @@ M.diagnostic_icons = {
         hint = '',
     }
 }
+
+-- Set a highlight group
+M.Hi = function(group, opts)
+    local c = "highlight " .. group
+    for k, v in pairs(opts) do
+        c = c .. " " .. k .. "=" .. v
+    end
+    vim.cmd(c)
+end
+
+-- Set a highlight group link
+M.HiLink = function(group, linked_to_group, is_forced)
+    local c = "highlight" .. (is_forced and "!" or "") .. " link " .. group .. " " .. linked_to_group
+    vim.cmd(c)
+end
+
+-- Clear a highlight group
+M.HiClear = function(name)
+    local c = "highlight clear " .. name
+    vim.cmd(c)
+end
+
+-- Enable nvim-cmp autocompletion
+M.EnableAutoCmp = function()
+  local has_cmp, cmp = pcall(require, "cmp")
+  if has_cmp then
+    cmp.setup({
+      completion = {
+        autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
+      }
+    })
+  end
+end
+
+-- Disable nvim-cmp autocompletion
+M.DisableAutoCmp = function()
+  local has_cmp, cmp = pcall(require, "cmp")
+  if has_cmp then
+    cmp.setup({
+      completion = {
+        autocomplete = false
+      }
+    })
+  end
+end
 
 return M
