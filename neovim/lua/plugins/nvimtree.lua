@@ -1,7 +1,9 @@
-local present, tree_c = pcall(require, "nvim-tree.config")
+local present, _ = pcall(require, "nvim-tree.config")
 if not present then
     return
 end
+
+local lsp_icons = require("utils").diagnostic_icons.filled
 
 
 -- Auto-close file explorer when quitting, in case a single buffer is left
@@ -102,10 +104,10 @@ require'nvim-tree'.setup {
   diagnostics = {
     enable = true,
     icons  = {
-      error = "",
-      warning = "",
-      info = "",
-      hint = "",
+      error = lsp_icons.error,
+      warning = lsp_icons.warn,
+      info = lsp_icons.info,
+      hint = lsp_icons.hint,
     },
   }
 }

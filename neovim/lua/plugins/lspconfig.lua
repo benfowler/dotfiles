@@ -47,6 +47,8 @@ if lsp_status_present then
     lsp_status.register_progress()
 end
 
+local lsp_icons = require("utils").diagnostic_icons.filled
+
 local debounce_text_changes_msec = 150 -- msec
 
 -- on_attach():
@@ -590,16 +592,16 @@ local function lspSymbol(key, icon, sign_name)
 end
 
 -- (Neovim 5.0+)
-lspSymbol("Error", "", "DiagnosticSignError")
-lspSymbol("Warn", "", "DiagnosticSignWarn")
-lspSymbol("Info", "", "DiagnosticSignInfo")
-lspSymbol("Hint", "", "DiagnosticSignHint")
+lspSymbol("Error", lsp_icons.error, "DiagnosticSignError")
+lspSymbol("Warn", lsp_icons.warn, "DiagnosticSignWarn")
+lspSymbol("Info", lsp_icons.info, "DiagnosticSignInfo")
+lspSymbol("Hint", lsp_icons.hint, "DiagnosticSignHint")
 
 -- (Neovim 6.0 nightlies onwards (26th Sep 2021))
-lspSymbol("Error", "", "LspDiagnosticsSignError")
-lspSymbol("Warn", "", "LspDiagnosticsSignWarning")
-lspSymbol("Info", "", "LspDiagnosticsSignInformation")
-lspSymbol("Hint", "", "LspDiagnosticsSignHint")
+lspSymbol("Error", lsp_icons.error, "LspDiagnosticsSignError")
+lspSymbol("Warn", lsp_icons.warn, "LspDiagnosticsSignWarning")
+lspSymbol("Info", lsp_icons.info, "LspDiagnosticsSignInformation")
+lspSymbol("Hint", lsp_icons.hint, "LspDiagnosticsSignHint")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {

@@ -11,6 +11,8 @@ end
 
 local lsp_status_present, lsp_status = pcall(require, "lsp-status")
 
+local icons = require("utils").diagnostic_icons.outline
+
 local M = {}
 
 -- possible values are 'arrow' | 'rounded' | 'blank'
@@ -44,19 +46,19 @@ M.lsp_diags_hl_group_prefix = "StatusLine"
 M.lsp_diags_config = {
     errors = {
         key = "Error",
-        icon = "",
+        icon = icons.error,
     },
     warnings = {
         key = "Warn",
-        icon = "",
+        icon = icons.warn,
     },
     info = {
         key = "Info",
-        icon = "",
+        icon = icons.info,
     },
     hints = {
         key = "Hint",
-        icon = "",
+        icon = icons.hint,
     },
 }
 
