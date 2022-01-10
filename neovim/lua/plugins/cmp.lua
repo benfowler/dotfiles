@@ -2,15 +2,18 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
+-- local has_words_before = function()
+--   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+-- end
 
 vim.opt.completeopt = "menu,menuone,noinsert"
 
 -- nvim-cmp setup
 cmp.setup {
+    -- completion = {
+    --   autocomplete = false
+    -- },
     snippet = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -20,10 +23,11 @@ cmp.setup {
         format = require("lspkind").cmp_format {
             with_text = true,
             menu = {
+                buffer = "[Buffer]",
+                latex_symbols = "[LaTeX]",
+                luasnip = "[LuaSnip]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
-                luasnip = "[LuaSnip]",
-                buffer = "[Buffer]",
             },
         },
     },
@@ -34,22 +38,28 @@ cmp.setup {
         ["<C-D>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
         ["<C-F>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-E>"] = cmp.mapping {
+        ["<Esc>"] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
         ["<CR>"] = cmp.mapping.confirm { select = true },
         ["<Tab>"] = cmp.mapping(function(fallback)
+
+          -- IntelliJ-like mapping (see nvim-cmp wiki)
+          -- Confirm with tab, and if no entry is selected, confirm first item
           if cmp.visible() then
-            cmp.select_next_item()
+            local entry = cmp.get_selected_entry()
+            if not entry then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+              cmp.confirm()
+            end
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
           else
             fallback()
           end
-        end, { "i", "s" }),
+        end, { "i", "s", "c" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
@@ -68,7 +78,8 @@ cmp.setup {
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
-        { name = "buffer" },
+        { name = "latex_symbols" },
+--      { name = "buffer" },
     },
     experimental = {
         ghost_text = {
