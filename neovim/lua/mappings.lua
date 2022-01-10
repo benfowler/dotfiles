@@ -44,18 +44,16 @@ M.user_map = {
 
     telescope = {
         -- Telescope-specific mapping: help etc
-        buffers_ = "<leader>bb",
-        marks = "<leader>MM",
-        registers = "<leader>RR",
-        jumplist = "<leader>JJ",
+        buffers_ = "<leader>Tb",
+        marks = "<leader>TM",
+        registers = "<leader>TR",
+        jumplist = "<leader>Tj",
         autocommands = "<leader>Ta",
         help_tags = "<leader>Th",
         man_pages = "<leader>Tm",
         keymaps = "<leader>Tk",
         highlights = "<leader>Ti",
-
-        -- Search everywhere
-        live_grep = "<leader>TA", -- Telescope's slower alternative to fzf
+        live_grep = "<leader>Tr", -- Telescope's slower alternative to fzf
 
         -- LSP
         lsp_diagnostics = "<leader>dd",
@@ -97,7 +95,7 @@ M.user_map = {
         windows = "<leader>;",
         fzf_files = "<C-p>", -- quick file access
         fzf_gfiles = "<M-p>", -- quick file access (Git)
-        ripgrep = "<Leader>R", -- search everywhere (but fast)
+        ripgrep = "<Leader>r", -- search everywhere (but fast)
     },
 
     fugitive = {
