@@ -74,9 +74,18 @@ opt.splitbelow = true
 opt.splitright = true
 
 -- Folding
+opt.foldlevelstart = 99 -- Start editing with all folds open.
 opt.foldmethod = "indent"
 opt.foldnestmax = 3
-opt.foldenable = false
+opt.foldopen = { -- Specifies for which type of commands folds will be opened.
+  'hor',       -- Horizontal movements: "l", "w", "fx", etc.
+  'mark',      -- Jumping to a mark: "'m", CTRL-O, etc.
+  'percent',   -- % key.
+  'quickfix',  -- ":cn", ":crew", ":make", etc.
+  'tag',       -- Jumping to a tag: ":ta", CTRL-T, etc.
+  'undo',      -- Undo or redo: "u" and CTRL-R.
+}
+
 
 --opt.whichwrap:append("<>hl")                  -- Traverse through EOLs
 
@@ -105,7 +114,7 @@ opt.wildignore = {
 -- Scrolling
 opt.scrolloff = 5                             -- keep some lines visible
 opt.sidescrolloff = 5
-opt.sidescroll = 1
+opt.sidescroll = 5
 
 -- Searching
 opt.incsearch = true
@@ -119,6 +128,14 @@ opt.listchars = "tab:»·,nbsp:␣,eol:↲,extends:»,precedes:«,trail:•"
 
 -- Security
 opt.secure = true                             -- also load .vimrc from directory where Vim launched
+
+if vim.env.SUDO_USER ~= nil then
+  opt.swapfile = false
+  opt.backup = false
+  opt.writebackup = false
+  opt.undofile = false
+  opt.shada = ''
+end
 
 -- stylua: ignore end
 
