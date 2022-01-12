@@ -20,7 +20,7 @@ return packer.startup(function()
     use {
         "stevearc/dressing.nvim",
         event = "VimEnter",
-        config = function ()
+        config = function()
             require("plugins.others").dressing()
         end,
     }
@@ -28,7 +28,7 @@ return packer.startup(function()
     use {
         "rcarriga/nvim-notify",
         event = "VimEnter",
-        config = function ()
+        config = function()
             require("plugins.others").notify()
         end,
     }
@@ -161,6 +161,11 @@ return packer.startup(function()
         setup = function()
             require("mappings").trouble()
         end,
+    }
+
+    use {
+        "jose-elias-alvarez/null-ls.nvim",
+        requires = "nvim-lua/plenary.nvim",
     }
 
     use {

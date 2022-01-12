@@ -351,217 +351,6 @@ local lsp_server_configs = {
         capabilities = client_caps,
         flags = { debounce_text_changes = debounce_text_changes_msec },
     },
-    diagnosticls = {
-        filetypes = {
-            "css",
-            "go",
-            "javascript",
-            "javascriptreact",
-            "lua",
-            "markdown",
-            "python",
-            "scss",
-            "sh",
-            "typescript",
-            "typescriptreact",
-        },
-        init_options = {
-            linters = {
-                eslint = {
-                    command = "eslint",
-                    rootPatterns = { ".git" },
-                    debounce = 100,
-                    args = { "--stdin", "--stdin-filename", "%filepath", "--format", "json" },
-                    sourceName = "eslint",
-                    parseJson = {
-                        errorsRoot = "[0].messages",
-                        line = "line",
-                        column = "column",
-                        endLine = "endLine",
-                        endColumn = "endColumn",
-                        message = "[eslint] ${message} [${ruleId}]",
-                        security = "severity",
-                    },
-                    securities = {
-                        [2] = "error",
-                        [1] = "warning",
-                    },
-                },
-                markdownlint = {
-                    command = "markdownlint",
-                    rootPatterns = { ".git" },
-                    isStderr = true,
-                    debounce = 100,
-                    args = { "--stdin" },
-                    offsetLine = 0,
-                    offsetColumn = 0,
-                    sourceName = "markdownlint",
-                    securities = {
-                        undefined = "hint",
-                    },
-                    formatLines = 1,
-                    formatPattern = {
-                        "^.*?:\\s?(\\d+)(:(\\d+)?)?\\s(MD\\d{3}\\/[A-Za-z0-9-/]+)\\s(.*)$",
-                        {
-                            line = 1,
-                            column = 3,
-                            message = { "[", 4, "]: ", 5 },
-                        },
-                    },
-                },
-                mypy = {
-                    sourceName = "mypy",
-                    command = "mypy",
-                    args = {
-                        "--no-color-output",
-                        "--no-error-summary",
-                        "--show-column-numbers",
-                        "--follow-imports=silent",
-                        "%file",
-                    },
-                    formatPattern = {
-                        "^.*:(\\d+?):(\\d+?): ([a-z]+?): (.*)$",
-                        {
-                            line = 1,
-                            column = 2,
-                            security = 3,
-                            message = 4,
-                        },
-                    },
-                    securities = {
-                        error = "error",
-                    },
-                },
-                pylint = {
-                    sourceName = "pylint",
-                    args = {
-                        "--output-format",
-                        "text",
-                        "--score",
-                        "no",
-                        "--msg-template",
-                        [['{line}:{column}:{category}:{msg} ({msg_id}:{symbol})']],
-                        "%file",
-                    },
-                    offsetColumn = 1,
-                    formatLines = 1,
-                    formatPattern = {
-                        [[^(\d+?):(\d+?):([a-z]+?):(.*)$]],
-                        { line = 1, column = 2, security = 3, message = { "[pylint] ", 4 } },
-                    },
-                    securities = {
-                        informational = "hint",
-                        refactor = "info",
-                        convention = "info",
-                        warning = "warning",
-                        error = "error",
-                        fatal = "error",
-                    },
-                    rootPatterns = { ".git", "pyproject.toml", "setup.py" },
-                },
-                shellcheck = {
-                    sourceName = "shellcheck",
-                    command = "shellcheck",
-                    debounce = 100,
-                    args = { "--format", "json1", "-" },
-                    parseJson = {
-                        errorsRoot = "comments",
-                        sourceName = "file",
-                        line = "line",
-                        column = "column",
-                        endLine = "endLine",
-                        endColumn = "endColumn",
-                        message = "[shellcheck] ${message} [SC${code}]",
-                        security = "level",
-                    },
-                    securities = {
-                        error = "error",
-                        warning = "warning",
-                        info = "info",
-                        style = "hint",
-                    },
-                },
-                luacheck = {
-                    sourceName = "luacheck",
-                    command = "luacheck",
-                    debounce = 100,
-                    args = { "--codes", "--no-color", "--quiet", "-" },
-                    offsetLine = 0,
-                    offsetColumn = 0,
-                    formatLines = 1,
-                    formatPattern = {
-                        [[^.*:(\d+):(\d+):\s\(([W|E])\d+\)\s(.*)(\r|\n)*$]],
-                        { line = 1, column = 2, security = 3, message = { "[luacheck] ", 4 } },
-                    },
-                    securities = { E = "error", W = "warning" },
-                    rootPatterns = { ".luacheckrc" },
-                },
-                golangci_lint = {
-                    sourceName = "golangci_lint",
-                    command = "golangci-lint",
-                    args = { "run", "--out-format", "json" },
-                    debounce = 100,
-                    parseJson = {
-                        sourceNameFilter = true,
-                        sourceName = "Pos.Filename",
-                        errorsRoot = "Issues",
-                        line = "Pos.Line",
-                        column = "Pos.Column",
-                        message = "[golangci_lint] ${Text} [${FromLinter}]",
-                    },
-                    rootPatterns = { ".git", "go.mod" },
-                },
-            },
-            filetypes = {
-                javascript = "eslint",
-                javascriptreact = "eslint",
-                typescript = "eslint",
-                typescriptreact = "eslint",
-                markdown = "markdownlint",
-                sh = "shellcheck",
-                lua = "luacheck",
-                go = "golangci_lint",
-            },
-            formatters = {
-                prettierEslint = {
-                    command = "prettier-eslint",
-                    args = { "--stdin" },
-                    rootPatterns = { ".git" },
-                },
-                prettier = {
-                    command = "prettier",
-                    args = { "--stdin-filepath", "%filename" },
-                },
-                stylua = {
-                    command = "stylua",
-                    args = { "-s", "-" },
-                },
-                black = {
-                    command = "black",
-                    args = { "--quiet", "-" },
-                    rootPatterns = {
-                        ".git",
-                        "pyproject.toml",
-                        "setup.py",
-                    },
-                },
-            },
-            formatFiletypes = {
-                css = "prettier",
-                javascript = "prettierEslint",
-                javascriptreact = "prettierEslint",
-                json = "prettier",
-                lua = "stylua",
-                scss = "prettier",
-                typescript = "prettierEslint",
-                typescriptreact = "prettierEslint",
-                python = "black",
-            },
-        },
-        on_attach = on_attach,
-        capabilities = client_caps,
-        flags = { debounce_text_changes = debounce_text_changes_msec },
-    },
 }
 
 -- Configure each installed LSP server with an override configuration (see above)
@@ -581,6 +370,64 @@ lsp_installer.on_server_ready(function(server)
         server:setup(default_server_opts)
     end
 end)
+
+
+-- Loopback language server ('null-ls'), used to hook into LSP directly via Lua.
+-- Used for linting, formatting,  code actions, hovers, etc.
+--
+-- NOTE: null-ls isn't configured via lsp-config.  Must be done separately.
+
+local null_ls = require "null-ls"
+
+local my_sources = require("null-ls-sources.cfn-lint")
+
+null_ls.setup {
+    sources = {
+
+        -- Linters
+        null_ls.builtins.diagnostics.chktex,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.diagnostics.gitlint,
+        null_ls.builtins.diagnostics.golangci_lint,
+        null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
+        null_ls.builtins.diagnostics.jsonlint,
+        null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.diagnostics.yamllint,
+
+        null_ls.builtins.diagnostics.luacheck.with {
+            extra_args = function()
+                return { "--globals", "vim" }
+            end,
+        },
+
+        my_sources.diagnostics.cfn_lint,  -- lints for CloudFormation templates
+
+        -- Code formatters
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.fixjson,
+        null_ls.builtins.formatting.goimports,
+        null_ls.builtins.formatting.markdownlint,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.reorder_python_imports,
+        null_ls.builtins.formatting.shellharden,
+        null_ls.builtins.formatting.sqlformat,
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.terraform_fmt,
+
+        -- Additional LSP code action contributions
+        null_ls.builtins.code_actions.eslint,
+        null_ls.builtins.code_actions.shellcheck,
+    },
+
+    on_attach = on_attach,
+    capabilities = client_caps,
+    root_dir = vim.loop.cwd,
+    flags = { debounce_text_changes = debounce_text_changes_msec },
+}
+
 
 local function lspSymbol(key, icon, sign_name)
     vim.fn.sign_define(sign_name, {

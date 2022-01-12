@@ -198,6 +198,9 @@ vim.cmd [[
     autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
     autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 
+    " Tweak filetypes of certain kinds of files
+    autocmd BufRead * if getbufline(bufnr('%'), 1, 2) == ['---', 'AWSTemplateFormatVersion: ''2010-09-09'''] | setlocal ft=cloudformation | endif
+
     " Don't show status line on certain windows
     let g:hidden_statusline = [ 'NvimTree', ]
 
