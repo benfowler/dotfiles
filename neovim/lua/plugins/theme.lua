@@ -121,7 +121,6 @@ function my_highlights_nord()
     u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE", guifg = nord3_bright })
 
     -- Line numbers: tweaks to show current line
-    u.HiClear "CursorLine"
     u.HiClear "CursorLineNr"
     u.HiLink("CursorLineNr", "Bold", true)
 
@@ -240,6 +239,8 @@ function my_highlights_nord()
 
     -- nvim-tree
     u.Hi("NvimTreeNormal", { guifg = nord4 })
+    u.Hi("NvimTreeOpenedFile", { gui = "bold" })
+
     u.Hi("NvimTreeIndentMarker", { guifg = nord1 })
 
     u.Hi("NvimTreeFolderIcon", { guifg = nord3_bright })
