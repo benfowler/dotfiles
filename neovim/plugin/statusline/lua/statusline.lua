@@ -303,10 +303,23 @@ Statusline.get_lsp_diagnostic = function(self)
                 str = msg.title
             end
 
+            local name = "???"
+            if type(msg.name) == "number" then
+                -- Attempt to use 'msg.name' as client ID
+                if #vim.lsp.buf_get_clients() > 0 then
+                    local lsp_server = vim.lsp.get_client_by_id(msg.name)
+                    if lsp_server ~= nil then
+                        name = lsp_server.name
+                    end
+                end
+            elseif type(msg.name == "string") then
+                name = msg.name
+            end
+
             if msg.percentage ~= nil then
-                fmt_msg = string.format("[LSP] %s: %s (%s%%)", msg.name, str, math.floor(msg.percentage))
+                fmt_msg = string.format("[LSP] %s: %s (%s%%)", name, str, math.floor(msg.percentage))
             else
-                fmt_msg = string.format("[LSP] %s: %s", msg.name, str)
+                fmt_msg = string.format("[LSP] %s: %s", name, str)
             end
         end
         if fmt_msg ~= self.lsp_last_message then
