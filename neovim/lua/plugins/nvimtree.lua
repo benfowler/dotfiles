@@ -3,7 +3,7 @@ if not present then
     return
 end
 
-local lsp_icons = require("utils").diagnostic_icons.filled
+local lsp_icons = require("utils").diagnostic_icons.outline
 
 
 -- Auto-close file explorer when quitting, in case a single buffer is left
@@ -22,9 +22,10 @@ g.nvim_tree_quit_on_open = 0 -- closes tree when file's opened
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_hide_dotfiles = 0
 g.nvim_tree_git_hl = 1
-g.nvim_tree_highlight_opened_files = 0
+g.nvim_tree_highlight_opened_files = 1
 g.nvim_tree_allow_resize = 1
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
+g.nvim_tree_refresh_wait = 500
 
 g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
 g.nvim_tree_group_empty = 1 -- 0 by default, compact folders that only contain a single folder into one node in the file tree
@@ -32,6 +33,15 @@ g.nvim_tree_disable_window_picker = 1
 
 g.nvim_tree_icon_padding = "  "
 g.nvim_tree_respect_buf_cwd = 1
+
+vim.api.nvim_exec([[
+    augroup NvimTreeOptions
+        autocmd BufEnter NvimTree set cursorline
+        autocmd BufEnter NvimTree hi clear NvimTreeExecFile
+        autocmd BufEnter NvimTree hi clear NvimTreeImageFile
+    augroup END
+    ]], false)
+
 
 -- List of filenames that gets highlighted with NvimTreeSpecialFile
 g.nvim_tree_special_files = {
