@@ -136,6 +136,14 @@ local function map(mode, lhs, rhs, extra_opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+local function map_buf(bufnr, mode, lhs, rhs, extra_opts)
+    local options = { noremap = true, silent = true }
+    if extra_opts then
+        options = vim.tbl_extend("force", options, extra_opts)
+    end
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options)
+end
+
 vim.g.mapleader = miscMap.mapleader
 
 -- (These mappings will be called during initialization)
@@ -217,6 +225,47 @@ M.misc = function()
     cmd "command! PS PackerStatus"
     cmd "command! PU PackerSync"
 end
+
+
+--
+-- LSP bindings (dynamically, by buffer)
+--
+
+M.lsp = function(bufnr, client_caps)
+
+    local opts = { noremap = true, silent = true }
+
+    map_buf(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    map_buf(bufnr, "n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    map_buf(bufnr, "n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    map_buf(bufnr, "n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
+    map_buf(bufnr, "n", "gk", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    map_buf(bufnr, "n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    map_buf(bufnr, "n", "gt", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+    map_buf(bufnr, "n", "gI", "<Cmd>lua vim.lsp.buf.incoming_calls()<CR>", opts)
+    map_buf(bufnr, "n", "gO", " <Cmd>lua vim.lsp.buf.outgoing_calls()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>gw", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>gW", "<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>a", ":Telescope lsp_code_actions<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>A", "<Cmd>lua vim.lsp.codelens.run()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    map_buf(bufnr, "n", "<C-k>", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
+    map_buf(bufnr, "n", "<C-j>", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
+    map_buf(bufnr, "n", "[d", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
+    map_buf(bufnr, "n", "]d", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
+    map_buf(bufnr, "n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>Wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+
+    -- Set some keybinds conditional on server capabilities
+    if client_caps.document_range_formatting == true then
+        map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        map_buf(bufnr, "v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    elseif client_caps.document_formatting == true then
+        map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+end
+
 
 --
 -- Plugin mappings
