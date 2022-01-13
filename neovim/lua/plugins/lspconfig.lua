@@ -69,42 +69,8 @@ local function on_attach(client, bufnr)
 
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    -- Mappings
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-
-    local opts = { noremap = true, silent = true }
-
-    buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "gk", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "gt", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-    buf_set_keymap("n", "gI", "<Cmd>lua vim.lsp.buf.incoming_calls()<CR>", opts)
-    buf_set_keymap("n", "gO", " <Cmd>lua vim.lsp.buf.outgoing_calls()<CR>", opts)
-    buf_set_keymap("n", "<Leader>gw", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-    buf_set_keymap("n", "<Leader>gW", "<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
-    buf_set_keymap("n", "<Leader>a", ":Telescope lsp_code_actions<CR>", opts)
-    buf_set_keymap("n", "<Leader>A", "<Cmd>lua vim.lsp.codelens.run()<CR>", opts)
-    buf_set_keymap("n", "<Leader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
-    buf_set_keymap("n", "<C-j>", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
-    buf_set_keymap("n", "[d", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
-    buf_set_keymap("n", "]d", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
-    buf_set_keymap("n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<Leader>Wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_range_formatting == true then
-        buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-        buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_formatting == true then
-        buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
+    -- Set up keymappings for this buffer only
+    require("mappings").lsp(bufnr, client.resolved_capabilities)
 
     -- CodeLens
     if client.resolved_capabilities.code_lens == true then
