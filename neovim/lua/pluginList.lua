@@ -152,6 +152,14 @@ return packer.startup(function()
     }
 
     use {
+        "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
+        after = "lspkind-nvim",
+        config = function()
+            require'toggle_lsp_diagnostics'.init()
+        end,
+    }
+
+    use {
         "folke/trouble.nvim",
         cmd = { "Trouble", "TroubleToggle" },
         requires = "kyazdani42/nvim-web-devicons",
