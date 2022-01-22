@@ -166,6 +166,10 @@ function my_highlights_nord()
     u.Hi("LspReferenceWrite", { guifg = nord15, guibg = nord1, gui = "bold" })
     u.Hi("LspReferenceText", { guibg = nord1 })
 
+    -- LSP CodeLenses (rendered as virtual text)
+    u.Hi("LspCodeLens", { guifg = misc_fg })
+    u.HiLink("LspCodeLensSeparator", "Comment")
+
     -- Folds
     u.Hi("Folded", { guifg = nord7, gui = "italic" })
 
