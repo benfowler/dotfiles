@@ -6,9 +6,6 @@ end
 local u = require "utils"
 local g = vim.g
 
-local opt = vim.opt
-local cmd = vim.cmd
-
 -- Theme-agnostic setup
 function my_highlights_all()
     -- Transparent background, including signcolumn and foldcolumn, but not linenr
@@ -165,9 +162,9 @@ function my_highlights_nord()
     u.HiLink("DiagnosticSignInfo", "DiagnosticInfo", true)
     u.HiLink("DiagnosticSignHint", "DiagnosticHint", true)
 
-    u.Hi("LspReferenceRead", { guifg = nord14, gui = "bold,underline" })
-    u.Hi("LspReferenceWrite", { guifg = nord15, gui = "bold,underline" })
-    u.Hi("LspReferenceText", { gui = "bold" })
+    u.Hi("LspReferenceRead", { guifg = nord14, guibg = nord1, gui = "bold" })
+    u.Hi("LspReferenceWrite", { guifg = nord15, guibg = nord1, gui = "bold" })
+    u.Hi("LspReferenceText", { guibg = nord1 })
 
     -- Folds
     u.Hi("Folded", { guifg = nord7, gui = "italic" })

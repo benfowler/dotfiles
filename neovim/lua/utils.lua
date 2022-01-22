@@ -33,8 +33,9 @@ M.diagnostic_icons = {
 }
 
 -- Set a highlight group
-M.Hi = function(group, opts)
-    local c = "highlight " .. group
+M.Hi = function(group, opts, is_forced)
+    is_forced = is_forced or false
+    local c = "highlight" .. (is_forced and "! " or " ") ..  group
     for k, v in pairs(opts) do
         c = c .. " " .. k .. "=" .. v
     end
@@ -43,6 +44,7 @@ end
 
 -- Set a highlight group link
 M.HiLink = function(group, linked_to_group, is_forced)
+    is_forced = is_forced or false
     local c = "highlight" .. (is_forced and "!" or "") .. " link " .. group .. " " .. linked_to_group
     vim.cmd(c)
 end
