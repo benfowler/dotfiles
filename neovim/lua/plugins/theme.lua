@@ -170,6 +170,10 @@ function my_highlights_nord()
     u.Hi("LspCodeLens", { guifg = misc_fg })
     u.HiLink("LspCodeLensSeparator", "Comment")
 
+    -- Luasnip
+    u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord12 })
+    u.Hi("LuasnipInsertNodeVirtualText", { guifg = nord8 })
+
     -- Folds
     u.Hi("Folded", { guifg = nord7, gui = "italic" })
 
