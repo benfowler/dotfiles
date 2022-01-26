@@ -68,6 +68,19 @@ M.notify = function ()
     vim.notify = notify
 end
 
+M.fidget = function()
+    require "fidget".setup({
+        text = {
+            spinner = "dots",
+            done = " ",
+        },
+    })
+
+    local u = require("utils")
+    u.Hi("FidgetTitle", { gui = "bold", guifg = "#b48ead", guibg = "#2e3440" })
+    u.Hi("FidgetTask", { guifg = "#616e88", guibg = "#2e3440" })
+end
+
 M.luasnip = function()
     local present, luasnip = pcall(require, "luasnip")
     if not present then

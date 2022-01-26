@@ -160,6 +160,14 @@ return packer.startup(function()
     }
 
     use {
+        "j-hui/fidget.nvim",
+        after = "nvim-lspconfig",
+        config = function()
+            require("plugins.others").fidget()
+        end,
+    }
+
+    use {
         "folke/trouble.nvim",
         cmd = { "Trouble", "TroubleToggle" },
         requires = "kyazdani42/nvim-web-devicons",
