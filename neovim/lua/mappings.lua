@@ -179,23 +179,10 @@ M.misc = function()
     map("n", miscMap.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), opt)
 
     -- Fast quickfix and location list navigation.  Centre editing line when navigating.
-    map("n", "[l", ":lprev<CR>zzzv", opt)
-    map("n", "]l", ":lnext<CR>zzzv", opt)
-    map("n", "[q", ":cprev<CR>zzzv", opt)
-    map("n", "]q", ":cnext<CR>zzzv", opt)
-
-    map("n", "{", "{zz", opt)
-    map("n", "}", "}zz", opt)
-    map("n", "n", "nzz", opt)
-    map("n", "N", "Nzz", opt)
-    map("n", "]c", "]czz", opt)
-    map("n", "[c", "[czz", opt)
-    map("n", "[j", "<C-o>zz", opt)
-    map("n", "]j", "<C-i>zz", opt)
-    map("n", "]s", "]szz", opt)
-    map("n", "[s", "[szz", opt)
-
-    map("n", "g;", "g;zz", opt)
+    map("n", "[l", ":lprev<CR>", opt)
+    map("n", "]l", ":lnext<CR>", opt)
+    map("n", "[q", ":cprev<CR>", opt)
+    map("n", "]q", ":cnext<CR>", opt)
 
     -- Change doesn't overwrite the unnamed register (clipboard for me).
     -- I can change/paste, and not lose the clipboard contents I'm about to paste.
