@@ -78,7 +78,7 @@ return packer.startup(function()
 
     -- Theme
     use {
-        "arcticicestudio/nord-vim",
+        "rmehri01/onenord.nvim",
         disable = not plugin_status.nord,
         config = function()
             require "plugins.theme"
