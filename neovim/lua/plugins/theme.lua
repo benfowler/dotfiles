@@ -276,18 +276,33 @@ end
 vim.api.nvim_exec( [[
    augroup ColorSchemeOverrides
    autocmd!
-   autocmd ColorScheme *    luado my_highlights_all()
-   autocmd ColorScheme nord luado my_highlights_nord()
+   autocmd ColorScheme *       luado my_highlights_all()
+   autocmd ColorScheme onenord luado my_highlights_nord()
    augroup END
 ]], false)
 
--- Nord-specific propertis that must be set _before_ colourscheme is applied
-g.nord_italic = 1
-g.nord_italic_comments = 1
-g.nord_underline = 1
-g.nord_cursor_line_number_background = 1
+-- OneNord-specific setup
+require('onenord').setup({
+  theme = nil, -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
+  borders = true, -- Split window borders
+  fade_nc = false, -- Fade non-current windows, making them more distinguishable
+  styles = {
+    comments = "italic", -- Style that is applied to comments: see `highlight-args` for options
+    strings = "NONE", -- Style that is applied to strings: see `highlight-args` for options
+    keywords = "bold", -- Style that is applied to keywords: see `highlight-args` for options
+    functions = "NONE", -- Style that is applied to functions: see `highlight-args` for options
+    variables = "NONE", -- Style that is applied to variables: see `highlight-args` for options
+    diagnostics = "undercurl", -- Style that is applied to diagnostics: see `highlight-args` for options
+  },
+  disable = {
+    background = false, -- Disable setting the background color
+    cursorline = false, -- Disable the cursorline
+    eob_lines = true, -- Hide the end-of-buffer lines
+  },
+  custom_highlights = {}, -- Overwrite default highlight groups
+  custom_colors = {}, -- Overwrite default colors
+})
 
-g.python_multiline_string_as_comment = 1 -- Python's stock (non-TS) highlighting definition
+-- Finally, force application of my highlight customizations by triggering autocmd
+vim.cmd [[ colo onenord ]]
 
--- NOW apply the colorscheme.
-vim.cmd [[ colorscheme nord ]]
