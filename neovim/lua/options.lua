@@ -208,7 +208,7 @@ vim.cmd [[
     if index(g:hidden_statusline, &ft) >= 0
         set laststatus=0
     else
-        set laststatus=3
+        set laststatus=2
     endif
     endfunction
 
