@@ -50,7 +50,11 @@ local info_fg  = nord9
 local hint_fg  = nord7
 local misc_fg  = nord15
 
-local ok_fg    = nord12
+local ok_fg    = nord14
+
+local diff_add = nord14
+local diff_change = nord13
+local diff_delete = nord11
 
 local spell_bad_fg = error_fg
 local spell_cap_fg = warn_fg
@@ -111,9 +115,9 @@ function my_highlights_nord()
     u.Hi("StatusLineInfo", { guifg = info_fg, guibg = statusline_active_bg })
     u.Hi("StatusLineHint", { guifg = hint_fg, guibg = statusline_active_bg })
     u.Hi("StatusLineOk", { guifg = ok_fg, guibg = statusline_active_bg })
-    u.Hi("StatusLineAdd", { guifg = nord9, guibg = statusline_active_bg })
-    u.Hi("StatusLineChange", { guifg = nord13, guibg = statusline_active_bg })
-    u.Hi("StatusLineDelete", { guifg = nord11, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineAdd", { guifg = diff_add, guibg = statusline_active_bg })
+    u.Hi("StatusLineChange", { guifg = diff_change, guibg = statusline_active_bg })
+    u.Hi("StatusLineDelete", { guifg = diff_delete, gui="bold", guibg = statusline_active_bg })
 
     u.Hi("StatusLineModeNormal", { guifg = statusline_active_fg, gui="bold", guibg = statusline_active_bg })
     u.Hi("StatusLineModeInsert", { guifg = nord8, gui="bold", guibg = statusline_active_bg })
@@ -189,9 +193,9 @@ function my_highlights_nord()
     u.Hi("Folded", { guifg = nord7, gui = "italic" })
 
     -- Git gutter signs
-    u.Hi("GitSignsAdd", { guifg = nord9 })
-    u.Hi("GitSignsChange", { guifg = nord13 })
-    u.Hi("GitSignsDelete", { gui = "bold", guifg = nord11 })
+    u.Hi("GitSignsAdd", { gui="bold", guifg = diff_add })
+    u.Hi("GitSignsChange", { guifg = diff_change })
+    u.Hi("GitSignsDelete", { gui = "bold", guifg = diff_delete })
     u.Hi("GitSignsChangeDelete", { gui = "bold", guifg = nord11 })
 
     -- Telescope (lifted from FZF Nord theme)
