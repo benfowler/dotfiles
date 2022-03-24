@@ -102,26 +102,26 @@ M.is_truncated = function(_, width)
 end
 
 M.modes = setmetatable({
-    ["n"] = { "Normal", "N" },
-    ["no"] = { "N·Pending", "N·P" },
-    ["v"] = { "Visual", "V" },
-    ["V"] = { "V·Line", "V·L" },
-    [""] = { "V·Block", "V·B" }, -- this is not ^V, but it's , they're different
-    ["s"] = { "Select", "S" },
-    ["S"] = { "S·Line", "S·L" },
-    [""] = { "S·Block", "S·B" }, -- same with this one, it's not ^S but it's 
-    ["i"] = { "Insert", "I" },
-    ["ic"] = { "Insert", "I" },
-    ["R"] = { "Replace", "R" },
-    ["Rv"] = { "V·Replace", "V·R" },
-    ["c"] = { "Command", "C" },
-    ["cv"] = { "Vim·Ex ", "V·E" },
-    ["ce"] = { "Ex ", "E" },
-    ["r"] = { "Prompt ", "P" },
-    ["rm"] = { "More ", "M" },
-    ["r?"] = { "Confirm ", "C" },
-    ["!"] = { "Shell ", "S" },
-    ["t"] = { "Terminal ", "T" },
+    ["n"] = { "Normal", "N", "%#StatusLineModeNormal#" },
+    ["no"] = { "N·Pending", "N·P", "%#StatusLineModeNormal#" },
+    ["v"] = { "Visual", "V", "%#StatusLineModeVisual#" },
+    ["V"] = { "V·Line", "V·L", "%#StatusLineModeVisual#" },
+    [""] = { "V·Block", "V·B", "%#StatusLineModeVisual#" }, -- this is not ^V, but it's , they're different
+    ["s"] = { "Select", "S", "%#StatusLineModeVisual#" },
+    ["S"] = { "S·Line", "S·L", "%#StatusLineModeVisual#" },
+    [""] = { "S·Block", "S·B", "%#StatusLineModeVisual#" }, -- same with this one, it's not ^S but it's 
+    ["i"] = { "Insert", "I", "%#StatusLineModeInsert#" },
+    ["ic"] = { "Insert", "I", "%#StatusLineModeInsert#" },
+    ["R"] = { "Replace", "R", "%#StatusLineModeReplace#" },
+    ["Rv"] = { "V·Replace", "V·R", "%#StatusLineModeReplace#" },
+    ["c"] = { "Command", "C", "%#StatusLineModeCommand#" },
+    ["cv"] = { "Vim·Ex ", "V·E", "%#StatusLineModeEx#" },
+    ["ce"] = { "Ex ", "E", "%#StatusLineModeEx#" },
+    ["r"] = { "Prompt ", "P", "%#StatusLineModeNormal#" },
+    ["rm"] = { "More ", "M", "%#StatusLineModeNormal#" },
+    ["r?"] = { "Confirm ", "C", "%#StatusLineModeNormal#" },
+    ["!"] = { "Shell ", "S", "%#StatusLineModeTerminal#" },
+    ["t"] = { "Terminal ", "T", "%#StatusLineModeTerminal#" },
 }, {
     __index = function()
         return { "Unknown", "U" } -- handle edge cases
@@ -133,10 +133,11 @@ M.use_long_modes = true
 M.get_current_mode = function(self)
     local current_mode = api.nvim_get_mode().mode
 
+    local hl_group = self.modes[current_mode][3]
     if not self.use_long_modes or self:is_truncated(self.trunc_width.mode) then
-        return string.format(" %s ", self.modes[current_mode][2]):upper()
+        return string.format(" %s%s ", hl_group, self.modes[current_mode][2]):upper()
     end
-    return string.format(" %s ", self.modes[current_mode][1]):upper()
+    return string.format(" %s%s ", hl_group, self.modes[current_mode][1]):upper()
 end
 
 M.get_git_status = function(self)

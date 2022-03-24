@@ -115,6 +115,14 @@ function my_highlights_nord()
     u.Hi("StatusLineChange", { guifg = nord13, guibg = statusline_active_bg })
     u.Hi("StatusLineDelete", { guifg = nord11, gui="bold", guibg = statusline_active_bg })
 
+    u.Hi("StatusLineModeNormal", { guifg = statusline_active_fg, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeInsert", { guifg = nord8, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeVisual", { guifg = nord13, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeReplace", { guifg = nord15, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeCommand", { guifg = nord9, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeTerminal", { guifg = nord14, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeEx", { guifg = nord12, gui="bold", guibg = statusline_active_bg })
+
     -- Inactive statusbars: make a thin rule; align VertSplit to match.
     u.HiClear "StatusLineNC"
     u.Hi("StatusLineNC", { gui = "underline", guifg = nord3_bright })
