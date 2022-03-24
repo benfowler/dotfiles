@@ -35,6 +35,9 @@ M.colors = {
     mode_alt = "%#ModeAlt#",
     git = "%#Git#",
     git_alt = "%#GitAlt#",
+    git_add = "%#StatusLineAdd#",
+    git_change = "%#StatusLineChange#",
+    git_delete = "%#StatusLineDelete#",
     filetype = "%#Filetype#",
     filetype_alt = "%#FiletypeAlt#",
     line_info = "%#LineCol#",
@@ -66,7 +69,7 @@ M.lsp_last_message = ""
 
 M.git_icon = ""
 
-M.git_show_changes = false
+M.git_show_changes = true
 
 -- HACK: make all highlight groups the default color for now
 -- stylua: ignore
@@ -125,7 +128,7 @@ M.modes = setmetatable({
     end,
 })
 
-M.use_long_modes = false
+M.use_long_modes = true
 
 M.get_current_mode = function(self)
     local current_mode = api.nvim_get_mode().mode
@@ -141,20 +144,30 @@ M.get_git_status = function(self)
     local signs = vim.b.gitsigns_status_dict or { head = "", added = 0, changed = 0, removed = 0 }
     local is_head_empty = signs.head ~= ""
 
-    if not self.git_show_changes or self:is_truncated(self.trunc_width.git_status) then
-        return is_head_empty and string.format(" %s %s ", self.git_icon, signs.head or "") or ""
-    end
+    if is_head_empty and not self:is_truncated(self.trunc_width.git_status) then
+        local git_indicator = ""
+        if (signs.added ~= nil and signs.added > 0) then
+            git_indicator = git_indicator .. " " .. self.colors.git_add .. "+" .. signs.added
+        end
+        if (signs.changed ~= nil and signs.changed > 0) then
+            git_indicator = git_indicator .. " " .. self.colors.git_change .. "~" .. signs.changed
+        end
+        if (signs.removed ~= nil and signs.removed > 0) then
+            git_indicator = git_indicator .. " " .. self.colors.git_delete .. "-" .. signs.removed
+        end
 
-    return is_head_empty
-            and string.format(
-                " %s %s | +%s ~%s -%s ",
-                self.git_icon,
-                signs.head,
-                signs.added,
-                signs.changed,
-                signs.removed
-            )
-        or ""
+        return git_indicator
+    else
+        return ""
+    end
+end
+
+M.get_git_branch = function(self)
+    -- use fallback because it doesn't set this variable on the initial `BufEnter`
+    local signs = vim.b.gitsigns_status_dict or { head = "" }
+    local is_head_empty = signs.head ~= ""
+
+    return is_head_empty and string.format(" %s %s ", self.git_icon, signs.head or "") or ""
 end
 
 M.get_filename = function(_)
@@ -204,9 +217,11 @@ M.set_active = function(self)
     local mode = colors.mode .. self:get_current_mode()
     local mode_alt = colors.mode_alt .. self.separators[active_sep][1]
     local filetype_icon, filetype_label = self:get_filetype()
-    local filename = colors.active .. self:format_filename(filetype_icon, self:get_filename())
+    --local filename = colors.active .. self:format_filename(filetype_icon, self:get_filename())
+    local filename = colors.active .. self:get_filename()
     local lsp_diagnostic = self:get_lsp_diagnostic()
-    local git = colors.git .. self:get_git_status()
+    local git_status = colors.git .. self:get_git_status()
+    local git_branch = colors.git .. self:get_git_branch()
     local git_alt = colors.git_alt .. self.separators[active_sep][2]
     local filetype_alt = colors.filetype_alt .. self.separators[active_sep][2]
     local filetype = colors.filetype .. self:format_filetype(filetype_icon, filetype_label)
@@ -216,12 +231,12 @@ M.set_active = function(self)
    -- stylua: ignore
     return table.concat({
       -- left hand side
-        colors.active, filename,
+        mode, mode_alt, colors.active, git_status,
         "%=",
-        -- leave centre vacant
+        filename,
         "%=",
       -- right hand side
-        lsp_diagnostic, git_alt, git, filetype_alt, filetype, line_info_alt, line_info,
+        lsp_diagnostic, git_alt, git_branch, filetype_alt, filetype, line_info_alt, line_info,
     })
 end
 

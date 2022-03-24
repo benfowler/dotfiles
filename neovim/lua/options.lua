@@ -13,7 +13,7 @@ opt.showcmd = true                            -- set incomplete commands down th
 opt.visualbell = true                         -- disable beeps
 opt.autoread = true                           -- read files from disk automatically if they've changed elsewhere
 opt.cmdheight = 1
-opt.showmode = true
+opt.showmode = false
 
 opt.hidden = true                             -- lets Vim keep buffers in the background w/o a window
 opt.switchbuf:append("useopen")               -- When using :sbuffer, jump to open window if available
