@@ -206,9 +206,10 @@ end
 
 M.get_line_info = function(self)
     if self:is_truncated(self.trunc_width.line_info) then
-        return " %{line('.')}:%-2v %{line('$')}L "
+        -- TO ADD TOTAL LINE COUNT:: "%{line('$')}L"
+        return " %{line('.')}:%-2v "
     else
-        return " %{line('.')}:%-2v %p%% %{line('$')}L "
+        return " %{line('.')}:%-2v %p%% "
     end
 end
 
