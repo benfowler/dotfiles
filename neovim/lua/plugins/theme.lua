@@ -310,7 +310,7 @@ require('onenord').setup({
     diagnostics = "undercurl", -- Style that is applied to diagnostics: see `highlight-args` for options
   },
   disable = {
-    background = false, -- Disable setting the background color
+    background = true, -- Disable setting the background color
     cursorline = false, -- Disable the cursorline
     eob_lines = true, -- Hide the end-of-buffer lines
   },
