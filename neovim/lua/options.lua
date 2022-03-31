@@ -42,6 +42,7 @@ opt.nrformats= ''                             -- Force decimal-only for C-a and 
 -- Appearance settings
 opt.termguicolors = true                      -- enable true colors support
 opt.signcolumn = "yes:1"                      -- make sign column grow automatically
+opt.colorcolumn:append("81")                  -- enable right-hand margin by default
 opt.cul = false                               -- highlight cursor row
 opt.shortmess:append("a")
 
