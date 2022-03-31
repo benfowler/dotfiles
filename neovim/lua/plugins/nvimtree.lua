@@ -16,11 +16,7 @@ vim.o.termguicolors = true
 
 g.nvim_tree_side = "left"
 g.nvim_tree_width = 25
-g.nvim_tree_ignore = { ".git", ".cache" }
-g.nvim_tree_gitignore = 1
-g.nvim_tree_quit_on_open = 0 -- closes tree when file's opened
 g.nvim_tree_indent_markers = 1
-g.nvim_tree_hide_dotfiles = 0
 g.nvim_tree_git_hl = 1
 g.nvim_tree_highlight_opened_files = 1
 g.nvim_tree_allow_resize = 1
@@ -29,7 +25,6 @@ g.nvim_tree_refresh_wait = 500
 
 g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
 g.nvim_tree_group_empty = 1 -- 0 by default, compact folders that only contain a single folder into one node in the file tree
-g.nvim_tree_disable_window_picker = 1
 
 g.nvim_tree_icon_padding = "  "
 g.nvim_tree_respect_buf_cwd = 1
@@ -94,15 +89,20 @@ g.nvim_tree_icons = {
 
 -- Breaking change: authors moved a bunch of config into new setup() function
 require'nvim-tree'.setup {
-  disable_netrw       = false,
-  hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
-  auto_close          = true,
-  open_on_tab         = false,
-  hijack_cursor       = false,
-  update_cwd          = false,
-  update_focused_file = {
+  disable_netrw         = false,
+  hijack_netrw          = true,
+  open_on_setup         = false,
+  ignore_ft_on_setup    = {},
+  auto_close            = true,
+  open_on_tab           = false,
+  hijack_cursor         = false,
+  update_cwd            = false,
+  disable_window_picker = true,
+  quit_on_open          = false, -- closes tree when file's opened
+  gitignore             = true,
+  ignore                = { ".git", ".cache" },
+  hide_dotfiles         = false,
+  update_focused_file   = {
     enable      = true,
     update_cwd  = false,
     ignore_list = {}
