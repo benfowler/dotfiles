@@ -7,7 +7,7 @@ local lsp_icons = require("utils").diagnostic_icons.outline
 
 
 -- Auto-close file explorer when quitting, in case a single buffer is left
-vim.cmd([[ autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'nvimtree') | q | endif ]])
+vim.cmd [[ autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif ]]
 
 
 local g = vim.g
@@ -93,7 +93,6 @@ require'nvim-tree'.setup {
   hijack_netrw          = true,
   open_on_setup         = false,
   ignore_ft_on_setup    = {},
-  auto_close            = true,
   open_on_tab           = false,
   hijack_cursor         = false,
   update_cwd            = false,
