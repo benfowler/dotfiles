@@ -375,7 +375,7 @@ return packer.startup(function()
     use {
         "tpope/vim-fugitive",
         disable = not plugin_status.vim_fugitive,
-        cmd = { "Git", "Gread", "Gwrite", "Gdiff" }, -- add any other Fugitive commands to lazy-load on
+        cmd = { "G", "Git", "Gread", "Gwrite", "Gdiff" }, -- add any other Fugitive commands to lazy-load on
         setup = function()
             require("mappings").fugitive()
         end,
