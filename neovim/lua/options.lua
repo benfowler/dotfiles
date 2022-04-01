@@ -248,6 +248,9 @@ vim.cmd [[
     autocmd FileType markdown set complete+=k
     autocmd FileType markdown set dictionary+=/usr/share/dict/words
 
+    " More-aggressive highlighting (otherwise, chokes on line files)
+    syntax sync minlines=1000
+
     "
     " TODO: move to mappings and migrate once autogroup Lua bindings exist
     "
