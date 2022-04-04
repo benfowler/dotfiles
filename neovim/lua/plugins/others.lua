@@ -20,7 +20,7 @@ M.autopairs = function()
 
     autopairs.setup({
       -- Don't add pairs if the next char is alphanumeric
-      ignored_next_char = "[%w%.]",   -- will ignore alphanumeric and `.` symbol
+      ignored_next_char = "[%w%.%$]",   -- will ignore alphanumeric, `$` and `.` symbol
 
       -- Enable the very nice 'fast wrap' feature.  Activate with <M>-e.
       fast_wrap = {},
