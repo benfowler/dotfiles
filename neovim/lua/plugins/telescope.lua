@@ -8,15 +8,6 @@ local previewers = require "telescope.previewers"
 
 telescope.setup {
     defaults = {
-        vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-        },
         mappings = {
             -- INSERT MODE
             i = {
@@ -32,19 +23,8 @@ telescope.setup {
         path_display = { "smart" },
         color_devicons = true,
         sort_lastused = true,
-
-        -- Developer configurations: Not meant for general override
-        buffer_previewer_maker = previewers.buffer_previewer_maker,
     },
     pickers = {
-        buffers = {
-            theme = "dropdown",
-            mappings = {
-                i = {
-                    ["<c-d>"] = actions.delete_buffer,
-                },
-            },
-        },
         git_branches = {
             theme = "ivy",
             layout_config = {
@@ -65,10 +45,6 @@ telescope.setup {
             layout_config = {
                 height = 0.25,
             },
-        },
-        builtin = {
-            theme = "dropdown",
-            previewer = false,
         },
         colorscheme = {
             theme = "dropdown",
