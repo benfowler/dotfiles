@@ -6,17 +6,30 @@ local opt = vim.opt
 local ps = require("pluginsEnabled").plugin_status
 
 M.autopairs = function()
-    local present1, autopairs = pcall(require, "nvim-autopairs")
+    local has_autopairs, autopairs = pcall(require, "nvim-autopairs")
 
-    local present2, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+    local has_autopairs_cmp, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
     local cmp = require('cmp')
 
-    if not (present1 or present2) then
+    if not (has_autopairs or has_autopairs_cmp) then
         return
     end
 
+    -- nvim-cmp integration
     cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
-    autopairs.setup()
+
+    autopairs.setup({
+      -- Don't add pairs if the next char is alphanumeric
+      ignored_next_char = "[%w%.]",   -- will ignore alphanumeric and `.` symbol
+
+      -- Enable the very nice 'fast wrap' feature.  Activate with <M>-e.
+      fast_wrap = {},
+      highlight = 'Search',
+      highlight_grey = 'Comment',
+
+      -- Don't add pairs if it already has a close pair in the same line
+      enable_check_bracket_line = false,
+    })
 end
 
 M.numb = function()
@@ -74,6 +87,13 @@ M.fidget = function()
             spinner = "dots",
             done = " ",
         },
+        timer = {
+            fidget_decay = 3600,
+            task_decay = 1800,
+        },
+        window = {
+            blend = 5,
+        }
     })
 
     local u = require("utils")
