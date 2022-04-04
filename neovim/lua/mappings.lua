@@ -16,10 +16,14 @@ M.user_map = {
         cycle_conceal = "<leader>C",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
-        new_terminal_quick = "<leader>tt", -- subject to change
-        new_terminal_here = "<leader>th",
-        new_terminal_split = "<leader>tx",
-        new_terminal_vsplit = "<leader>tv",
+        -- new_terminal_quick = "<leader>tt", -- subject to change
+        -- new_terminal_here = "<leader>th",
+        -- new_terminal_split = "<leader>tx",
+        -- new_terminal_vsplit = "<leader>tv",
+        new_terminal_quick = "<leader>TT", -- subject to change
+        new_terminal_here = "<leader>Th",
+        new_terminal_split = "<leader>Tx",
+        new_terminal_vsplit = "<leader>Tv",
         write_file = "<leader>w",
     },
 
@@ -44,16 +48,16 @@ M.user_map = {
 
     telescope = {
         -- Telescope-specific mapping: help etc
-        buffers_ = "<leader>Tb",
-        marks = "<leader>TM",
-        registers = "<leader>TR",
-        jumplist = "<leader>Tj",
-        autocommands = "<leader>Ta",
-        help_tags = "<leader>Th",
-        man_pages = "<leader>Tm",
-        keymaps = "<leader>Tk",
-        highlights = "<leader>Ti",
-        live_grep = "<leader>Tr", -- Telescope's slower alternative to fzf
+        telescope_ = "<leader>tt",
+        buffers_ = "<leader>tb",
+        marks = "<leader>tM",
+        registers = "<leader>tr",
+        jumplist = "<leader>tj",
+        autocommands = "<leader>ta",
+        help_tags = "<leader>th",
+        man_pages = "<leader>tm",
+        keymaps = "<leader>tk",
+        highlights = "<leader>ti",
 
         -- LSP
         lsp_diagnostics = "<leader>dd",
@@ -68,11 +72,11 @@ M.user_map = {
         lsp_type_definitions = "<leader>lt",
 
         -- Git objects
-        git_status = "<leader>gs",
+        git_status = "<leader>gg",
         git_commits = "<leader>gc",
         git_bcommits = "<leader>gC",
         git_branches = "<leader>gb",
-        git_stash = "<leader>gS",
+        git_stash = "<leader>gs",
 
         -- Files
         git_files = "<leader>fg",
@@ -99,7 +103,7 @@ M.user_map = {
     },
 
     fugitive = {
-        Git = "<leader>gg",
+        Git = "<leader>G",
         diffget_2 = "<leader>gh",
         diffget_3 = "<leader>gl",
         git_blame = "<leader>ga",
@@ -329,9 +333,10 @@ M.telescope = function()
     local m = user_map.telescope
 
     -- All available pickers
-   -- stylua: ignore
+    -- stylua: ignore
 
     -- Fast shortcuts to core Vim state
+    map("n", m.telescope_, ":silent! Telescope<CR>", opt)
     map("n", m.buffers_, ":silent! Telescope buffers<CR>", opt)
     map("n", m.marks, ":silent! Telescope marks<CR>", opt)
     map("n", m.registers, ":silent! Telescope registers<CR>", opt)
@@ -341,9 +346,6 @@ M.telescope = function()
     map("n", m.keymaps, ":silent! Telescope keymaps<CR>", opt)
     map("n", m.highlights, ":silent! Telescope highlights<CR>", opt)
     map("n", m.autocommands, ":silent! Telescope autocommands<CR>", opt)
-
-    -- Search everywhere
-    map("n", m.live_grep, ":silent! Telescope live_grep<CR>", opt)
 
     -- Pick snippet to preview and insert
     map(
