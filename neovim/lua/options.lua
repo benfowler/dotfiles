@@ -19,7 +19,10 @@ opt.hidden = true                             -- lets Vim keep buffers in the ba
 opt.switchbuf:append("useopen")               -- When using :sbuffer, jump to open window if available
 
 opt.updatetime = 2000                         -- number of milliseconds before CursorHold autocommand event fired
-opt.clipboard:append("unnamedplus")           -- bind yank to system clipboard by default
+
+-- Enable the following to bind yank to system clipboard by default
+-- CAVEAT: slows system startup, and makes 'x' overwrite the system clipboard
+--opt.clipboard:append("unnamedplus")
 
 -- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
 if fn.has('win16') == 1 or fn.has('win32') == 1 then
