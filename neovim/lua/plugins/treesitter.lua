@@ -4,10 +4,10 @@ if not present then
 end
 
 ts_config.setup {
-    ensure_installed = { "python", "lua", "markdown" }, -- or "all" (not recommended)
+    ensure_installed = { "python", "lua" }, -- or "all" (not recommended)
     highlight = {
         enable = true,
-        disable = { "latex" },
+        disable = { "latex", "markdown" },
         use_languagetree = true,
     },
     indent = {
