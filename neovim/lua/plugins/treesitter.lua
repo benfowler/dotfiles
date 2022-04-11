@@ -4,7 +4,7 @@ if not present then
 end
 
 ts_config.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = { "python", "lua", "markdown" }, -- or "all" (not recommended)
     highlight = {
         enable = true,
         disable = { "latex" },
