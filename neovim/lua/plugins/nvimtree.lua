@@ -16,7 +16,6 @@ vim.o.termguicolors = true
 
 g.nvim_tree_side = "left"
 g.nvim_tree_width = 25
-g.nvim_tree_indent_markers = 1
 g.nvim_tree_git_hl = 1
 g.nvim_tree_highlight_opened_files = 1
 g.nvim_tree_allow_resize = 1
@@ -101,6 +100,7 @@ require'nvim-tree'.setup {
   gitignore             = true,
   ignore                = { ".git", ".cache" },
   hide_dotfiles         = false,
+  indent_markers        = true,
   update_focused_file   = {
     enable      = true,
     update_cwd  = false,
