@@ -60,14 +60,6 @@ return packer.startup(function()
     }
 
     use {
-        "nacro90/numb.nvim",
-        event = "BufRead",
-        config = function()
-            require("plugins.others").numb()
-        end,
-    }
-
-    use {
         "norcalli/nvim-colorizer.lua",
         disable = not plugin_status.nvim_colorizer,
         event = "BufRead",
@@ -113,11 +105,6 @@ return packer.startup(function()
         config = function()
             require("plugins.others").lightbulb()
         end,
-    }
-
-    use {
-        "nvim-treesitter/playground",
-        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     }
 
     use {
