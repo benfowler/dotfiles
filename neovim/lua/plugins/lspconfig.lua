@@ -349,6 +349,13 @@ local null_ls = require "null-ls"
 local my_sources = require("null-ls-sources.cfn-lint")
 
 null_ls.setup {
+    debounce = debounce_text_changes_msec,
+    debug = true,
+    log = {
+        enable = true,
+        level = "info",
+        use_console = "async",
+    },
     sources = {
 
         -- Linters
@@ -391,8 +398,6 @@ null_ls.setup {
 
     on_attach = on_attach,
     capabilities = client_caps,
-    root_dir = vim.loop.cwd,
-    flags = { debounce_text_changes = debounce_text_changes_msec },
 }
 
 
