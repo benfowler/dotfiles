@@ -31,6 +31,10 @@ cmp.setup {
             },
         },
     },
+    window = {
+        -- completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
@@ -66,7 +70,7 @@ cmp.setup {
           else
             fallback()
           end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
@@ -76,10 +80,6 @@ cmp.setup {
             fallback()
           end
         end, { "i", "s" }),
-    },
-    documentation = {
-        border = "rounded",
-        winhighlight = "FloatBorder:CmpDocFloatBorder",
     },
     sources = {
         { name = "nvim_lsp" },
