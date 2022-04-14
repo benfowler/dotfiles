@@ -66,7 +66,7 @@ cmp.setup {
           else
             fallback()
           end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
@@ -76,10 +76,6 @@ cmp.setup {
             fallback()
           end
         end, { "i", "s" }),
-    },
-    documentation = {
-        border = "rounded",
-        winhighlight = "FloatBorder:CmpDocFloatBorder",
     },
     sources = {
         { name = "nvim_lsp" },
