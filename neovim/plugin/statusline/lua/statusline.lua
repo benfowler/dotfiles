@@ -104,6 +104,7 @@ end
 M.modes = setmetatable({
     ["n"] = { "Normal", "N", "%#StatusLineModeNormal#" },
     ["no"] = { "N·Pending", "N·P", "%#StatusLineModeNormal#" },
+    ["nt"] = { "N·Terminal", "N·T", "%#StatusLineModeNormal#" },
     ["v"] = { "Visual", "V", "%#StatusLineModeVisual#" },
     ["V"] = { "V·Line", "V·L", "%#StatusLineModeVisual#" },
     [""] = { "V·Block", "V·B", "%#StatusLineModeVisual#" }, -- this is not ^V, but it's , they're different
