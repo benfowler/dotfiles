@@ -42,10 +42,6 @@ M.user_map = {
         treefocus = "<leader>F", -- file manager
     },
 
-    neoformat = {
-        format = "<leader>fm",
-    },
-
     telescope = {
         -- Telescope-specific mapping: help etc
         telescope_ = "<leader>tt",
@@ -77,12 +73,7 @@ M.user_map = {
         git_bcommits = "<leader>gC",
         git_branches = "<leader>gb",
         git_stash = "<leader>gs",
-
-        -- Files
-        git_files = "<leader>fg",
-        find_files = "<leader>ff",
-        file_browser = "<leader>fm",
-        oldfiles = "<leader>fo",
+        git_files = "<leader>gf",
 
         -- LuaSnip
         select_snippet = "<leader>s",
@@ -98,7 +89,8 @@ M.user_map = {
         buffers = ";",
         windows = "<leader>;",
         fzf_files = "<C-p>", -- quick file access
-        fzf_gfiles = "<M-p>", -- quick file access (Git)
+        fzf_history = "<M-p>", -- quick file access (history)
+        fzf_gfiles = "<M-g>", -- quick file access (Git)
         ripgrep = "<Leader>r", -- search everywhere (but fast)
     },
 
@@ -249,10 +241,12 @@ M.lsp = function(bufnr, client_caps)
     map_buf(bufnr, "n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
+    vim.notify("CodeLens is enabled", "info", { title = "LSP" })
     if client_caps.document_range_formatting == true then
-        map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
         map_buf(bufnr, "v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    elseif client_caps.document_formatting == true then
+    end
+
+    if client_caps.document_formatting == true then
         map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
 
@@ -375,11 +369,6 @@ M.telescope = function()
     map("n", m.git_stash, ":Telescope git_stash<CR>", opt)
     map("n", m.git_files, ":Telescope git_files<CR>", opt)
 
-    -- Files
-    map("n", m.find_files, ":silent! Telescope find_files <CR>", opt)
-    map("n", m.file_browser, ":silent! Telescope file_browser<CR>", opt)
-    map("n", m.oldfiles, ":silent! Telescope oldfiles<CR>", opt)
-
     map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
 end
 
@@ -392,6 +381,7 @@ M.fzf = function()
     local m = user_map.fzf
     map("n", m.fzf_files, ":silent! Files<CR>", opt)
     map("n", m.fzf_gfiles, ":silent! GFiles<CR>", opt)
+    map("n", m.fzf_history, ":silent! History<CR>", opt)
     map("n", m.buffers, ":silent! Buffers<CR>", opt)
     map("n", m.windows, ":silent! Windows<CR>", opt)
     map("n", m.ripgrep, ":silent! Rg<CR>", opt)

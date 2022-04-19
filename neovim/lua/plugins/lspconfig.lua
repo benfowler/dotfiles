@@ -74,8 +74,17 @@ local function on_attach(client, bufnr)
 
     -- CodeLens
     if client.resolved_capabilities.code_lens == true then
-        vim.notify("CodeLens is enabled", "info", { title = "LSP" })
+        vim.notify("CodeLens is enabled", "info", { title = "LSP", timeout = 500})
         vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+    end
+
+    -- Formatting: remind me that formatting capabilities exist
+    if client.resolved_capabilities.document_formatting == true and client.resolved_capabilities.document_formatting == true then
+        vim.notify("Document and range formatting is enabled", "info", { title = "LSP", timeout = 500 })
+    elseif client.resolved_capabilities.document_formatting == true then
+        vim.notify("Document formatting is enabled", "info", { title = "LSP", timeout = 500 })
+    elseif client.resolved_capabilities.document_range_formatting == true then
+        vim.notify("Range formatting is enabled", "info", { title = "LSP", timeout = 500 })
     end
 
     -- Extra setup, which depends on the final resolved set of capabilities
