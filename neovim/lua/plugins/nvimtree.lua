@@ -87,37 +87,41 @@ g.nvim_tree_icons = {
 
 
 -- Breaking change: authors moved a bunch of config into new setup() function
-require'nvim-tree'.setup {
-  disable_netrw         = false,
-  hijack_netrw          = true,
-  open_on_setup         = false,
-  ignore_ft_on_setup    = {},
-  open_on_tab           = false,
-  hijack_cursor         = false,
-  update_cwd            = false,
-  disable_window_picker = true,
-  quit_on_open          = false, -- closes tree when file's opened
-  gitignore             = true,
-  ignore                = { ".git", ".cache" },
-  hide_dotfiles         = false,
-  indent_markers        = true,
-  update_focused_file   = {
-    enable      = true,
-    update_cwd  = false,
-    ignore_list = {}
-  },
-  system_open = {
-    cmd  = nil,
-    args = {}
-  },
-  diagnostics = {
-    enable = true,
-    icons  = {
-      error = lsp_icons.error,
-      warning = lsp_icons.warn,
-      info = lsp_icons.info,
-      hint = lsp_icons.hint,
+require 'nvim-tree'.setup {
+    disable_netrw         = false,
+    hijack_netrw          = true,
+    open_on_setup         = false,
+    ignore_ft_on_setup    = {},
+    open_on_tab           = false,
+    hijack_cursor         = false,
+    update_cwd            = false,
+    disable_window_picker = true,
+    quit_on_open          = false, -- closes tree when file's opened
+    gitignore             = true,
+    ignore                = { ".git", ".cache" },
+    hide_dotfiles         = false,
+    renderer              = {
+        indent_markers = {
+            enable = true,
+        },
     },
-  }
+    update_focused_file   = {
+        enable      = true,
+        update_cwd  = false,
+        ignore_list = {}
+    },
+    system_open           = {
+        cmd  = nil,
+        args = {}
+    },
+    diagnostics           = {
+        enable       = true,
+        show_on_dirs = true,
+        icons        = {
+            error = lsp_icons.error,
+            warning = lsp_icons.warn,
+            info = lsp_icons.info,
+            hint = lsp_icons.hint,
+        },
+    }
 }
-
