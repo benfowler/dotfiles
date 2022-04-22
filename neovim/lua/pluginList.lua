@@ -142,7 +142,7 @@ return packer.startup(function()
         "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
         after = "lspkind-nvim",
         config = function()
-            require'toggle_lsp_diagnostics'.init()
+            require 'toggle_lsp_diagnostics'.init()
         end,
     }
 
