@@ -78,15 +78,6 @@ local function on_attach(client, bufnr)
         vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
     end
 
-    -- Formatting: remind me that formatting capabilities exist
-    if client.resolved_capabilities.document_formatting == true and client.resolved_capabilities.document_formatting == true then
-        vim.notify("Document and range formatting is enabled", "info", { title = "LSP", timeout = 500 })
-    elseif client.resolved_capabilities.document_formatting == true then
-        vim.notify("Document formatting is enabled", "info", { title = "LSP", timeout = 500 })
-    elseif client.resolved_capabilities.document_range_formatting == true then
-        vim.notify("Range formatting is enabled", "info", { title = "LSP", timeout = 500 })
-    end
-
     -- Extra setup, which depends on the final resolved set of capabilities
     -- provided by the language server, like identifier read/write highlighting.
 
