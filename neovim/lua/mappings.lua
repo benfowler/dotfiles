@@ -241,7 +241,6 @@ M.lsp = function(bufnr, client_caps)
     map_buf(bufnr, "n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
-    vim.notify("CodeLens is enabled", "info", { title = "LSP" })
     if client_caps.document_range_formatting == true then
         map_buf(bufnr, "v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
