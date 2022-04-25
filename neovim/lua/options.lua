@@ -70,7 +70,7 @@ opt.breakindent = true                        -- soft wrapping: 'indent' wrapped
 opt.breakindentopt = 'shift:2'
 opt.showbreak = '↳'
 
-opt.wrap = false                              -- most file types don't get wrapped by default
+opt.wrap = true                               -- most file types don't get wrapped by default
 opt.linebreak = false
 
 -- Splits
@@ -117,7 +117,7 @@ opt.wildignore = {
 
 -- Scrolling
 opt.scrolloff = 5                             -- keep some lines visible
-opt.sidescrolloff = 5
+opt.sidescrolloff = 0
 opt.sidescroll = 5
 
 -- Searching
