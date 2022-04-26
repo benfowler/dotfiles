@@ -348,7 +348,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     severity_sort = true,
     underline = true,
     -- set this to true if you want diagnostics to show in insert mode
-    update_in_insert = true,
+    update_in_insert = false,
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
