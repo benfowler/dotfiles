@@ -195,13 +195,6 @@ vim.cmd [[
     " I have a habit of accidentally typing :W instead of :w, and getting :Windows (fzf)
     cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 
-    " Strip trailing whitespace on save for certain filetypes
-    autocmd FileType markdown,c,cpp,java,py,lua,tex,yaml autocmd BufWritePre <buffer> %s/\s\+$//e
-
-    " File extension-specific tabbing
-    autocmd Filetype python,lua setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-    autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-
     " Tweak filetypes of certain kinds of files
     autocmd BufRead * if getbufline(bufnr('%'), 1, 2) == ['---', 'AWSTemplateFormatVersion: ''2010-09-09'''] | setlocal ft=cloudformation | endif
 
@@ -231,35 +224,6 @@ vim.cmd [[
 
     " If terminal is running default shell, I don't care about the exit status
     autocmd TermClose $SHELL\|zsh :bd
-
-    augroup END
-]]
-
-
--- File-specific settings: Markdown
--- stylua: ignore
-vim.cmd [[
-    augroup filetype_markdown
-    autocmd!
-
-    autocmd FileType markdown set pumheight=7
-
-    autocmd FileType markdown set conceallevel=2
-    autocmd FileType markdown set textwidth=80
-
-    " Spelling corrections from dict in omnicomplete by default
-    autocmd FileType markdown set complete+=k
-    autocmd FileType markdown set dictionary+=/usr/share/dict/words
-
-    " More-aggressive highlighting (otherwise, chokes on line files)
-    syntax sync minlines=1000
-
-    "
-    " TODO: move to mappings and migrate once autogroup Lua bindings exist
-    "
-
-    autocmd FileType markdown nnoremap <leader>mm :silent !open -a Marked\ 2.app '%:p'<cr>
-    autocmd FileType markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr>
 
     augroup END
 ]]
