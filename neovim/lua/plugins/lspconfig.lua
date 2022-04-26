@@ -74,7 +74,6 @@ local function on_attach(client, bufnr)
 
     -- CodeLens
     if client.resolved_capabilities.code_lens == true then
-        vim.notify("CodeLens is enabled", "info", { title = "LSP", timeout = 500})
         vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
     end
 
@@ -95,88 +94,6 @@ local function on_attach(client, bufnr)
             false
         )
     end
-end
-
---
--- Provide a way to enforce only a single running client at a time providing a
--- given resolved capability.
---
--- MOTIVATION: When doing formatting, use this to choose a formatter and
--- suppress the "Choose a language client:" menu.
---
-
--- Dictionary of resolved capabilities, to a map of LSP clients preferred for a
--- given file type.  When filtered through this function, only ONE client is
--- allowed to expose that capability.
-local resolved_capability_filters = {
-    ["document_formatting"] = { ["go"] = "go" }, -- diagnosticls not set up to fmt Lua, but says it can?
-}
-
-function resolve_resolved_cap_conflict(cap_to_filter, callback)
-    local filetype = vim.bo.filetype
-    local clients = vim.lsp.buf_get_clients(0)
-
-    local filters = resolved_capability_filters[cap_to_filter]
-    if filters == nil then
-        callback() -- nothing else to
-        return
-    end
-
-    local preferred_cap_client = filters[filetype]
-
-    -- Count clients that offer document formatting.
-    local num_formatting_clients = 0
-    local preferred_cap_client_seen = false
-    for _, client in pairs(clients) do
-        if client.resolved_capabilities[cap_to_filter] == true then
-            num_formatting_clients = num_formatting_clients + 1
-            if client.name == preferred_cap_client then
-                preferred_cap_client_seen = true
-            end
-        end
-    end
-
-    -- Now, disable excess/not-whitelisted LSP servers providing that capability
-
-    if preferred_cap_client_seen then
-        -- If the preferred client is running, suppress the others
-        vim.notify(
-            "Set server '" .. preferred_cap_client .. "' as sole provider of '" .. cap_to_filter .. "'",
-            "warn",
-            { title = "LSP" }
-        )
-        for _, client in pairs(clients) do
-            if client.resolved_capabilities[cap_to_filter] == true then
-                if client.name ~= preferred_cap_client then
-                    client.resolved_capabilities[cap_to_filter] = false
-                end
-            end
-        end
-    else
-        -- If not, just spare the first one, suppress the othes
-        local saved_one = false
-        for _, client in pairs(clients) do
-            if client.resolved_capabilities[cap_to_filter] == true then
-                if saved_one == false then
-                    vim.notify(
-                        "Randomly making server '" .. client.name .. "' sole provider of '" .. cap_to_filter .. "'",
-                        "warn",
-                        { title = "LSP" }
-                    )
-                    saved_one = true
-                else
-                    vim.notify(
-                        "Server '" .. client.name .. "' prevented from providing '" .. cap_to_filter .. "'",
-                        "warn",
-                        { title = "LSP" }
-                    )
-                    client.resolved_capabilities[cap_to_filter] = false
-                end
-            end
-        end
-    end
-
-    callback()
 end
 
 local client_caps = {}
