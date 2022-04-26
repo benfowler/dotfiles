@@ -56,9 +56,6 @@ telescope.setup {
                 width = 40,
             },
         },
-        lsp_code_actions = {
-            theme = "cursor",
-        },
         diagnostics = {
             theme = "ivy",
         },
