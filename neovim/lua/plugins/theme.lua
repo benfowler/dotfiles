@@ -179,7 +179,7 @@ function my_highlights_nord()
 
     u.Hi("LspReferenceRead", { guifg = nord14, guibg = nord2, gui = "bold" })
     u.Hi("LspReferenceWrite", { guifg = nord15, guibg = nord2, gui = "bold" })
-    u.Hi("LspReferenceText", { guibg = nord2 })
+    u.Hi("LspReferenceText", { guibg = nord1, gui = "none" })
 
     -- LSP CodeLenses (rendered as virtual text)
     u.Hi("LspCodeLens", { guifg = misc_fg })
