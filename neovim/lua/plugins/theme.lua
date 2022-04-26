@@ -177,9 +177,9 @@ function my_highlights_nord()
     u.HiLink("DiagnosticSignInfo", "DiagnosticInfo", true)
     u.HiLink("DiagnosticSignHint", "DiagnosticHint", true)
 
-    u.Hi("LspReferenceRead", { guifg = nord14, guibg = nord1, gui = "bold" })
-    u.Hi("LspReferenceWrite", { guifg = nord15, guibg = nord1, gui = "bold" })
-    u.Hi("LspReferenceText", { guibg = nord1 })
+    u.Hi("LspReferenceRead", { guifg = nord14, guibg = nord2, gui = "bold" })
+    u.Hi("LspReferenceWrite", { guifg = nord15, guibg = nord2, gui = "bold" })
+    u.Hi("LspReferenceText", { guibg = nord2 })
 
     -- LSP CodeLenses (rendered as virtual text)
     u.Hi("LspCodeLens", { guifg = misc_fg })
