@@ -93,6 +93,7 @@ cmp.setup {
         { name = "path" },
         { name = "luasnip" },
         { name = "latex_symbols" },
+        { name = "nvim_lsp_signature_help" },
     },
     experimental = {
         ghost_text = {
