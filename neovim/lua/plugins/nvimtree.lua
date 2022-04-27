@@ -95,11 +95,6 @@ require 'nvim-tree'.setup {
     open_on_tab           = false,
     hijack_cursor         = false,
     update_cwd            = false,
-    disable_window_picker = true,
-    quit_on_open          = false, -- closes tree when file's opened
-    gitignore             = true,
-    ignore                = { ".git", ".cache" },
-    hide_dotfiles         = false,
     renderer              = {
         indent_markers = {
             enable = true,
