@@ -122,17 +122,7 @@ return packer.startup(function()
     }
 
     use {
-        "ray-x/lsp_signature.nvim",
-        disable = not plugin_status.lspsignature,
-        after = "nvim-lspconfig",
-        config = function()
-            require("plugins.others").signature()
-        end,
-    }
-
-    use {
         "onsails/lspkind-nvim",
-        after = "lsp_signature.nvim",
         config = function()
             require "plugins.lspkind_icons"
         end,
@@ -244,8 +234,13 @@ return packer.startup(function()
     }
 
     use {
-        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
         after = "cmp-nvim-lsp",
+    }
+
+    use {
+        "hrsh7th/cmp-path",
+        after = "cmp-nvim-lsp-signature-help",
     }
 
     use {
