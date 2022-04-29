@@ -301,12 +301,15 @@ null_ls.setup {
         null_ls.builtins.formatting.fixjson,
         null_ls.builtins.formatting.goimports,
         null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.reorder_python_imports,
         null_ls.builtins.formatting.shellharden,
         null_ls.builtins.formatting.sqlformat,
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.terraform_fmt,
+
+        null_ls.builtins.formatting.prettier.with({
+           filetypes = { "html", "json", "yaml", "markdown" },
+        }),
 
         -- Additional LSP code action contributions
         null_ls.builtins.code_actions.eslint,
