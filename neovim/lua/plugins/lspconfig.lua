@@ -70,10 +70,10 @@ local function on_attach(client, bufnr)
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
     -- Set up keymappings for this buffer only
-    require("mappings").lsp(bufnr, client.resolved_capabilities)
+    require("mappings").lsp(bufnr, client.server_capabilities)
 
     -- CodeLens
-    if client.resolved_capabilities.code_lens == true then
+    if client.server_capabilities.code_lens == true then
         vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
     end
 
@@ -81,7 +81,7 @@ local function on_attach(client, bufnr)
     -- provided by the language server, like identifier read/write highlighting.
 
     -- stylua: ignore
-    if client.resolved_capabilities.document_highlight == true then
+    if client.server_capabilities.document_highlight == true then
         vim.api.nvim_exec(
             [[
             augroup lsp_document_highlight
