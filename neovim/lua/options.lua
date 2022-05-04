@@ -223,7 +223,7 @@ vim.cmd [[
     autocmd TermOpen term://* startinsert
 
     " If terminal is running default shell, I don't care about the exit status
-    autocmd TermClose $SHELL\|zsh :bd
+    autocmd TermClose $SHELL :bd
 
     augroup END
 ]]
