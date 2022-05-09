@@ -246,14 +246,18 @@ local default_server_opts = {
     flags = { debounce_text_changes = debounce_text_changes_msec },
 }
 
-lsp_installer.on_server_ready(function(server)
-    local opts = lsp_server_configs[server.name]
-    if opts ~= nil then
-        server:setup(opts)
-    else
-        server:setup(default_server_opts)
+lsp_installer.setup({
+    ensure_installed = { "jsonls", "pyright", "sumneko_lua", "yamlls" },
+    automatic_installation = true,
+    on_server_ready = function(server)
+        local opts = lsp_server_configs[server.name]
+        if opts ~= nil then
+            server:setup(opts)
+        else
+            server:setup(default_server_opts)
+        end
     end
-end)
+})
 
 
 -- Loopback language server ('null-ls'), used to hook into LSP directly via Lua.
