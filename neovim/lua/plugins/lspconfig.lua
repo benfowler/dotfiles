@@ -141,6 +141,16 @@ local lsp_server_configs = {
         root_dir = vim.loop.cwd,
         flags = { debounce_text_changes = debounce_text_changes_msec },
     },
+    metals = {
+        settings = {
+            showImplicitArguments = true,
+        },
+        filetypes = { "scala", "sbt", "sc" },
+        on_attach = on_attach,
+        capabilities = client_caps,
+        root_dir = vim.loop.cwd,
+        flags = { debounce_text_changes = debounce_text_changes_msec },
+    },
     texlab = {
         settings = {
             texlab = {

@@ -292,6 +292,14 @@ return packer.startup(function()
         after = "packer.nvim",
     }
 
+    use {
+        "scalameta/nvim-metals",
+        ft = { "scala", "sbt" },
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+        },
+    }
+
     -- TODO: Telescope isn't yet lazy-loaded, because lazy-loading it
     --       prevents LSP from initialising, and requires an LSP
     --       restart (:e) to launch.
