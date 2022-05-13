@@ -111,7 +111,6 @@ require 'nvim-tree'.setup {
     },
     diagnostics           = {
         enable       = true,
-        show_on_dirs = true,
         icons        = {
             error = lsp_icons.error,
             warning = lsp_icons.warn,
