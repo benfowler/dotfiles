@@ -1,42 +1,74 @@
+local cmp_loaded, cmp = pcall(require, "cmp")
+if not cmp_loaded then
+    return
+end
 
-local cmp = require("cmp")
 local luasnip = require("luasnip")
 
--- local has_words_before = function()
---   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
--- end
-
-vim.opt.completeopt = "menu,menuone,noinsert"
 
 -- floating menu/doc style tweaks
 local menustyle = { winhighlight = 'CursorLine:PmenuSel' }
 
+local icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "⌘",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "廓",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
 
 -- nvim-cmp setup
 cmp.setup {
-    -- completion = {
-    --   autocomplete = false
-    -- },
+    experimental = {
+        ghost_text = {
+            hl_group = "Comment",
+        },
+    },
+    confirmation = {
+        get_commit_characters = function()
+            return {}
+        end,
+    },
     snippet = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)
         end,
     },
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+        keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
+        keyword_length = 1,
+    },
     formatting = {
-        format = require("lspkind").cmp_format {
-            with_text = true,
-            menu = {
-                buffer = "[Buffer]",
-                latex_symbols = "[LaTeX]",
-                luasnip = "[LuaSnip]",
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
-            },
-        },
+        fields = { "kind", "abbr", "menu" },
+        format = function(_, vim_item)
+            vim_item.menu = vim_item.kind
+            vim_item.kind = icons[vim_item.kind]
+            return vim_item
+        end,
     },
     window = {
-        completion = cmp.config.window.bordered(menustyle),
+        -- completion = cmp.config.window.bordered(menustyle),
         documentation = cmp.config.window.bordered(menustyle),
     },
     mapping = {
@@ -95,10 +127,22 @@ cmp.setup {
         { name = "latex_symbols" },
         { name = "nvim_lsp_signature_help" },
     },
-    experimental = {
-        ghost_text = {
-            hl_group = "Comment",
-        },
-    },
+    preselect = cmp.PreselectMode.None,
 }
+
+cmp.setup.cmdline("/", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = "buffer" },
+    },
+})
+
+cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = "path" },
+    }, {
+        { name = "cmdline" },
+    }),
+})
 
