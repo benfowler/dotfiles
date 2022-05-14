@@ -1,11 +1,9 @@
-local M  = { }
-
-M.config = function ()
-    local notify = require("notify")
-    notify.setup({
-        background_colour = "#2E3440",
-    })
-    vim.notify = notify
+local present, notify = pcall(require, "notify")
+if not present then
+    return
 end
 
-return M
+notify.setup {
+    background_colour = "#2E3440",
+}
+vim.notify = notify

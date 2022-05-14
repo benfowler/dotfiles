@@ -1,13 +1,13 @@
-local M = { }
+local present, dressing = pcall(require, "dressing")
 
-M.config = function()
-    require("dressing").setup({
-        input = {
-            winblend = 0,
-            winhighlight = "FloatBorder:DressingFloatBorder",
-        },
-    })
+if not present then
+    return
 end
 
-return M
+dressing.setup {
+    input = {
+        winblend = 0,
+        winhighlight = "FloatBorder:DressingFloatBorder",
+    },
+}
 

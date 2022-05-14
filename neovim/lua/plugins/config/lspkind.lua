@@ -1,5 +1,11 @@
-require('lspkind').init({
-    preset = 'codicons',  -- default: 'default'
+local present, lspkind = pcall(require, "lspkind")
+
+if not present then
+    return
+end
+
+lspkind.init {
+    preset = "codicons",
     symbol_map = {
         Text = "",
         Method = "",
@@ -27,4 +33,4 @@ require('lspkind').init({
         Operator = "",
         TypeParameter = "",
     },
-})
+}

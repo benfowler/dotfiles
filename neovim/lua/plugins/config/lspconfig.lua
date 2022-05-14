@@ -220,7 +220,7 @@ local lsp_server_configs = {
         flags = { allow_incremental_sync = true, debounce_text_changes = 500 },
     },
     clangd = {
-        handlers = lsp_status.extensions.clangd.setup(),
+        --handlers = lsp_status.extensions.clangd.setup(),
         init_options = {
             clangdFileStatus = true,
         },

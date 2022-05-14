@@ -38,6 +38,18 @@ local nord13 = "#EBCB8B"
 local nord14 = "#A3BE8C"
 local nord15 = "#B48EAD"
 
+local M = { }
+M.colors = {
+    cyan = nord7,
+    blue = nord10,
+    red = nord11,
+    orange = nord12,
+    yellow = nord13,
+    green = nord14,
+    pink = nord15,
+    magenta = nord15,
+}
+
 -- Diagnostic signature colours
 local error_fg = nord11
 local warn_fg  = nord13
@@ -320,4 +332,7 @@ require('onenord').setup({
 
 -- Finally, force application of my highlight customizations by triggering autocmd
 vim.cmd [[ colo onenord ]]
+
+-- Exports
+return M
 
