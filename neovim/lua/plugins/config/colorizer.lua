@@ -1,18 +1,16 @@
-local M = { }
+local present, colorizer = pcall(require, "colorizer")
 
-M.config = function()
-    require("colorizer").setup({
-        "*";
-        css = { css = true; };
-        html = { css = true; };
-    }, {
-        RRGGBB = true;
-        RGB = false;
-        names = false;
-    })
-
-    vim.cmd "ColorizerReloadAllBuffers"
+if not present then
+    return
 end
 
-return M
+colorizer.setup({
+    "*",
+    css = { css = true },
+    html = { css = true },
+}, {
 
+    RRGGBB = true,
+    RGB = false,
+    names = false,
+})

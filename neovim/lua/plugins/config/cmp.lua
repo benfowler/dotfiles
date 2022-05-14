@@ -3,13 +3,12 @@ if not cmp_loaded then
     return
 end
 
-local luasnip = require("luasnip")
-
+local luasnip = require "luasnip"
 
 -- floating menu/doc style tweaks
-local menustyle = { winhighlight = 'CursorLine:PmenuSel' }
+local menustyle = { winhighlight = "CursorLine:PmenuSel" }
 
-local icons = require('lspkind').symbol_map
+local icons = require("lspkind").symbol_map
 
 -- nvim-cmp setup
 cmp.setup {
@@ -67,30 +66,29 @@ cmp.setup {
         },
         ["<CR>"] = cmp.mapping.confirm { select = true },
         ["<Tab>"] = cmp.mapping(function(fallback)
-
-          -- IntelliJ-like mapping (see nvim-cmp wiki)
-          -- Confirm with tab, and if no entry is selected, confirm first item
-          if cmp.visible() then
-            local entry = cmp.get_selected_entry()
-            if not entry then
-              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            -- IntelliJ-like mapping (see nvim-cmp wiki)
+            -- Confirm with tab, and if no entry is selected, confirm first item
+            if cmp.visible() then
+                local entry = cmp.get_selected_entry()
+                if not entry then
+                    cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+                else
+                    cmp.confirm()
+                end
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             else
-              cmp.confirm()
+                fallback()
             end
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
         end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
         end, { "i", "s" }),
     },
     sources = {
@@ -119,4 +117,3 @@ cmp.setup.cmdline(":", {
         { name = "cmdline" },
     }),
 })
-

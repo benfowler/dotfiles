@@ -5,6 +5,9 @@ end
 
 ts_config.setup {
     ensure_installed = { "python", "lua" }, -- or "all" (not recommended)
+    autotag = {
+        enable = true,
+    },
     highlight = {
         enable = true,
         disable = { "latex", "markdown" },

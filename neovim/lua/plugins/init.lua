@@ -1,40 +1,61 @@
-local present, _ = pcall(require, "packerInit")
-local packer
-if present then
-    packer = require "packer"
-else
-    return false
+local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    -- stylua: ignore
+    PACKER_BOOTSTRAP = vim.fn.system {
+        "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path,
+    }
+end
+vim.cmd [[packadd packer.nvim]]
+
+local packer_loaded, packer = pcall(require, "packer")
+
+if not packer_loaded then
+    return
 end
 
-local use = packer.use
+packer.init {
+    display = {
+        open_fn = function()
+            return require("packer.util").float { border = "single" }
+        end,
+        prompt_border = "single",
+    },
+    git = {
+        clone_timeout = 600, -- Timeout, in seconds, for git clones
+    },
+    auto_clean = true,
+    compile_on_sync = true,
+    --    auto_reload_compiled = true
+    log = { level = "warn" }, -- The default print log level. One of: "trace", "debug", "info", "warn", "error", "fatal".
+    profile = {
+        enable = true,
+        threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+    },
+}
 
-return packer.startup(function()
+return packer.startup(function(use)
     use {
         "wbthomason/packer.nvim",
-        event = "VimEnter",
     }
 
     -- UI extension hooks
     use {
         "stevearc/dressing.nvim",
-        event = "VimEnter",
         config = function()
-            require("plugins.config.dressing").config()
+            require "plugins.config.dressing"
         end,
     }
 
     use {
         "rcarriga/nvim-notify",
-        event = "VimEnter",
         config = function()
-            require("plugins.config.notify").config()
+            require "plugins.config.notify"
         end,
     }
 
     -- Editing features
     use {
         "qpkorr/vim-bufkill", -- 'BD' to kill a buffer without closing a split
-        event = "VimEnter",
     }
 
     use {
@@ -47,7 +68,6 @@ return packer.startup(function()
     }
 
     use {
-
         "tpope/vim-surround",
         event = "InsertEnter",
     }
@@ -61,7 +81,7 @@ return packer.startup(function()
         "norcalli/nvim-colorizer.lua",
         event = "BufRead",
         config = function()
-            require("plugins.config.colorizer").config()
+            require "plugins.config.colorizer"
         end,
     }
 
@@ -76,9 +96,12 @@ return packer.startup(function()
     -- Eagerly loaded (needed at startup by nvim-tree)
     use {
         "kyazdani42/nvim-web-devicons",
+        config = function()
+            require "plugins.config.webdevicons"
+        end,
     }
 
-    -- Load custom statusline (local plugin).  Eagerly loaded.
+    -- Load my hand-coded custom statusline (local plugin)
     use {
         "~/.config/nvim/local-plugins/statusline",
         config = function()
@@ -89,7 +112,8 @@ return packer.startup(function()
     -- LSP stuff
     use {
         "nvim-treesitter/nvim-treesitter",
-        event = "BufRead",
+        run = ":TSUpdate",
+        requires = "windwp/nvim-ts-autotag",
         config = function()
             require "plugins.config.treesitter"
         end,
@@ -99,7 +123,7 @@ return packer.startup(function()
         "kosayoda/nvim-lightbulb",
         event = "BufRead",
         config = function()
-            require("plugins.config.lightbulb").config()
+            require "plugins.config.lightbulb"
         end,
     }
 
@@ -110,7 +134,6 @@ return packer.startup(function()
 
     use {
         "neovim/nvim-lspconfig",
-        after = "nvim-lsp-installer",
         requires = { "nvim-lua/lsp-status.nvim" },
         config = function()
             require "plugins.config.lspconfig"
@@ -128,7 +151,7 @@ return packer.startup(function()
         "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
         after = "lspkind-nvim",
         config = function()
-            require 'toggle_lsp_diagnostics'.init()
+            require "toggle_lsp_diagnostics"
         end,
     }
 
@@ -136,7 +159,7 @@ return packer.startup(function()
         "j-hui/fidget.nvim",
         after = "nvim-lspconfig",
         config = function()
-            require("plugins.config.fidget").config()
+            require "plugins.config.fidget"
         end,
     }
 
@@ -161,7 +184,6 @@ return packer.startup(function()
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function()
-            -- Left empty to use the default settings
             require("todo-comments").setup()
         end,
     }
@@ -170,88 +192,47 @@ return packer.startup(function()
     use {
         "plasticboy/vim-markdown",
         ft = { "markdown" },
-        config = function()
-            require("plugins.config.markdown").config()
-        end,
+        config = require "plugins.config.markdown",
     }
 
     use {
         "dkarter/bullets.vim",
         after = "vim-markdown",
         ft = { "markdown", "text" },
-        config = function()
-            require("plugins.config.bullets").config()
-        end,
+        config = require "plugins.config.bullets",
     }
 
     use {
         "lervag/vimtex",
         ft = "tex",
-        config = function()
-            require("plugins.config.vimtex").config()
-        end,
+        config = require "plugins.config.vimtex",
     }
 
     -- Autocomplete support
     use {
-        "rafamadriz/friendly-snippets",
-        event = "InsertEnter",
-    }
-
-    use {
         "L3MON4D3/LuaSnip",
-        after = "friendly-snippets",
+        requires = "rafamadriz/friendly-snippets",
         config = function()
-            require("plugins.config.luasnip").config()
+            require "plugins.config.luasnip"
         end,
     }
 
     use {
         "hrsh7th/nvim-cmp",
         after = "LuaSnip",
+        requires = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-nvim-lsp-document-symbol",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+        },
         config = function()
             require "plugins.config.cmp"
         end,
-    }
-
-    use {
-        "saadparwaiz1/cmp_luasnip",
-        after = "nvim-cmp",
-    }
-
-    use {
-        "hrsh7th/cmp-nvim-lua",
-        after = "cmp_luasnip",
-    }
-
-    use {
-        "hrsh7th/cmp-nvim-lsp",
-        after = "cmp-nvim-lua",
-    }
-
-    use {
-        "hrsh7th/cmp-nvim-lsp-signature-help",
-        after = "cmp-nvim-lsp",
-    }
-
-    use {
-        "hrsh7th/cmp-path",
-        after = "cmp-nvim-lsp-signature-help",
-    }
-
-    use {
-        "hrsh7th/cmp-buffer",
-        after = "cmp-path",
-    }
-
-    use {
-        "hrsh7th/cmp-cmdline",
-        after = "cmp-buffer",
-    }
-
-    use {
-        "kdheepak/cmp-latex-symbols",
-        after = "cmp-cmdline",
     }
 
     -- tmux integration
@@ -282,19 +263,6 @@ return packer.startup(function()
         end,
     }
 
-    use {
-        "nvim-lua/plenary.nvim",
-        after = "packer.nvim",
-    }
-
-    use {
-        "scalameta/nvim-metals",
-        ft = { "scala", "sbt" },
-        requires = {
-            { "nvim-lua/plenary.nvim" },
-        },
-    }
-
     -- TODO: Telescope isn't yet lazy-loaded, because lazy-loading it
     --       prevents LSP from initialising, and requires an LSP
     --       restart (:e) to launch.
@@ -321,6 +289,14 @@ return packer.startup(function()
         module = "telescope._extensions.heading",
     }
 
+    use {
+        "scalameta/nvim-metals",
+        requires = {
+            "nvim-lua/plenary.nvim",
+        },
+        module = { "telescope._extensions.luasnip" },
+    }
+
     -- WARNING: won't actually find any snippets until LuaSnip is loaded
     use {
         "benfowler/telescope-luasnip.nvim",
@@ -331,9 +307,10 @@ return packer.startup(function()
     use {
         "junegunn/fzf",
         cmd = {
-            "Files", "GFiles", "GFiles?", "Buffers", "Colors", "Ag", "Rg", "Lines", "BLines",
-            "Tags", "BTags", "Marks", "Windows", "Locate", "History", "History", "History/",
-            "Snippets", "Commits", "BCommits", "Commands", "Maps", "Helptags", "Filetypes"
+            "Files", "GFiles", "GFiles?", "Buffers", "Colors", "Ag", "Rg",
+            "Lines", "BLines", "Tags", "BTags", "Marks", "Windows", "Locate",
+            "History", "History", "History/", "Snippets", "Commits",
+            "BCommits", "Commands", "Maps", "Helptags", "Filetypes"
         },
     }
 
@@ -348,7 +325,9 @@ return packer.startup(function()
     -- Git support
     use {
         "lewis6991/gitsigns.nvim",
-        after = "plenary.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+        },
         config = function()
             require "plugins.config.gitsigns"
         end,
@@ -356,7 +335,7 @@ return packer.startup(function()
 
     use {
         "tpope/vim-fugitive",
-        cmd = { "G", "Git", "Gread", "Gwrite", "Gdiff" }, -- add any other Fugitive commands to lazy-load on
+        cmd = { "G", "Git", "Gread", "Gwrite", "Gdiff" },
         setup = function()
             require("mappings").fugitive()
         end,
@@ -367,7 +346,7 @@ return packer.startup(function()
         "windwp/nvim-autopairs",
         after = "nvim-cmp",
         config = function()
-            require("plugins.config.autopairs").config()
+            require "plugins.config.autopairs"
         end,
     }
 
@@ -376,16 +355,11 @@ return packer.startup(function()
         "terrortylor/nvim-comment",
         cmd = "CommentToggle",
         config = function()
-            require("nvim_comment").config()
+            require("nvim_comment").setup()
         end,
         setup = function()
             require("mappings").comment_nvim()
         end,
-    }
-
-    use {
-        "rafcamlet/nvim-luapad",
-        cmd = { "Luapad", "LuaRun" },
     }
 
     use {
@@ -396,4 +370,8 @@ return packer.startup(function()
             require("mappings").truezen()
         end,
     }
+
+    if PACKER_BOOTSTRAP then
+        require("packer").sync()
+    end
 end)

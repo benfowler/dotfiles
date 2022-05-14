@@ -1,4 +1,11 @@
 -- FUZZY FINDER (FZF)
+--
+local present, fzf = pcall(require, "fzf.vim")
+
+if not present then
+    return
+end
+
 
 -- TODO: do lots of porting to idiomatic Lua configuration, once full API is ready
 --
