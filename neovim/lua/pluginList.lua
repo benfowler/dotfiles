@@ -1,5 +1,3 @@
-local plugin_status = require("pluginsEnabled").plugin_status
-
 local present, _ = pcall(require, "packerInit")
 local packer
 if present then
@@ -61,7 +59,6 @@ return packer.startup(function()
 
     use {
         "norcalli/nvim-colorizer.lua",
-        disable = not plugin_status.nvim_colorizer,
         event = "BufRead",
         config = function()
             require("plugins.others").colorizer()
@@ -71,7 +68,6 @@ return packer.startup(function()
     -- Theme
     use {
         "rmehri01/onenord.nvim",
-        disable = not plugin_status.nord,
         config = function()
             require "plugins.theme"
         end,
@@ -261,7 +257,6 @@ return packer.startup(function()
     -- tmux integration
     use {
         "christoomey/vim-tmux-navigator",
-        disable = not plugin_status.vim_tmux_navigator,
         cmd = {
             "TmuxNaviateLeft",
             "TmuxNavigateRight",
@@ -305,7 +300,6 @@ return packer.startup(function()
     --       restart (:e) to launch.
     use {
         "nvim-telescope/telescope.nvim",
-        disable = not plugin_status.telescope,
         after = "plenary.nvim",
         --cmd =  "Telescope" ,
         requires = {
@@ -336,7 +330,6 @@ return packer.startup(function()
     --stylua: ignore
     use {
         "junegunn/fzf",
-        disable = not plugin_status.fzf,
         cmd = {
             "Files", "GFiles", "GFiles?", "Buffers", "Colors", "Ag", "Rg", "Lines", "BLines",
             "Tags", "BTags", "Marks", "Windows", "Locate", "History", "History", "History/",
@@ -355,7 +348,6 @@ return packer.startup(function()
     -- Git support
     use {
         "lewis6991/gitsigns.nvim",
-        disable = not plugin_status.gitsigns,
         after = "plenary.nvim",
         config = function()
             require "plugins.gitsigns"
@@ -364,7 +356,6 @@ return packer.startup(function()
 
     use {
         "tpope/vim-fugitive",
-        disable = not plugin_status.vim_fugitive,
         cmd = { "G", "Git", "Gread", "Gwrite", "Gdiff" }, -- add any other Fugitive commands to lazy-load on
         setup = function()
             require("mappings").fugitive()
@@ -383,7 +374,6 @@ return packer.startup(function()
     -- Commenting help
     use {
         "terrortylor/nvim-comment",
-        disable = not plugin_status.nvim_comment,
         cmd = "CommentToggle",
         config = function()
             require("plugins.others").comment()
@@ -400,7 +390,6 @@ return packer.startup(function()
 
     use {
         "Pocco81/TrueZen.nvim",
-        disable = not plugin_status.truezen_nvim,
         cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus" },
         setup = function()
             require "plugins.zenmode"
