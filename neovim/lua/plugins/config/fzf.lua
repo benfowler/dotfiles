@@ -1,15 +1,6 @@
 -- FUZZY FINDER (FZF)
---
-local present, fzf = pcall(require, "fzf.vim")
-
-if not present then
-    return
-end
-
 
 -- TODO: do lots of porting to idiomatic Lua configuration, once full API is ready
---
--- Neither 1) autocmds or 2) user-defined commands have Neovim Lua API yet
 
 local env = vim.env
 local g = vim.g
