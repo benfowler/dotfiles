@@ -3,8 +3,6 @@ local M = {}
 local g = vim.g
 local opt = vim.opt
 
-local ps = require("pluginsEnabled").plugin_status
-
 M.autopairs = function()
     local has_autopairs, autopairs = pcall(require, "nvim-autopairs")
 
@@ -37,31 +35,25 @@ M.numb = function()
 end
 
 M.colorizer = function()
-    if ps.nvim_colorizer == true then
-        require("colorizer").setup({
-            "*";
-            css = { css = true; };
-            html = { css = true; };
-        }, {
-            RRGGBB = true;
-            RGB = false;
-            names = false;
-        })
+    require("colorizer").setup({
+        "*";
+        css = { css = true; };
+        html = { css = true; };
+    }, {
+        RRGGBB = true;
+        RGB = false;
+        names = false;
+    })
 
-        vim.cmd "ColorizerReloadAllBuffers"
-    end
+    vim.cmd "ColorizerReloadAllBuffers"
 end
 
 M.statusline = function()
-    if ps.statusline == true then
-        require("statusline").setup()
-    end
+    require("statusline").setup()
 end
 
 M.comment = function()
-    if ps.nvim_comment == true then
-        require("nvim_comment").setup()
-    end
+    require("nvim_comment").setup()
 end
 
 M.dressing = function()

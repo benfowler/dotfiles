@@ -4,11 +4,6 @@
 local fn = vim.fn
 local api = vim.api
 
-local enabled_plugins_present, enabled_plugins = pcall(require, "pluginsEnabled")
-if not enabled_plugins_present or (enabled_plugins.plugin_status.statusline == false) then
-    return
-end
-
 local lsp_status_present, lsp_status = pcall(require, "lsp-status")
 
 local icons = require("utils").diagnostic_icons.outline
