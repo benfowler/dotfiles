@@ -9,33 +9,7 @@ local luasnip = require("luasnip")
 -- floating menu/doc style tweaks
 local menustyle = { winhighlight = 'CursorLine:PmenuSel' }
 
-local icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "⌘",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "塞",
-    Value = "",
-    Enum = "",
-    Keyword = "廓",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-}
+local icons = require('lspkind').symbol_map
 
 -- nvim-cmp setup
 cmp.setup {

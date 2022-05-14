@@ -19,7 +19,7 @@ return packer.startup(function()
         "stevearc/dressing.nvim",
         event = "VimEnter",
         config = function()
-            require("plugins.others").dressing()
+            require("plugins.config.others").dressing()
         end,
     }
 
@@ -27,7 +27,7 @@ return packer.startup(function()
         "rcarriga/nvim-notify",
         event = "VimEnter",
         config = function()
-            require("plugins.others").notify()
+            require("plugins.config.others").notify()
         end,
     }
 
@@ -61,7 +61,7 @@ return packer.startup(function()
         "norcalli/nvim-colorizer.lua",
         event = "BufRead",
         config = function()
-            require("plugins.others").colorizer()
+            require("plugins.config.others").colorizer()
         end,
     }
 
@@ -69,7 +69,7 @@ return packer.startup(function()
     use {
         "rmehri01/onenord.nvim",
         config = function()
-            require "plugins.theme"
+            require "plugins.config.theme"
         end,
     }
 
@@ -82,7 +82,7 @@ return packer.startup(function()
     use {
         "~/.config/nvim/local-plugins/statusline",
         config = function()
-            require("plugins.others").statusline()
+            require("plugins.config.others").statusline()
         end,
     }
 
@@ -91,7 +91,7 @@ return packer.startup(function()
         "nvim-treesitter/nvim-treesitter",
         event = "BufRead",
         config = function()
-            require "plugins.treesitter"
+            require "plugins.config.treesitter"
         end,
     }
 
@@ -99,7 +99,7 @@ return packer.startup(function()
         "kosayoda/nvim-lightbulb",
         event = "BufRead",
         config = function()
-            require("plugins.others").lightbulb()
+            require("plugins.config.others").lightbulb()
         end,
     }
 
@@ -113,14 +113,14 @@ return packer.startup(function()
         after = "nvim-lsp-installer",
         requires = { "nvim-lua/lsp-status.nvim" },
         config = function()
-            require "plugins.lspconfig"
+            require "plugins.config.lspconfig"
         end,
     }
 
     use {
         "onsails/lspkind-nvim",
         config = function()
-            require "plugins.lspkind_icons"
+            require "plugins.config.lspkind"
         end,
     }
 
@@ -136,7 +136,7 @@ return packer.startup(function()
         "j-hui/fidget.nvim",
         after = "nvim-lspconfig",
         config = function()
-            require("plugins.others").fidget()
+            require("plugins.config.others").fidget()
         end,
     }
 
@@ -145,7 +145,7 @@ return packer.startup(function()
         cmd = { "Trouble", "TroubleToggle" },
         requires = "kyazdani42/nvim-web-devicons",
         config = function()
-            require "plugins.trouble"
+            require "plugins.config.trouble"
         end,
         setup = function()
             require("mappings").trouble()
@@ -171,7 +171,7 @@ return packer.startup(function()
         "plasticboy/vim-markdown",
         ft = { "markdown" },
         config = function()
-            require("plugins.others").markdown()
+            require("plugins.config.others").markdown()
         end,
     }
 
@@ -180,7 +180,7 @@ return packer.startup(function()
         after = "vim-markdown",
         ft = { "markdown", "text" },
         config = function()
-            require("plugins.others").bullets()
+            require("plugins.config.others").bullets()
         end,
     }
 
@@ -188,7 +188,7 @@ return packer.startup(function()
         "lervag/vimtex",
         ft = "tex",
         config = function()
-            require("plugins.others").vimtex()
+            require("plugins.config.others").vimtex()
         end,
     }
 
@@ -202,7 +202,7 @@ return packer.startup(function()
         "L3MON4D3/LuaSnip",
         after = "friendly-snippets",
         config = function()
-            require("plugins.others").luasnip()
+            require("plugins.config.others").luasnip()
         end,
     }
 
@@ -210,7 +210,7 @@ return packer.startup(function()
         "hrsh7th/nvim-cmp",
         after = "LuaSnip",
         config = function()
-            require "plugins.cmp"
+            require "plugins.config.cmp"
         end,
     }
 
@@ -275,7 +275,7 @@ return packer.startup(function()
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTreeToggle", "NvimTreeFocus" },
         config = function()
-            require "plugins.nvimtree"
+            require "plugins.config.nvimtree"
         end,
         setup = function()
             require("mappings").nvimtree()
@@ -306,7 +306,7 @@ return packer.startup(function()
             { "plenary.nvim" },
         },
         config = function()
-            require "plugins.telescope"
+            require "plugins.config.telescope"
         end,
     }
 
@@ -341,7 +341,7 @@ return packer.startup(function()
         "junegunn/fzf.vim",
         after = "fzf",
         config = function()
-            require "plugins.fzf"
+            require "plugins.config.fzf"
         end,
     }
 
@@ -350,7 +350,7 @@ return packer.startup(function()
         "lewis6991/gitsigns.nvim",
         after = "plenary.nvim",
         config = function()
-            require "plugins.gitsigns"
+            require "plugins.config.gitsigns"
         end,
     }
 
@@ -367,7 +367,7 @@ return packer.startup(function()
         "windwp/nvim-autopairs",
         after = "nvim-cmp",
         config = function()
-            require("plugins.others").autopairs()
+            require("plugins.config.others").autopairs()
         end,
     }
 
@@ -376,7 +376,7 @@ return packer.startup(function()
         "terrortylor/nvim-comment",
         cmd = "CommentToggle",
         config = function()
-            require("plugins.others").comment()
+            require("plugins.config.others").comment()
         end,
         setup = function()
             require("mappings").comment_nvim()
@@ -392,7 +392,7 @@ return packer.startup(function()
         "Pocco81/TrueZen.nvim",
         cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus" },
         setup = function()
-            require "plugins.zenmode"
+            require "plugins.config.zenmode"
             require("mappings").truezen()
         end,
     }
