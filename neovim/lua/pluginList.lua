@@ -19,7 +19,7 @@ return packer.startup(function()
         "stevearc/dressing.nvim",
         event = "VimEnter",
         config = function()
-            require("plugins.config.others").dressing()
+            require("plugins.config.dressing").config()
         end,
     }
 
@@ -27,7 +27,7 @@ return packer.startup(function()
         "rcarriga/nvim-notify",
         event = "VimEnter",
         config = function()
-            require("plugins.config.others").notify()
+            require("plugins.config.notify").config()
         end,
     }
 
@@ -61,7 +61,7 @@ return packer.startup(function()
         "norcalli/nvim-colorizer.lua",
         event = "BufRead",
         config = function()
-            require("plugins.config.others").colorizer()
+            require("plugins.config.colorizer").config()
         end,
     }
 
@@ -82,7 +82,7 @@ return packer.startup(function()
     use {
         "~/.config/nvim/local-plugins/statusline",
         config = function()
-            require("plugins.config.others").statusline()
+            require("statusline").setup()
         end,
     }
 
@@ -99,7 +99,7 @@ return packer.startup(function()
         "kosayoda/nvim-lightbulb",
         event = "BufRead",
         config = function()
-            require("plugins.config.others").lightbulb()
+            require("plugins.config.lightbulb").config()
         end,
     }
 
@@ -136,7 +136,7 @@ return packer.startup(function()
         "j-hui/fidget.nvim",
         after = "nvim-lspconfig",
         config = function()
-            require("plugins.config.others").fidget()
+            require("plugins.config.fidget").config()
         end,
     }
 
@@ -171,7 +171,7 @@ return packer.startup(function()
         "plasticboy/vim-markdown",
         ft = { "markdown" },
         config = function()
-            require("plugins.config.others").markdown()
+            require("plugins.config.markdown").config()
         end,
     }
 
@@ -180,7 +180,7 @@ return packer.startup(function()
         after = "vim-markdown",
         ft = { "markdown", "text" },
         config = function()
-            require("plugins.config.others").bullets()
+            require("plugins.config.bullets").config()
         end,
     }
 
@@ -188,7 +188,7 @@ return packer.startup(function()
         "lervag/vimtex",
         ft = "tex",
         config = function()
-            require("plugins.config.others").vimtex()
+            require("plugins.config.vimtex").config()
         end,
     }
 
@@ -202,7 +202,7 @@ return packer.startup(function()
         "L3MON4D3/LuaSnip",
         after = "friendly-snippets",
         config = function()
-            require("plugins.config.others").luasnip()
+            require("plugins.config.luasnip").config()
         end,
     }
 
@@ -367,7 +367,7 @@ return packer.startup(function()
         "windwp/nvim-autopairs",
         after = "nvim-cmp",
         config = function()
-            require("plugins.config.others").autopairs()
+            require("plugins.config.autopairs").config()
         end,
     }
 
@@ -376,7 +376,7 @@ return packer.startup(function()
         "terrortylor/nvim-comment",
         cmd = "CommentToggle",
         config = function()
-            require("plugins.config.others").comment()
+            require("nvim_comment").config()
         end,
         setup = function()
             require("mappings").comment_nvim()
