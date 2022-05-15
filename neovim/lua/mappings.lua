@@ -245,13 +245,8 @@ M.lsp = function(bufnr, client_caps)
     map_buf(bufnr, "n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
-    if client_caps.document_range_formatting == true then
-        map_buf(bufnr, "v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    end
-
-    if client_caps.document_formatting == true then
-        map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
+    map_buf(bufnr, "v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
 
     -- Set up some keybindings to toggle LSP diagnostic visibility
     -- NOTE: these are global in effect, but we set these up lazily anyway
@@ -386,9 +381,7 @@ M.fzf = function()
     map("n", m.ripgrep, ":silent! Rg<CR>", opt)
 end
 
-
 -- Main ('misc') mappings are applied immediately
 M.misc()
-
 
 return M
