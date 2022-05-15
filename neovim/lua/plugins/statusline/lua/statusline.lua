@@ -66,6 +66,9 @@ M.git_icon = ""
 
 M.git_show_changes = true
 
+M.lsp_show_status_messages = false
+
+
 -- HACK: make all highlight groups the default color for now
 -- stylua: ignore
 api.nvim_exec( [[
@@ -284,14 +287,6 @@ M.setup = function()
 end
 
 
-----[[
---  NOTE: I don't use this since the statusline already has
---  so much stuff going on. Feel free to use it!
---  credit: https://github.com/nvim-lua/lsp-status.nvim
---
---  I now use `tabline` to display these errors, go to `_bufferline.lua` if you
---  want to check that out
-----]]
 Statusline.get_lsp_diagnostic = function(self)
     -- Check that lsp-status.nvim is loaded
     if not lsp_status_present then
@@ -303,42 +298,44 @@ Statusline.get_lsp_diagnostic = function(self)
     end
 
     -- Messages; just write them out
-    local messages = lsp_status.messages()
-    for _, msg in ipairs(messages) do
-        -- DEBUG: print(vim.inspect(msg))
-        fmt_msg = ""
-        if not isempty(msg.title) or not isempty(msg.message) then
-            if not isempty(msg.title) and not isempty(msg.message) then
-                str = string.format("%s: %s", msg.title, msg.message)
-            elseif not isempty(msg.message) then
-                str = msg.message
-            else
-                str = msg.title
-            end
-
-            local name = "???"
-            if type(msg.name) == "number" then
-                -- Attempt to use 'msg.name' as client ID
-                if #vim.lsp.buf_get_clients() > 0 then
-                    local lsp_server = vim.lsp.get_client_by_id(msg.name)
-                    if lsp_server ~= nil then
-                        name = lsp_server.name
-                    end
+    if self.lsp_show_status_messages then
+        local messages = lsp_status.messages()
+        for _, msg in ipairs(messages) do
+            -- DEBUG: print(vim.inspect(msg))
+            fmt_msg = ""
+            if not isempty(msg.title) or not isempty(msg.message) then
+                if not isempty(msg.title) and not isempty(msg.message) then
+                    str = string.format("%s: %s", msg.title, msg.message)
+                elseif not isempty(msg.message) then
+                    str = msg.message
+                else
+                    str = msg.title
                 end
-            elseif type(msg.name == "string") then
-                name = msg.name
-            end
 
-            if msg.percentage ~= nil then
-                fmt_msg = string.format("[LSP] %s: %s (%s%%)", name, str, math.floor(msg.percentage))
-            else
-                fmt_msg = string.format("[LSP] %s: %s", name, str)
+                local name = "???"
+                if type(msg.name) == "number" then
+                    -- Attempt to use 'msg.name' as client ID
+                    if #vim.lsp.buf_get_clients() > 0 then
+                        local lsp_server = vim.lsp.get_client_by_id(msg.name)
+                        if lsp_server ~= nil then
+                            name = lsp_server.name
+                        end
+                    end
+                elseif type(msg.name == "string") then
+                    name = msg.name
+                end
+
+                if msg.percentage ~= nil then
+                    fmt_msg = string.format("[LSP] %s: %s (%s%%)", name, str, math.floor(msg.percentage))
+                else
+                    fmt_msg = string.format("[LSP] %s: %s", name, str)
+                end
             end
+            if fmt_msg ~= self.lsp_last_message then
+                print(fmt_msg)
+            end
+            self.lsp_last_message = fmt_msg
         end
-        if fmt_msg ~= self.lsp_last_message then
-            print(fmt_msg)
-        end
-        self.lsp_last_message = fmt_msg
     end
 
     -- Statusline too short
