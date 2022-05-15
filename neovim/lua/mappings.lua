@@ -199,11 +199,11 @@ M.misc = function()
     M.fzf()
 
     -- Packer commands, because we are not loading it at startup
-    cmd "silent! command PackerCompile lua require 'pluginList' require('packer').compile()"
-    cmd "silent! command PackerInstall lua require 'pluginList' require('packer').install()"
-    cmd "silent! command PackerStatus lua require 'pluginList' require('packer').status()"
-    cmd "silent! command PackerSync lua require 'pluginList' require('packer').sync()"
-    cmd "silent! command PackerUpdate lua require 'pluginList' require('packer').update()"
+    cmd "silent! command PackerCompile lua require 'plugins.init' require('packer').compile()"
+    cmd "silent! command PackerInstall lua require 'plugins.init' require('packer').install()"
+    cmd "silent! command PackerStatus lua require 'plugins.init' require('packer').status()"
+    cmd "silent! command PackerSync lua require 'plugins.init' require('packer').sync()"
+    cmd "silent! command PackerUpdate lua require 'plugins.init' require('packer').update()"
     cmd "command! PC PackerCompile"
     cmd "command! PS PackerStatus"
     cmd "command! PU PackerSync"
