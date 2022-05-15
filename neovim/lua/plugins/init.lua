@@ -294,7 +294,7 @@ return packer.startup(function(use)
         requires = {
             "nvim-lua/plenary.nvim",
         },
-        module = { "telescope._extensions.luasnip" },
+        module = { "telescope._extensions.metals" },
     }
 
     -- WARNING: won't actually find any snippets until LuaSnip is loaded
