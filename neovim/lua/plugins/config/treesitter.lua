@@ -4,16 +4,16 @@ if not present then
 end
 
 ts_config.setup {
-    ensure_installed = { "python", "lua" }, -- or "all" (not recommended)
+    ensure_installed = { "bash", "html", "java", "javascript", "lua", "python", "scala", "tsx", "vue" }, -- or "all" (not recommended)
     autotag = {
-        enable = true,
+        enable = true
     },
     highlight = {
         enable = true,
-        disable = { "latex", "markdown" },
-        use_languagetree = true,
+        use_languagetree = true
     },
     indent = {
-        enable = true,
+        enable = true
     },
 }
+
