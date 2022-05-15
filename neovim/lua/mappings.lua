@@ -16,11 +16,7 @@ M.user_map = {
         cycle_conceal = "<leader>C",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
-        -- new_terminal_quick = "<leader>tt", -- subject to change
-        -- new_terminal_here = "<leader>th",
-        -- new_terminal_split = "<leader>tx",
-        -- new_terminal_vsplit = "<leader>tv",
-        new_terminal_quick = "<leader>TT", -- subject to change
+        new_terminal_quick = "<leader>TT",
         new_terminal_here = "<leader>Th",
         new_terminal_split = "<leader>Tx",
         new_terminal_vsplit = "<leader>Tv",
@@ -152,9 +148,19 @@ M.misc = function()
     map("n", miscMap.toggle_spellcheck, ":set spell! <CR>", opt)
     map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <CR>", opt)
     map("n", miscMap.toggle_number, ":set invnumber<CR>:set invrelativenumber<CR>:set invcursorline<CR>", opt)
-    map("n", miscMap.toggle_colorcolumn, ":silent! if &colorcolumn==81 | let &colorcolumn = 121 | elseif &colorcolumn==121 | let &colorcolumn='' | else | let &colorcolumn=81 | endif<CR>", opt)
+    map(
+        "n",
+        miscMap.toggle_colorcolumn,
+        ":silent! if &colorcolumn==81 | let &colorcolumn = 121 | elseif &colorcolumn==121 | let &colorcolumn='' | else | let &colorcolumn=81 | endif<CR>",
+        opt
+    )
     map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
-    map("n", miscMap.cycle_conceal, ":silent! if &conceallevel==0 | let &conceallevel= 1 | elseif &conceallevel==1 | let &conceallevel=2 | else | let &conceallevel=0 | endif<CR>", opt)
+    map(
+        "n",
+        miscMap.cycle_conceal,
+        ":silent! if &conceallevel==0 | let &conceallevel= 1 | elseif &conceallevel==1 | let &conceallevel=2 | else | let &conceallevel=0 | endif<CR>",
+        opt
+    )
 
     -- Indent: leave selection intact
     map("v", ">", ">gv", opt)
@@ -209,13 +215,11 @@ M.misc = function()
     cmd "command! PU PackerSync"
 end
 
-
 --
 -- LSP bindings (dynamically, by buffer)
 --
 
 M.lsp = function(bufnr, client_caps)
-
     local opts = { noremap = true, silent = true }
 
     map_buf(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -262,7 +266,6 @@ M.lsp = function(bufnr, client_caps)
     map("n", "<leader>tldo", "<Plug>(toggle-lsp-diag-off)", opts_remap)
     map("n", "<leader>tldf", "<Plug>(toggle-lsp-diag-on)", opts_remap)
 end
-
 
 --
 -- Plugin mappings
@@ -341,12 +344,9 @@ M.telescope = function()
     map("n", m.autocommands, ":silent! Telescope autocommands<CR>", opt)
 
     -- Pick snippet to preview and insert
-    map(
-        "n",
-        m.select_snippet,
-        ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>",
-        opt
-    )
+
+    -- stylua: ignore
+    map("n", m.select_snippet, ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>", opt)
 
     -- LSP
     map("n", m.lsp_diagnostics, ":Telescope diagnostics<CR>", opt)
@@ -385,5 +385,10 @@ M.fzf = function()
     map("n", m.windows, ":silent! Windows<CR>", opt)
     map("n", m.ripgrep, ":silent! Rg<CR>", opt)
 end
+
+
+-- Main ('misc') mappings are applied immediately
+M.misc()
+
 
 return M

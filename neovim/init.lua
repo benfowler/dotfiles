@@ -1,3 +1,4 @@
 require "settings"
-require "mappings".misc()
+require "mappings"
 require "plugins"
+require "utils"
