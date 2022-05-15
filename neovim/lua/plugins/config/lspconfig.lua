@@ -2,39 +2,21 @@
 
 -- QUICKSTART:
 --
--- :LspInstall python
---
 -- LSP_SERVER_INSTALLATION: how to get your language servers going
 --
--- :LspUpdate [dry]             " are any language servers running?
--- :checkhealth lspconfig       " is the LSP configuration valid?
---
--- CODE_LINTERS_INSTALLATION:
---
--- NOTE!!  The 'diagnostics' linter server lets us use lots of third-party
---         tools to lint and format our code, but there is NO SUPPORT for
---         installing them automatically.  If you're not seeing the error
---         messages you're expecting, read the 'diagnosticsls' configuration
---         section below to figure out what tools are missing or misconfigured.
+--   :LspInstallInfo
+--   :checkhealth lspconfig       " is the LSP configuration valid?
 --
 -- TROUBLESHOOTING: what if nothing happens?
 --
--- : LspInfo
---
--- Ensure that editor is open in a directory recognised by the LSP server
--- (See CONFIG.md).
---
--- This can be customized, e.g.:
---
--- local lspconfig = require'lspconfig'
--- lspconfig.gopls.setup{
---   root_dir = lspconfig.util.root_pattern('.git');
--- }
+--   :LspInfo
 --
 -- DEBUGGING: read the following:
 --
 --   https://github.com/neovim/nvim-lspconfig/blob/master/README.md#debugging
 --
+
+vim.lsp.set_log_level "debug"
 
 local has_lspconfig, lspconfig = pcall(require, "lspconfig")
 local has_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
@@ -49,13 +31,9 @@ end
 
 local lsp_icons = require("utils").diagnostic_icons.filled
 
-local debounce_text_changes_msec = 150 -- msec
+local debounce_changes_msec = 150 -- msec
 
--- on_attach():
---
--- This callback is passed to each language server upon startup to configure
--- each buffer for LSP in turn.
-
+-- Passed to each language server on startup to configure each buffer for LSP
 local function on_attach(client, bufnr)
     -- On-attach hooks
     if lsp_status_present then
@@ -96,244 +74,78 @@ local function on_attach(client, bufnr)
     end
 end
 
-local client_caps = {}
-
 -- Stock client capabilities...
-client_caps = vim.tbl_extend("force", client_caps, vim.lsp.protocol.make_client_capabilities())
+local client_caps = vim.lsp.protocol.make_client_capabilities()
 
--- lsp-status, if loaded
+-- CMP
+local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if has_cmp_nvim_lsp then
+    client_caps = cmp_nvim_lsp.update_capabilities(client_caps)
+end
+
+-- lsp-status, to report LSP diagnostics to other plugins
 if lsp_status_present then
     client_caps = vim.tbl_extend("force", client_caps, lsp_status.capabilities)
 end
 
--- ... plus some additional one-offs we want to enable...
+-- ... plus some extra one-offs we want to enable...
 client_caps.textDocument.completion.completionItem.snippetSupport = true
 
--- With the "on_attach()" buffer configuration callback, and the 'capabilities'
--- object in hand, we are now ready to configure each language server.
+-- Configure each installed LSP server with an override configuration, or some
+-- sensible fallback defaults.
 
-local lsp_server_configs = {
-    sumneko_lua = {
-        settings = {
-            Lua = {
-                runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-                completion = { enable = true, callSnippet = "Both" },
-                diagnostics = {
-                    enable = true,
-                    globals = { "vim", "describe" },
-                    disable = { "lowercase-global" },
-                },
-                workspace = {
-                    library = {
-                        [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                        [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-                    },
-                    maxPreload = 100000,
-                    preloadFileSize = 10000,
-                },
-                telemetry = {
-                    enable = false,
-                },
-            },
-        },
-        on_attach = on_attach,
-        capabilities = client_caps,
-        root_dir = vim.loop.cwd,
-        flags = { debounce_text_changes = debounce_text_changes_msec },
-    },
-    metals = {
-        settings = {
-            showImplicitArguments = true,
-        },
-        filetypes = { "scala", "sbt" },
-        on_attach = on_attach,
-        capabilities = client_caps,
-        root_dir = vim.loop.cwd,
-        flags = { debounce_text_changes = debounce_text_changes_msec },
-    },
-    texlab = {
-        settings = {
-            texlab = {
-                build = {
-                    -- See `tectonic --help` for the format
-                    executable = "tectonic",
-                    args = {
-                        -- Input
-                        "%f",
-                        -- Flags
-                        "--synctex",
-                        "--keep-logs",
-                        "--keep-intermediates",
-                        -- Options
-                        -- OPTIONAL: If you want a custom out directory,
-                        -- uncomment the following line.
-                        --"--outdir out",
-                    },
-                    forwardSearchAfter = true,
-                    onSave = true,
-                },
-                forwardSearch = {
-                    executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-                    args = { "-g", "%l", "%p", "%f" },
-                    onSave = true,
-                },
-                chktex = {
-                    onOpenAndSave = true, -- extra lints
-                    onEdit = true, -- give me lints, good and hard
-                },
-                -- OPTIONAL: The server needs to be configured
-                -- to read the logs from the out directory as well.
-                -- auxDirectory = "out",
-            },
-        },
-        on_attach = on_attach,
-        capabilities = client_caps,
-        root_dir = vim.loop.cwd,
-        flags = { debounce_text_changes = debounce_text_changes_msec },
-    },
-    gopls = {
-        cmd = { "gopls", "serve" },
-        root_dir = function(fname)
-            if has_lspconfig then
-                local util = lspconfig.util
-                return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
-            end
-        end,
-        settings = {
-            gopls = {
-                analyses = {
-                    unusedparams = true,
-                    unreachable = false,
-                },
-                codelenses = {
-                    generate = true, -- show the `go generate` lens.
-                    gc_details = true, --  // Show a code lens toggling the display of gc's choices.
-                    test = true,
-                    tidy = true,
-                },
-                usePlaceholders = true,
-                completeUnimported = true,
-                staticcheck = true,
-                matcher = "Fuzzy",
-            },
-        },
-        flags = { allow_incremental_sync = true, debounce_text_changes = 500 },
-    },
-    clangd = {
-        handlers = lsp_status.extensions.clangd.setup(),
-        init_options = {
-            clangdFileStatus = true,
-        },
-        on_attach = on_attach,
-        capabilities = client_caps,
-        flags = { debounce_text_changes = debounce_text_changes_msec },
-    },
-    lemminx = {
-        cmd = {
-            "java",
-            "-cp",
-            "/Users/bfowler/Library/LanguageServers/xml/lib/*",
-            "-Djava.util.logging.config.file=/Users/bfowler/Library/LanguageServers/xml/logging.properties",
-            -- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005",
-            "org.eclipse.lemminx.XMLServerLauncher",
-        },
-        filetypes = { "xml", "pom", "xsd", "xsl", "svg" },
-        root_dir = function(fname)
-            return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-        end,
-        on_attach = on_attach,
-        capabilities = client_caps,
-        flags = { debounce_text_changes = debounce_text_changes_msec },
-    },
+local servers = {
+    "clangd",
+    "gopls",
+    "lemminx",
+    "metals",
+    "pyright",
+    "sumneko_lua",
+    "texlab",
 }
 
--- Configure each installed LSP server with an override configuration (see above)
--- or some sensible fallback defaults.
 local default_server_opts = {
     on_attach = on_attach,
     capabilities = client_caps,
     root_dir = vim.loop.cwd,
-    flags = { debounce_text_changes = debounce_text_changes_msec },
+    flags = { debounce_text_changes = debounce_changes_msec },
 }
 
-lsp_installer.setup({
-    ensure_installed = { "jsonls", "pyright", "sumneko_lua", "yamlls" },
+lsp_installer.setup {
     automatic_installation = true,
     on_server_ready = function(server)
-        local opts = lsp_server_configs[server.name]
-        if opts ~= nil then
-            server:setup(opts)
+        put(server.name)
+        local opts_present, opts = pcall(require, "servers." .. server.name)
+        if opts_present then
+            local config = opts.configure(on_attach, client_caps, debounce_changes_msec)
+            server:setup(config)
         else
             server:setup(default_server_opts)
         end
+    end,
+}
+
+for _, server in ipairs(servers) do
+    local has_server_config, server_config = pcall(require, "servers." .. server)
+    if has_server_config then
+        lspconfig[server].setup(server_config.configure(on_attach, client_caps, debounce_changes_msec))
+    else
+        lspconfig[server].setup {}
     end
-})
+end
 
-
--- Loopback language server ('null-ls'), used to hook into LSP directly via Lua.
--- Used for linting, formatting,  code actions, hovers, etc.
+-- Loopback language server ('null-ls') is used to hook into LSP via Lua.
+-- Used for linting, formatting, code actions, hovers, etc.
 --
 -- NOTE: null-ls isn't configured via lsp-config.  Must be done separately.
 
 local null_ls = require "null-ls"
+local null_ls_opts = require "servers.null-ls"
+local null_ls_config = null_ls_opts.configure(on_attach, client_caps, debounce_changes_msec)
 
-local my_sources = require("null-ls-sources.cfn-lint")
+null_ls.setup(null_ls_config)
 
-null_ls.setup {
-    debounce = debounce_text_changes_msec,
-    debug = true,
-    log = {
-        enable = true,
-        level = "info",
-        use_console = "async",
-    },
-    sources = {
-
-        -- Linters
-        null_ls.builtins.diagnostics.chktex,
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.diagnostics.gitlint,
-        null_ls.builtins.diagnostics.golangci_lint,
-        null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
-        null_ls.builtins.diagnostics.jsonlint,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.mypy,
-        null_ls.builtins.diagnostics.pylint,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.diagnostics.yamllint,
-
-        null_ls.builtins.diagnostics.luacheck.with {
-            extra_args = function()
-                return { "--globals", "vim" }
-            end,
-        },
-
-        my_sources.diagnostics.cfn_lint,  -- lints for CloudFormation templates
-
-        -- Code formatters
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.fixjson,
-        null_ls.builtins.formatting.goimports,
-        null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.reorder_python_imports,
-        null_ls.builtins.formatting.shellharden,
-        null_ls.builtins.formatting.sqlformat,
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.terraform_fmt,
-
-        null_ls.builtins.formatting.prettier.with({
-           filetypes = { "html", "json", "yaml", "markdown" },
-        }),
-
-        -- Additional LSP code action contributions
-        null_ls.builtins.code_actions.eslint,
-        null_ls.builtins.code_actions.shellcheck,
-    },
-
-    on_attach = on_attach,
-    capabilities = client_caps,
-}
-
+-- Customise appearance of diagnostics, symbols (gutter), virtual text
 
 local function lspSymbol(key, icon, sign_name)
     vim.fn.sign_define(sign_name, {
@@ -344,46 +156,27 @@ local function lspSymbol(key, icon, sign_name)
     })
 end
 
--- (Neovim 5.0+)
+-- (Neovim 6.0 nightlies onwards (26th Sep 2021))
 lspSymbol("Error", lsp_icons.error, "DiagnosticSignError")
 lspSymbol("Warn", lsp_icons.warn, "DiagnosticSignWarn")
 lspSymbol("Info", lsp_icons.info, "DiagnosticSignInfo")
 lspSymbol("Hint", lsp_icons.hint, "DiagnosticSignHint")
 
--- (Neovim 6.0 nightlies onwards (26th Sep 2021))
-lspSymbol("Error", lsp_icons.error, "LspDiagnosticsSignError")
-lspSymbol("Warn", lsp_icons.warn, "LspDiagnosticsSignWarning")
-lspSymbol("Info", lsp_icons.info, "LspDiagnosticsSignInformation")
-lspSymbol("Hint", lsp_icons.hint, "LspDiagnosticsSignHint")
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
-        prefix = "", -- "«"
+        prefix = "",
         spacing = 6,
     },
     signs = true,
     severity_sort = true,
     underline = true,
-    -- set this to true if you want diagnostics to show in insert mode
     update_in_insert = false,
 })
 
+-- Popups get frames with rounded corners
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
--- Suppress error messages from lang servers
-vim.notify = function(msg, log_level)
-    if msg:match "exit code" then
-        return
-    end
-    if log_level == vim.log.levels.ERROR then
-        vim.api.nvim_err_writeln(msg)
-    else
-        vim.api.nvim_echo({ { msg } }, true, {})
-    end
-end
-
--- Tweak appearance of LSPInfo window, etc
 local lspconfig_win = require "lspconfig.ui.windows"
 local lspconfig_win_default_opts = lspconfig_win.default_opts
 

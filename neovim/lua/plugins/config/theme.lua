@@ -1,5 +1,4 @@
 local u = require "utils"
-local g = vim.g
 
 -- Theme-agnostic setup
 function my_highlights_all()

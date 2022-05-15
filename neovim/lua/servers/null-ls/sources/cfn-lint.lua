@@ -1,12 +1,7 @@
---
--- Locally-defined 'null-ls' (loopback lanuage server) sources
---
+-- Locally-defined 'null-ls' (loopback lanuage server) source for Cloudformation (cfn-lint)
 
 local null_ls = require "null-ls"
 local null_helpers = require "null-ls.helpers"
-
-
--- Cloudformation (cfn-lint)
 
 local M = { }
 
