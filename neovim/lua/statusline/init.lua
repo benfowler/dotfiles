@@ -371,6 +371,5 @@ Statusline.get_lsp_diagnostic = function(self)
     end
 end
 
-
-return M
+M.setup()
 
