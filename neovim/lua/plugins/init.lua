@@ -23,9 +23,6 @@ packer.init {
     git = {
         clone_timeout = 600, -- Timeout, in seconds, for git clones
     },
-    auto_clean = true,
-    compile_on_sync = true,
-    --    auto_reload_compiled = true
     log = { level = "warn" }, -- The default print log level. One of: "trace", "debug", "info", "warn", "error", "fatal".
     profile = {
         enable = true,
@@ -202,38 +199,43 @@ return packer.startup(function(use)
     -- Autocomplete support
     use {
         "L3MON4D3/LuaSnip",
+        event = "BufRead",
         requires = "rafamadriz/friendly-snippets",
         config = function()
             require "plugins.config.luasnip"
         end,
     }
 
+    -- Completions
     use {
         "hrsh7th/nvim-cmp",
+        event = "BufRead",
+        requires = "L3MON4D3/LuaSnip",
         after = "LuaSnip",
-        requires = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lsp-document-symbol",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-        },
         config = function()
             require "plugins.config.cmp"
         end,
     }
 
+    -- nvim-cmp sources
+
+    use { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
+    use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
+    use { "hrsh7th/cmp-path", after = "nvim-cmp" }
+    use { "hrsh7th/cmp-cmdline", after = "nvim-cmp" }
+    use { "hrsh7th/cmp-nvim-lsp", after = { "nvim-cmp", "nvim-lspconfig" } }
+    use { "hrsh7th/cmp-nvim-lsp-document-symbol", after = { "nvim-cmp", "nvim-lspconfig" } }
+    use { "hrsh7th/cmp-nvim-lsp-signature-help", after = { "nvim-cmp", "nvim-lspconfig" } }
+    use { "saadparwaiz1/cmp_luasnip", after = { "nvim-cmp", "LuaSnip" } }
+
     -- tmux integration
     use {
         "christoomey/vim-tmux-navigator",
         cmd = {
-            "TmuxNaviateLeft",
-            "TmuxNavigateRight",
             "TmuxNavigateLeft",
             "TmuxNavigateRight",
+            "TmuxNavigateUp",
+            "TmuxNavigateDown",
             "TmuxNavigatePrevious",
         },
         after = "packer.nvim",
@@ -259,11 +261,8 @@ return packer.startup(function(use)
     --       restart (:e) to launch.
     use {
         "nvim-telescope/telescope.nvim",
-        after = "plenary.nvim",
-        --cmd =  "Telescope" ,
-        requires = {
-            { "plenary.nvim" },
-        },
+        cmd =  "Telescope" ,
+        requires = "plenary.nvim",
         config = function()
             require "plugins.config.telescope"
         end,
@@ -282,15 +281,15 @@ return packer.startup(function(use)
 
     use {
         "scalameta/nvim-metals",
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
+        ft = { "scala", "sbt" },
+        requires = "nvim-lua/plenary.nvim",
         module = { "telescope._extensions.metals" },
     }
 
     -- WARNING: won't actually find any snippets until LuaSnip is loaded
     use {
         "benfowler/telescope-luasnip.nvim",
+        after = { "telescope.nvim", "LuaSnip" },
         module = { "telescope._extensions.luasnip" },
     }
 
@@ -316,9 +315,7 @@ return packer.startup(function(use)
     -- Git support
     use {
         "lewis6991/gitsigns.nvim",
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
+        requires = "nvim-lua/plenary.nvim",
         config = function()
             require "plugins.config.gitsigns"
         end,
