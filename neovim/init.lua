@@ -1,4 +1,5 @@
 require "settings"
 require "mappings"
 require "plugins"
+require "statusline"
 require "utils"

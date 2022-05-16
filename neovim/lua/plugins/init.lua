@@ -101,14 +101,6 @@ return packer.startup(function(use)
         end,
     }
 
-    -- Load my hand-coded custom statusline (local plugin)
-    use {
-        "~/.config/nvim/local-plugins/statusline",
-        config = function()
-            require("statusline").setup()
-        end,
-    }
-
     -- LSP stuff
     use {
         "nvim-treesitter/nvim-treesitter",
