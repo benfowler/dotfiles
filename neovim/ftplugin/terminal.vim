@@ -2,7 +2,7 @@
 " (NeoVim's terminal defaults are bad; fix them)
 
 augroup term_settings_options
-    autocmd!
+    autocmd! * <buffer>
 
     " Don't show any numbers inside terminals
     autocmd TermOpen term://* setlocal nonumber norelativenumber

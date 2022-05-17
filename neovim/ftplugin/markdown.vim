@@ -1,7 +1,7 @@
 " Markdown-specific configuration
 
 augroup filetype_markdown
-    autocmd!
+    autocmd! * <buffer>
 
     autocmd BufWritePre <buffer> %s/\s\+$//e
 
