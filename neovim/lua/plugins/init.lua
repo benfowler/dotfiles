@@ -282,7 +282,8 @@ return packer.startup(function(use)
     use {
         "scalameta/nvim-metals",
         ft = { "scala", "sbt" },
-        requires = "nvim-lua/plenary.nvim",
+        requires = "nvim-telescope/telescope.nvim",
+        after = "telescope.nvim",
         module = { "telescope._extensions.metals" },
     }
 
