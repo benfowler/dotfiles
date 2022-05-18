@@ -136,14 +136,6 @@ return packer.startup(function(use)
     }
 
     use {
-        "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-        after = "lspkind-nvim",
-        config = function()
-            require "toggle_lsp_diagnostics"
-        end,
-    }
-
-    use {
         "j-hui/fidget.nvim",
         after = "nvim-lspconfig",
         config = function()
