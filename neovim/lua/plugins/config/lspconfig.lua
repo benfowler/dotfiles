@@ -95,13 +95,17 @@ client_caps.textDocument.completion.completionItem.snippetSupport = true
 -- sensible fallback defaults.
 
 local servers = {
+    "bashls",
     "clangd",
     "gopls",
+    "jsonls",
     "lemminx",
     "metals",
     "pyright",
     "sumneko_lua",
     "texlab",
+    "vimls",
+    "yamlls"
 }
 
 local default_server_opts = {
