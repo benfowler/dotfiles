@@ -254,11 +254,12 @@ M.lsp = function(bufnr, _)
         lsp_diagnostics_active = not lsp_diagnostics_active
         if lsp_diagnostics_active then
             vim.diagnostic.show()
+            vim.notify("LSP diagnostics enabled", "info", { title = "LSP" })
         else
             vim.diagnostic.hide()
+            vim.notify("LSP diagnostics disabled", "info", { title = "LSP" })
         end
-    end,
-    opts)
+    end, opts)
 end
 
 --
@@ -302,6 +303,22 @@ M.vim_tmux_navigator = function()
     map("t", m.pane_right, "<C-\\><C-n>:TmuxNavigateRight<CR>", opt)
 
     vim.g.tmux_navigator_no_mappings = 1
+end
+
+-- Completion. In addition to what's already set up in nvim-cmp's standard config.
+M.cmp = function ()
+    local opts = { noremap = true, silent = true }
+    local cmp_autopopup_enabled = true
+    vim.keymap.set({'n', 'i'}, "<F4>", function()
+        cmp_autopopup_enabled = not cmp_autopopup_enabled
+        if cmp_autopopup_enabled then
+            require("utils").EnableAutoCmp()
+            vim.notify("Completion autopopups enabled", "info", { title = "nvim-cmp" })
+        else
+            require("utils").DisableAutoCmp()
+            vim.notify("Completion autopopups disabled", "info", { title = "nvim-cmp" })
+        end
+    end, opts)
 end
 
 M.nvimtree = function()

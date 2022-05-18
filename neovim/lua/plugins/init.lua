@@ -215,6 +215,7 @@ return packer.startup(function(use)
         after = "LuaSnip",
         config = function()
             require "plugins.config.cmp"
+            require("mappings").cmp()
         end,
     }
 
