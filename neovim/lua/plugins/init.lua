@@ -179,8 +179,17 @@ return packer.startup(function(use)
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
-        ft = { "markdown" },
+        ft = "markdown",
         config = require "plugins.config.markdown",
+    }
+
+    -- Cross-platform preview
+    use {
+        "davidgranstrom/nvim-markdown-preview",
+        config = function()
+            vim.g.nvim_markdown_preview_format = "gfm"
+            vim.g.nvim_markdown_preview_theme = "github"
+        end,
     }
 
     use {

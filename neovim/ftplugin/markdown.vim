@@ -21,6 +21,6 @@ augroup filetype_markdown
     " TODO: move to mappings and migrate once autogroup Lua bindings exist
     "
 
-    autocmd filetype markdown nnoremap <leader>mm :silent !open -a Marked\ 2.app '%:p'<cr>
+    autocmd filetype markdown nmap <leader>mm <Plug>(nvim-markdown-preview)
     autocmd filetype markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr>
 augroup END
