@@ -49,7 +49,7 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.formatting.terraform_fmt,
 
             null_ls.builtins.formatting.prettier.with({
-                filetypes = { "html", "json", "yaml", "markdown" },
+                filetypes = { "html", "json", "yaml" },
             }),
 
             -- Additional LSP code action contributions
