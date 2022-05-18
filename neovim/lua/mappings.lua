@@ -219,7 +219,7 @@ end
 -- LSP bindings (dynamically, by buffer)
 --
 
-M.lsp = function(bufnr, client_caps)
+M.lsp = function(bufnr, _)
     local opts = { noremap = true, silent = true }
 
     map_buf(bufnr, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -249,17 +249,16 @@ M.lsp = function(bufnr, client_caps)
     map_buf(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
 
     -- Set up some keybindings to toggle LSP diagnostic visibility
-    -- NOTE: these are global in effect, but we set these up lazily anyway
-
-    local opts_remap = { noremap = false, silent = true }
-    map("n", "<leader>tlu", "<Plug>(toggle-lsp-diag-underline)", opts_remap)
-    map("n", "<leader>tls", "<Plug>(toggle-lsp-diag-signs)", opts_remap)
-    map("n", "<leader>tlv", "<Plug>(toggle-lsp-diag-vtext)", opts_remap)
-    map("n", "<leader>tlp", "<Plug>(toggle-lsp-diag-update_in_insert)", opts_remap)
-    map("n", "<leader>tld", "<Plug>(toggle-lsp-diag)", opts_remap)
-    map("n", "<leader>tldd", "<Plug>(toggle-lsp-diag-default)", opts_remap)
-    map("n", "<leader>tldo", "<Plug>(toggle-lsp-diag-off)", opts_remap)
-    map("n", "<leader>tldf", "<Plug>(toggle-lsp-diag-on)", opts_remap)
+    local lsp_diagnostics_active = true
+    vim.keymap.set('n', "<F5>", function()
+        lsp_diagnostics_active = not lsp_diagnostics_active
+        if lsp_diagnostics_active then
+            vim.diagnostic.show()
+        else
+            vim.diagnostic.hide()
+        end
+    end,
+    opts)
 end
 
 --
