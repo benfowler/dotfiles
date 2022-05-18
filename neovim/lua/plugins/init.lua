@@ -288,7 +288,6 @@ return packer.startup(function(use)
         module = { "telescope._extensions.metals" },
     }
 
-    -- WARNING: won't actually find any snippets until LuaSnip is loaded
     use {
         "benfowler/telescope-luasnip.nvim",
         after = { "telescope.nvim", "LuaSnip" },
