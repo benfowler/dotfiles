@@ -78,6 +78,21 @@ web_devicons.setup {
             color = colors.red,
             name = "rb",
         },
+        scala = {
+            icon = "",
+            color = colors.red,
+            name = "scala",
+        },
+        sc = {
+            icon = "",
+            color = colors.red,
+            name = "scala",
+        },
+        sbt = {
+            icon = "",
+            color = colors.red,
+            name = "sbt",
+        },
         vue = {
             icon = "﵂",
             color = colors.green,
@@ -129,7 +144,7 @@ web_devicons.setup {
             name = "txt",
         },
         md = {
-            icon = "",
+            icon = " ",
             color = colors.magenta,
             name = "markdown",
         },
