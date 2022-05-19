@@ -205,14 +205,15 @@ M.misc = function()
     M.fzf()
 
     -- Packer commands, because we are not loading it at startup
-    cmd "silent! command PackerCompile lua require 'plugins.init' require('packer').compile()"
-    cmd "silent! command PackerInstall lua require 'plugins.init' require('packer').install()"
-    cmd "silent! command PackerStatus lua require 'plugins.init' require('packer').status()"
-    cmd "silent! command PackerSync lua require 'plugins.init' require('packer').sync()"
-    cmd "silent! command PackerUpdate lua require 'plugins.init' require('packer').update()"
-    cmd "command! PC PackerCompile"
-    cmd "command! PS PackerStatus"
-    cmd "command! PU PackerSync"
+    vim.api.nvim_create_user_command('PackerCompile', function() require 'plugins.init' require('packer').compile() end, {})
+    vim.api.nvim_create_user_command('PackerInstall', function() require 'plugins.init' require('packer').install() end, {})
+    vim.api.nvim_create_user_command('PackerStatus', function() require 'plugins.init' require('packer').status() end, {})
+    vim.api.nvim_create_user_command('PackerSync', function() require 'plugins.init' require('packer').sync() end, {})
+    vim.api.nvim_create_user_command('PackerUpdate', function() require 'plugins.init' require('packer').update() end, {})
+
+    vim.api.nvim_create_user_command('PC', 'PackerCompile', {})
+    vim.api.nvim_create_user_command('PS', 'PackerStatus', {})
+    vim.api.nvim_create_user_command('PU', 'PackerSync', {})
 end
 
 --

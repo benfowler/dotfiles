@@ -172,8 +172,8 @@ vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 vim.cmd [[ command! YankLocation let @+ = join([expand('%'),  line(".")], ':') ]]
 
 -- Expose helpers to (dis)able autocompletion popups
-vim.cmd [[ command! EnableAutoCmp lua require('utils').EnableAutoCmp() ]]
-vim.cmd [[ command! DisableAutoCmp lua require('utils').DisableAutoCmp() ]]
+vim.api.nvim_create_user_command('EnableAutoCmp', function() require('utils').EnableAutoCmp() end, {})
+vim.api.nvim_create_user_command('DisableAutoCmp', function() require('utils').DisableAutoCmp() end, {})
 
 -- Autogroup for autocommands
 -- stylua: ignore
