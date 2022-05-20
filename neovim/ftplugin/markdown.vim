@@ -11,6 +11,7 @@ augroup filetype_markdown
     autocmd filetype markdown setlocal textwidth=80
 
     " Spelling corrections from dict in omnicomplete by default
+    autocmd filetype markdown setlocal spell
     autocmd filetype markdown setlocal complete+=k
     autocmd filetype markdown setlocal dictionary+=/usr/share/dict/words
 
