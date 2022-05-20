@@ -22,6 +22,10 @@ M.separators = {
     custom = { "", "" },
 }
 
+M.filetype_icon_overrides = {
+    md = " ",
+}
+
 -- highlight groups
 M.colors = {
     active = "%#StatusLine#",
@@ -174,13 +178,16 @@ M.get_filename = function(_)
     return "%<%f"
 end
 
-M.get_filetype = function()
+M.get_filetype = function(self)
     local file_name, file_ext = fn.expand "%:t", fn.expand "%:e"
     local filetype = vim.bo.filetype
     if filetype == "" then
         return nil, nil
     end
-    local icon = require("nvim-web-devicons").get_icon(file_name, file_ext, { default = true })
+    local icon = self.filetype_icon_overrides[file_ext]
+    if icon == nil then
+        icon = require("nvim-web-devicons").get_icon(file_name, file_ext, { default = true })
+    end
     return icon, filetype
 end
 
@@ -218,7 +225,6 @@ M.set_active = function(self)
     local mode = colors.mode .. self:get_current_mode()
     local mode_alt = colors.mode_alt .. self.separators[active_sep][1]
     local filetype_icon, filetype_label = self:get_filetype()
-    --local filename = colors.active .. self:format_filename(filetype_icon, self:get_filename())
     local filename = colors.active .. self:get_filename()
     local lsp_diagnostic = self:get_lsp_diagnostic()
     local git_status = colors.git .. self:get_git_status()

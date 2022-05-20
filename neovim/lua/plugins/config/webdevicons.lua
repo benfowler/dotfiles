@@ -144,7 +144,7 @@ web_devicons.setup {
             name = "txt",
         },
         md = {
-            icon = " ",
+            icon = "",
             color = colors.magenta,
             name = "markdown",
         },
