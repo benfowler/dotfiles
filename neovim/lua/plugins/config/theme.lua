@@ -243,6 +243,9 @@ function my_highlights_nord()
     -- ... nvim-cmp doc floats must be explicitly set
     u.HiLink("CmpDocFloatBorder", "DimFloatBorder", true)
 
+    -- Indent guides
+    u.HiLink("IndentBlanklineContextChar", "Comment", true)
+
 
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
     -- existing highlight groups, but I am using 'Nord' colours which look
