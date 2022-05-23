@@ -5,9 +5,9 @@ if not ok then
 end
 
 indent.setup {
-    char = "│",
+    char = "┊",
     space_char_blankline = " ",
-    show_first_indent_level = true,
+    show_first_indent_level = false,
     filetype_exclude = {
         "startify",
         "dashboard",
@@ -46,4 +46,5 @@ indent.setup {
         "while",
         "for",
     },
+    show_end_of_line = true,
 }

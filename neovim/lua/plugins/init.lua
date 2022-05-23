@@ -129,6 +129,13 @@ return packer.startup(function(use)
     }
 
     use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("plugins.config.indent")
+        end
+    }
+
+    use {
         "onsails/lspkind-nvim",
         config = function()
             require "plugins.config.lspkind"
