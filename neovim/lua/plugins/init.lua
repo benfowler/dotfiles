@@ -84,7 +84,7 @@ return packer.startup(function(use)
 
     -- Theme
     use {
-        "rmehri01/onenord.nvim",
+        "shaunsingh/nord.nvim",
         config = function()
             require "plugins.config.theme"
         end,
