@@ -270,6 +270,7 @@ return packer.startup(function(use)
     use {
         "nvim-telescope/telescope.nvim",
         cmd =  "Telescope" ,
+        module = "telescope",
         requires = "plenary.nvim",
         config = function()
             require "plugins.config.telescope"
@@ -290,9 +291,8 @@ return packer.startup(function(use)
     use {
         "scalameta/nvim-metals",
         ft = { "scala", "sbt" },
-        requires = "nvim-telescope/telescope.nvim",
+        requires = { "plenary.nvim", "telescope.nvim" },
         after = "telescope.nvim",
-        module = { "telescope._extensions.metals" },
     }
 
     use {
