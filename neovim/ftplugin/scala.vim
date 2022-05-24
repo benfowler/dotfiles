@@ -2,9 +2,8 @@
 if has('nvim-0.5')
   augroup scala_ft_local
     autocmd! * <buffer>
-    au BufRead,BufNewFile *.sc set filetype=scala 
-    au FileType scala,sbt lua require("metals").initialize_or_attach({})
-    au FileType scala,sbt nnoremap <Leader>m :silent! lua require("telescope").extensions.metals.commands()<CR>
+    au FileType scala,sbt lua vim.opt_global.shortmess:remove("F")
+    au FileType scala,sbt nnoremap <Leader>m :lua require("telescope").extensions.metals.commands()<CR>
   augroup end
 endif
 

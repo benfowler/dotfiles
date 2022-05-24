@@ -8,6 +8,7 @@ fidget.setup {
     text = {
         spinner = "dots",
         done = " ",
+        completed = "Done",
     },
     timer = {
         fidget_decay = 3600,
