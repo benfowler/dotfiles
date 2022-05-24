@@ -194,7 +194,7 @@ function my_highlights_nord()
 
     -- LSP CodeLenses (rendered as virtual text)
     u.Hi("LspCodeLens", { guifg = misc_fg })
-    u.HiLink("LspCodeLensSeparator", "Comment")
+    u.HiLink("LspCodeLensSeparator", "String")
 
     -- Luasnip
     u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord12 })
@@ -244,7 +244,7 @@ function my_highlights_nord()
     u.HiLink("CmpDocFloatBorder", "DimFloatBorder", true)
 
     -- Indent guides
-    u.HiLink("IndentBlanklineContextChar", "Comment", true)
+    u.HiLink("IndentBlanklineContextChar", "TSLabel", true)
 
 
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
@@ -305,35 +305,22 @@ end
 vim.api.nvim_exec( [[
    augroup ColorSchemeOverrides
    autocmd!
-   autocmd ColorScheme *       luado my_highlights_all()
-   autocmd ColorScheme onenord luado my_highlights_nord()
+   autocmd ColorScheme *    luado my_highlights_all()
+   autocmd ColorScheme nord luado my_highlights_nord()
    augroup END
 ]], false)
 
--- OneNord-specific setup
-require('onenord').setup({
-  theme = nil, -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
-  borders = true, -- Split window borders
-  fade_nc = false, -- Fade non-current windows, making them more distinguishable
-  styles = {
-    comments = "italic", -- Style that is applied to comments: see `highlight-args` for options
-    strings = "NONE", -- Style that is applied to strings: see `highlight-args` for options
-    keywords = "bold", -- Style that is applied to keywords: see `highlight-args` for options
-    functions = "NONE", -- Style that is applied to functions: see `highlight-args` for options
-    variables = "NONE", -- Style that is applied to variables: see `highlight-args` for options
-    diagnostics = "undercurl", -- Style that is applied to diagnostics: see `highlight-args` for options
-  },
-  disable = {
-    background = true, -- Disable setting the background color
-    cursorline = false, -- Disable the cursorline
-    eob_lines = true, -- Hide the end-of-buffer lines
-  },
-  custom_highlights = {}, -- Overwrite default highlight groups
-  custom_colors = {}, -- Overwrite default colors
-})
+
+-- Example config in lua
+vim.g.nord_contrast = false
+vim.g.nord_borders = true
+vim.g.nord_disable_background = true
+vim.g.nord_italic = false
+
+require('nord').set()
 
 -- Finally, force application of my highlight customizations by triggering autocmd
-vim.cmd [[ colo onenord ]]
+vim.cmd [[ colo nord ]]
 
 -- Exports
 return M
