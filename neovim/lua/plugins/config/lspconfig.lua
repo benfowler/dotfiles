@@ -178,6 +178,17 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     update_in_insert = false,
 })
 
+-- Show LSP messages using vim.notify
+local severity = {       -- map LSP severity to vim severity
+  "error",
+  "warn",
+  "info",
+  "info", -- map both hint and info to info?
+}
+vim.lsp.handlers["window/showMessage"] = function(_, method, params, _)
+             vim.notify(method.message, severity[params.type])
+end
+
 -- Popups get frames with rounded corners
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
