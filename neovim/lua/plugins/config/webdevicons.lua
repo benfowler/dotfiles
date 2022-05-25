@@ -58,6 +58,11 @@ web_devicons.setup {
             color = colors.cyan,
             name = "jpeg",
         },
+        java = {
+            icon = "",
+            color = colors.lightblue,
+            name = "java",
+        },
         mp3 = {
             icon = "",
             color = colors.green,
@@ -190,7 +195,7 @@ web_devicons.setup {
         },
         [".dockerignore"] = {
             icon = "",
-            color = colors.orange,
+            color = colors.blue,
             name = "dockerignore",
         },
         [".prettierignore"] = {

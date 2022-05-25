@@ -41,6 +41,7 @@ local M = { }
 M.colors = {
     cyan = nord7,
     blue = nord10,
+    lightblue = nord8,
     red = nord11,
     orange = nord12,
     yellow = nord13,

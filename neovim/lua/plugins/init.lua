@@ -269,7 +269,7 @@ return packer.startup(function(use)
     --       restart (:e) to launch.
     use {
         "nvim-telescope/telescope.nvim",
-        cmd =  "Telescope" ,
+        cmd = "Telescope",
         module = "telescope",
         requires = "plenary.nvim",
         config = function()
