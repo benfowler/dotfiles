@@ -99,6 +99,7 @@ local servers = {
     "clangd",
     "gopls",
     "jsonls",
+    "jdtls",
     "lemminx",
     "metals",
     "pyright",
