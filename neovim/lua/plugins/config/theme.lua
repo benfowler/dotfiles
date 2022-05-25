@@ -244,7 +244,8 @@ function my_highlights_nord()
     u.HiLink("CmpDocFloatBorder", "DimFloatBorder", true)
 
     -- Indent guides
-    u.HiLink("IndentBlanklineContextChar", "TSLabel", true)
+    u.Hi("IndentBlanklineChar", { guifg = nord3_bright })
+    u.Hi("IndentBlanklineContextChar", { guifg = nord15 })
 
 
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
@@ -312,12 +313,13 @@ vim.api.nvim_exec( [[
 
 
 -- Example config in lua
-vim.g.nord_contrast = false
-vim.g.nord_borders = true
-vim.g.nord_disable_background = true
-vim.g.nord_italic = false
-
-require('nord').set()
+vim.g.nord_bold = 1
+vim.g.nord_underline = 1
+vim.g.nord_italic = 1
+vim.g.nord_italic_comments = 1
+vim.g.nord_uniform_status_lines = 0
+vim.g.nord_cursor_line_number_background = 0
+vim.g.nord_uniform_diff_background = 0
 
 -- Finally, force application of my highlight customizations by triggering autocmd
 vim.cmd [[ colo nord ]]

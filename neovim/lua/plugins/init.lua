@@ -84,7 +84,7 @@ return packer.startup(function(use)
 
     -- Theme
     use {
-        "shaunsingh/nord.nvim",
+        "arcticicestudio/nord-vim",
         config = function()
             require "plugins.config.theme"
         end,
