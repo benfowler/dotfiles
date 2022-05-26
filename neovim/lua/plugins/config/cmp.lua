@@ -46,20 +46,20 @@ cmp.setup {
     },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-        ["<C-N>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-        ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-        ["<C-P>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-        ["<C-D>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-        ["<C-F>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+        ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
+        ["<C-N>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
+        ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i" }),
+        ["<C-P>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i" }),
+        ["<C-D>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+        ["<C-F>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
+        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i" }),
         ["<C-E>"] = cmp.mapping(function(fallback)
             if luasnip.choice_active() then
                 luasnip.change_choice(1)
             else
                 fallback()
             end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
         ["<Esc>"] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
