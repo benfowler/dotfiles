@@ -50,6 +50,13 @@ return packer.startup(function(use)
         end,
     }
 
+    use {
+        "petertriho/nvim-scrollbar",
+        config = function()
+            require("scrollbar").setup()
+        end,
+    }
+
     -- Editing features
     use {
         "qpkorr/vim-bufkill", -- 'BD' to kill a buffer without closing a split
