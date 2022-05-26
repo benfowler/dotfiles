@@ -8,6 +8,7 @@ luasnip.config.set_config {
     history = true, -- 'true' is annoying
     delete_check_events = "InsertLeave,TextChanged",
     updateevents = "InsertLeave,TextChanged,TextChangedI",
+    store_selection_keys = "<Tab>",
     ext_opts = {
         [types.choiceNode] = {
             active = {
