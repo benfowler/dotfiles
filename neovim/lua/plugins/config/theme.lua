@@ -17,83 +17,110 @@ function my_highlights_all()
     end
 end
 
--- Nord-specific setup
-local nord0 = "#2E3440"
-local nord1 = "#3B4252"
-local nord2 = "#434C5E"
-local nord3 = "#4C566A"
-local nord3_bright = "#616E88"
-local nord4_dim = "#9DA6B9"
-local nord4 = "#D8DEE9"
-local nord5 = "#E5E9F0"
-local nord6 = "#ECEFF4"
-local nord7 = "#8FBCBB"
-local nord8 = "#88C0D0"
-local nord9 = "#81A1C1"
-local nord10 = "#5E81AC"
-local nord11 = "#BF616A"
-local nord12 = "#D08770"
-local nord13 = "#EBCB8B"
-local nord14 = "#A3BE8C"
-local nord15 = "#B48EAD"
+-- Adapted from shaunsingh/nord.nvim
+local nord = (vim.o.background == "dark")
+		and {
+			--16 colors
+			nord0 = "#2E3440", -- nord.nord0 in palette
+			nord1 = "#3B4252", -- nord.nord1 in palette
+			nord2 = "#434C5E", -- nord.nord2 in palette
+			nord3 = "#4C566A", -- nord.nord3 in palette
+			nord3_bright = "#616E88", -- out of palette
+            nord4_dim = "#9DA6B9", -- out of palette
+			nord4 = "#D8DEE9", -- nord.nord4 in palette
+			nord5 = "#E5E9F0", -- nord.nord5 in palette
+			nord6 = "#ECEFF4", -- nord.nord6 in palette
+			nord7 = "#8FBCBB", -- nord.nord7 in palette
+			nord8 = "#88C0D0", -- nord.nord8 in palette
+			nord9 = "#81A1C1", -- nord.nord9 in palette
+			nord10 = "#5E81AC", -- nord.nord10 in palette
+			nord11 = "#BF616A", -- nord.nord11 in palette
+			nord12 = "#D08770", -- nord.nord12 in palette
+			nord13 = "#EBCB8B", -- nord.nord13 in palette
+			nord14 = "#A3BE8C", -- nord.nord14 in palette
+			nord15 = "#B48EAD", -- nord.nord15 in palette
+			none = "NONE",
+		}
+	or {
+		--16 colors
+		nord0 = "#ECEFF4", -- nord.nord6 in palette
+		nord1 = "#E5E9F0", -- nord.nord5 in palette
+		nord2 = "#D8DEE9", -- nord.nord4 in palette
+		nord3 = "#4C566A", -- nord.nord3 in palette
+		nord3_bright = "#AEC7DF", -- out of palette
+		nord4_dim = "#798A9F", -- nord.nord2 in palette
+		nord4 = "#434C5E", -- nord.nord2 in palette
+		nord5 = "#3B4252", -- nord.nord1 in palette
+		nord6 = "#2E3440", -- nord.nord0 in palette
+		nord7 = "#8FBCBB", -- nord.nord7 in palette
+		nord8 = "#88C0D0", -- nord.nord8 in palette
+		nord9 = "#81A1C1", -- nord.nord9 in palette
+		nord10 = "#5E81AC", -- nord.nord10 in palette
+		nord11 = "#BF616A", -- nord.nord11 in palette
+		nord12 = "#D08770", -- nord.nord12 in palette
+		nord13 = "#EBCB8B", -- nord.nord13 in palette
+		nord14 = "#A3BE8C", -- nord.nord14 in palette
+		nord15 = "#B48EAD", -- nord.nord15 in palette
+		none = "NONE",
+	}
 
 local M = { }
 M.colors = {
-    cyan = nord7,
-    blue = nord10,
-    lightblue = nord8,
-    red = nord11,
-    orange = nord12,
-    yellow = nord13,
-    green = nord14,
-    pink = nord15,
-    magenta = nord15,
+    cyan = nord.nord7,
+    blue = nord.nord10,
+    lightblue = nord.nord8,
+    red = nord.nord11,
+    orange = nord.nord12,
+    yellow = nord.nord13,
+    green = nord.nord14,
+    pink = nord.nord15,
+    magenta = nord.nord15,
 }
 
 -- Diagnostic signature colours
-local error_fg = nord11
-local warn_fg  = nord13
-local info_fg  = nord9
-local hint_fg  = nord7
-local misc_fg  = nord15
+local error_fg = nord.nord11
+local warn_fg  = nord.nord13
+local info_fg  = nord.nord9
+local hint_fg  = nord.nord7
+local misc_fg  = nord.nord15
 
-local ok_fg    = nord14
+local ok_fg    = nord.nord14
 
-local diff_add = nord14
-local diff_change = nord13
-local diff_delete = nord11
+local diff_add = nord.nord14
+local diff_change = nord.nord13
+local diff_delete = nord.nord11
 
 local spell_bad_fg = error_fg
 local spell_cap_fg = warn_fg
 local spell_rare_fg = info_fg
 local spell_local_fg = misc_fg
 
-local statusline_active_fg = nord4_dim   -- halfway between nord3_bright and nord4
-local statusline_active_bg = nord1
+local statusline_active_fg = nord.nord4_dim   -- halfway between nord3_bright and nord4
+local statusline_active_bg = nord.nord1
 
 function my_highlights_nord()
     -- (poor readability of some u.Highlight groups)
-    -- (Stock fg was: guifg=nord3_gui, ctermfg=nord3_term)
-    u.Hi("SpecialKey", { guifg = nord3_bright, ctermfg = 8 })
+    -- (Stock fg was: guifg = nord3_gui, ctermfg=nord3_term)
+    u.Hi("SpecialKey", { guifg = nord.nord3_bright, ctermfg = 8 })
 
-    -- (Stock fg was: guifg=nord2_gui, gui=bold, ctermfg=nord3_term)
-    u.Hi("NonText", { guifg = nord10, gui = "NONE", ctermfg = 5 })
+    -- (Stock fg was: guifg = nord2_gui, gui=bold, ctermfg=nord3_term)
+    u.Hi("NonText", { guifg = nord.nord10, gui = "NONE", ctermfg = 5 })
 
     -- (Pmenu: stock BG was: guibg=nord2_gui, ctermbg=nord1_term)
-    u.Hi("Pmenu", { guibg = nord2, ctermbg = 8 })
+    u.Hi("Pmenu", { guibg = nord.nord2, ctermbg = 8 })
 
     -- (Pmenu: stock BG was: guibg=nord3_gui, ctermbg=nord3_term)
-    u.Hi("PmenuThumb", { guibg = nord3_bright, ctermbg = 8 })
+    u.Hi("PmenuThumb", { guibg = nord.nord3_bright, ctermbg = 8 })
 
-    u.Hi("PmenuSel", { guibg = nord8, guifg = nord1, gui = "NONE" })
+    u.Hi("PmenuSel", { guibg = nord.nord8, guifg = nord.nord1, gui = "NONE" })
 
     -- (nvim-cmp's custom-drawn autocompletion menu)
-    u.Hi("CmpItemAbbr", { guifg = nord5 })
-    u.Hi("CmpItemAbbrDeprecated", { guifg = nord4, gui="strikethrough" })
-    u.Hi("CmpItemAbbrMatch", { guifg = nord9 })
-    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord12 })
-    u.Hi("CmpItemKind", { guifg = nord15 })
-    u.Hi("CmpItemMenu", { guifg = nord3_bright })
+    u.Hi("CmpItemAbbr", { guifg = nord.nord5 })
+    u.Hi("CmpItemAbbrDeprecated", { guifg = nord.nord4, gui="strikethrough" })
+    u.Hi("CmpItemAbbrMatch", { guifg = nord.nord9 })
+    u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord.nord12 })
+    u.Hi("CmpItemKind", { guifg = nord.nord15 })
+    u.Hi("CmpItemMenu", { guifg = nord.nord3_bright })
 
     -- (VS Code-like highlighting of kinds)
     -- light blue
@@ -110,9 +137,9 @@ function my_highlights_nord()
     u.Hi("CmpItemKindUnit", { guifg = "#D4D4D4" })
 
     -- QuickFix list's line numbers are unreadable
-    u.Hi("qfFileName", { guifg = nord10 })
-    u.Hi("qfLineNr", { guifg = nord8 })
-    u.Hi("QuickFixLine", { guibg = nord7, guifg = "Black" })
+    u.Hi("qfFileName", { guifg = nord.nord10 })
+    u.Hi("qfLineNr", { guifg = nord.nord8 })
+    u.Hi("QuickFixLine", { guibg = nord.nord7, guifg = "Black" })
 
     -- Active statusbar: override 'StatusLine' u.Highlight with Nord-ish colours
     u.Hi("StatusLine", { guifg = statusline_active_fg, guibg = statusline_active_bg })
@@ -127,17 +154,17 @@ function my_highlights_nord()
     u.Hi("StatusLineDelete", { guifg = diff_delete, gui="bold", guibg = statusline_active_bg })
 
     u.Hi("StatusLineModeNormal", { guifg = statusline_active_fg, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeInsert", { guifg = nord8, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeVisual", { guifg = nord13, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeReplace", { guifg = nord15, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeCommand", { guifg = nord9, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeTerminal", { guifg = nord14, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeEx", { guifg = nord12, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeInsert", { guifg = nord.nord8, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeVisual", { guifg = nord.nord13, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeReplace", { guifg = nord.nord15, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeCommand", { guifg = nord.nord9, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeTerminal", { guifg = nord.nord14, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeEx", { guifg = nord.nord12, gui="bold", guibg = statusline_active_bg })
 
     -- Inactive statusbars: make a thin rule; align VertSplit to match.
     u.HiClear "StatusLineNC"
-    u.Hi("StatusLineNC", { gui = "underline", guifg = nord3_bright })
-    u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE", guifg = nord3_bright })
+    u.Hi("StatusLineNC", { gui = "underline", guifg = nord.nord3_bright })
+    u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE", guifg = nord.nord3_bright })
 
     -- Line numbers: tweaks to show current line
     u.HiClear "CursorLineNr"
@@ -189,34 +216,34 @@ function my_highlights_nord()
     u.HiLink("DiagnosticSignInfo", "DiagnosticInfo", true)
     u.HiLink("DiagnosticSignHint", "DiagnosticHint", true)
 
-    u.Hi("LspReferenceRead", { guifg = nord14, guibg = nord2, gui = "bold" })
-    u.Hi("LspReferenceWrite", { guifg = nord15, guibg = nord2, gui = "bold" })
-    u.Hi("LspReferenceText", { guibg = nord1, gui = "none" })
+    u.Hi("LspReferenceRead", { guifg = nord.nord14, guibg = nord.nord2, gui = "bold" })
+    u.Hi("LspReferenceWrite", { guifg = nord.nord15, guibg = nord.nord2, gui = "bold" })
+    u.Hi("LspReferenceText", { guibg = nord.nord1, gui = "none" })
 
     -- LSP CodeLenses (rendered as virtual text)
     u.Hi("LspCodeLens", { guifg = misc_fg })
     u.HiLink("LspCodeLensSeparator", "String")
 
     -- Luasnip
-    u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord12 })
-    u.Hi("LuasnipInsertNodeVirtualText", { guifg = nord8 })
+    u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord.nord12 })
+    u.Hi("LuasnipInsertNodeVirtualText", { guifg = nord.nord8 })
 
     -- Folds
-    u.Hi("Folded", { guifg = nord7, gui = "italic" })
+    u.Hi("Folded", { guifg = nord.nord7, gui = "italic" })
 
     -- Git gutter signs
     u.Hi("GitSignsAdd", { gui="bold", guifg = diff_add })
     u.Hi("GitSignsChange", { guifg = diff_change })
     u.Hi("GitSignsDelete", { gui = "bold", guifg = diff_delete })
-    u.Hi("GitSignsChangeDelete", { gui = "bold", guifg = nord11 })
+    u.Hi("GitSignsChangeDelete", { gui = "bold", guifg = nord.nord11 })
 
     -- Telescope (lifted from FZF Nord theme)
     u.Hi("TelescopeSelection", { gui = "bold" })
-    u.Hi("TelescopeSelectionCaret", { guifg = nord13, gui = "bold" })
-    u.Hi("TelescopeMultiSelection", { guifg = nord14 })
-    u.Hi("TelescopeMatching", { guifg = nord9 })
+    u.Hi("TelescopeSelectionCaret", { guifg = nord.nord13, gui = "bold" })
+    u.Hi("TelescopeMultiSelection", { guifg = nord.nord14 })
+    u.Hi("TelescopeMatching", { guifg = nord.nord9 })
     u.Hi("TelescopePromptPrefix", { guifg = "#bf6069" })
-    u.Hi("TelescopeBorder", { guifg = nord3_bright })
+    u.Hi("TelescopeBorder", { guifg = nord.nord3_bright })
 
 
     -- Floating info and rename/select popups (latter via stevearc/nvim-dressing)
@@ -227,10 +254,10 @@ function my_highlights_nord()
     u.Hi("InfoFloatBorder", { guifg = info_fg})
     u.Hi("HintFloatBorder", { guifg = hint_fg })
     u.Hi("OkFloatBorder", { guifg = ok_fg })
-    u.Hi("DimFloatBorder", { guifg = nord3_bright })
+    u.Hi("DimFloatBorder", { guifg = nord.nord3_bright })
 
-    u.Hi("NormalFloat", { guibg = nord0 })
-    u.Hi("FloatTitle", { guifg = nord4, gui = "bold" })
+    u.Hi("NormalFloat", { guibg = nord.nord0 })
+    u.Hi("FloatTitle", { guifg = nord.nord4, gui = "bold" })
     u.HiLink("FloatBorder", "DimFloatBorder", true)
 
     -- ... popups that are informational are highlighted like info
@@ -245,25 +272,25 @@ function my_highlights_nord()
     u.HiLink("CmpDocFloatBorder", "DimFloatBorder", true)
 
     -- Indent guides
-    u.Hi("IndentBlanklineChar", { guifg = nord3_bright })
-    u.Hi("IndentBlanklineContextChar", { guifg = nord15 })
+    u.Hi("IndentBlanklineChar", { guifg = nord.nord3_bright })
+    u.Hi("IndentBlanklineContextChar", { guifg = nord.nord15 })
 
     -- nvim-notify
-    u.Hi("NotifyDEBUGBorder", { guifg=nord3 })
-    u.Hi("NotifyDEBUGIcon", { guifg=nord3 })
-    u.Hi("NotifyDEBUGTitle", { guifg=nord3 })
-    u.Hi("NotifyERRORBorder", { guifg=nord11 })
-    u.Hi("NotifyERRORIcon", { guifg=nord11 })
-    u.Hi("NotifyERRORTitle", { guifg=nord11 })
-    u.Hi("NotifyINFOBorder", { guifg=nord14 })
-    u.Hi("NotifyINFOIcon", { guifg=nord14 })
-    u.Hi("NotifyINFOTitle", { guifg=nord14 })
-    u.Hi("NotifyTRACEBorder", { guifg=nord15 })
-    u.Hi("NotifyTRACEIcon", { guifg=nord15 })
-    u.Hi("NotifyTRACETitle", { guifg=nord15 })
-    u.Hi("NotifyWARNBorder", { guifg=nord13 })
-    u.Hi("NotifyWARNIcon", { guifg=nord13 })
-    u.Hi("NotifyWARNTitle", { guifg=nord13 })
+    u.Hi("NotifyDEBUGBorder", { guifg = nord.nord3 })
+    u.Hi("NotifyDEBUGIcon", { guifg = nord.nord3 })
+    u.Hi("NotifyDEBUGTitle", { guifg = nord.nord3 })
+    u.Hi("NotifyERRORBorder", { guifg = nord.nord11 })
+    u.Hi("NotifyERRORIcon", { guifg = nord.nord11 })
+    u.Hi("NotifyERRORTitle", { guifg = nord.nord11 })
+    u.Hi("NotifyINFOBorder", { guifg = nord.nord14 })
+    u.Hi("NotifyINFOIcon", { guifg = nord.nord14 })
+    u.Hi("NotifyINFOTitle", { guifg = nord.nord14 })
+    u.Hi("NotifyTRACEBorder", { guifg = nord.nord15 })
+    u.Hi("NotifyTRACEIcon", { guifg = nord.nord15 })
+    u.Hi("NotifyTRACETitle", { guifg = nord.nord15 })
+    u.Hi("NotifyWARNBorder", { guifg = nord.nord13 })
+    u.Hi("NotifyWARNIcon", { guifg = nord.nord13 })
+    u.Hi("NotifyWARNTitle", { guifg = nord.nord13 })
 
 
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
@@ -273,13 +300,13 @@ function my_highlights_nord()
     -- XXX: Use the FZF color picker:  https://minsw.github.io/fzf-color-picker/
 
     -- stylua: ignore start
-    u.Hi("FzfFg",      { guifg = "#e5e9f0", guibg=nord3 })
+    u.Hi("FzfFg",      { guifg = "#e5e9f0", guibg=nord.nord3 })
     u.Hi("FzfBg",      { guibg = "#2e3440" })
-    u.Hi("FzfHl",      { guifg = "#81a1c1", guibg=nord3 })
+    u.Hi("FzfHl",      { guifg = "#81a1c1", guibg=nord.nord3 })
 
-    u.Hi("FzfFg_",     { guifg = "#e5e9f0", gui="bold", guibg=nord1 })
-    u.Hi("FzfBg_",     {                    gui="bold", guibg=nord1 })
-    u.Hi("FzfHl_",     { guifg = "#81a1c1", gui="bold", guibg=nord1 })
+    u.Hi("FzfFg_",     { guifg = "#e5e9f0", gui="bold", guibg=nord.nord1 })
+    u.Hi("FzfBg_",     {                    gui="bold", guibg=nord.nord1 })
+    u.Hi("FzfHl_",     { guifg = "#81a1c1", gui="bold", guibg=nord.nord1 })
 
     u.Hi("FzfInfo",    { guifg = "#eacb8a" })
     u.Hi("FzfBorder",  { guifg = "#616E88" })
@@ -291,12 +318,12 @@ function my_highlights_nord()
     -- stylua: ignore end
 
     -- nvim-tree
-    u.Hi("NvimTreeNormal", { guifg = nord4 })
+    u.Hi("NvimTreeNormal", { guifg = nord.nord4 })
     u.Hi("NvimTreeOpenedFile", { gui = "bold" })
 
-    u.Hi("NvimTreeIndentMarker", { guifg = nord1 })
+    u.Hi("NvimTreeIndentMarker", { guifg = nord.nord1 })
 
-    u.Hi("NvimTreeFolderIcon", { guifg = nord3_bright })
+    u.Hi("NvimTreeFolderIcon", { guifg = nord.nord3_bright })
     u.HiLink("NvimTreeFolderName", "NvimTreeNormal", true)
 
     u.HiLink("NvimTreeOpenedFolderIcon", "NvimTreeFolderIcon", true)
@@ -306,17 +333,17 @@ function my_highlights_nord()
     u.HiLink("NvimTreeEmptyFolderName", "NvimTreeFolderIcon", true)
 
     -- Latex tweaks
-    u.Hi("texCmdEnv", { guifg = nord15, gui = "bold" })
-    u.Hi("texCmdEnvM", { guifg = nord7, gui = "bold" })
-    u.Hi("texDelim", { guifg = nord3 })
-    u.Hi("texMathDelim", { guifg = nord10, gui = "bold" })
-    u.Hi("texMathTextConcArg", { guifg = nord3_bright, gui = "italic" })
-    u.Hi("texSICmd", { guifg = nord14 })
+    u.Hi("texCmdEnv", { guifg = nord.nord15, gui = "bold" })
+    u.Hi("texCmdEnvM", { guifg = nord.nord7, gui = "bold" })
+    u.Hi("texDelim", { guifg = nord.nord3 })
+    u.Hi("texMathDelim", { guifg = nord.nord10, gui = "bold" })
+    u.Hi("texMathTextConcArg", { guifg = nord.nord3_bright, gui = "italic" })
+    u.Hi("texSICmd", { guifg = nord.nord14 })
 
     -- Suppress overly-aggressive error u.Highlighting under Treesitter
     u.HiClear "TSError"
 
-    u.Hi("markdownLinkText", { gui = "underline", guifg = nord9 })
+    u.Hi("markdownLinkText", { gui = "underline", guifg = nord.nord9 })
 end
 
 -- NOTE!  Theme config, e.g. lets, _must_ precede the 'colorscheme' cmd to work
