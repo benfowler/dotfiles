@@ -248,6 +248,23 @@ function my_highlights_nord()
     u.Hi("IndentBlanklineChar", { guifg = nord3_bright })
     u.Hi("IndentBlanklineContextChar", { guifg = nord15 })
 
+    -- nvim-notify
+    u.Hi("NotifyDEBUGBorder", { guifg=nord3 })
+    u.Hi("NotifyDEBUGIcon", { guifg=nord3 })
+    u.Hi("NotifyDEBUGTitle", { guifg=nord3 })
+    u.Hi("NotifyERRORBorder", { guifg=nord11 })
+    u.Hi("NotifyERRORIcon", { guifg=nord11 })
+    u.Hi("NotifyERRORTitle", { guifg=nord11 })
+    u.Hi("NotifyINFOBorder", { guifg=nord14 })
+    u.Hi("NotifyINFOIcon", { guifg=nord14 })
+    u.Hi("NotifyINFOTitle", { guifg=nord14 })
+    u.Hi("NotifyTRACEBorder", { guifg=nord15 })
+    u.Hi("NotifyTRACEIcon", { guifg=nord15 })
+    u.Hi("NotifyTRACETitle", { guifg=nord15 })
+    u.Hi("NotifyWARNBorder", { guifg=nord13 })
+    u.Hi("NotifyWARNIcon", { guifg=nord13 })
+    u.Hi("NotifyWARNTitle", { guifg=nord13 })
+
 
     -- fzf.  These feed FZF_COLORS.  They are _meant_ to be populated from
     -- existing highlight groups, but I am using 'Nord' colours which look
