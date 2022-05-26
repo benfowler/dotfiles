@@ -5,9 +5,6 @@ end
 
 local luasnip = require "luasnip"
 
--- floating menu/doc style tweaks
-local menustyle = { winhighlight = "CursorLine:PmenuSel" }
-
 local icons = require("lspkind").symbol_map
 
 -- nvim-cmp setup
@@ -35,14 +32,17 @@ cmp.setup {
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(_, vim_item)
-            vim_item.menu = vim_item.kind
+            vim_item.menu = " " .. vim_item.kind
             vim_item.kind = icons[vim_item.kind]
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 45)  -- truncate items
             return vim_item
         end,
     },
     window = {
-        -- completion = cmp.config.window.bordered(menustyle),
-        documentation = cmp.config.window.bordered(menustyle),
+        documentation = cmp.config.window.bordered({ winhighlight = "CursorLine:PmenuSel" }),
+    },
+    view = {
+        entries = { name = 'custom', selection_order = 'near_cursor' }
     },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
