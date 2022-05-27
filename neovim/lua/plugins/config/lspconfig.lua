@@ -59,7 +59,7 @@ local function on_attach(client, bufnr)
     -- provided by the language server, like identifier read/write highlighting.
 
     -- stylua: ignore
-    if client.server_capabilities.document_highlight == true then
+    if client.server_capabilities.documentHighlightProvider == true then
         vim.api.nvim_exec(
             [[
             augroup lsp_document_highlight
