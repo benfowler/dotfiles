@@ -97,6 +97,7 @@ client_caps.textDocument.completion.completionItem.snippetSupport = true
 local servers = {
     "bashls",
     "clangd",
+    "cssls",
     "emmet_ls",
     "gopls",
     "jsonls",
