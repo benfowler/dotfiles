@@ -70,11 +70,6 @@ return packer.startup(function(use)
     }
 
     use {
-        "mattn/emmet-vim",
-        event = "InsertEnter",
-    }
-
-    use {
         "norcalli/nvim-colorizer.lua",
         event = "BufRead",
         config = function()
