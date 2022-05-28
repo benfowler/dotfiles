@@ -132,7 +132,7 @@ lsp_installer.setup {
     on_server_ready = function(server)
         local opts_present, opts = pcall(require, "servers." .. server.name)
         if opts_present then
-            local config = opts.configure(on_attach, client_caps, debounce_changes_msec)
+            local config = opts.get_lspconfig_settings(on_attach, client_caps, debounce_changes_msec)
             server:setup(config)
         else
             server:setup(default_server_opts)
@@ -143,7 +143,7 @@ lsp_installer.setup {
 for _, server in ipairs(servers) do
     local has_server_config, server_config = pcall(require, "servers." .. server)
     if has_server_config then
-        lspconfig[server].setup(server_config.configure(on_attach, client_caps, debounce_changes_msec))
+        lspconfig[server].setup(server_config.get_lspconfig_settings(on_attach, client_caps, debounce_changes_msec))
     else
         lspconfig[server].setup {}
     end

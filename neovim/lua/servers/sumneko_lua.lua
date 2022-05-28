@@ -1,6 +1,6 @@
 local M = {}
 
-M.configure = function(on_attach, capabilities, debounce_msec)
+M.get_lspconfig_settings = function(on_attach, capabilities, debounce_msec)
     return {
         settings = {
             Lua = {
