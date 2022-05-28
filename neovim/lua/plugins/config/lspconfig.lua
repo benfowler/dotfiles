@@ -181,14 +181,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 -- Show LSP messages using vim.notify
-local severity = {       -- map LSP severity to vim severity
-  "error",
-  "warn",
-  "info",
-  "info", -- map both hint and info to info?
-}
-vim.lsp.handlers["window/showMessage"] = function(_, method, params, _)
-             vim.notify(method.message, severity[params.type])
+vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
+  vim.notify({ result.message }, lvl, {
+    title = 'LSP | ' .. client.name,
+    timeout = 10000,
+    keep = function()
+      return lvl == 'ERROR' or lvl == 'WARN'
+    end,
+  })
 end
 
 -- Popups get frames with rounded corners
