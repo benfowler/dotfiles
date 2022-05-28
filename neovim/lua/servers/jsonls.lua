@@ -3,7 +3,7 @@ local M = {}
 local is_schemastore_loaded, schemastore = pcall(require, "schemastore")
 
 if is_schemastore_loaded then
-  M.configure = function(on_attach, capabilities, debounce_msec)
+  M.get_lspconfig_settings = function(on_attach, capabilities, debounce_msec)
     return {
       settings = {
         json = {
@@ -40,7 +40,7 @@ if is_schemastore_loaded then
     }
   end
 else
-  M.configure = function(on_attach, capabilities, debounce_msec)
+  M.get_lspconfig_settings = function(on_attach, capabilities, debounce_msec)
     return {
       on_attach = on_attach,
       capabilities = capabilities,

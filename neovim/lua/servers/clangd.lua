@@ -2,7 +2,7 @@ local lsp_status = require "lsp-status"
 
 local M = {}
 
-M.configure = function(on_attach, capabilities, debounce_chgs_msec)
+M.get_lspconfig_settings = function(on_attach, capabilities, debounce_chgs_msec)
     return {
         handlers = lsp_status.extensions.clangd.setup(),
         init_options = {

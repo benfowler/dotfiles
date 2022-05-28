@@ -25,7 +25,7 @@ local handlers = {}
 handlers['metals/status'] = metals_status_handler
 
 
-M.configure = function(on_attach, capabilities, debounce_msec)
+M.get_lspconfig_settings = function(on_attach, capabilities, debounce_msec)
     return {
         init_options = {
             -- default setting in lspconfig is "show-message"
