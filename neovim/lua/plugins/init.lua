@@ -146,6 +146,11 @@ return packer.startup(function(use)
     }
 
     use {
+        "b0o/schemastore.nvim" ,
+        module = "schemastore",
+    }
+
+    use {
         "folke/trouble.nvim",
         cmd = { "Trouble", "TroubleToggle" },
         requires = "kyazdani42/nvim-web-devicons",
