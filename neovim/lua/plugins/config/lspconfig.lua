@@ -51,26 +51,35 @@ local function on_attach(client, bufnr)
     require("mappings").lsp(bufnr, client.server_capabilities)
 
     -- CodeLens
-    if client.server_capabilities.code_lens == true then
-        vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+    if client.resolved_capabilities.code_lens == true then
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'InsertLeave' }, {
+        buffer = bufnr,
+        callback = vim.lsp.codelens.refresh,
+      })
     end
 
     -- Extra setup, which depends on the final resolved set of capabilities
-    -- provided by the language server, like identifier read/write highlighting.
+    -- provided by the language server.
 
-    -- stylua: ignore
-    if client.server_capabilities.documentHighlightProvider == true then
-        vim.api.nvim_exec(
-            [[
-            augroup lsp_document_highlight
-            autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-            augroup END
-            ]],
-            false
-        )
+    -- Identifier read/write highlighting
+    if client.resolved_capabilities.document_highlight == true then
+      vim.api.nvim_create_augroup('lsp_document_highlight', {
+        clear = false
+      })
+      vim.api.nvim_clear_autocmds({
+        buffer = bufnr,
+        group = 'lsp_document_highlight',
+      })
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        group = 'lsp_document_highlight',
+        buffer = bufnr,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd('CursorMoved', {
+        group = 'lsp_document_highlight',
+        buffer = bufnr,
+        callback = vim.lsp.buf.clear_references,
+      })
     end
 end
 
@@ -121,7 +130,6 @@ local default_server_opts = {
 lsp_installer.setup {
     automatic_installation = true,
     on_server_ready = function(server)
-        put(server.name)
         local opts_present, opts = pcall(require, "servers." .. server.name)
         if opts_present then
             local config = opts.configure(on_attach, client_caps, debounce_changes_msec)
