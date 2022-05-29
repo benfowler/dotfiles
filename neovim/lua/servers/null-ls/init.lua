@@ -22,6 +22,7 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.diagnostics.gitlint,
             null_ls.builtins.diagnostics.golangci_lint,
             null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
+            null_ls.builtins.diagnostics.eslint,
             null_ls.builtins.diagnostics.jsonlint,
             null_ls.builtins.diagnostics.markdownlint,
             null_ls.builtins.diagnostics.mypy,
@@ -49,7 +50,7 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.formatting.terraform_fmt,
 
             null_ls.builtins.formatting.prettier.with({
-                filetypes = { "html", "json", "yaml" },
+                filetypes = { "html", "json", "js", "typescript", "typescriptreact", "tsx", "yaml" },
             }),
 
             -- Additional LSP code action contributions

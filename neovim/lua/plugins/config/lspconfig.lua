@@ -116,6 +116,7 @@ local servers = {
     "pyright",
     "sumneko_lua",
     "texlab",
+    "tsserver",
     "vimls",
     "yamlls"
 }
