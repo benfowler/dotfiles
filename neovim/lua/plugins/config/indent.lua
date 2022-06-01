@@ -5,9 +5,10 @@ if not ok then
 end
 
 indent.setup {
-    char = "┊",
+    char = "│",
     space_char_blankline = " ",
     show_first_indent_level = false,
+    show_trailing_blankline_indent = false,
     filetype_exclude = {
         "startify",
         "dashboard",
@@ -31,7 +32,6 @@ indent.setup {
         "", -- for all buffers without a file type
     },
     buftype_exclude = { "terminal", "nofile" },
-    show_trailing_blankline_indent = false,
     show_current_context = true,
     context_patterns = {
         "class",
@@ -46,5 +46,4 @@ indent.setup {
         "while",
         "for",
     },
-    show_end_of_line = true,
 }

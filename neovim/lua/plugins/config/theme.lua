@@ -272,8 +272,8 @@ function my_highlights_nord()
     u.HiLink("CmpDocFloatBorder", "DimFloatBorder", true)
 
     -- Indent guides
-    u.Hi("IndentBlanklineChar", { guifg = nord.nord3_bright })
-    u.Hi("IndentBlanklineContextChar", { guifg = nord.nord15 })
+    u.Hi("IndentBlanklineChar", { guifg = nord.nord1 })
+    u.Hi("IndentBlanklineContextChar", { guifg = nord.nord3 })
 
     -- nvim-notify
     u.Hi("NotifyDEBUGBorder", { guifg = nord.nord3 })
