@@ -45,7 +45,7 @@ opt.nrformats= ''                             -- Force decimal-only for C-a and 
 -- Appearance settings
 opt.termguicolors = true                      -- enable true colors support
 opt.signcolumn = "yes:1"                      -- make sign column grow automatically
-opt.colorcolumn:append("81")                  -- enable right-hand margin by default
+--opt.colorcolumn:append("81")                  -- enable right-hand margin by default
 opt.cul = false                               -- highlight cursor row
 opt.shortmess:append("a")
 
@@ -129,6 +129,9 @@ opt.wildignorecase = true
 
 -- Hidden characters                          -- and mapping to switch it
 opt.listchars = "tab:»·,nbsp:␣,eol:↲,extends:»,precedes:«,trail:•"
+
+-- Winbar (new)
+opt.winbar="%#WinBar#%= %m %f "
 
 -- Security
 opt.secure = true                             -- also load .vimrc from directory where Vim launched
