@@ -240,7 +240,8 @@ M.set_active = function(self)
       -- left hand side
         mode, mode_alt, colors.active, git_status,
         "%=",
-        filename,
+      -- centre
+        -- filename,
         "%=",
       -- right hand side
         lsp_diagnostic, git_alt, git_branch, filetype_alt, filetype, line_info_alt, line_info,
