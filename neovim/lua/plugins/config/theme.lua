@@ -161,9 +161,6 @@ function my_highlights_nord()
     u.Hi("StatusLineModeTerminal", { guifg = nord.nord14, gui="bold", guibg = statusline_active_bg })
     u.Hi("StatusLineModeEx", { guifg = nord.nord12, gui="bold", guibg = statusline_active_bg })
 
-    -- Winbar
-    u.Hi("WinBar", { guifg = statusline_active_fg, gui = "italic" })
-
     -- Inactive statusbars: make a thin rule; align VertSplit to match.
     u.HiClear "StatusLineNC"
     u.Hi("StatusLineNC", { gui = "underline", guifg = nord.nord3_bright })
@@ -172,6 +169,14 @@ function my_highlights_nord()
     -- Line numbers: tweaks to show current line
     u.HiClear "CursorLineNr"
     u.HiLink("CursorLineNr", "Bold", true)
+
+    -- Message area
+    u.Hi("MsgArea", { guifg = statusline_active_fg })
+    u.Hi("ErrorMsg", { guifg = error_fg, guibg = "NONE" })
+    u.Hi("WarningMsg", { guifg = warn_fg, guibg = "NONE" })
+
+    -- Winbar
+    u.Hi("WinBar", { guifg = statusline_active_fg, gui = "italic" })
 
     -- LSP diagnostics: line number backgrounds and foregrounds
     --('black' is #667084; bg colours are a blend)
