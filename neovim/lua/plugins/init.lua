@@ -358,15 +358,6 @@ return packer.startup(function(use)
         end,
     }
 
-    use {
-        "Pocco81/TrueZen.nvim",
-        cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus" },
-        setup = function()
-            require "plugins.config.zenmode"
-            require("mappings").truezen()
-        end,
-    }
-
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
