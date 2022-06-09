@@ -19,7 +19,7 @@ end
 cmp.setup {
     experimental = {
         ghost_text = {
-            hl_group = "Comment",
+            hl_group = "CmpGhostText",
         },
     },
     confirmation = {
