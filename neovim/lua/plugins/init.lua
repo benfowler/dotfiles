@@ -71,7 +71,6 @@ return packer.startup(function(use)
 
     use {
         "norcalli/nvim-colorizer.lua",
-        event = "BufRead",
         config = function()
             require "plugins.config.colorizer"
         end,
@@ -218,7 +217,7 @@ return packer.startup(function(use)
     use {
         "hrsh7th/nvim-cmp",
         event = "BufRead",
-        after = "LuaSnip",
+        requires = "L3MON4D3/LuaSnip",
         config = function()
             require "plugins.config.cmp"
             require("mappings").cmp()
