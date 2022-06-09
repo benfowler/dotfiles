@@ -191,11 +191,6 @@ M.misc = function()
     map("n", "c", '"_c', opt)
     map("n", "C", '"_C', opt) -- "_ is the blackhole register
 
-    -- C-j and C-k to navigate in popup ('pum') menu and wildmenu
-    cmd [[ inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>" ]]
-    cmd [[ inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>" ]]
-    cmd [[ cnoremap <expr><C-j> wildmenumode() ? "\<C-n>" : "\<C-j>" ]]
-    cmd [[ cnoremap <expr><C-k> wildmenumode() ? "\<C-p>" : "\<C-h>" ]]
 
     -----------------------------------------------------------------------
     -- Lazy-loaded plugins still require mappings and commands,
@@ -237,8 +232,6 @@ M.lsp = function(bufnr, _)
     map_buf(bufnr, "n", "<Leader>a", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
     map_buf(bufnr, "n", "<Leader>A", "<Cmd>lua vim.lsp.codelens.run()<CR>", opts)
     map_buf(bufnr, "n", "<Leader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    map_buf(bufnr, "n", "<C-k>", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
-    map_buf(bufnr, "n", "<C-j>", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
     map_buf(bufnr, "n", "[d", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
     map_buf(bufnr, "n", "]d", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
     map_buf(bufnr, "n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
