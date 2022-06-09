@@ -11,7 +11,7 @@ local icons = require("utils").diagnostic_icons.outline
 local M = {}
 
 -- possible values are 'arrow' | 'rounded' | 'blank'
-local active_sep = "custom"
+local active_sep = "custom3"
 
 -- change them if you want to different separator
 M.separators = {
@@ -20,6 +20,8 @@ M.separators = {
     rounded = { "", "" },
     blank = { "", "" },
     custom = { "", "" },
+    custom2 = { "│", "" },
+    custom3 = { "", "" },
 }
 
 M.filetype_icon_overrides = {
