@@ -7,6 +7,14 @@ local luasnip = require "luasnip"
 
 local icons = require("lspkind").symbol_map
 
+
+-- Supertab-like tab behaviour
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+
 -- nvim-cmp setup
 cmp.setup {
     experimental = {
@@ -76,6 +84,9 @@ cmp.setup {
                 end
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            elseif has_words_before() then
+                -- Supertab-like behaviour
+                cmp.complete()
             else
                 fallback()
             end
