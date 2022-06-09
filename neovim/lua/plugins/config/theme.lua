@@ -136,6 +136,8 @@ function my_highlights_nord()
     u.Hi("CmpItemKindProperty", { guifg = "#D4D4D4" })
     u.Hi("CmpItemKindUnit", { guifg = "#D4D4D4" })
 
+    u.Hi("CmpGhostText", { guifg = nord.nord12 })
+
     -- QuickFix list's line numbers are unreadable
     u.Hi("qfFileName", { guifg = nord.nord10 })
     u.Hi("qfLineNr", { guifg = nord.nord8 })
