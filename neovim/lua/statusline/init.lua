@@ -108,6 +108,9 @@ end
 M.modes = setmetatable({
     ["n"] = { "Normal", "N", "%#StatusLineModeNormal#" },
     ["no"] = { "N·Pending", "N·P", "%#StatusLineModeNormal#" },
+    ["niI"] = { "N·Insert", "N·I", "%#StatusLineModeNormal#" },   -- C-o 'insert-normal' mode
+    ["niR"] = { "N·Replace", "N·R", "%#StatusLineModeReplace#" }, -- C-o 'replace-normal' mode
+    ["niV"] = { "N·Visual", "N·R", "%#StatusLineModeVisual#" },   -- C-o 'virtual-replace' mode
     ["nt"] = { "N·Terminal", "N·T", "%#StatusLineModeNormal#" },
     ["v"] = { "Visual", "V", "%#StatusLineModeVisual#" },
     ["V"] = { "V·Line", "V·L", "%#StatusLineModeVisual#" },
@@ -117,6 +120,7 @@ M.modes = setmetatable({
     [""] = { "S·Block", "S·B", "%#StatusLineModeVisual#" }, -- same with this one, it's not ^S but it's 
     ["i"] = { "Insert", "I", "%#StatusLineModeInsert#" },
     ["ic"] = { "Insert", "I", "%#StatusLineModeInsert#" },
+    ["ix"] = { "Insert", "I", "%#StatusLineModeInsert#" },
     ["R"] = { "Replace", "R", "%#StatusLineModeReplace#" },
     ["Rv"] = { "V·Replace", "V·R", "%#StatusLineModeReplace#" },
     ["c"] = { "Command", "C", "%#StatusLineModeCommand#" },
