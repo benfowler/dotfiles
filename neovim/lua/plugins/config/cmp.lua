@@ -71,7 +71,6 @@ cmp.setup {
         ["<Esc>"] = cmp.mapping {
             i = cmp.mapping.abort(),
         },
-        ["<CR>"] = cmp.mapping.confirm { select = true },
         ["<Tab>"] = cmp.mapping(function(fallback)
             -- IntelliJ-like mapping (see nvim-cmp wiki)
             -- Confirm with tab, and if no entry is selected, confirm first item
@@ -80,7 +79,7 @@ cmp.setup {
                 if not entry then
                     cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                 else
-                    cmp.confirm()
+                    cmp.confirm { select = true }
                 end
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
