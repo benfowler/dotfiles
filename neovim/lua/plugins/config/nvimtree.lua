@@ -10,7 +10,7 @@ local lsp_icons = require("utils").diagnostic_icons.outline
 require 'nvim-tree'.setup {
     respect_buf_cwd = true,
     view = {
-        width = 25,
+        width = 30,
     },
     renderer = {
         add_trailing = true,
