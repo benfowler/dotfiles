@@ -21,7 +21,7 @@ packer.init {
         prompt_border = "single",
     },
     git = {
-        clone_timeout = 600, -- Timeout, in seconds, for git clones
+        clone_timeout = 1000, -- Timeout, in seconds, for git clones
     },
     log = { level = "warn" }, -- The default print log level. One of: "trace", "debug", "info", "warn", "error", "fatal".
     profile = {
@@ -216,8 +216,8 @@ return packer.startup(function(use)
     -- Completions
     use {
         "hrsh7th/nvim-cmp",
-        event = "BufRead",
-        requires = "L3MON4D3/LuaSnip",
+        event = "InsertEnter",
+        after = "LuaSnip",
         config = function()
             require "plugins.config.cmp"
             require("mappings").cmp()
