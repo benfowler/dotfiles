@@ -93,6 +93,16 @@ web_devicons.setup {
             color = colors.red,
             name = "scala",
         },
+        sh = {
+            icon = "",
+            color = colors.green,
+            name = "sh",
+        },
+        bash = {
+            icon = "",
+            color = colors.green,
+            name = "bash",
+        },
         sbt = {
             icon = "",
             color = colors.red,
@@ -150,7 +160,7 @@ web_devicons.setup {
         },
         md = {
             icon = "",
-            color = colors.magenta,
+            color = colors.cyan,
             name = "markdown",
         },
         graphql = {
