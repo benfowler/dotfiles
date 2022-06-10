@@ -336,6 +336,11 @@ return packer.startup(function(use)
         end,
     }
 
+    use {
+        "kdheepak/lazygit.nvim",
+        cmd = { "LazyGit" },
+    }
+
     -- Misc plugins
     use {
         "windwp/nvim-autopairs",
