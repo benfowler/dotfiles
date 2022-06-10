@@ -64,12 +64,14 @@ M.user_map = {
         lsp_type_definitions = "<leader>lt",
 
         -- Git objects
-        git_status = "<leader>gg",
         git_commits = "<leader>gc",
         git_bcommits = "<leader>gC",
         git_branches = "<leader>gb",
         git_stash = "<leader>gs",
         git_files = "<leader>gf",
+
+        -- Lazygit
+        lazygit = "<leader>G",
 
         -- LuaSnip
         select_snippet = "<leader>s",
@@ -91,7 +93,7 @@ M.user_map = {
     },
 
     fugitive = {
-        Git = "<leader>G",
+        Git = "<leader>gg",
         diffget_2 = "<leader>gh",
         diffget_3 = "<leader>gl",
         git_blame = "<leader>ga",
@@ -366,12 +368,14 @@ M.telescope = function()
     map("n", m.lsp_type_definitions, ":Telescope lsp_type_definitions<CR>", opt)
 
     -- Git objects
-    map("n", m.git_status, ":Telescope git_status<CR>", opt)
     map("n", m.git_commits, ":Telescope git_commits<CR>", opt)
     map("n", m.git_bcommits, ":Telescope git_bcommits<CR>", opt)
     map("n", m.git_branches, ":Telescope git_branches<CR>", opt)
     map("n", m.git_stash, ":Telescope git_stash<CR>", opt)
     map("n", m.git_files, ":Telescope git_files<CR>", opt)
+
+    -- Lazygit
+    map("n", m.lazygit, ":LazyGit<CR>", opt)
 
     map("n", m.spell_suggest, ":silent! Telescope spell_suggest<CR>", opt)
 end
