@@ -57,28 +57,25 @@ telescope.setup {
             },
         },
         diagnostics = {
-            theme = "ivy",
+            theme = "dropdown",
         },
         lsp_definitions = {
-            theme = "ivy",
+            theme = "dropdown",
         },
         lsp_type_definitions = {
-            theme = "ivy",
+            theme = "dropdown",
         },
         lsp_implementations = {
-            theme = "ivy",
+            theme = "dropdown",
         },
         lsp_references = {
-            theme = "ivy",
+            theme = "dropdown",
         },
         lsp_workspace_symbols = {
-            theme = "ivy",
+            theme = "dropdown",
         },
         lsp_document_symbols = {
-            theme = "ivy",
-        },
-        lsp_reference = {
-            theme = "ivy",
+            theme = "dropdown",
         },
     },
     extensions = {
