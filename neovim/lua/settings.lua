@@ -130,9 +130,6 @@ opt.wildignorecase = true
 -- Hidden characters                          -- and mapping to switch it
 opt.listchars = "tab:»·,nbsp:␣,eol:↲,extends:»,precedes:«,trail:•"
 
--- Winbar (new)
-opt.winbar="%#WinBar#%= %m %f "
-
 -- Security
 opt.secure = true                             -- also load .vimrc from directory where Vim launched
 
