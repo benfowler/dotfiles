@@ -24,7 +24,11 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
             null_ls.builtins.diagnostics.eslint,
             null_ls.builtins.diagnostics.jsonlint,
-            null_ls.builtins.diagnostics.markdownlint,
+            null_ls.builtins.diagnostics.markdownlint.with({
+                diagnostics_postprocess = function(diagnostic)
+                    diagnostic.severity = vim.diagnostic.severity["HINT"]
+                end,
+            }),
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.diagnostics.pylint,
             null_ls.builtins.diagnostics.shellcheck,
@@ -42,7 +46,6 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.formatting.black,
             null_ls.builtins.formatting.fixjson,
             null_ls.builtins.formatting.goimports,
-            null_ls.builtins.formatting.markdownlint,
             null_ls.builtins.formatting.reorder_python_imports,
             null_ls.builtins.formatting.shellharden,
             null_ls.builtins.formatting.sqlformat,
@@ -50,7 +53,7 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.formatting.terraform_fmt,
 
             null_ls.builtins.formatting.prettier.with({
-                filetypes = { "html", "json", "js", "typescript", "typescriptreact", "tsx", "yaml" },
+                filetypes = { "html", "json", "js", "markdown", "typescript", "typescriptreact", "tsx", "yaml" },
             }),
 
             -- Additional LSP code action contributions
