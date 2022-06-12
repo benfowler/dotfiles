@@ -71,7 +71,7 @@ M.show_winbar = function()
 end
 
 function M.setup()
-    vim.api.nvim_create_autocmd({ 'DirChanged', 'BufWinEnter', 'BufFilePost', 'InsertEnter', 'BufWritePost', 'DiagnosticChanged' }, {
+    vim.api.nvim_create_autocmd({ 'DirChanged', 'BufWinEnter', 'BufFilePost', 'InsertEnter', 'BufWritePost', 'CursorHold', 'CursorHoldI', 'DiagnosticChanged' }, {
         callback = function()
             M.show_winbar()
         end
