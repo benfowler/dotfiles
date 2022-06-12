@@ -1,7 +1,33 @@
 local M = {}
 
+local icons = require("utils").diagnostic_icons.filled
+
+local lsp_diags_config = {
+    { highlight = "ErrorWinbarDiagIndic", icon = icons.error, },
+    { highlight = "WarnWinbarDiagIndic", icon = icons.warn, },
+    { highlight = "InfoWinbarDiagIndic", icon = icons.info, },
+    { highlight = "HintWinbarDiagIndic", icon = icons.hint, },
+    { highlight = "OkWinbarDiagIndic", icon = "", },
+}
+
 local winbar_file = function()
-    return "%#WinBar#%= %m %f "
+
+    local worst = nil
+    local worst_str = ""
+
+    if #vim.lsp.buf_get_clients() ~= 0 then
+        bufnr = vim.fn.bufnr()
+        diagnostics = vim.diagnostic.get(bufnr)
+        worst = 5  -- sentinel value for 'ok'
+        for _, diagnostic in ipairs(diagnostics) do
+            local severity = diagnostic.severity
+            if severity < worst then worst = severity end
+        end
+
+        worst_str = "%#" .. lsp_diags_config[worst].highlight .. "#" .. lsp_diags_config[worst].icon .. " "
+    end
+
+    return "%#WinBar#%= %m %f " .. worst_str
 end
 
 local exclude_filetype = {
@@ -45,7 +71,7 @@ M.show_winbar = function()
 end
 
 function M.setup()
-    vim.api.nvim_create_autocmd({ 'DirChanged', 'BufWinEnter', 'BufFilePost', 'InsertEnter', 'BufWritePost' }, {
+    vim.api.nvim_create_autocmd({ 'DirChanged', 'BufWinEnter', 'BufFilePost', 'InsertEnter', 'BufWritePost', 'DiagnosticChanged' }, {
         callback = function()
             M.show_winbar()
         end
