@@ -7,7 +7,7 @@ local lsp_diags_config = {
     { highlight = "WarnWinbarDiagIndic", icon = icons.warn, },
     { highlight = "InfoWinbarDiagIndic", icon = icons.info, },
     { highlight = "HintWinbarDiagIndic", icon = icons.hint, },
-    { highlight = "OkWinbarDiagIndic", icon = "", },
+    { highlight = "OkWinbarDiagIndic", icon = "", },
 }
 
 local winbar_file = function()
