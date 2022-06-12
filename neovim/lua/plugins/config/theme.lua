@@ -180,6 +180,12 @@ function my_highlights_nord()
     -- Winbar
     u.Hi("WinBar", { guifg = statusline_active_fg, gui = "italic" })
 
+    u.Hi("ErrorWinbarDiagIndic", { guifg = error_fg })
+    u.Hi("WarnWinbarDiagIndic", { guifg = warn_fg })
+    u.Hi("InfoWinbarDiagIndic", { guifg = info_fg})
+    u.Hi("HintWinbarDiagIndic", { guifg = hint_fg })
+    u.Hi("OkWinbarDiagIndic", { guifg = ok_fg })
+
     -- LSP diagnostics: line number backgrounds and foregrounds
     --('black' is #667084; bg colours are a blend)
     u.Hi("DiagnosticError", { guifg = error_fg })
