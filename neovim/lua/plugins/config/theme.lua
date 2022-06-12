@@ -26,7 +26,7 @@ local nord = (vim.o.background == "dark")
 			nord2 = "#434C5E", -- nord.nord2 in palette
 			nord3 = "#4C566A", -- nord.nord3 in palette
 			nord3_bright = "#616E88", -- out of palette
-            nord4_dim = "#9DA6B9", -- out of palette
+			nord4_dim = "#9DA6B9", -- out of palette
 			nord4 = "#D8DEE9", -- nord.nord4 in palette
 			nord5 = "#E5E9F0", -- nord.nord5 in palette
 			nord6 = "#ECEFF4", -- nord.nord6 in palette
@@ -39,6 +39,7 @@ local nord = (vim.o.background == "dark")
 			nord13 = "#EBCB8B", -- nord.nord13 in palette
 			nord14 = "#A3BE8C", -- nord.nord14 in palette
 			nord15 = "#B48EAD", -- nord.nord15 in palette
+			nord15_dim = "#A38DC9", -- off-palette lilac/purple variant
 			none = "NONE",
 		}
 	or {
@@ -61,6 +62,7 @@ local nord = (vim.o.background == "dark")
 		nord13 = "#EBCB8B", -- nord.nord13 in palette
 		nord14 = "#A3BE8C", -- nord.nord14 in palette
 		nord15 = "#B48EAD", -- nord.nord15 in palette
+		nord15_dim = "#A38DC9", -- off-palette lilac/purple variant
 		none = "NONE",
 	}
 
@@ -83,8 +85,9 @@ local warn_fg  = nord.nord13
 local info_fg  = nord.nord9
 local hint_fg  = nord.nord7
 local misc_fg  = nord.nord15
-
+local misc2_fg  = nord.nord15_dim
 local ok_fg    = nord.nord14
+
 
 local diff_add = nord.nord14
 local diff_change = nord.nord13
@@ -237,8 +240,8 @@ function my_highlights_nord()
     u.Hi("LspReferenceText", { guibg = nord.nord1, gui = "none" })
 
     -- LSP CodeLenses (rendered as virtual text)
-    u.Hi("LspCodeLens", { guifg = misc_fg })
-    u.HiLink("LspCodeLensSeparator", "String")
+    u.Hi("LspCodeLens", { guifg = misc2_fg, gui = "italic" })
+    u.HiLink("LspCodeLensSeparator", "Comment")
 
     -- Luasnip
     u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord.nord12 })
