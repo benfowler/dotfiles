@@ -1,7 +1,9 @@
 require "settings"
 require "mappings"
 require "plugins"
-require "statusline"
-require "winbar"
-require "codelens"
 require "utils"
+
+require "local.statusline"
+require "local.winbar"
+require "local.codelens"
+
