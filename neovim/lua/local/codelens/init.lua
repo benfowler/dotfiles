@@ -18,7 +18,10 @@ local api = vim.api
 local namespaces = vim.lsp.codelens.__namespaces
 
 local function display_code_lens(lenses, bufnr, client_id)
+
+    -- (bjf, 11/06/2022: my additions here)
     vim.fn.sign_unplace(SIGN_GROUP, { buffer = bufnr })
+
     if not lenses or not next(lenses) then
         return
     end
@@ -38,12 +41,18 @@ local function display_code_lens(lenses, bufnr, client_id)
         api.nvim_buf_clear_namespace(bufnr, ns, i, i + 1)
         local chunks = {}
         local num_line_lenses = #line_lenses
+
+        -- (bjf, 11/06/2022: my additions here)
         if num_line_lenses > 0 then
             -- Sign
             vim.fn.sign_place(i + 1, SIGN_GROUP, SIGN_NAME, bufnr, { lnum = i + 1, priority = 8 })
             -- Virtual text: padding and bullet
             table.insert(chunks, { "    ", "LspCodeLens" })
         end
+
+        table.sort(line_lenses, function(a, b)
+        return a.range.start.character < b.range.start.character
+        end)
         for j, lens in ipairs(line_lenses) do
             local text = lens.command and lens.command.title or "Unresolved lens ..."
             table.insert(chunks, { text, "LspCodeLens" })
