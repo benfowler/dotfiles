@@ -68,9 +68,15 @@ return packer.startup(function(use)
         "easymotion/vim-easymotion",
         event = "BufRead",
     }
+
     use {
         "tpope/vim-surround",
         event = "InsertEnter",
+    }
+
+    use {
+        "tpope/vim-unimpaired",
+        even = "BufRead",
     }
 
     use {
