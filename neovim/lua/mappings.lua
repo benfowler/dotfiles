@@ -146,10 +146,6 @@ M.misc = function()
     map("n", miscMap.write_file, ":update<CR>", opt)
 
     -- Setting toggles
-    map("n", miscMap.toggle_listchars, ":set invlist <CR>", opt)
-    map("n", miscMap.toggle_spellcheck, ":set spell! <CR>", opt)
-    map("i", miscMap.toggle_spellcheck, "<C-o>:set spell! <CR>", opt)
-    map("n", miscMap.toggle_number, ":set invnumber<CR>:set invrelativenumber<CR>:set invcursorline<CR>", opt)
     map(
         "n",
         miscMap.toggle_colorcolumn,
@@ -181,12 +177,6 @@ M.misc = function()
     map("n", miscMap.new_terminal_here, ":terminal<CR>", opt)
     map("n", miscMap.new_terminal_split, string.format(":sp term://%s<CR>", shell), opt)
     map("n", miscMap.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), opt)
-
-    -- Fast quickfix and location list navigation.  Centre editing line when navigating.
-    map("n", "[l", ":lprev<CR>", opt)
-    map("n", "]l", ":lnext<CR>", opt)
-    map("n", "[q", ":cprev<CR>", opt)
-    map("n", "]q", ":cnext<CR>", opt)
 
     -- Change doesn't overwrite the unnamed register (clipboard for me).
     -- I can change/paste, and not lose the clipboard contents I'm about to paste.
