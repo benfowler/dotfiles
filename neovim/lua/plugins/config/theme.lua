@@ -247,9 +247,6 @@ function my_highlights_nord()
     u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord.nord12 })
     u.Hi("LuasnipInsertNodeVirtualText", { guifg = nord.nord8 })
 
-    -- Folds
-    u.Hi("Folded", { guifg = nord.nord7, gui = "italic" })
-
     -- Git gutter signs
     u.Hi("GitSignsAdd", { gui="bold", guifg = diff_add })
     u.Hi("GitSignsChange", { guifg = diff_change })
