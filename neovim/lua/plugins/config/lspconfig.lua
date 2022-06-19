@@ -118,7 +118,7 @@ local servers = {
     "texlab",
     "tsserver",
     "vimls",
-    "yamlls"
+    "yamlls",
 }
 
 local default_server_opts = {
