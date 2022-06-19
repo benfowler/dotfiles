@@ -71,12 +71,6 @@ telescope.setup {
         lsp_references = {
             theme = "dropdown",
         },
-        lsp_workspace_symbols = {
-            theme = "dropdown",
-        },
-        lsp_document_symbols = {
-            theme = "dropdown",
-        },
     },
     extensions = {
         fzf = {
