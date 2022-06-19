@@ -10,13 +10,12 @@ dressing.setup {
         winhighlight = "FloatBorder:DressingFloatBorder",
     },
     select = {
-        backend = { "builtin", },
+        backend = { "builtin" },
         builtin = {
             relative = "cursor",
             winblend = 0,
             winhighlight = "FloatBorder:DressingFloatBorder",
-            min_height = { 3 }
-        }
-    }
+            min_height = { 3 },
+        },
+    },
 }
-

@@ -54,7 +54,7 @@ g.fzf_custom_win_buffers = {
         border = "rounded",
         highlight = "Comment",
     },
-    placeholder = '{1}',
+    placeholder = "{1}",
 }
 
 g.fzf_custom_win_windows = {
@@ -64,7 +64,7 @@ g.fzf_custom_win_windows = {
         border = "rounded",
         highlight = "Comment",
     },
-    placeholder = '{1}',
+    placeholder = "{1}",
     options = "--prompt='Win> '",
 }
 
@@ -78,7 +78,7 @@ g.fzf_custom_win_grep = {
 }
 
 -- How are we invoking rg?
-g.fzf_rg_cmd = 'rg --column --line-number --no-heading --color=always --smart-case -- '
+g.fzf_rg_cmd = "rg --column --line-number --no-heading --color=always --smart-case -- "
 
 
 -- stylua: ignore
@@ -94,4 +94,3 @@ command! -bar -bang Windows call fzf#vim#windows(g:fzf_custom_win_windows, <bang
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, g:fzf_custom_win_grep, <bang>0)
 command! -bang -nargs=* Rg call fzf#vim#grep( g:fzf_rg_cmd.shellescape(<q-args>), 1, g:fzf_custom_win_grep, <bang>0)
 ]]
-

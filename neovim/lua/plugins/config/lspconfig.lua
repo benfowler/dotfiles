@@ -52,10 +52,10 @@ local function on_attach(client, bufnr)
 
     -- CodeLens
     if client.resolved_capabilities.code_lens == true then
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'InsertLeave' }, {
-        buffer = bufnr,
-        callback = vim.lsp.codelens.refresh,
-      })
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "InsertLeave" }, {
+            buffer = bufnr,
+            callback = vim.lsp.codelens.refresh,
+        })
     end
 
     -- Extra setup, which depends on the final resolved set of capabilities
@@ -63,23 +63,23 @@ local function on_attach(client, bufnr)
 
     -- Identifier read/write highlighting
     if client.resolved_capabilities.document_highlight == true then
-      vim.api.nvim_create_augroup('lsp_document_highlight', {
-        clear = false
-      })
-      vim.api.nvim_clear_autocmds({
-        buffer = bufnr,
-        group = 'lsp_document_highlight',
-      })
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-        group = 'lsp_document_highlight',
-        buffer = bufnr,
-        callback = vim.lsp.buf.document_highlight,
-      })
-      vim.api.nvim_create_autocmd('CursorMoved', {
-        group = 'lsp_document_highlight',
-        buffer = bufnr,
-        callback = vim.lsp.buf.clear_references,
-      })
+        vim.api.nvim_create_augroup("lsp_document_highlight", {
+            clear = false,
+        })
+        vim.api.nvim_clear_autocmds {
+            buffer = bufnr,
+            group = "lsp_document_highlight",
+        }
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            group = "lsp_document_highlight",
+            buffer = bufnr,
+            callback = vim.lsp.buf.document_highlight,
+        })
+        vim.api.nvim_create_autocmd("CursorMoved", {
+            group = "lsp_document_highlight",
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+        })
     end
 end
 
@@ -199,16 +199,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 -- Show LSP messages using vim.notify
-vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
-  local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
-  vim.notify({ result.message }, lvl, {
-    title = 'LSP | ' .. client.name,
-    timeout = 10000,
-    keep = function()
-      return lvl == 'ERROR' or lvl == 'WARN'
-    end,
-  })
+vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
+    vim.notify({ result.message }, lvl, {
+        title = "LSP | " .. client.name,
+        timeout = 10000,
+        keep = function()
+            return lvl == "ERROR" or lvl == "WARN"
+        end,
+    })
 end
 
 -- Popups get frames with rounded corners

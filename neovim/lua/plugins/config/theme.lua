@@ -19,54 +19,54 @@ end
 
 -- Adapted from shaunsingh/nord.nvim
 local nord = (vim.o.background == "dark")
-		and {
-			--16 colors
-			nord0 = "#2E3440", -- nord.nord0 in palette
-			nord1 = "#3B4252", -- nord.nord1 in palette
-			nord2 = "#434C5E", -- nord.nord2 in palette
-			nord3 = "#4C566A", -- nord.nord3 in palette
-			nord3_bright = "#616E88", -- out of palette
-			nord4_dim = "#9DA6B9", -- out of palette
-			nord4 = "#D8DEE9", -- nord.nord4 in palette
-			nord5 = "#E5E9F0", -- nord.nord5 in palette
-			nord6 = "#ECEFF4", -- nord.nord6 in palette
-			nord7 = "#8FBCBB", -- nord.nord7 in palette
-			nord8 = "#88C0D0", -- nord.nord8 in palette
-			nord9 = "#81A1C1", -- nord.nord9 in palette
-			nord10 = "#5E81AC", -- nord.nord10 in palette
-			nord11 = "#BF616A", -- nord.nord11 in palette
-			nord12 = "#D08770", -- nord.nord12 in palette
-			nord13 = "#EBCB8B", -- nord.nord13 in palette
-			nord14 = "#A3BE8C", -- nord.nord14 in palette
-			nord15 = "#B48EAD", -- nord.nord15 in palette
-			nord15_dim = "#A38DC9", -- off-palette lilac/purple variant
-			none = "NONE",
-		}
-	or {
-		--16 colors
-		nord0 = "#ECEFF4", -- nord.nord6 in palette
-		nord1 = "#E5E9F0", -- nord.nord5 in palette
-		nord2 = "#D8DEE9", -- nord.nord4 in palette
-		nord3 = "#4C566A", -- nord.nord3 in palette
-		nord3_bright = "#AEC7DF", -- out of palette
-		nord4_dim = "#798A9F", -- nord.nord2 in palette
-		nord4 = "#434C5E", -- nord.nord2 in palette
-		nord5 = "#3B4252", -- nord.nord1 in palette
-		nord6 = "#2E3440", -- nord.nord0 in palette
-		nord7 = "#8FBCBB", -- nord.nord7 in palette
-		nord8 = "#88C0D0", -- nord.nord8 in palette
-		nord9 = "#81A1C1", -- nord.nord9 in palette
-		nord10 = "#5E81AC", -- nord.nord10 in palette
-		nord11 = "#BF616A", -- nord.nord11 in palette
-		nord12 = "#D08770", -- nord.nord12 in palette
-		nord13 = "#EBCB8B", -- nord.nord13 in palette
-		nord14 = "#A3BE8C", -- nord.nord14 in palette
-		nord15 = "#B48EAD", -- nord.nord15 in palette
-		nord15_dim = "#A38DC9", -- off-palette lilac/purple variant
-		none = "NONE",
-	}
+        and {
+            --16 colors
+            nord0 = "#2E3440", -- nord.nord0 in palette
+            nord1 = "#3B4252", -- nord.nord1 in palette
+            nord2 = "#434C5E", -- nord.nord2 in palette
+            nord3 = "#4C566A", -- nord.nord3 in palette
+            nord3_bright = "#616E88", -- out of palette
+            nord4_dim = "#9DA6B9", -- out of palette
+            nord4 = "#D8DEE9", -- nord.nord4 in palette
+            nord5 = "#E5E9F0", -- nord.nord5 in palette
+            nord6 = "#ECEFF4", -- nord.nord6 in palette
+            nord7 = "#8FBCBB", -- nord.nord7 in palette
+            nord8 = "#88C0D0", -- nord.nord8 in palette
+            nord9 = "#81A1C1", -- nord.nord9 in palette
+            nord10 = "#5E81AC", -- nord.nord10 in palette
+            nord11 = "#BF616A", -- nord.nord11 in palette
+            nord12 = "#D08770", -- nord.nord12 in palette
+            nord13 = "#EBCB8B", -- nord.nord13 in palette
+            nord14 = "#A3BE8C", -- nord.nord14 in palette
+            nord15 = "#B48EAD", -- nord.nord15 in palette
+            nord15_dim = "#A38DC9", -- off-palette lilac/purple variant
+            none = "NONE",
+        }
+    or {
+        --16 colors
+        nord0 = "#ECEFF4", -- nord.nord6 in palette
+        nord1 = "#E5E9F0", -- nord.nord5 in palette
+        nord2 = "#D8DEE9", -- nord.nord4 in palette
+        nord3 = "#4C566A", -- nord.nord3 in palette
+        nord3_bright = "#AEC7DF", -- out of palette
+        nord4_dim = "#798A9F", -- nord.nord2 in palette
+        nord4 = "#434C5E", -- nord.nord2 in palette
+        nord5 = "#3B4252", -- nord.nord1 in palette
+        nord6 = "#2E3440", -- nord.nord0 in palette
+        nord7 = "#8FBCBB", -- nord.nord7 in palette
+        nord8 = "#88C0D0", -- nord.nord8 in palette
+        nord9 = "#81A1C1", -- nord.nord9 in palette
+        nord10 = "#5E81AC", -- nord.nord10 in palette
+        nord11 = "#BF616A", -- nord.nord11 in palette
+        nord12 = "#D08770", -- nord.nord12 in palette
+        nord13 = "#EBCB8B", -- nord.nord13 in palette
+        nord14 = "#A3BE8C", -- nord.nord14 in palette
+        nord15 = "#B48EAD", -- nord.nord15 in palette
+        nord15_dim = "#A38DC9", -- off-palette lilac/purple variant
+        none = "NONE",
+    }
 
-local M = { }
+local M = {}
 M.colors = {
     cyan = nord.nord7,
     blue = nord.nord10,
@@ -81,13 +81,12 @@ M.colors = {
 
 -- Diagnostic signature colours
 local error_fg = nord.nord11
-local warn_fg  = nord.nord13
-local info_fg  = nord.nord9
-local hint_fg  = nord.nord7
-local misc_fg  = nord.nord15
-local misc2_fg  = nord.nord15_dim
-local ok_fg    = nord.nord14
-
+local warn_fg = nord.nord13
+local info_fg = nord.nord9
+local hint_fg = nord.nord7
+local misc_fg = nord.nord15
+local misc2_fg = nord.nord15_dim
+local ok_fg = nord.nord14
 
 local diff_add = nord.nord14
 local diff_change = nord.nord13
@@ -98,7 +97,7 @@ local spell_cap_fg = warn_fg
 local spell_rare_fg = info_fg
 local spell_local_fg = misc_fg
 
-local statusline_active_fg = nord.nord4_dim   -- halfway between nord3_bright and nord4
+local statusline_active_fg = nord.nord4_dim -- halfway between nord3_bright and nord4
 local statusline_active_bg = nord.nord1
 
 function my_highlights_nord()
@@ -119,7 +118,7 @@ function my_highlights_nord()
 
     -- (nvim-cmp's custom-drawn autocompletion menu)
     u.Hi("CmpItemAbbr", { guifg = nord.nord5 })
-    u.Hi("CmpItemAbbrDeprecated", { guifg = nord.nord4, gui="strikethrough" })
+    u.Hi("CmpItemAbbrDeprecated", { guifg = nord.nord4, gui = "strikethrough" })
     u.Hi("CmpItemAbbrMatch", { guifg = nord.nord9 })
     u.Hi("CmpItemAbbrMatchFuzzy", { guifg = nord.nord12 })
     u.Hi("CmpItemKind", { guifg = nord.nord15 })
@@ -156,15 +155,15 @@ function my_highlights_nord()
     u.Hi("StatusLineOk", { guifg = ok_fg, guibg = statusline_active_bg })
     u.Hi("StatusLineAdd", { guifg = diff_add, guibg = statusline_active_bg })
     u.Hi("StatusLineChange", { guifg = diff_change, guibg = statusline_active_bg })
-    u.Hi("StatusLineDelete", { guifg = diff_delete, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineDelete", { guifg = diff_delete, gui = "bold", guibg = statusline_active_bg })
 
-    u.Hi("StatusLineModeNormal", { guifg = statusline_active_fg, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeInsert", { guifg = nord.nord8, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeVisual", { guifg = nord.nord13, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeReplace", { guifg = nord.nord15, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeCommand", { guifg = nord.nord9, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeTerminal", { guifg = nord.nord14, gui="bold", guibg = statusline_active_bg })
-    u.Hi("StatusLineModeEx", { guifg = nord.nord12, gui="bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeNormal", { guifg = statusline_active_fg, gui = "bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeInsert", { guifg = nord.nord8, gui = "bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeVisual", { guifg = nord.nord13, gui = "bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeReplace", { guifg = nord.nord15, gui = "bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeCommand", { guifg = nord.nord9, gui = "bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeTerminal", { guifg = nord.nord14, gui = "bold", guibg = statusline_active_bg })
+    u.Hi("StatusLineModeEx", { guifg = nord.nord12, gui = "bold", guibg = statusline_active_bg })
 
     -- Inactive statusbars: make a thin rule; align VertSplit to match.
     u.HiClear "StatusLineNC"
@@ -185,7 +184,7 @@ function my_highlights_nord()
 
     u.Hi("ErrorWinbarDiagIndic", { guifg = error_fg })
     u.Hi("WarnWinbarDiagIndic", { guifg = warn_fg })
-    u.Hi("InfoWinbarDiagIndic", { guifg = info_fg})
+    u.Hi("InfoWinbarDiagIndic", { guifg = info_fg })
     u.Hi("HintWinbarDiagIndic", { guifg = hint_fg })
     u.Hi("OkWinbarDiagIndic", { guifg = ok_fg })
 
@@ -248,7 +247,7 @@ function my_highlights_nord()
     u.Hi("LuasnipInsertNodeVirtualText", { guifg = nord.nord8 })
 
     -- Git gutter signs
-    u.Hi("GitSignsAdd", { gui="bold", guifg = diff_add })
+    u.Hi("GitSignsAdd", { gui = "bold", guifg = diff_add })
     u.Hi("GitSignsChange", { guifg = diff_change })
     u.Hi("GitSignsDelete", { gui = "bold", guifg = diff_delete })
     u.Hi("GitSignsChangeDelete", { gui = "bold", guifg = nord.nord11 })
@@ -261,13 +260,12 @@ function my_highlights_nord()
     u.Hi("TelescopePromptPrefix", { guifg = "#bf6069" })
     u.Hi("TelescopeBorder", { guifg = nord.nord3_bright })
 
-
     -- Floating info and rename/select popups (latter via stevearc/nvim-dressing)
 
     -- NOTE: for future use with 'smart' diag popups
     u.Hi("ErrorFloatBorder", { guifg = error_fg })
     u.Hi("WarnFloatBorder", { guifg = warn_fg })
-    u.Hi("InfoFloatBorder", { guifg = info_fg})
+    u.Hi("InfoFloatBorder", { guifg = info_fg })
     u.Hi("HintFloatBorder", { guifg = hint_fg })
     u.Hi("OkFloatBorder", { guifg = ok_fg })
     u.Hi("DimFloatBorder", { guifg = nord.nord3_bright })
@@ -357,13 +355,13 @@ function my_highlights_nord()
     u.Hi("texSICmd", { guifg = nord.nord14 })
 
     -- vim-easymotion
-    local emTarget1       = "#d0505A"
-    local emTarget2First  = "#7bc7d0"
+    local emTarget1 = "#d0505A"
+    local emTarget2First = "#7bc7d0"
     local emTarget2Second = "#92a6a5"
-    u.Hi("EasyMotionTarget", { guibg="NONE", guifg=emTarget1, gui="bold" })
-    u.Hi("EasyMotionShade", { guibg="NONE", guifg=nord.nord3_bright })
-    u.Hi("EasyMotionTarget2First", { guibg="NONE", guifg=emTarget2First, gui="bold" })
-    u.Hi("EasyMotionTarget2Second", { guibg="NONE", guifg=emTarget2Second })
+    u.Hi("EasyMotionTarget", { guibg = "NONE", guifg = emTarget1, gui = "bold" })
+    u.Hi("EasyMotionShade", { guibg = "NONE", guifg = nord.nord3_bright })
+    u.Hi("EasyMotionTarget2First", { guibg = "NONE", guifg = emTarget2First, gui = "bold" })
+    u.Hi("EasyMotionTarget2Second", { guibg = "NONE", guifg = emTarget2Second })
 
     -- Suppress overly-aggressive error u.Highlighting under Treesitter
     u.HiClear "TSError"
@@ -381,7 +379,6 @@ vim.api.nvim_exec( [[
    augroup END
 ]], false)
 
-
 -- Example config in lua
 vim.g.nord_bold = 1
 vim.g.nord_underline = 1
@@ -396,4 +393,3 @@ vim.cmd [[ colo nord ]]
 
 -- Exports
 return M
-

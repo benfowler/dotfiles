@@ -183,7 +183,6 @@ M.misc = function()
     map("n", "c", '"_c', opt)
     map("n", "C", '"_C', opt) -- "_ is the blackhole register
 
-
     -----------------------------------------------------------------------
     -- Lazy-loaded plugins still require mappings and commands,
     -- for when Packer needs to lazy-load off them.
@@ -192,15 +191,30 @@ M.misc = function()
     M.fzf()
 
     -- Packer commands, because we are not loading it at startup
-    vim.api.nvim_create_user_command('PackerCompile', function() require 'plugins.init' require('packer').compile() end, {})
-    vim.api.nvim_create_user_command('PackerInstall', function() require 'plugins.init' require('packer').install() end, {})
-    vim.api.nvim_create_user_command('PackerStatus', function() require 'plugins.init' require('packer').status() end, {})
-    vim.api.nvim_create_user_command('PackerSync', function() require 'plugins.init' require('packer').sync() end, {})
-    vim.api.nvim_create_user_command('PackerUpdate', function() require 'plugins.init' require('packer').update() end, {})
+    vim.api.nvim_create_user_command("PackerCompile", function()
+        require "plugins.init"
+        require("packer").compile()
+    end, {})
+    vim.api.nvim_create_user_command("PackerInstall", function()
+        require "plugins.init"
+        require("packer").install()
+    end, {})
+    vim.api.nvim_create_user_command("PackerStatus", function()
+        require "plugins.init"
+        require("packer").status()
+    end, {})
+    vim.api.nvim_create_user_command("PackerSync", function()
+        require "plugins.init"
+        require("packer").sync()
+    end, {})
+    vim.api.nvim_create_user_command("PackerUpdate", function()
+        require "plugins.init"
+        require("packer").update()
+    end, {})
 
-    vim.api.nvim_create_user_command('PC', 'PackerCompile', {})
-    vim.api.nvim_create_user_command('PS', 'PackerStatus', {})
-    vim.api.nvim_create_user_command('PU', 'PackerSync', {})
+    vim.api.nvim_create_user_command("PC", "PackerCompile", {})
+    vim.api.nvim_create_user_command("PS", "PackerStatus", {})
+    vim.api.nvim_create_user_command("PU", "PackerSync", {})
 end
 
 --
@@ -238,7 +252,7 @@ M.lsp = function(bufnr, _)
 
     -- Set up some keybindings to toggle LSP diagnostic visibility
     local lsp_diagnostics_active = true
-    vim.keymap.set('n', "<F5>", function()
+    vim.keymap.set("n", "<F5>", function()
         lsp_diagnostics_active = not lsp_diagnostics_active
         if lsp_diagnostics_active then
             vim.diagnostic.show()
@@ -294,10 +308,10 @@ M.vim_tmux_navigator = function()
 end
 
 -- Completion. In addition to what's already set up in nvim-cmp's standard config.
-M.cmp = function ()
+M.cmp = function()
     local opts = { noremap = true, silent = true }
     local cmp_autopopup_enabled = true
-    vim.keymap.set({'n', 'i'}, "<F4>", function()
+    vim.keymap.set({ "n", "i" }, "<F4>", function()
         cmp_autopopup_enabled = not cmp_autopopup_enabled
         if cmp_autopopup_enabled then
             require("utils").EnableAutoCmp()

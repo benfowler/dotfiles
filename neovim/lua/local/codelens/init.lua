@@ -18,7 +18,6 @@ local api = vim.api
 local namespaces = vim.lsp.codelens.__namespaces
 
 local function display_code_lens(lenses, bufnr, client_id)
-
     -- (bjf, 11/06/2022: my additions here)
     vim.fn.sign_unplace(SIGN_GROUP, { buffer = bufnr })
 
@@ -51,7 +50,7 @@ local function display_code_lens(lenses, bufnr, client_id)
         end
 
         table.sort(line_lenses, function(a, b)
-        return a.range.start.character < b.range.start.character
+            return a.range.start.character < b.range.start.character
         end)
         for j, lens in ipairs(line_lenses) do
             local text = lens.command and lens.command.title or "Unresolved lens ..."

@@ -12,4 +12,3 @@ return function()
     g.vim_markdown_auto_insert_bullets = 0
     g.vim_markdown_math = 1
 end
-

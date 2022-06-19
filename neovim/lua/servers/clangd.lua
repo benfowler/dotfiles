@@ -10,7 +10,7 @@ M.get_lspconfig_settings = function(on_attach, capabilities, debounce_chgs_msec)
         },
         on_attach = on_attach,
         capabilities = capabilities,
-        flags = { debounce_text_changes = debounce_chgs_msec},
+        flags = { debounce_text_changes = debounce_chgs_msec },
     }
 end
 
