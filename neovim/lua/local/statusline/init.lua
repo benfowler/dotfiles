@@ -356,7 +356,7 @@ Statusline.get_lsp_diagnostic = function(self)
 
     -- LSP supported, but not connected
     if #vim.lsp.buf_get_clients() == 0 then
-        return "  "
+        return " %#" .. M.lsp_diags_hl_group_prefix .. "#" .. "  "
     end
 
     -- Otherwise, fish out and display stats
