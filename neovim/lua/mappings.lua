@@ -23,10 +23,8 @@ M.user_map = {
         write_file = "<leader>w",
     },
 
-    truezen = {
-        ataraxisMode = "<leader>zz",
-        minimalisticmode = "<leader>zm",
-        focusmode = "<leader>zf",
+    zenmode = {
+        toggle_zenmode = "<leader>z",
     },
 
     comment_nvim = {
@@ -330,12 +328,10 @@ M.nvimtree = function()
     map("n", m.treefocus, ":NvimTreeFocus<CR>", opt)
 end
 
-M.truezen = function()
-    local m = user_map.truezen
+M.zenmode = function()
+    local m = user_map.zenmode
 
-    map("n", m.ataraxisMode, ":TZAtaraxis<CR>", opt)
-    map("n", m.minimalisticmode, ":TZMinimalist<CR>", opt)
-    map("n", m.focusmode, ":TZFocus<CR>", opt)
+    map("n", m.toggle_zenmode, ":ZenMode<CR>", opt)
 end
 
 M.telescope = function()

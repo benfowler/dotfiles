@@ -370,6 +370,24 @@ return packer.startup(function(use)
         end,
     }
 
+    use {
+        "folke/zen-mode.nvim",
+        cmd = "ZenMode",
+        config = function ()
+            require("plugins.config.zenmode")
+        end,
+        setup = function()
+            require("mappings").zenmode()
+        end,
+    }
+
+    use {
+        "benstockil/twilight.nvim",
+        config = function ()
+            require("plugins.config.twilight")
+        end
+    }
+
     -- Commenting help
     use {
         "terrortylor/nvim-comment",
