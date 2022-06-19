@@ -29,7 +29,7 @@ M.get_lspconfig_settings = function(on_attach, capabilities, debounce_msec)
                 matcher = "Fuzzy",
             },
         },
-        flags = { allow_incremental_sync = true, debounce_text_changes = debounce_msec},
+        flags = { allow_incremental_sync = true, debounce_text_changes = debounce_msec },
         on_attach = on_attach,
         capabilities = capabilities,
     }

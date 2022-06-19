@@ -341,4 +341,3 @@ web_devicons.setup {
     },
     default = true,
 }
-

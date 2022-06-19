@@ -13,4 +13,3 @@ vim.cmd [[
         sign define LightBulbSign text= texthl=DiagnosticWarn linehl= numhl=
     augroup END
 ]]
-

@@ -7,13 +7,11 @@ local luasnip = require "luasnip"
 
 local icons = require("lspkind").symbol_map
 
-
 -- Supertab-like tab behaviour
 local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
-
 
 -- nvim-cmp setup
 cmp.setup {
@@ -42,15 +40,15 @@ cmp.setup {
         format = function(_, vim_item)
             vim_item.menu = " " .. vim_item.kind
             vim_item.kind = icons[vim_item.kind]
-            vim_item.abbr = string.sub(vim_item.abbr, 1, 45)  -- truncate items
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 45) -- truncate items
             return vim_item
         end,
     },
     window = {
-        documentation = cmp.config.window.bordered({ winhighlight = "CursorLine:PmenuSel" }),
+        documentation = cmp.config.window.bordered { winhighlight = "CursorLine:PmenuSel" },
     },
     view = {
-        entries = { name = 'custom', selection_order = 'near_cursor' }
+        entries = { name = "custom", selection_order = "near_cursor" },
     },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
@@ -110,4 +108,3 @@ cmp.setup {
     },
     preselect = cmp.PreselectMode.None,
 }
-

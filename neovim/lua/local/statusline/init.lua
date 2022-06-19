@@ -77,7 +77,7 @@ M.lsp_show_status_messages = false
 
 -- HACK: make all highlight groups the default color for now
 -- stylua: ignore
-api.nvim_exec( [[
+api.nvim_exec([[
    " hi! link StatusLine Mode
    " hi! link StatusLine ModeAlt
    " hi! link StatusLine Git
@@ -108,9 +108,9 @@ end
 M.modes = setmetatable({
     ["n"] = { "Normal", "N", "%#StatusLineModeNormal#" },
     ["no"] = { "N·Pending", "N·P", "%#StatusLineModeNormal#" },
-    ["niI"] = { "N·Insert", "N·I", "%#StatusLineModeNormal#" },   -- C-o 'insert-normal' mode
+    ["niI"] = { "N·Insert", "N·I", "%#StatusLineModeNormal#" }, -- C-o 'insert-normal' mode
     ["niR"] = { "N·Replace", "N·R", "%#StatusLineModeReplace#" }, -- C-o 'replace-normal' mode
-    ["niV"] = { "N·Visual", "N·R", "%#StatusLineModeVisual#" },   -- C-o 'virtual-replace' mode
+    ["niV"] = { "N·Visual", "N·R", "%#StatusLineModeVisual#" }, -- C-o 'virtual-replace' mode
     ["nt"] = { "N·Terminal", "N·T", "%#StatusLineModeNormal#" },
     ["v"] = { "Visual", "V", "%#StatusLineModeVisual#" },
     ["V"] = { "V·Line", "V·L", "%#StatusLineModeVisual#" },
@@ -156,13 +156,13 @@ M.get_git_status = function(self)
 
     if is_head_empty and not self:is_truncated(self.trunc_width.git_status) then
         local git_indicator = ""
-        if (signs.added ~= nil and signs.added > 0) then
+        if signs.added ~= nil and signs.added > 0 then
             git_indicator = git_indicator .. " " .. self.colors.git_add .. "+" .. signs.added
         end
-        if (signs.changed ~= nil and signs.changed > 0) then
+        if signs.changed ~= nil and signs.changed > 0 then
             git_indicator = git_indicator .. " " .. self.colors.git_change .. "~" .. signs.changed
         end
-        if (signs.removed ~= nil and signs.removed > 0) then
+        if signs.removed ~= nil and signs.removed > 0 then
             git_indicator = git_indicator .. " " .. self.colors.git_delete .. "-" .. signs.removed
         end
 
@@ -241,15 +241,15 @@ M.set_active = function(self)
     local line_info = colors.line_info .. self:get_line_info()
     local line_info_alt = colors.line_info_alt .. self.separators[active_sep][2]
 
-   -- stylua: ignore
+    -- stylua: ignore
     return table.concat({
-      -- left hand side
+        -- left hand side
         mode, mode_alt, colors.active, git_status,
         "%=",
-      -- centre
+        -- centre
         -- filename,
         "%=",
-      -- right hand side
+        -- right hand side
         lsp_diagnostic, git_alt, git_branch, filetype_alt, filetype, line_info_alt, line_info,
     })
 end
@@ -285,11 +285,10 @@ Statusline = setmetatable(M, {
     end,
 })
 
-
 -- Entry point to this module
 M.setup = function()
     -- stylua: ignore
-    api.nvim_exec( [[
+    api.nvim_exec([[
         augroup Statusline
         au!
         au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline('active')
@@ -298,7 +297,6 @@ M.setup = function()
         augroup END
     ]], false)
 end
-
 
 Statusline.get_lsp_diagnostic = function(self)
     -- Check that lsp-status.nvim is loaded
@@ -367,12 +365,11 @@ Statusline.get_lsp_diagnostic = function(self)
     for key, level in pairs(self.lsp_diags_config) do
         local count = lsp_status.diagnostics()[key]
         if count > 0 then
-             -- stylua: ignore
-            lsp_status_str =
-                " " ..
-                    lsp_status_str ..
-                    "%#" .. M.lsp_diags_hl_group_prefix .. level.key .. "#" ..
-                    level.icon .. " " .. count ..
+            -- stylua: ignore
+            lsp_status_str = " " ..
+                lsp_status_str ..
+                "%#" .. M.lsp_diags_hl_group_prefix .. level.key .. "#" ..
+                level.icon .. " " .. count ..
                 " "
         end
     end
@@ -385,4 +382,3 @@ Statusline.get_lsp_diagnostic = function(self)
 end
 
 M.setup()
-

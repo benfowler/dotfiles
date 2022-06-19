@@ -22,8 +22,7 @@ local function metals_status_handler(arg1, status, ctx)
 end
 
 local handlers = {}
-handlers['metals/status'] = metals_status_handler
-
+handlers["metals/status"] = metals_status_handler
 
 M.get_lspconfig_settings = function(on_attach, capabilities, debounce_msec)
     return {

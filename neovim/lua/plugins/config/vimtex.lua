@@ -8,4 +8,3 @@ return function()
     g.vimtex_quickfix_mode = 0
     g.tex_conceal = "abdmg"
 end
-

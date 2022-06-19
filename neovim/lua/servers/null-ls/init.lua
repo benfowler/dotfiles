@@ -1,7 +1,7 @@
 local null_ls = require "null-ls"
 
 -- Private custom null-ls sources
-local priv_src_cfn_lint = require("servers.null-ls.sources.cfn-lint")
+local priv_src_cfn_lint = require "servers.null-ls.sources.cfn-lint"
 
 local M = {}
 
@@ -24,11 +24,11 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
             null_ls.builtins.diagnostics.eslint,
             null_ls.builtins.diagnostics.jsonlint,
-            null_ls.builtins.diagnostics.markdownlint.with({
+            null_ls.builtins.diagnostics.markdownlint.with {
                 diagnostics_postprocess = function(diagnostic)
                     diagnostic.severity = vim.diagnostic.severity["HINT"]
                 end,
-            }),
+            },
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.diagnostics.pylint,
             null_ls.builtins.diagnostics.shellcheck,
@@ -40,7 +40,7 @@ M.configure = function(on_attach, capabilities, debounce_msec)
                 end,
             },
 
-            priv_src_cfn_lint.diagnostics.cfn_lint,  -- CloudFormation lints
+            priv_src_cfn_lint.diagnostics.cfn_lint, -- CloudFormation lints
 
             -- Code formatters
             null_ls.builtins.formatting.black,
@@ -52,9 +52,9 @@ M.configure = function(on_attach, capabilities, debounce_msec)
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.formatting.terraform_fmt,
 
-            null_ls.builtins.formatting.prettier.with({
+            null_ls.builtins.formatting.prettier.with {
                 filetypes = { "html", "json", "js", "markdown", "typescript", "typescriptreact", "tsx", "yaml" },
-            }),
+            },
 
             -- Additional LSP code action contributions
             null_ls.builtins.code_actions.eslint,

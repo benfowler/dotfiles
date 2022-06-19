@@ -6,36 +6,36 @@ local M = {}
 
 -- put(): shorthand for print(vim.inspect(...))
 function _G.put(...)
-  local objects = {}
-  for i = 1, select('#', ...) do
-    local v = select(i, ...)
-    table.insert(objects, vim.inspect(v))
-  end
+    local objects = {}
+    for i = 1, select("#", ...) do
+        local v = select(i, ...)
+        table.insert(objects, vim.inspect(v))
+    end
 
-  print(table.concat(objects, '\n'))
-  return ...
+    print(table.concat(objects, "\n"))
+    return ...
 end
 
 -- Diagnostic icons
 M.diagnostic_icons = {
     filled = {
-        error = '',
-        warn = '',
-        info = '',
-        hint = '',
+        error = "",
+        warn = "",
+        info = "",
+        hint = "",
     },
     outline = {
-        error = '',
-        warn = '',
-        info = '',
-        hint = '',
-    }
+        error = "",
+        warn = "",
+        info = "",
+        hint = "",
+    },
 }
 
 -- Set a highlight group
 M.Hi = function(group, opts, is_forced)
     is_forced = is_forced or false
-    local c = "highlight" .. (is_forced and "! " or " ") ..  group
+    local c = "highlight" .. (is_forced and "! " or " ") .. group
     for k, v in pairs(opts) do
         c = c .. " " .. k .. "=" .. v
     end
@@ -57,26 +57,26 @@ end
 
 -- Enable nvim-cmp autocompletion
 M.EnableAutoCmp = function()
-  local has_cmp, cmp = pcall(require, "cmp")
-  if has_cmp then
-    cmp.setup({
-      completion = {
-        autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
-      }
-    })
-  end
+    local has_cmp, cmp = pcall(require, "cmp")
+    if has_cmp then
+        cmp.setup {
+            completion = {
+                autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
+            },
+        }
+    end
 end
 
 -- Disable nvim-cmp autocompletion
 M.DisableAutoCmp = function()
-  local has_cmp, cmp = pcall(require, "cmp")
-  if has_cmp then
-    cmp.setup({
-      completion = {
-        autocomplete = false
-      }
-    })
-  end
+    local has_cmp, cmp = pcall(require, "cmp")
+    if has_cmp then
+        cmp.setup {
+            completion = {
+                autocomplete = false,
+            },
+        }
+    end
 end
 
 return M

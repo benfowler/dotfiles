@@ -5,9 +5,8 @@ end
 
 local lsp_icons = require("utils").diagnostic_icons.outline
 
-
 -- Breaking change: authors moved a bunch of config into new setup() function
-require 'nvim-tree'.setup {
+require("nvim-tree").setup {
     respect_buf_cwd = true,
     view = {
         width = 30,
@@ -56,11 +55,11 @@ require 'nvim-tree'.setup {
     update_focused_file = {
         enable = true,
         update_cwd = false,
-        ignore_list = {}
+        ignore_list = {},
     },
     system_open = {
         cmd = nil,
-        args = {}
+        args = {},
     },
     diagnostics = {
         enable = true,
@@ -70,5 +69,5 @@ require 'nvim-tree'.setup {
             info = lsp_icons.info,
             hint = lsp_icons.hint,
         },
-    }
+    },
 }

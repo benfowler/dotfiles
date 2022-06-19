@@ -3,9 +3,9 @@
 local null_ls = require "null-ls"
 local null_helpers = require "null-ls.helpers"
 
-local M = { }
+local M = {}
 
-M.diagnostics = { }
+M.diagnostics = {}
 
 M.diagnostics.cfn_lint = {
     name = "cfn-lint",
@@ -48,4 +48,3 @@ M.diagnostics.cfn_lint = {
 }
 
 return M
-
