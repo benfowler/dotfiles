@@ -359,11 +359,10 @@ function my_highlights_nord()
     -- vim-easymotion
     local emTarget1 = "#d0505A"
     local emTarget2First = "#7bc7d0"
-    local emTarget2Second = "#92a6a5"
-    u.Hi("EasyMotionTarget", { guibg = "NONE", guifg = emTarget1, gui = "bold" })
-    u.Hi("EasyMotionShade", { guibg = "NONE", guifg = nord.nord3_bright })
-    u.Hi("EasyMotionTarget2First", { guibg = "NONE", guifg = emTarget2First, gui = "bold" })
-    u.Hi("EasyMotionTarget2Second", { guibg = "NONE", guifg = emTarget2Second })
+    local emTarget2Second = "#368c96"
+    u.Hi("HopNextKey", { guibg = "NONE", guifg = emTarget1, gui = "bold" })
+    u.Hi("HopNextKey1", { guibg = "NONE", guifg = emTarget2First, gui = "bold" })
+    u.Hi("HopNextKey2", { guibg = "NONE", guifg = emTarget2Second })
 
     -- Suppress overly-aggressive error u.Highlighting under Treesitter
     u.HiClear "TSError"
