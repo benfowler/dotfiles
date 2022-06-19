@@ -135,8 +135,18 @@ return packer.startup(function(use)
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("plugins.config.indent")
-        end
+            require "plugins.config.indent"
+        end,
+    }
+
+    -- LSP-powered folding
+    use {
+        "kevinhwang91/nvim-ufo",
+        after = "nvim-lspconfig",
+        requires = "kevinhwang91/promise-async",
+        config = function()
+            require("ufo").setup()
+        end,
     }
 
     use {

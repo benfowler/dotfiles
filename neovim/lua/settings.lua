@@ -78,17 +78,10 @@ opt.splitbelow = true
 opt.splitright = true
 
 -- Folding
-opt.foldlevelstart = 99 -- Start editing with all folds open.
-opt.foldmethod = "indent"
-opt.foldnestmax = 3
-opt.foldopen = { -- Specifies for which type of commands folds will be opened.
-  'hor',       -- Horizontal movements: "l", "w", "fx", etc.
-  'mark',      -- Jumping to a mark: "'m", CTRL-O, etc.
-  'percent',   -- % key.
-  'quickfix',  -- ":cn", ":crew", ":make", etc.
-  'tag',       -- Jumping to a tag: ":ta", CTRL-T, etc.
-  'undo',      -- Undo or redo: "u" and CTRL-R.
-}
+opt.foldenable = true
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+opt.foldcolumn = '1'
+opt.foldlevel = 99
 
 
 --opt.whichwrap:append("<>hl")                  -- Traverse through EOLs

@@ -97,6 +97,15 @@ if lsp_status_present then
     client_caps = vim.tbl_extend("force", client_caps, lsp_status.capabilities)
 end
 
+-- Enable advanced LSP-driven folding with nvim-ufo
+local has_ufo, _ = pcall(require, "ufo")
+if has_ufo then
+    client_caps.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+    }
+end
+
 -- ... plus some extra one-offs we want to enable...
 client_caps.textDocument.completion.completionItem.snippetSupport = true
 
