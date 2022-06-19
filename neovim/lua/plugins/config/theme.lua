@@ -145,6 +145,8 @@ function my_highlights_nord()
     u.Hi("qfLineNr", { guifg = nord.nord8 })
     u.Hi("QuickFixLine", { guibg = nord.nord7, guifg = "Black" })
 
+    u.Hi("MatchParen", { guifg = nord.nord12, gui="bold", guibg = "NONE" })
+
     -- Active statusbar: override 'StatusLine' u.Highlight with Nord-ish colours
     u.Hi("StatusLine", { guifg = statusline_active_fg, guibg = statusline_active_bg })
 
