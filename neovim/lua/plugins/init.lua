@@ -124,7 +124,7 @@ return packer.startup(function(use)
         "neovim/nvim-lspconfig",
         requires = {
             "williamboman/nvim-lsp-installer",
-            "nvim-lua/lsp-status.nvim"
+            "nvim-lua/lsp-status.nvim",
         },
         config = function()
             require("nvim-lsp-installer").setup {}
@@ -155,7 +155,7 @@ return packer.startup(function(use)
     }
 
     use {
-        "b0o/schemastore.nvim" ,
+        "b0o/schemastore.nvim",
         module = "schemastore",
     }
 
