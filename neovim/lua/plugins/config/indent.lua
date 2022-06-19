@@ -9,6 +9,7 @@ indent.setup {
     space_char_blankline = " ",
     show_first_indent_level = false,
     show_trailing_blankline_indent = false,
+    max_indent_increase = 1,
     filetype_exclude = {
         "startify",
         "dashboard",
