@@ -65,8 +65,10 @@ return packer.startup(function(use)
     }
 
     use {
-        "easymotion/vim-easymotion",
-        event = "BufRead",
+        "phaazon/hop.nvim",
+        config = function()
+            require "plugins.config.hop"
+        end,
     }
 
     use {
@@ -373,8 +375,8 @@ return packer.startup(function(use)
     use {
         "folke/zen-mode.nvim",
         cmd = "ZenMode",
-        config = function ()
-            require("plugins.config.zenmode")
+        config = function()
+            require "plugins.config.zenmode"
         end,
         setup = function()
             require("mappings").zenmode()
@@ -383,9 +385,9 @@ return packer.startup(function(use)
 
     use {
         "benstockil/twilight.nvim",
-        config = function ()
-            require("plugins.config.twilight")
-        end
+        config = function()
+            require "plugins.config.twilight"
+        end,
     }
 
     -- Commenting help
