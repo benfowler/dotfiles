@@ -348,6 +348,10 @@ function my_highlights_nord()
     u.HiLink("NvimTreeEmptyFolderIcon", "NvimTreeFolderIcon", true)
     u.HiLink("NvimTreeEmptyFolderName", "NvimTreeFolderIcon", true)
 
+    -- Fidget: inlay LSP plugin status messages
+    u.Hi("FidgetTitle", { gui = "bold", guifg = nord.nord15, guibg = nord.nord0 })
+    u.Hi("FidgetTask", { guifg = nord.nord3_bright, guibg = nord.nord0 })
+
     -- Latex tweaks
     u.Hi("texCmdEnv", { guifg = nord.nord15, gui = "bold" })
     u.Hi("texCmdEnvM", { guifg = nord.nord7, gui = "bold" })
