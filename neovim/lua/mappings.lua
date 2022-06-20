@@ -105,6 +105,8 @@ M.user_map = {
         reset_hunk = "<leader>hr",
         preview_hunk = "<leader>hp",
         blame_line = "<leader>hb",
+        quickfix = "<leader>hq",
+        diffthis = "<leader>hd",
     },
 
     vim_tmux_navigator = {
