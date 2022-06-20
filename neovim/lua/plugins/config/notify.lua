@@ -11,10 +11,9 @@ notify.setup {
 vim.notify = notify
 
 vim.api.nvim_create_user_command(
-  'NotificationsDismiss',
-  function()
-    notify.dismiss()
-  end,
-  {bang = true}
+    'NotificationsDismiss',
+    function()
+        notify.dismiss()
+    end,
+    { bang = true }
 )
-

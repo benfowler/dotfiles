@@ -348,6 +348,7 @@ return packer.startup(function(use)
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require "plugins.config.gitsigns"
+            require("mappings").gitsigns()
         end,
     }
 

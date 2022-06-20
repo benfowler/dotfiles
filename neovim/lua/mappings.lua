@@ -323,6 +323,18 @@ M.cmp = function()
     end, opts)
 end
 
+
+M.gitsigns = function()
+    local opts = { noremap = true, silent = true }
+    local gitsigns_enabled = true
+    vim.keymap.set({ "n", "i" }, "<F8>", function()
+        gitsigns_enabled = not gitsigns_enabled
+        if gitsigns_enabled then
+            require("gitsigns").attach()
+            vim.notify("Git signs enabled", "info", { title = "Git" })
+        else
+            require("gitsigns").detach()
+            vim.notify("Git signs disabled", "warn", { title = "Git" })
         end
     end, opts)
 end
