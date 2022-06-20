@@ -19,6 +19,3 @@ fidget.setup {
     },
 }
 
-local u = require "utils"
-u.Hi("FidgetTitle", { gui = "bold", guifg = "#b48ead", guibg = "#2e3440" })
-u.Hi("FidgetTask", { guifg = "#616e88", guibg = "#2e3440" })
