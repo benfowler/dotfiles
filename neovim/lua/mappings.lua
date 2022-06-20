@@ -259,7 +259,7 @@ M.lsp = function(bufnr, _)
             vim.notify("LSP diagnostics enabled", "info", { title = "LSP" })
         else
             vim.diagnostic.hide()
-            vim.notify("LSP diagnostics disabled", "info", { title = "LSP" })
+            vim.notify("LSP diagnostics disabled", "warning", { title = "LSP" })
         end
     end, opts)
 end
@@ -315,10 +315,14 @@ M.cmp = function()
         cmp_autopopup_enabled = not cmp_autopopup_enabled
         if cmp_autopopup_enabled then
             require("utils").EnableAutoCmp()
-            vim.notify("Completion autopopups enabled", "info", { title = "nvim-cmp" })
+            vim.notify("Completion autopopups enabled", "info", { title = "Completion" })
         else
             require("utils").DisableAutoCmp()
-            vim.notify("Completion autopopups disabled", "info", { title = "nvim-cmp" })
+            vim.notify("Completion autopopups disabled", "warn", { title = "Completion" })
+        end
+    end, opts)
+end
+
         end
     end, opts)
 end
