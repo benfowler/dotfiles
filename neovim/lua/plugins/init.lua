@@ -174,6 +174,7 @@ return packer.startup(function(use)
     use {
         "folke/trouble.nvim",
         cmd = { "Trouble", "TroubleToggle" },
+        module = 'trouble',
         requires = "kyazdani42/nvim-web-devicons",
         config = function()
             require "plugins.config.trouble"
