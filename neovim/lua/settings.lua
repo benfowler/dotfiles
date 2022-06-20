@@ -80,7 +80,7 @@ opt.splitright = true
 -- Folding
 opt.foldenable = true
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-opt.foldcolumn = '1'
+opt.foldcolumn = '0'
 opt.foldlevel = 99
 
 

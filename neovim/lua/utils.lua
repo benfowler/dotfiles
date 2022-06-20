@@ -91,6 +91,9 @@ M.EnableFolding = function()
     vim.opt.foldenable = true
 end
 
+-- Temporary command for testing of new folding
+vim.api.nvim_create_user_command('EnableFolding', function() M.EnableFolding() end, { bang = false })
+
 -- Disable folding (and associated plugin)
 M.DisableFolding = function()
     local has_ufo, ufo = pcall(require, "ufo")
@@ -102,5 +105,8 @@ M.DisableFolding = function()
         ufo.disable()
     end
 end
+
+-- Temporary command for testing of new folding
+vim.api.nvim_create_user_command('DisableFolding', function() M.DisableFolding() end, { bang = false })
 
 return M
