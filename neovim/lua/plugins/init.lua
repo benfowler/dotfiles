@@ -147,8 +147,9 @@ return packer.startup(function(use)
         after = "nvim-lspconfig",
         requires = "kevinhwang91/promise-async",
         config = function()
-            require("ufo").setup()
-            require("mappings").folding()
+            -- (NOTE: disabled at start until I get patched Neovim + more control over layout)
+            -- require("ufo").setup()
+            -- require("mappings").folding()
         end,
     }
 

@@ -1,7 +1,12 @@
 local cmd = vim.cmd
 
+
+local utils = require("utils")
+local gitsigns = require("gitsigns")
+
+local opt = {}   -- default keymap opts
+
 local M = {}
-local opt = {}
 
 -- Keybindings, hoisted from the options and plugins configuration. Expose and
 -- modify keybindings here.  Make sure you don't use same keys twice.
@@ -149,14 +154,16 @@ M.misc = function()
     map(
         "n",
         miscMap.toggle_colorcolumn,
-        ":silent! if &colorcolumn==81 | let &colorcolumn = 121 | elseif &colorcolumn==121 | let &colorcolumn='' | else | let &colorcolumn=81 | endif<CR>",
+        ":silent! if &colorcolumn==81 | let &colorcolumn = 121 | elseif &colorcolumn==121 | let &colorcolumn='' | else | let &colorcolumn=81 | endif<CR>"
+        ,
         opt
     )
     map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
     map(
         "n",
         miscMap.cycle_conceal,
-        ":silent! if &conceallevel==0 | let &conceallevel= 1 | elseif &conceallevel==1 | let &conceallevel=2 | else | let &conceallevel=0 | endif<CR>",
+        ":silent! if &conceallevel==0 | let &conceallevel= 1 | elseif &conceallevel==1 | let &conceallevel=2 | else | let &conceallevel=0 | endif<CR>"
+        ,
         opt
     )
 
@@ -314,10 +321,10 @@ M.cmp = function()
     vim.keymap.set({ "n", "i" }, "<F4>", function()
         cmp_autopopup_enabled = not cmp_autopopup_enabled
         if cmp_autopopup_enabled then
-            require("utils").EnableAutoCmp()
+            utils.EnableAutoCmp()
             vim.notify("Completion autopopups enabled", "info", { title = "Completion" })
         else
-            require("utils").DisableAutoCmp()
+            utils.DisableAutoCmp()
             vim.notify("Completion autopopups disabled", "warn", { title = "Completion" })
         end
     end, opts)
@@ -329,10 +336,10 @@ M.folding = function()
     vim.keymap.set({ "n", "i" }, "<F7>", function()
         code_folding_enabled = not code_folding_enabled
         if code_folding_enabled then
-            require("utils").EnableFolding()
+            utils.EnableFolding()
             vim.notify("Code folding enabled", "info", { title = "Folding" })
         else
-            require("utils").DisableFolding()
+            utils.DisableFolding()
             vim.notify("Code folding disabled", "warn", { title = "Folding" })
         end
     end, opts)
@@ -344,10 +351,10 @@ M.gitsigns = function()
     vim.keymap.set({ "n", "i" }, "<F8>", function()
         gitsigns_enabled = not gitsigns_enabled
         if gitsigns_enabled then
-            require("gitsigns").attach()
+            gitsigns.attach()
             vim.notify("Git signs enabled", "info", { title = "Git" })
         else
-            require("gitsigns").detach()
+            gitsigns.detach()
             vim.notify("Git signs disabled", "warn", { title = "Git" })
         end
     end, opts)
@@ -387,7 +394,8 @@ M.telescope = function()
     -- Pick snippet to preview and insert
 
     -- stylua: ignore
-    map("n", m.select_snippet, ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>", opt)
+    map("n", m.select_snippet,
+        ":silent! Telescope luasnip theme=get_dropdown layout_config={'height':0.5,'width':120}<CR>", opt)
 
     -- LSP
     map("n", m.lsp_diagnostics, ":Telescope diagnostics<CR>", opt)
