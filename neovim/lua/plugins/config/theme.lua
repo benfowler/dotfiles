@@ -6,6 +6,7 @@ function my_highlights_all()
     u.Hi("Normal", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("SignColumn", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("FoldColumn", { guibg = "NONE", ctermbg = "NONE" })
+    u.Hi("CursorLineFold", { guibg = "NONE", ctermbg = "NONE" })
     u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE" })
 
     -- Terminal supports undercurl and coloured underlines?
@@ -247,6 +248,10 @@ function my_highlights_nord()
     -- Luasnip
     u.Hi("LuasnipChoiceNodeVirtualText", { guifg = nord.nord12 })
     u.Hi("LuasnipInsertNodeVirtualText", { guifg = nord.nord8 })
+
+    -- Fold indicators
+    u.Hi("FoldColumn", { guifg = nord.nord3_bright })
+    u.Hi("CursorLineFold", { guifg = nord.nord4_dim })
 
     -- Git gutter signs
     u.Hi("GitSignsAdd", { gui = "bold", guifg = diff_add })
