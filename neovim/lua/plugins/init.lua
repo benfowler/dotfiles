@@ -232,6 +232,7 @@ return packer.startup(function(use)
     use {
         "L3MON4D3/LuaSnip",
         event = "BufRead",
+        module = { "luasnip", "LuaSnip" },   -- _both_ are required; no idea why
         requires = "rafamadriz/friendly-snippets",
         config = function()
             require "plugins.config.luasnip"
