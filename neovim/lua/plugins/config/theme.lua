@@ -170,8 +170,8 @@ function my_highlights_nord()
 
     -- Inactive statusbars: make a thin rule; align VertSplit to match.
     u.HiClear "StatusLineNC"
-    u.Hi("StatusLineNC", { gui = "underline", guifg = nord.nord3_bright })
-    u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE", guifg = nord.nord3_bright })
+    u.Hi("StatusLineNC", { gui = "underline", guifg = nord.nord3 })
+    u.Hi("VertSplit", { guibg = "NONE", ctermbg = "NONE", guifg = nord.nord3 })
 
     -- Line numbers: tweaks to show current line
     u.HiClear "CursorLineNr"
@@ -254,8 +254,10 @@ function my_highlights_nord()
     u.Hi("CursorLineFold", { guifg = nord.nord4_dim })
 
     -- Git gutter signs
-    u.Hi("GitSignsAdd", { gui = "bold", guifg = diff_add })
-    u.Hi("GitSignsChange", { guifg = diff_change })
+    local diff_add_dim_20 = "#829870"
+    local diff_change_dim_10 = "#d3b67d"
+    u.Hi("GitSignsAdd", { gui = "bold", guifg = diff_add_dim_20 })
+    u.Hi("GitSignsChange", { guifg = diff_change_dim_10 })
     u.Hi("GitSignsDelete", { gui = "bold", guifg = diff_delete })
     u.Hi("GitSignsChangeDelete", { gui = "bold", guifg = nord.nord11 })
 
