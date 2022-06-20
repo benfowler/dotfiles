@@ -79,4 +79,28 @@ M.DisableAutoCmp = function()
     end
 end
 
+-- Enable folding (and associated plugin)
+M.EnableFolding = function()
+    local has_ufo, ufo = pcall(require, "ufo")
+
+    if has_ufo then
+        ufo.enable()
+    end
+
+    vim.opt.foldcolumn = "1"
+    vim.opt.foldenable = true
+end
+
+-- Disable folding (and associated plugin)
+M.DisableFolding = function()
+    local has_ufo, ufo = pcall(require, "ufo")
+
+    vim.opt.foldcolumn = "0"
+    vim.opt.foldenable = false
+
+    if has_ufo then
+        ufo.disable()
+    end
+end
+
 return M

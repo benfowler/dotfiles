@@ -323,6 +323,20 @@ M.cmp = function()
     end, opts)
 end
 
+M.folding = function()
+    local opts = { noremap = true, silent = true }
+    local code_folding_enabled = true
+    vim.keymap.set({ "n", "i" }, "<F7>", function()
+        code_folding_enabled = not code_folding_enabled
+        if code_folding_enabled then
+            require("utils").EnableFolding()
+            vim.notify("Code folding enabled", "info", { title = "Folding" })
+        else
+            require("utils").DisableFolding()
+            vim.notify("Code folding disabled", "warn", { title = "Folding" })
+        end
+    end, opts)
+end
 
 M.gitsigns = function()
     local opts = { noremap = true, silent = true }
