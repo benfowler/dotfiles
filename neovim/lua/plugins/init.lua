@@ -10,6 +10,7 @@ vim.cmd [[packadd packer.nvim]]
 local packer_loaded, packer = pcall(require, "packer")
 
 if not packer_loaded then
+    vim.notify("packer.nvim could not be loaded.  Plugins not available.", "error", { title = "Packer" })
     return
 end
 
