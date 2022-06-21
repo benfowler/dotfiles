@@ -254,8 +254,8 @@ function my_highlights_nord()
     u.Hi("CursorLineFold", { guifg = nord.nord4_dim })
 
     -- Git gutter signs
-    local diff_add_dim_20 = "#829870"
-    local diff_change_dim_10 = "#d3b67d"
+    local diff_add_dim_20 = nord.nord14
+    local diff_change_dim_10 = nord.nord13
     u.Hi("GitSignsAdd", { gui = "bold", guifg = diff_add_dim_20 })
     u.Hi("GitSignsChange", { guifg = diff_change_dim_10 })
     u.Hi("GitSignsDelete", { gui = "bold", guifg = diff_delete })
