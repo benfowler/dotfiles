@@ -78,13 +78,15 @@ opt.splitbelow = true
 opt.splitright = true
 
 -- Folding
-opt.foldenable = true
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-opt.foldcolumn = '0'
-opt.foldlevel = 99
+
+opt.numberwidth = 1                           -- required for GitSigns to render in correct pos wrt folds, signs and numbers
+opt.foldenable = true                         --   "
+opt.foldcolumn = '0'                          --   "
+opt.foldlevel = 99                            --   "
 
 
---opt.whichwrap:append("<>hl")                  -- Traverse through EOLs
+--opt.whichwrap:append("<>hl")                -- Traverse through EOLs
 
 -- Completions - basic settings
 opt.completeopt = "menu"                      -- Onmicomplete to not create annoying split when activated
