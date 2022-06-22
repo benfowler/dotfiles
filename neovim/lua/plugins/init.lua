@@ -79,7 +79,12 @@ return packer.startup(function(use)
 
     use {
         "tpope/vim-unimpaired",
-        even = "BufRead",
+        event = "BufRead",
+    }
+
+    use {
+        "tpope/vim-repeat",
+        event = "BufRead",
     }
 
     use {
