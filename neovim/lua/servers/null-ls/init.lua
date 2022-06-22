@@ -58,6 +58,7 @@ M.configure = function(on_attach, capabilities, debounce_msec)
 
             -- Additional LSP code action contributions
             null_ls.builtins.code_actions.eslint,
+            null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.code_actions.shellcheck,
         },
 
