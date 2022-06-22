@@ -23,5 +23,10 @@ luasnip.config.set_config {
     },
 }
 
+-- LuaSnip-native snippets (mine)
+require("plugins.config.luasnip.markdown")
+
+-- friendly-snippets (LSP-format) snippets
 require("luasnip/loaders/from_vscode").load()
 require("luasnip/loaders/from_vscode").load { paths = { "./vscode-snippets" } }
+
