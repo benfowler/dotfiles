@@ -22,26 +22,51 @@ M.configure = function()
     end
 
     gitsigns.setup {
+        -- Attach handler is required to configure at buffer-level
+        on_attach = function(bufnr)
+            local gs = package.loaded.gitsigns
+
+            local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+            end
+
+            -- Navigation
+            map('n', mappings.next_hunk, function()
+                if vim.wo.diff then return ']c' end
+                vim.schedule(function() gs.next_hunk() end)
+                return '<Ignore>'
+            end, { expr = true })
+
+            map('n', mappings.prev_hunk, function()
+                if vim.wo.diff then return '[c' end
+                vim.schedule(function() gs.prev_hunk() end)
+                return '<Ignore>'
+            end, { expr = true })
+
+            -- Actions
+            map({ 'n', 'v' }, mappings.stage_hunk, ':Gitsigns stage_hunk<CR>')
+            map({ 'n', 'v' }, mappings.reset_hunk, ':Gitsigns reset_hunk<CR>')
+            map('n', mappings.preview_hunk, gs.preview_hunk)
+            map('n', mappings.blame_line, function() gs.blame_line { full = true } end)
+            map('n', mappings.diffthis, gs.diffthis)
+            map('n', mappings.undo_stage_hunk, gs.undo_stage_hunk)
+            map('n', mappings.stage_buffer, gs.stage_buffer)
+            map('n', mappings.reset_buffer, gs.reset_buffer)
+            map('n', mappings.toggle_current_line_blame, gs.toggle_current_line_blame)
+            map('n', mappings.diffthis2, function() gs.diffthis('~') end)
+            map('n', mappings.toggle_deleted, gs.toggle_deleted)
+
+            -- Text object
+            map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        end,
         signs = {
             add = { text = git_add_change_sign, numhl = "GitSignsAddNr" },
             change = { text = git_add_change_sign, numhl = "GitSignsChangeNr" },
             delete = { text = "_", numhl = "GitSignsDeleteNr" },
             topdelete = { text = "‾", numhl = "GitSignsDeleteNr" },
             changedelete = { text = "~", numhl = "GitSignsChangeNr" },
-        },
-        keymaps = {
-            -- Default keymap options
-            noremap = true,
-            buffer = true,
-            ["n " .. mappings.next_hunk] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'", },
-            ["n " .. mappings.prev_hunk] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'", },
-            ["n " .. mappings.stage_hunk] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-            ["n " .. mappings.undo_stage_hunk] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-            ["n " .. mappings.reset_hunk] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-            ["n " .. mappings.preview_hunk] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-            ["n " .. mappings.blame_line] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-            ["n " .. mappings.quickfix] = '<cmd>lua require"gitsigns".setqflist()<CR>',
-            ["n " .. mappings.diffthis] = '<cmd>lua require"gitsigns".diffthis()<CR>',
         },
         watch_gitdir = { interval = 2000, follow_files = true },
         sign_priority = 6,

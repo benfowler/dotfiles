@@ -112,6 +112,12 @@ M.user_map = {
         blame_line = "<leader>hb",
         quickfix = "<leader>hq",
         diffthis = "<leader>hd",
+
+        stage_buffer = '<leader>hS',
+        reset_buffer = '<leader>hR',
+        toggle_current_line_blame = '<leader>tb',
+        diffthis2 = '<leader>hD',
+        toggle_deleted = '<leader>td',
     },
 
     vim_tmux_navigator = {
