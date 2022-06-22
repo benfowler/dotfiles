@@ -115,7 +115,7 @@ M.user_map = {
 
         stage_buffer = '<leader>hS',
         reset_buffer = '<leader>hR',
-        toggle_current_line_blame = '<leader>tb',
+        toggle_current_line_blame = '<leader>hB',
         diffthis2 = '<leader>hD',
         toggle_deleted = '<leader>td',
     },
