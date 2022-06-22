@@ -351,7 +351,7 @@ return packer.startup(function(use)
         "lewis6991/gitsigns.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function()
-            require "plugins.config.gitsigns"
+            require("plugins.config.gitsigns").configure()
             require("mappings").gitsigns()
         end,
     }
