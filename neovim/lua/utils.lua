@@ -2,6 +2,7 @@
 
 local M = {}
 
+
 -- Globals - usable from command mode
 
 -- put(): shorthand for print(vim.inspect(...))
@@ -79,16 +80,27 @@ M.DisableAutoCmp = function()
     end
 end
 
+-- GitSigns needs redrawing?
+local flush_gitsigns = function()
+    local has_gitsigns, _ = pcall(require, "gitsigns")
+    local has_gitsigns_config, gitsigns_config = pcall(require, "plugins.config.gitsigns")
+
+    if has_gitsigns and has_gitsigns_config then
+        gitsigns_config.configure()
+    end
+end
+
 -- Enable folding (and associated plugin)
 M.EnableFolding = function()
     local has_ufo, ufo = pcall(require, "ufo")
 
-    if has_ufo then
-        ufo.enable()
-    end
-
     vim.opt.foldcolumn = "1"
     vim.opt.foldenable = true
+
+    if has_ufo then
+        ufo.enable()
+        flush_gitsigns()
+    end
 end
 
 -- Temporary command for testing of new folding
@@ -103,6 +115,7 @@ M.DisableFolding = function()
 
     if has_ufo then
         ufo.disable()
+        flush_gitsigns()
     end
 end
 
