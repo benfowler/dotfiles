@@ -44,7 +44,7 @@ ls.add_snippets("markdown", {
     -- Snippets to surround a selection
     --
 
-    s({ trig = "bb", name = "Make selection bold", dscr = "Make selection bold" }, {
+    s({ trig = "bb", name = "Convert selection to bold", dscr = "Make selection bold" }, {
         t('**'),
         f(function(_, snip)
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
@@ -53,7 +53,7 @@ ls.add_snippets("markdown", {
         t('**')
     }),
 
-    s({ trig = "ii", name = "Make selection italic", dscr = "Make selecton italic" }, {
+    s({ trig = "ii", name = "Convert selection to italic", dscr = "Make selecton italic" }, {
         t('_'),
         f(function(_, snip)
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
@@ -62,7 +62,7 @@ ls.add_snippets("markdown", {
         t('_')
     }),
 
-    s({ trig = "ll", name = "Make selection hyperlink", dscr = "Add links" }, {
+    s({ trig = "ll", name = "Convert selection to hyperlink", dscr = "Add links" }, {
         t('['),
         f(function(_, snip)
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
@@ -71,6 +71,23 @@ ls.add_snippets("markdown", {
         t(']('),
         i(1, { "url goes here" }),
         t(')')
+    }),
+
+    -- Convert selection into Refinitiv JIRA link
+    s({ trig = "jj", name = "Convert selection to JIRA issue hyperlink", dscr = "Make selected JIRA ticket a hyperlink to issue" }, {
+        t('['),
+        f(function(_, snip)
+            -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
+            return snip.env.TM_SELECTED_TEXT[1] or {}
+        end, {}),
+        t('](https://jira.refinitiv.com/browse/'),
+        f(function(_, snip)
+            -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
+            return snip.env.TM_SELECTED_TEXT[1] or {}
+        end, {}),
+        t('): "'),
+        i(1, { "title" }),
+        t('"')
     })
 })
 
