@@ -3,10 +3,13 @@ if not present then
     return
 end
 
+local postfix = require("luasnip.extras.postfix")
+
 local i = ls.insert_node
 local s = ls.snippet
 local t = ls.text_node
 local f = ls.function_node
+local pf = postfix.postfix
 
 
 ls.add_snippets("markdown", {
@@ -88,6 +91,19 @@ ls.add_snippets("markdown", {
         t('): "'),
         i(1, { "title" }),
         t('"')
-    })
+    }),
+
+    -- POSTFIX: convert selection into Refinitiv JIRA link
+    pf({ trig = ".j", match_pattern = "W%a%w%-%d+", name = "Convert JIRA issue ID to link", dscr = "Make JIRA ID a link" }, {
+        t("["),
+        f(function(_, parent)
+            return parent.snippet.env.POSTFIX_MATCH or {}
+        end, {}),
+        t("](https://jira.refinitiv.com/browse/"),
+        f(function(_, parent)
+            return parent.env.POSTFIX_MATCH
+        end, {}),
+        t(')'),
+    }, {}),
 })
 
