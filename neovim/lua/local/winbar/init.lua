@@ -50,7 +50,8 @@ local exclude_filetype = {
 
 local excludes = function()
     local ftype = vim.bo.filetype
-    if ftype == nil or ftype == "" or vim.tbl_contains(exclude_filetype, ftype) then
+    local btype = vim.bo.buftype
+    if btype == "terminal" or btype == "nofile" or ftype == nil or ftype == "" or vim.tbl_contains(exclude_filetype, ftype) then
         vim.opt_local.winbar = nil
         return true
     end
