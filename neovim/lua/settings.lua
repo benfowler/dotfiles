@@ -210,19 +210,5 @@ vim.cmd [[
 
     autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested call HideStatusbarOnOpen()
 
-    "
-    " NeoVim's terminal defaults are bad; fix them
-    "
-
-    " Don't show any numbers inside terminals
-    autocmd TermOpen term://* setlocal nonumber norelativenumber
-    autocmd TermOpen term://* setfiletype terminal
-
-    " Open new terminals in insert mode
-    autocmd TermOpen term://* startinsert
-
-    " If terminal is running default shell, I don't care about the exit status
-    autocmd TermClose $SHELL :bd
-
     augroup END
 ]]
