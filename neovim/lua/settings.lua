@@ -210,5 +210,7 @@ vim.cmd [[
 
     autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested call HideStatusbarOnOpen()
 
+    autocmd TermOpen * startinsert
+
     augroup END
 ]]
