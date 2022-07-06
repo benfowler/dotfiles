@@ -51,11 +51,6 @@ return packer.startup(function(use)
         end,
     }
 
-    -- Editing features
-    use {
-        "qpkorr/vim-bufkill", -- 'BD' to kill a buffer without closing a split
-    }
-
     use {
         "junegunn/vim-easy-align",
         cmd = { "EasyAlign", "EasyAlign!", "LiveEasyAlign" },
