@@ -2,16 +2,16 @@
 require("hop").setup {}
 
 -- normal mode (easymotion-like)
-vim.api.nvim_set_keymap("n", "<Leader><Leader>b", "<cmd>HopWordBC<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader><Leader>w", "<cmd>HopWordAC<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader><Leader>j", "<cmd>HopLineAC<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader><Leader>k", "<cmd>HopLineBC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>b", "<cmd>HopWordBC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>w", "<cmd>HopWordAC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>j", "<cmd>HopLineAC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>k", "<cmd>HopLineBC<CR>", { noremap = true })
 
 -- visual mode (easymotion-like)
-vim.api.nvim_set_keymap("v", "<Leader><Leader>w", "<cmd>HopWordAC<CR>", { noremap = true })
-vim.api.nvim_set_keymap("v", "<Leader><Leader>b", "<cmd>HopWordBC<CR>", { noremap = true })
-vim.api.nvim_set_keymap("v", "<Leader><Leader>j", "<cmd>HopLineAC<CR>", { noremap = true })
-vim.api.nvim_set_keymap("v", "<Leader><Leader>k", "<cmd>HopLineBC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("v", "<Leader>w", "<cmd>HopWordAC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("v", "<Leader>b", "<cmd>HopWordBC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("v", "<Leader>j", "<cmd>HopLineAC<CR>", { noremap = true })
+vim.api.nvim_set_keymap("v", "<Leader>k", "<cmd>HopLineBC<CR>", { noremap = true })
 
 -- normal mode (sneak-like)
 vim.api.nvim_set_keymap("n", "s", "<cmd>HopChar2AC<CR>", { noremap = false })

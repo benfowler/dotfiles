@@ -15,9 +15,7 @@ M.user_map = {
         mapleader = " ",
         toggle_listchars = "<leader>,",
         toggle_spellcheck = "<F6>",
-        toggle_number = "<leader>n",
         toggle_colorcolumn = "<leader>c",
-        toggle_wrap = "<leader>W",
         cycle_conceal = "<leader>C",
         new_split = "<leader>-",
         new_vsplit = "<leader><bar>",
@@ -25,7 +23,6 @@ M.user_map = {
         new_terminal_here = "<leader>Th",
         new_terminal_split = "<leader>Tx",
         new_terminal_vsplit = "<leader>Tv",
-        write_file = "<leader>w",
     },
 
     zenmode = {
@@ -55,11 +52,11 @@ M.user_map = {
         highlights = "<leader>ti",
 
         -- LSP
-        lsp_diagnostics = "<leader>dd",
-        lsp_diagnostics_doc = "<leader>DD",
+        lsp_diagnostics = "<leader>lwd",
+        lsp_diagnostics_doc = "<leader>ldd",
 
-        lsp_symbols = "<leader>LL",
-        lsp_symbols_doc = "<leader>ll",
+        lsp_symbols = "<leader>lws",
+        lsp_symbols_doc = "<leader>lds",
 
         lsp_definitions = "<leader>ld",
         lsp_implementations = "<leader>li",
@@ -83,15 +80,14 @@ M.user_map = {
     },
 
     trouble = {
-        trouble = "<leader>j",
+        trouble = "<leader>d",
     },
 
     fzf = {
-        buffers = ";",
-        windows = "<leader>;",
+        buffers = "<leader><leader>",
         fzf_files = "<C-p>", -- quick file access
-        fzf_history = "<M-p>", -- quick file access (history)
-        fzf_gfiles = "<M-g>", -- quick file access (Git)
+        fzf_gfiles = "<M-p>", -- quick file access (Git)
+        fzf_history = "<M-o>", -- quick file access (history)
         ripgrep = "<Leader>r", -- search everywhere (but fast)
     },
 
@@ -153,8 +149,6 @@ vim.g.mapleader = miscMap.mapleader
 
 -- (These mappings will be called during initialization)
 M.misc = function()
-    -- Fast write-file shortcut
-    map("n", miscMap.write_file, ":update<CR>", opt)
 
     -- Setting toggles
     map(
@@ -164,7 +158,6 @@ M.misc = function()
         ,
         opt
     )
-    map("n", miscMap.toggle_wrap, ":set invwrap <CR>", opt)
     map(
         "n",
         miscMap.cycle_conceal,
@@ -439,7 +432,6 @@ M.fzf = function()
     map("n", m.fzf_gfiles, ":silent! GFiles<CR>", opt)
     map("n", m.fzf_history, ":silent! History<CR>", opt)
     map("n", m.buffers, ":silent! Buffers<CR>", opt)
-    map("n", m.windows, ":silent! Windows<CR>", opt)
     map("n", m.ripgrep, ":silent! Rg<CR>", opt)
 end
 
