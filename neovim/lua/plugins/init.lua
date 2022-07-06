@@ -205,6 +205,14 @@ return packer.startup(function(use)
         end,
     }
 
+    use {
+        "folke/lua-dev.nvim",
+        ft = "lua",
+        config = function ()
+            require "plugins.config.luadev"
+        end,
+    }
+
     -- Plugins for editing prose
     use {
         "plasticboy/vim-markdown",
