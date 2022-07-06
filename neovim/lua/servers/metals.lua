@@ -1,9 +1,9 @@
 local M = {}
 
---  See issue #17 on j-hui/figet.nvim
+--  See issue #17 on j-hui/fidget.nvim
 --  https://github.com/j-hui/fidget.nvim/issues/17
 
-local function metals_status_handler(arg1, status, ctx)
+local function metals_status_handler(_, status, ctx)
     -- https://github.com/scalameta/nvim-metals/blob/main/lua/metals/status.lua#L36-L50
     local val = {}
     if status.hide then
