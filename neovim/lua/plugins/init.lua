@@ -89,6 +89,11 @@ return packer.startup(function(use)
         end,
     }
 
+    use {
+        "famiu/bufdelete.nvim",
+        event = "BufRead",
+    }
+
     -- Theme
     use {
         "arcticicestudio/nord-vim",
