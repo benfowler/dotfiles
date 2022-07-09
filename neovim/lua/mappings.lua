@@ -23,6 +23,8 @@ M.user_map = {
         new_terminal_here = "<leader>Th",
         new_terminal_split = "<leader>Tx",
         new_terminal_vsplit = "<leader>Tv",
+        write_file = "<M-s>",
+        write_file_2 = "<leader>W",
     },
 
     zenmode = {
@@ -84,7 +86,7 @@ M.user_map = {
     },
 
     fzf = {
-        buffers = "<leader><leader>",
+        buffers = "<leader>;",
         fzf_files = "<C-p>", -- quick file access
         fzf_gfiles = "<M-p>", -- quick file access (Git)
         fzf_history = "<M-o>", -- quick file access (history)
@@ -149,6 +151,11 @@ vim.g.mapleader = miscMap.mapleader
 
 -- (These mappings will be called during initialization)
 M.misc = function()
+    -- Fast write-file shortcut
+    map("n", miscMap.write_file, ":write<CR>", opt)
+    map("i", miscMap.write_file, "<C-o>:write<CR>", opt)
+
+    map("n", miscMap.write_file_2, ":write<CR>", opt)  -- like the old way
 
     -- Setting toggles
     map(
@@ -248,9 +255,9 @@ M.lsp = function(bufnr, _)
     map_buf(bufnr, "n", "]d", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
     map_buf(bufnr, "n", "<f14>", '<Cmd>lua vim.diagnostic.goto_prev({float={border="rounded"}})<CR>', opts)
     map_buf(bufnr, "n", "<f2>", '<Cmd>lua vim.diagnostic.goto_next({float={border="rounded"}})<CR>', opts)
-    map_buf(bufnr, "n", "<Leader>Wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-    map_buf(bufnr, "n", "<Leader>Wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    map_buf(bufnr, "n", "<Leader>Wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>lWa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>lWr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+    map_buf(bufnr, "n", "<Leader>lWl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
     map_buf(bufnr, "v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
