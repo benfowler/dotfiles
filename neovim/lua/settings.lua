@@ -193,6 +193,8 @@ vim.cmd [[
 
     " I have a habit of accidentally typing :W instead of :w, and getting :Windows (fzf)
     cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+    cabb w1 update
+    cabb W1 update
 
     " Tweak filetypes of certain kinds of files
     autocmd BufRead * if getbufline(bufnr('%'), 1, 2) == ['---', 'AWSTemplateFormatVersion: ''2010-09-09'''] | setlocal ft=cloudformation | endif
