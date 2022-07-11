@@ -283,6 +283,15 @@ return packer.startup(function(use)
         end,
     }
 
+    -- Stop windows jumping around during splits
+    -- NOTE: to be superceded by neovim/neovim#19243
+    use {
+        "luukvbaal/stabilize.nvim",
+        config = function()
+            require('stabilize').setup()
+        end,
+    }
+
     -- File managmeent
     use {
         "kyazdani42/nvim-tree.lua",
