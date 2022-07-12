@@ -16,7 +16,7 @@
 --   https://github.com/neovim/nvim-lspconfig/blob/master/README.md#debugging
 --
 
-vim.lsp.set_log_level "debug"
+--vim.lsp.set_log_level "debug"
 
 local has_lspconfig, lspconfig = pcall(require, "lspconfig")
 local has_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
