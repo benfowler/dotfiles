@@ -68,8 +68,10 @@ return packer.startup(function(use)
     }
 
     use {
-        "tpope/vim-surround",
-        event = "InsertEnter",
+        "kylechui/nvim-surround",
+        config = function()
+            require("nvim-surround").setup {}
+        end,
     }
 
     use {
@@ -182,7 +184,7 @@ return packer.startup(function(use)
     use {
         "folke/trouble.nvim",
         cmd = { "Trouble", "TroubleToggle" },
-        module = 'trouble',
+        module = "trouble",
         requires = "kyazdani42/nvim-web-devicons",
         config = function()
             require "plugins.config.trouble"
@@ -238,7 +240,7 @@ return packer.startup(function(use)
     use {
         "L3MON4D3/LuaSnip",
         event = "BufRead",
-        module = { "luasnip", "LuaSnip" },   -- _both_ are required; no idea why
+        module = { "luasnip", "LuaSnip" }, -- _both_ are required; no idea why
         requires = "rafamadriz/friendly-snippets",
         config = function()
             require "plugins.config.luasnip"
@@ -288,7 +290,7 @@ return packer.startup(function(use)
     use {
         "luukvbaal/stabilize.nvim",
         config = function()
-            require('stabilize').setup()
+            require("stabilize").setup()
         end,
     }
 
