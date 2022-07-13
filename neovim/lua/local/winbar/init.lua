@@ -48,10 +48,20 @@ local exclude_filetype = {
     "qf",
 }
 
+local exclude_buftype = {
+    "terminal",
+    "nofile",
+}
+
 local excludes = function()
     local ftype = vim.bo.filetype
     local btype = vim.bo.buftype
-    if btype == "terminal" or btype == "nofile" or ftype == nil or ftype == "" or vim.tbl_contains(exclude_filetype, ftype) then
+    if
+        vim.tbl_contains(exclude_buftype, btype)
+        or ftype == nil
+        or ftype == ""
+        or vim.tbl_contains(exclude_filetype, ftype)
+    then
         vim.opt_local.winbar = nil
         return true
     end
@@ -73,23 +83,20 @@ M.show_winbar = function()
 end
 
 function M.setup()
-    vim.api.nvim_create_autocmd(
-        {
-            "DirChanged",
-            "BufWinEnter",
-            "BufFilePost",
-            "InsertEnter",
-            "BufWritePost",
-            "CursorHold",
-            "CursorHoldI",
-            "DiagnosticChanged",
-        },
-        {
-            callback = function()
-                M.show_winbar()
-            end,
-        }
-    )
+    vim.api.nvim_create_autocmd({
+        "DirChanged",
+        "BufWinEnter",
+        "BufFilePost",
+        "InsertEnter",
+        "BufWritePost",
+        "CursorHold",
+        "CursorHoldI",
+        "DiagnosticChanged",
+    }, {
+        callback = function()
+            M.show_winbar()
+        end,
+    })
 end
 
 M.setup()
