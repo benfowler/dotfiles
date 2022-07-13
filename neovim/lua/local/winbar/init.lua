@@ -89,8 +89,6 @@ function M.setup()
         "BufFilePost",
         "InsertEnter",
         "BufWritePost",
-        "CursorHold",
-        "CursorHoldI",
         "DiagnosticChanged",
     }, {
         callback = function()
