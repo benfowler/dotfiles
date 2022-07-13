@@ -45,16 +45,19 @@ cmp.setup {
         end,
     },
     window = {
-        documentation = cmp.config.window.bordered { winhighlight = "CursorLine:PmenuSel" },
+        documentation = {
+            border = { "", "", "", " ", "", "", "", " " },
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+        },
     },
     view = {
         entries = { name = "custom" },
     },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
+        -- NOTE: to be truly IntelliJ-like, C-J must trigger the docs_view
+        -- ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
         ["<C-N>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
-        ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i" }),
         ["<C-P>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i" }),
         ["<C-D>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
         ["<C-F>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
@@ -66,6 +69,7 @@ cmp.setup {
                 fallback()
             end
         end, { "i", "s" }),
+        -- NOTE: to be truly IntelliJ-like, Esc should just dismiss the docs_view if visible... and only then, dismiss the autocompletion popup
         ["<Esc>"] = cmp.mapping {
             i = cmp.mapping.abort(),
         },
@@ -88,6 +92,20 @@ cmp.setup {
                 fallback()
             end
         end, { "i", "s" }),
+        -- NOTE: to be truly IntelliJ-like, <Enter> should do the same as <Tab>
+        -- ["<Enter>"] = cmp.mapping(function(fallback)
+        --     -- Try to emulate IntelliJ's completion popup behaviour
+        --     if cmp.visible() then
+        --         local entry = cmp.get_selected_entry()
+        --         if not entry then
+        --             cmp.select_next_item()
+        --         else
+        --             cmp.confirm()
+        --         end
+        --     else
+        --         fallback()
+        --     end
+        -- end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
@@ -98,6 +116,15 @@ cmp.setup {
             end
         end, { "i", "s" }),
     },
+    enabled = function()
+        -- Disable completion in Treesitter comments
+        local context = require "cmp.config.context"
+        if vim.api.nvim_get_mode().mode == "c" then -- keep command mode completion enabled when cursor is in a comment
+            return true
+        else
+            return not context.in_treesitter_capture "comment" and not context.in_syntax_group "Comment"
+        end
+    end,
     sources = {
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
