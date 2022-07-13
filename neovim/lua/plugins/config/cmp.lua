@@ -48,7 +48,7 @@ cmp.setup {
         documentation = cmp.config.window.bordered { winhighlight = "CursorLine:PmenuSel" },
     },
     view = {
-        entries = { name = "custom", selection_order = "near_cursor" },
+        entries = { name = "custom" },
     },
     mapping = {
         ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
