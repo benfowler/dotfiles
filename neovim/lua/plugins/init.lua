@@ -122,6 +122,8 @@ return packer.startup(function(use)
         end,
     }
 
+    use "nvim-treesitter/nvim-treesitter-textobjects"
+
     use {
         "kosayoda/nvim-lightbulb",
         event = "BufRead",
@@ -179,19 +181,6 @@ return packer.startup(function(use)
     use {
         "b0o/schemastore.nvim",
         module = "schemastore",
-    }
-
-    use {
-        "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleToggle" },
-        module = "trouble",
-        requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require "plugins.config.trouble"
-        end,
-        setup = function()
-            require("mappings").trouble()
-        end,
     }
 
     use {
