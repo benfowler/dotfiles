@@ -80,8 +80,7 @@ M.configure = function()
             noautocmd = true,
             row = 0,
             col = 1
-        },
-        trouble = true,
+        }
     }
 
     -- Force refresh of signcolumn, if foldcolumn has changed since last time configure() executed
