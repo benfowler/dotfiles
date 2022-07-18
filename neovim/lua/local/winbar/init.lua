@@ -84,12 +84,14 @@ end
 
 function M.setup()
     vim.api.nvim_create_autocmd({
-        "DirChanged",
-        "BufWinEnter",
+        "BufAdd",
         "BufFilePost",
-        "InsertEnter",
+        "BufWinEnter",
         "BufWritePost",
         "DiagnosticChanged",
+        "DirChanged",
+        "InsertEnter",
+        "WinEnter",
     }, {
         callback = function()
             M.show_winbar()
