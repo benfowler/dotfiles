@@ -10,7 +10,7 @@ dressing.setup {
         winhighlight = "FloatBorder:DressingFloatBorder",
     },
     select = {
-        backend = { "builtin" },
+        backend = { "telescope" },
         builtin = {
             relative = "cursor",
             winblend = 0,
