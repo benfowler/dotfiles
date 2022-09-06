@@ -160,6 +160,9 @@ for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
 
+-- Treesitter: built-in parser configuration
+g.ts_highlight_lua = true
+
 -- c-l in INSERT mode, attempts to fix the last spelling error
 vim.cmd [[ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u ]]
 
