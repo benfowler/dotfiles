@@ -34,6 +34,7 @@ M.colors = {
     inactive = "%#StatuslineNC#",
     mode = "%#Mode#",
     mode_alt = "%#ModeAlt#",
+    search_info = "%#SearchInfo#",
     git = "%#Git#",
     git_alt = "%#GitAlt#",
     git_add = "%#StatusLineAdd#",
@@ -80,6 +81,7 @@ M.lsp_show_status_messages = false
 api.nvim_exec([[
    " hi! link StatusLine Mode
    " hi! link StatusLine ModeAlt
+   " hi! link StatusLine SearchInfo
    " hi! link StatusLine Git
    " hi! link StatusLine GitAlt
    " hi! link StatusLine Filetype
@@ -225,6 +227,15 @@ M.get_line_info = function(self)
     end
 end
 
+M.get_search_info = function(_)
+    local search = vim.fn.searchcount({maxcount = 0}) -- maxcount = 0 makes the number not be capped at 99
+    local result = ""
+    if search.total > 0 then
+        result = " " .. search.current .. "/" .. search.total
+    end
+    return result
+end
+
 M.set_active = function(self)
     local colors = self.colors
 
@@ -238,6 +249,7 @@ M.set_active = function(self)
     local git_alt = colors.git_alt .. self.separators[active_sep][2]
     local filetype_alt = colors.filetype_alt .. self.separators[active_sep][2]
     local filetype = colors.filetype .. self:format_filetype(filetype_icon, filetype_label)
+    --local search_info = colors.search_info .. self:get_search_info()
     local line_info = colors.line_info .. self:get_line_info()
     local line_info_alt = colors.line_info_alt .. self.separators[active_sep][2]
 
