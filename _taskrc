@@ -1,0 +1,105 @@
+# [Created by task 2.6.2 9/12/2022 19:16:38]
+# Taskwarrior program configuration file.
+# For more documentation, see https://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# You can also refence environment variables:
+#   variable=$HOME/task
+#   variable=$VALUE
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=/Users/bfowler/.task
+
+# To use the default location of the XDG directories,
+# move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
+
+#data.location=~/.local/share/task
+#hooks.location=~/.config/task/hooks
+
+# Color theme (uncomment one to use)
+#include light-16.theme
+#include light-256.theme
+#include dark-16.theme
+#include dark-256.theme
+#include dark-red-256.theme
+#include dark-green-256.theme
+#include dark-blue-256.theme
+#include dark-violets-256.theme
+#include dark-yellow-green.theme
+#include dark-gray-256.theme
+#include dark-gray-blue-256.theme
+#include solarized-dark-256.theme
+#include solarized-light-256.theme
+#include no-color.theme
+
+
+# #####################################################################
+#  Taken from "THE EISENHOWER MATRIX IN TASKWARRIOR"
+#  https://blag.nullteilerfrei.de/2013/10/24/the-eisenhower-matrix-in-taskwarrior/
+
+report.inbox.description=INBOX report
+report.inbox.filter=(limit:page and status:pending and dep: and ((priority.not:H and priority.not:L) or (-unu and -urg)))
+report.inbox.columns=id,project,description,entry.age,due.relative,tags
+report.inbox.labels=ID,Proj,Description,Age,Due,Tags
+report.inbox.sort=urgency-,project+
+
+
+# task Q1
+#
+report.q1.description=Quadrant 1 ('DO'): important and urgent
+report.q1.filter=limit:page status:pending and prio:H and +urg
+report.q1.columns=start.active,id,project,urgency,description,entry.age,due.relative,size,tags
+report.q1.labels=A,ID,Proj,Urg,Description,Age,Due,Size,Tags
+report.q1.sort=urgency-,project+
+
+# task Q2
+report.q2.description=Quadrant 2 ('DECIDE'): important and unurgent
+report.q2.filter=limit:page status:pending and prio:H and +unu
+report.q2.columns=start.active,id,project,urgency,description,entry.age,due.relative,size,tags
+report.q2.labels=A,ID,Proj,Urg,Description,Age,Due,Size,Tags
+report.q2.sort=urgency-,project+
+
+# task Q3
+report.q3.description=Quadrant 3 ('DELEGATE'): unimportant and urgent
+report.q3.filter=limit:page status:pending and prio:L and +urg
+report.q3.columns=start.active,id,project,urgency,description,entry.age,due.relative,size,tags
+report.q3.labels=A,ID,Proj,Urg,Description,Age,Due,Size,Tags
+report.q3.sort=urgency-,project+
+
+# task Q4
+report.q4.description=Quadrant 4 ('DELETE'): unimportant and unurgent
+report.q4.filter=limit:page status:pending and prio:L and +unu
+report.q4.columns=start.active,id,project,urgency,description,entry.age,due.relative,size,tags
+report.q4.labels=A,ID,Proj,Urg,Description,Age,Due,Size,Tags
+report.q4.sort=urgency-,project+
+
+
+# #####################################################################
+#  Report: 'low hanging fruit'
+
+report.lhf.description=Low hanging fruit
+report.lhf.filter=limit:page status:pending and size:XS
+report.lhf.columns=start.active,id,project,urgency,description,entry.age,due.relative,tags
+report.lhf.labels=A,ID,Proj,Urg,Description,Age,Due,Tags
+report.lhf.sort=urgency-,project+
+
+context.work.read=+work
+context.work.write=+work
+context.home.read=-work
+context.study.read=+study
+context.study.write=+study
+news.version=2.6.0
+
+urgency.user.tag.unu.coefficient=-10.0
+
+uda.size.type=string
+uda.size.label=Size
+uda.size.values=XS,S,M,L,XL,XXL
+
