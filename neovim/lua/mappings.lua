@@ -86,7 +86,7 @@ M.user_map = {
     },
 
     fzf = {
-        buffers = "<leader>;",
+        buffers = ";",
         fzf_files = "<C-p>", -- quick file access
         fzf_gfiles = "<M-p>", -- quick file access (Git)
         fzf_history = "<M-o>", -- quick file access (history)
