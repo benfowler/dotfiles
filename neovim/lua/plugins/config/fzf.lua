@@ -11,7 +11,7 @@ g.fzf_preview_window = "" -- none by default
 g.fzf_prefer_tmux = 1
 
 -- FZF mode tweaks
-env.FZF_DEFAULT_OPTS = " --layout=reverse --border --margin=1,1"
+env.FZF_DEFAULT_OPTS = " --layout=reverse --border --margin=1,1 --no-separator"
 
 -- This is the default extra key bindings
 g.fzf_action = {

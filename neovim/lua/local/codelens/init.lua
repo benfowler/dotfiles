@@ -9,14 +9,14 @@ if vim.tbl_isempty(vim.fn.sign_getdefined(SIGN_NAME)) then
     vim.fn.sign_define(SIGN_NAME, { text = " ", texthl = "LspCodeLens", numhl = "LspCodeLens" })
 end
 
+local api = vim.api
+local namespaces = vim.lsp.codelens.__namespaces
+
 --- Display the lenses using virtual text
 ---
 ---@param lenses table of lenses to display (`CodeLens[] | null`)
 ---@param bufnr number
 ---@param client_id number
-local api = vim.api
-local namespaces = vim.lsp.codelens.__namespaces
-
 local function display_code_lens(lenses, bufnr, client_id)
     -- (bjf, 11/06/2022: my additions here)
     vim.fn.sign_unplace(SIGN_GROUP, { buffer = bufnr })

@@ -10,7 +10,7 @@ vim.cmd [[packadd packer.nvim]]
 local packer_loaded, packer = pcall(require, "packer")
 
 if not packer_loaded then
-    vim.notify("packer.nvim could not be loaded.  Plugins not available.", "error", { title = "Packer" })
+    vim.notify("packer.nvim could not be loaded.  Plugins not available.", vim.log.levels.WARN, { title = "Packer" })
     return
 end
 
@@ -190,9 +190,10 @@ return packer.startup(function(use)
 
     use {
         "folke/todo-comments.nvim",
+        event = "BufRead",
         requires = "nvim-lua/plenary.nvim",
         config = function()
-            require("todo-comments").setup()
+            require("todo-comments").setup {}
         end,
     }
 

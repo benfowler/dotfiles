@@ -269,10 +269,10 @@ M.lsp = function(bufnr, _)
         lsp_diagnostics_active = not lsp_diagnostics_active
         if lsp_diagnostics_active then
             vim.diagnostic.show()
-            vim.notify("LSP diagnostics enabled", "info", { title = "LSP" })
+            vim.notify("LSP diagnostics enabled", vim.log.levels.INFO, { title = "LSP" })
         else
             vim.diagnostic.hide()
-            vim.notify("LSP diagnostics disabled", "warning", { title = "LSP" })
+            vim.notify("LSP diagnostics disabled", vim.log.levels.WARN, { title = "LSP" })
         end
     end, opts)
 end
@@ -328,10 +328,10 @@ M.cmp = function()
         cmp_autopopup_enabled = not cmp_autopopup_enabled
         if cmp_autopopup_enabled then
             utils.EnableAutoCmp()
-            vim.notify("Completion autopopups enabled", "info", { title = "Completion" })
+            vim.notify("Completion autopopups enabled", vim.log.levels.INFO, { title = "Completion" })
         else
             utils.DisableAutoCmp()
-            vim.notify("Completion autopopups disabled", "warn", { title = "Completion" })
+            vim.notify("Completion autopopups disabled", vim.log.levels.WARN, { title = "Completion" })
         end
     end, opts)
 end
@@ -343,10 +343,10 @@ M.folding = function()
         code_folding_enabled = not code_folding_enabled
         if code_folding_enabled then
             utils.EnableFolding()
-            vim.notify("Code folding enabled", "info", { title = "Folding" })
+            vim.notify("Code folding enabled", vim.log.levels.INFO, { title = "Folding" })
         else
             utils.DisableFolding()
-            vim.notify("Code folding disabled", "warn", { title = "Folding" })
+            vim.notify("Code folding disabled", vim.log.levels.WARN, { title = "Folding" })
         end
     end, opts)
 end
@@ -358,10 +358,10 @@ M.gitsigns = function()
         gitsigns_enabled = not gitsigns_enabled
         if gitsigns_enabled then
             gitsigns.attach()
-            vim.notify("Git signs enabled", "info", { title = "Git" })
+            vim.notify("Git signs enabled", vim.log.levels.INFO, { title = "Git" })
         else
             gitsigns.detach()
-            vim.notify("Git signs disabled", "warn", { title = "Git" })
+            vim.notify("Git signs disabled", vim.log.levels.WARN, { title = "Git" })
         end
     end, opts)
 end

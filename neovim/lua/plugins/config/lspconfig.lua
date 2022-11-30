@@ -51,7 +51,7 @@ local function on_attach(client, bufnr)
     require("mappings").lsp(bufnr, client.server_capabilities)
 
     -- CodeLens
-    if client.resolved_capabilities.code_lens == true then
+    if client.server_capabilities.codeLensProvider == true then
         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "InsertLeave" }, {
             buffer = bufnr,
             callback = vim.lsp.codelens.refresh,
@@ -62,7 +62,7 @@ local function on_attach(client, bufnr)
     -- provided by the language server.
 
     -- Identifier read/write highlighting
-    if client.resolved_capabilities.document_highlight == true then
+    if client.server_capabilities.documentHighlightProvider == true then
         vim.api.nvim_create_augroup("lsp_document_highlight", {
             clear = false,
         })
@@ -202,7 +202,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
     local client = vim.lsp.get_client_by_id(ctx.client_id)
     local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
-    vim.notify({ result.message }, lvl, {
+    vim.notify(result.message, lvl, {
         title = "LSP | " .. client.name,
         keep = function()
             return lvl == "ERROR" or lvl == "WARN"
