@@ -15,6 +15,9 @@ require("nvim-tree").setup {
         add_trailing = true,
         group_empty = true,
         highlight_git = true,
+        indent_markers = {
+            enable = true,
+        },
         icons = {
             show = {
                 git = false,
@@ -31,6 +34,19 @@ require("nvim-tree").setup {
                     untracked = "★",
                     deleted = "",
                     ignored = "◌",
+                },
+                folder = {
+                    default = "",
+                    open = "",
+                    empty = "", -- 
+                    empty_open = "",
+                    -- default = "",
+                    -- open = "",
+                    -- empty = "", -- 
+                    -- empty_open = "",
+                    symlink = "",
+                    symlink_open = "",
+                    -- symlink_open = "",
                 },
             },
         },
