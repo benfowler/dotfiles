@@ -344,7 +344,7 @@ function my_highlights_nord()
     u.Hi("NvimTreeNormal", { guifg = nord.nord4 })
     u.Hi("NvimTreeOpenedFile", { gui = "bold" })
 
-    u.Hi("NvimTreeIndentMarker", { guifg = nord.nord1 })
+    u.Hi("NvimTreeIndentMarker", { guifg = nord.nord2 })
 
     u.Hi("NvimTreeFolderIcon", { guifg = nord.nord3_bright })
     u.HiLink("NvimTreeFolderName", "NvimTreeNormal", true)

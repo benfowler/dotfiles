@@ -22,10 +22,7 @@ require("nvim-tree").setup {
             show = {
                 git = false,
             },
-            padding = " ",
             glyphs = {
-                default = "",
-                symlink = "",
                 git = {
                     unstaged = "",
                     staged = "",
@@ -34,19 +31,6 @@ require("nvim-tree").setup {
                     untracked = "★",
                     deleted = "",
                     ignored = "◌",
-                },
-                folder = {
-                    default = "",
-                    open = "",
-                    empty = "", -- 
-                    empty_open = "",
-                    -- default = "",
-                    -- open = "",
-                    -- empty = "", -- 
-                    -- empty_open = "",
-                    symlink = "",
-                    symlink_open = "",
-                    -- symlink_open = "",
                 },
             },
         },
