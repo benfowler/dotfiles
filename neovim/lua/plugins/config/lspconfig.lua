@@ -123,7 +123,7 @@ local servers = {
     "lemminx",
     "metals",
     "pyright",
-    "sumneko_lua",
+    "lua_ls",
     "texlab",
     "tsserver",
     "vimls",
