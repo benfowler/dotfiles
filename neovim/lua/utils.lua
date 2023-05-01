@@ -20,16 +20,16 @@ end
 -- Diagnostic icons
 M.diagnostic_icons = {
     filled = {
-        error = "",
+        error = "󰅙",
         warn = "",
         info = "",
-        hint = "",
+        hint = "󰌵",
     },
     outline = {
-        error = "",
-        warn = "",
+        error = "󰅚",
+        warn = "",
         info = "",
-        hint = "",
+        hint = "",
     },
 }
 

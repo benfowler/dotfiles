@@ -14,7 +14,7 @@ web_devicons.setup {
             name = "html",
         },
         css = {
-            icon = "",
+            icon = "󰌜",
             color = colors.blue,
             name = "css",
         },
@@ -29,12 +29,12 @@ web_devicons.setup {
             name = "sass",
         },
         js = {
-            icon = "",
+            icon = "󰌞",
             color = colors.yellow,
             name = "js",
         },
         ts = {
-            icon = "ﯤ",
+            icon = "󰛦",
             color = colors.blue,
             name = "ts",
         },
@@ -44,17 +44,17 @@ web_devicons.setup {
             name = "kt",
         },
         png = {
-            icon = "",
+            icon = "󰋩",
             color = colors.magenta,
             name = "png",
         },
         jpg = {
-            icon = "",
+            icon = "󰋩",
             color = colors.cyan,
             name = "jpg",
         },
         jpeg = {
-            icon = "",
+            icon = "󰋩",
             color = colors.cyan,
             name = "jpeg",
         },
@@ -64,7 +64,7 @@ web_devicons.setup {
             name = "java",
         },
         mp3 = {
-            icon = "",
+            icon = "󰎆",
             color = colors.green,
             name = "mp3",
         },
@@ -74,7 +74,7 @@ web_devicons.setup {
             name = "mp4",
         },
         out = {
-            icon = "",
+            icon = "󰅬",
             color = colors.blue,
             name = "out",
         },
@@ -109,7 +109,7 @@ web_devicons.setup {
             name = "sbt",
         },
         vue = {
-            icon = "﵂",
+            icon = "󰡄",
             color = colors.green,
             name = "vue",
         },
@@ -124,7 +124,7 @@ web_devicons.setup {
             name = "toml",
         },
         lock = {
-            icon = "",
+            icon = "󰌾",
             color = colors.red,
             name = "lock",
         },
@@ -154,7 +154,7 @@ web_devicons.setup {
             name = "lua",
         },
         txt = {
-            icon = "",
+            icon = "󰈙",
             color = colors.blue,
             name = "txt",
         },
@@ -209,32 +209,32 @@ web_devicons.setup {
             name = "dockerignore",
         },
         [".prettierignore"] = {
-            icon = "",
+            icon = "󰏣",
             color = colors.orange,
             name = "prettierignore",
         },
         [".prettierrc"] = {
-            icon = "",
+            icon = "󰏣",
             color = colors.cyan,
             name = "prettier",
         },
         [".prettierrc.json"] = {
-            icon = "",
+            icon = "󰏣",
             color = colors.cyan,
             name = "prettierjson",
         },
         [".prettierrc.js"] = {
-            icon = "",
+            icon = "󰏣",
             color = colors.cyan,
             name = "prettierrcjs",
         },
         ["prettier.config.js"] = {
-            icon = "",
+            icon = "󰏣",
             color = colors.cyan,
             name = "prettierjsconfig",
         },
         [".prettier.yaml"] = {
-            icon = "",
+            icon = "󰏣",
             color = colors.cyan,
             name = "prettieryaml",
         },
@@ -284,12 +284,12 @@ web_devicons.setup {
             name = "vim",
         },
         ["yarn-error.log"] = {
-            icon = "",
+            icon = "󰄛",
             color = colors.red,
             name = "yarnerrorlog",
         },
         ["yarn.lock"] = {
-            icon = "",
+            icon = "󰄛",
             color = colors.blue,
             name = "yarnlock",
         },
@@ -319,7 +319,7 @@ web_devicons.setup {
             name = "nvmrc",
         },
         [".eslintrc.js"] = {
-            icon = "ﯶ",
+            icon = "󰛸",
             color = colors.magenta,
             name = "eslintrcjs",
         },
@@ -329,12 +329,12 @@ web_devicons.setup {
             name = "travis",
         },
         ["babel.config.js"] = {
-            icon = "",
+            icon = "󰂡",
             color = colors.yellow,
             name = "babelconfig",
         },
         [".commitlintrc.json"] = {
-            icon = "ﰚ",
+            icon = "󰜜",
             color = colors.green,
             name = "commitlinrcjson",
         },

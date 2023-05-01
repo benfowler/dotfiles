@@ -6,7 +6,7 @@ local SIGN_GROUP = "codelens-slightly-nicer"
 local SIGN_NAME = "CodeLensSign"
 
 if vim.tbl_isempty(vim.fn.sign_getdefined(SIGN_NAME)) then
-    vim.fn.sign_define(SIGN_NAME, { text = " ", texthl = "LspCodeLens", numhl = "LspCodeLens" })
+    vim.fn.sign_define(SIGN_NAME, { text = "󰄄 ", texthl = "LspCodeLens", numhl = "LspCodeLens" })
 end
 
 local api = vim.api
