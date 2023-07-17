@@ -1,6 +1,6 @@
 local M = {}
 
-local icons = require("utils").diagnostic_icons.filled
+local icons = require("util").diagnostic_icons.filled
 
 local lsp_diags_config = {
     { highlight = "ErrorWinbarDiagIndic", icon = icons.error },

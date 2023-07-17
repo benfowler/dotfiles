@@ -19,10 +19,4 @@ augroup filetype_markdown
     " More-aggressive highlighting (otherwise, chokes on line files)
     syntax sync minlines=1500
 
-    "
-    " TODO: move to mappings and migrate once autogroup Lua bindings exist
-    "
-
-    autocmd filetype markdown nmap <leader>mm <Plug>(nvim-markdown-preview)
-    autocmd filetype markdown nnoremap <leader>mh :Telescope heading theme=get_dropdown<cr>
 augroup END

@@ -4,9 +4,7 @@
 local fn = vim.fn
 local api = vim.api
 
-local lsp_status_present, lsp_status = pcall(require, "lsp-status")
-
-local icons = require("utils").diagnostic_icons.outline
+local icons = require("util").diagnostic_icons.outline
 
 local M = {}
 
@@ -50,19 +48,19 @@ M.lsp_diags_hl_group_prefix = "StatusLine"
 
 M.lsp_diags_config = {
     errors = {
-        key = "Error",
+        key = "ERROR",
         icon = icons.error,
     },
     warnings = {
-        key = "Warn",
+        key = "WARN",
         icon = icons.warn,
     },
     info = {
-        key = "Info",
+        key = "INFO",
         icon = icons.info,
     },
     hints = {
-        key = "Hint",
+        key = "HINT",
         icon = icons.hint,
     },
 }
@@ -298,6 +296,7 @@ Statusline = setmetatable(M, {
 })
 
 -- Entry point to this module
+-- TODO: port to Lua
 M.setup = function()
     -- stylua: ignore
     api.nvim_exec([[
@@ -311,54 +310,9 @@ M.setup = function()
 end
 
 Statusline.get_lsp_diagnostic = function(self)
-    -- Check that lsp-status.nvim is loaded
-    if not lsp_status_present then
-        return ""
-    end
 
     local function isempty(s)
         return s == nil or s == ""
-    end
-
-    -- Messages; just write them out
-    if self.lsp_show_status_messages then
-        local messages = lsp_status.messages()
-        for _, msg in ipairs(messages) do
-            -- DEBUG: print(vim.inspect(msg))
-            fmt_msg = ""
-            if not isempty(msg.title) or not isempty(msg.message) then
-                if not isempty(msg.title) and not isempty(msg.message) then
-                    str = string.format("%s: %s", msg.title, msg.message)
-                elseif not isempty(msg.message) then
-                    str = msg.message
-                else
-                    str = msg.title
-                end
-
-                local name = "???"
-                if type(msg.name) == "number" then
-                    -- Attempt to use 'msg.name' as client ID
-                    if #vim.lsp.buf_get_clients() > 0 then
-                        local lsp_server = vim.lsp.get_client_by_id(msg.name)
-                        if lsp_server ~= nil then
-                            name = lsp_server.name
-                        end
-                    end
-                elseif type(msg.name == "string") then
-                    name = msg.name
-                end
-
-                if msg.percentage ~= nil then
-                    fmt_msg = string.format("[LSP] %s: %s (%s%%)", name, str, math.floor(msg.percentage))
-                else
-                    fmt_msg = string.format("[LSP] %s: %s", name, str)
-                end
-            end
-            if fmt_msg ~= self.lsp_last_message then
-                print(fmt_msg)
-            end
-            self.lsp_last_message = fmt_msg
-        end
     end
 
     -- Statusline too short
@@ -375,7 +329,9 @@ Statusline.get_lsp_diagnostic = function(self)
     local lsp_status_str = ""
 
     for key, level in pairs(self.lsp_diags_config) do
-        local count = lsp_status.diagnostics()[key]
+
+        local count = #vim.diagnostic.get(0, { severity = level.key })
+
         if count > 0 then
             -- stylua: ignore
             lsp_status_str = " " ..
