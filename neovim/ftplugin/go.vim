@@ -1,8 +1,5 @@
-" Golang 
-
-augroup go_settings_options
-    autocmd! * <buffer>
-    autocmd BufWritePre <buffer> %s/\s\+$//e
-    autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-augroup end
+setlocal noet
+setlocal ts=4
+setlocal sw=4
+setlocal sts=4
 

@@ -1,8 +1,5 @@
-" Lua langauge
-
-augroup lua_settings_options
-    autocmd! * <buffer>
-    autocmd BufWritePre <buffer> %s/\s\+$//e
-    autocmd Filetype lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-augroup end
+setlocal expandtab
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal softtabstop=4
 

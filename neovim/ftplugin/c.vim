@@ -1,8 +1,5 @@
-" C language
-
-augroup c_settings_options
-    autocmd! * <buffer>
-    autocmd BufWritePre <buffer> %s/\s\+$//e
-    autocmd BufNewFile,BufRead *.c setlocal noet ts=2 sw=2 sts=2
-augroup end
+setlocal noet
+setlocal ts=2
+setlocal sw=2
+setlocal sts=2
 

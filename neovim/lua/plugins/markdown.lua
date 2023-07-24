@@ -15,11 +15,11 @@ return {
     },
 
     {
-    -- Cross-platform in-browser Markdown preview
+        -- Cross-platform in-browser Markdown preview
         "davidgranstrom/nvim-markdown-preview",
         ft = "markdown",
         keys = {
-        { "<leader>mm", ":MarkdownPreview<cr>", desc = "Preview" }
+            { "<leader>mm", ":MarkdownPreview<cr>", desc = "Preview" },
         },
         config = function()
             vim.g.nvim_markdown_preview_format = "gfm"

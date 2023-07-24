@@ -1,4 +1,4 @@
-local maps = require("config.keymaps")
+local maps = require "config.keymaps"
 
 return {
     {

@@ -7,7 +7,7 @@ local lsp_diags_config = {
     { highlight = "WarnWinbarDiagIndic", icon = icons.warn },
     { highlight = "InfoWinbarDiagIndic", icon = icons.info },
     { highlight = "HintWinbarDiagIndic", icon = icons.hint },
-    { highlight = "OkWinbarDiagIndic", icon = "" },
+    { highlight = "OkWinbarDiagIndic", icon = "󰓛" },
 }
 
 local winbar_file = function()
@@ -15,8 +15,8 @@ local winbar_file = function()
     local worst_str = ""
 
     if #vim.lsp.buf_get_clients() ~= 0 then
-        bufnr = vim.fn.bufnr()
-        diagnostics = vim.diagnostic.get(bufnr)
+        local bufnr = vim.fn.bufnr()
+        local diagnostics = vim.diagnostic.get(bufnr)
         worst = 5 -- sentinel value for 'ok'
         for _, diagnostic in ipairs(diagnostics) do
             local severity = diagnostic.severity
@@ -43,6 +43,7 @@ local exclude_filetype = {
     "lir",
     "Outline",
     "spectre_panel",
+    "TelescopePrompt",
     "toggleterm",
     "terminal",
     "qf",

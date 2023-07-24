@@ -2,7 +2,6 @@
 
 local M = {}
 
-
 -- Globals - usable from command mode
 
 -- put(): shorthand for print(vim.inspect(...))

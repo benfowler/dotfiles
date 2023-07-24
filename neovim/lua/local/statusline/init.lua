@@ -226,7 +226,7 @@ M.get_line_info = function(self)
 end
 
 M.get_search_info = function(_)
-    local search = vim.fn.searchcount({maxcount = 0}) -- maxcount = 0 makes the number not be capped at 99
+    local search = vim.fn.searchcount { maxcount = 0 } -- maxcount = 0 makes the number not be capped at 99
     local result = ""
     if search.total > 0 then
         result = " " .. search.current .. "/" .. search.total
@@ -310,7 +310,6 @@ M.setup = function()
 end
 
 Statusline.get_lsp_diagnostic = function(self)
-
     local function isempty(s)
         return s == nil or s == ""
     end
@@ -329,7 +328,6 @@ Statusline.get_lsp_diagnostic = function(self)
     local lsp_status_str = ""
 
     for key, level in pairs(self.lsp_diags_config) do
-
         local count = #vim.diagnostic.get(0, { severity = level.key })
 
         if count > 0 then

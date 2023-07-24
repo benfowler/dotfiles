@@ -1,7 +1,5 @@
-" C++ language
-
-augroup cpp_settings_options
-    autocmd! * <buffer>
-    autocmd BufWritePre <buffer> %s/\s\+$//e
-augroup end
+setlocal noet
+setlocal ts=2
+setlocal sw=2
+setlocal sts=2
 

@@ -1,8 +1,5 @@
-" Python language
-
-augroup python_settings_options
-    autocmd! * <buffer>
-    autocmd BufWritePre <buffer> %s/\s\+$//e
-    autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-augroup end
+setlocal expandtab
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal softtabstop=4
 
