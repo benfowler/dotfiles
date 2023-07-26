@@ -108,16 +108,18 @@ return {
                 "call fzf#vim#windows(g:fzf_custom_win_windows, <bang>0)",
                 { bar = true, bang = true }
             )
+
             vim.api.nvim_create_user_command(
                 "Ag",
-                "Ag call fzf#vim#ag(<q-args>, g:fzf_custom_win_grep, <bang>0)",
+                "call fzf#vim#ag(<q-args>, g:fzf_custom_win_grep, <bang>0)",
                 { bang = true, nargs = "*" }
             )
             vim.api.nvim_create_user_command(
                 "Rg",
-                "Rg call fzf#vim#grep( g:fzf_rg_cmd.shellescape(<q-args>), 1, g:fzf_custom_win_grep, <bang>0)",
+                "call fzf#vim#grep( g:fzf_rg_cmd.shellescape(<q-args>), 1, g:fzf_custom_win_grep, <bang>0)",
                 { bang = true, nargs = "*" }
             )
+
         end,
     },
 }

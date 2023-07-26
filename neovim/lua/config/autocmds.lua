@@ -1,4 +1,3 @@
-
 -- Create directories as required when saving files
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
@@ -12,17 +11,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
-
 -- Useful custom command to yank current file location
 local yank_location_fn = function()
-    local r,_ = unpack(vim.api.nvim_win_get_cursor(0))
-    local deets = vim.fn.expand("%") .. ":" .. r
+    local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    local deets = vim.fn.expand "%" .. ":" .. r
     print(deets)
-    vim.fn.setreg('*', deets)
+    vim.fn.setreg("*", deets)
 end
 
 vim.api.nvim_create_user_command("YankLocation", yank_location_fn, {})
-
 
 -- Restore cursor position
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
@@ -31,7 +28,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         vim.api.nvim_exec('silent! normal! g`"zv', false)
     end,
 })
-
 
 -- Show cursor line only in active window
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
@@ -54,7 +50,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
     end,
 })
 
-
 -- Hide statusline for various filetypes
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnter", "TermEnter" }, {
     callback = function()
@@ -63,25 +58,30 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnte
         else
             vim.go.laststatus = 2
         end
-    end
+    end,
 })
 
 
--- Terminal customisations
+-- Terminal customisations.
+
 vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "term://*",
     command = "setlocal listchars= nonumber norelativenumber nocursorline",
 })
 
 vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "term://*",
     command = "setfiletype terminal",
 })
 
 vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "term://*",
     command = "startinsert",
 })
 
 -- Close terminal buffer on prcess exit
 vim.api.nvim_create_autocmd("TermClose", {
+    pattern = vim.fn.expand "$SHELL" .. "\\|zsh",
     command = ":bd",
 })
 
@@ -97,5 +97,3 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
         end
     end,
 })
-
-
