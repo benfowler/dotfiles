@@ -295,6 +295,18 @@ return {
         end,
     },
 
+    -- Manage external packages (language servers, DAP providers, linters, formatters)
+    {
+        "williamboman/mason.nvim",
+        build = function()
+            vim.cmd [[ MasonUpdate ]]
+        end,
+        opts = { },
+        keys = {
+            { maps.packages.mason, silent = true, ":Mason<cr>", desc = "Mason" },
+        },
+    },
+
     -- LSP
     {
         "neovim/nvim-lspconfig",
@@ -303,12 +315,7 @@ return {
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
             { "williamboman/mason-lspconfig.nvim" },
-            {
-                "williamboman/mason.nvim",
-                build = function()
-                    vim.cmd [[ MasonUpdate ]]
-                end,
-            },
+            { "williamboman/mason.nvim", },
             { "j-hui/fidget.nvim" },
         },
         -- stylua: ignore

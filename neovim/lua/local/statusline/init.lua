@@ -73,21 +73,6 @@ M.git_show_changes = true
 
 M.lsp_show_status_messages = false
 
-
--- HACK: make all highlight groups the default color for now
--- stylua: ignore
-api.nvim_exec([[
-   " hi! link StatusLine Mode
-   " hi! link StatusLine ModeAlt
-   " hi! link StatusLine SearchInfo
-   " hi! link StatusLine Git
-   " hi! link StatusLine GitAlt
-   " hi! link StatusLine Filetype
-   " hi! link StatusLine FiletypeAlt
-   " hi! link StatusLine LineCol
-   " hi! link StatusLine LineColAlt
-]], false)
-
 M.trunc_width = setmetatable({
     mode = 80,
     git_status = 90,

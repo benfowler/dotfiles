@@ -15,7 +15,10 @@ return function(opts)
             missing = true,
             colorscheme = { "nord" },
         },
-        checker = { enabled = true },
+        checker = {
+            enabled = true,
+            frequency = 86400,  -- once a day
+        },
         diff = {
             cmd = "terminal_git",
         },

@@ -9,6 +9,7 @@ M.which_key_groups = {
     ["<leader>"] = {
         c = { name = "Commands" },
         g = { name = "Git" },
+        h = { name = "GitSigns" },
         l = {
             name = "LSP",
             w = {
@@ -16,8 +17,8 @@ M.which_key_groups = {
             },
         },
         m = { name = "Markdown" },
+        p = { name = "PackageMgmt", },
         t = { name = "Telescope" },
-        h = { name = "GitSigns" },
         u = { name = "UI" },
     },
 }
@@ -39,6 +40,12 @@ M.misc = {
     new_terminal_vsplit = "<leader>Tv",
     write_file = "<M-s>",
     write_file_2 = "<leader>W",
+}
+
+M.packages = {
+    mason = "<leader>pm",
+    lazy = "<leader>pp",
+    lazy_update = "<leader>pu",
 }
 
 M.notify = {
@@ -184,6 +191,10 @@ vim.keymap.set("n", M.misc.new_terminal_vsplit, string.format(":vsp term://%s<CR
 -- Fast window splits
 vim.keymap.set("n", M.misc.new_split, ":split<cr>", { silent = true })
 vim.keymap.set("n", M.misc.new_vsplit, ":vsplit<cr>", { silent = true })
+
+-- Fast access to Lazy.nvim
+vim.keymap.set("n", M.packages.lazy, ":Lazy<cr>", { silent = true })
+vim.keymap.set("n", M.packages.lazy_update, ":Lazy update<cr>", { silent = true })
 
 -- Leave selection intact in visual mode, for faster indenting
 vim.keymap.set("v", ">", ">gv")
