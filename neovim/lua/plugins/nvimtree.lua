@@ -4,8 +4,8 @@ return {
     "kyazdani42/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = {
-        { maps.nvimtree.treetoggle, ":NvimTreeToggle<CR>", desc = "NvimTree goggle" },
-        { maps.nvimtree.treefocus, ":NvimTreeFocus<CR>", desc = "NvimTree focus file" },
+        { maps.nvimtree.treetoggle, ":NvimTreeToggle<CR>", silent = true, desc = "NvimTree goggle" },
+        { maps.nvimtree.treefocus, ":NvimTreeFocus<CR>", silent = true, desc = "NvimTree focus file" },
     },
     opts = {
         respect_buf_cwd = true,
