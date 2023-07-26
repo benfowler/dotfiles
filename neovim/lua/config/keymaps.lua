@@ -46,6 +46,9 @@ M.packages = {
     mason = "<leader>pm",
     lazy = "<leader>pp",
     lazy_update = "<leader>pu",
+    lazy_check = "<leader>pc",
+    lazy_clean = "<leader>px",
+    lazy_sync = "<leader>ps",
 }
 
 M.notify = {
@@ -195,6 +198,9 @@ vim.keymap.set("n", M.misc.new_vsplit, ":vsplit<cr>", { silent = true })
 -- Fast access to Lazy.nvim
 vim.keymap.set("n", M.packages.lazy, ":Lazy<cr>", { silent = true })
 vim.keymap.set("n", M.packages.lazy_update, ":Lazy update<cr>", { silent = true })
+vim.keymap.set("n", M.packages.lazy_check, ":Lazy check<cr>", { silent = true })
+vim.keymap.set("n", M.packages.lazy_clean, ":Lazy clean<cr>", { silent = true })
+vim.keymap.set("n", M.packages.lazy_sync, ":Lazy sync<cr>", { silent = true })
 
 -- Leave selection intact in visual mode, for faster indenting
 vim.keymap.set("v", ">", ">gv")
