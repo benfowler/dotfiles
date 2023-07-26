@@ -115,7 +115,7 @@ return {
             vim.api.nvim_set_hl(0, "qfLineNr", { fg = nord.nord8 })
             vim.api.nvim_set_hl(0, "QuickFixLine", { bg = nord.nord7, fg = "Black" })
 
-            vim.api.nvim_set_hl(0, "MatchParen", { fg = nord.nord12, bold = true, bg = "NONE" })
+            vim.api.nvim_set_hl(0, "MatchParen", { fg = nord.nord12, bold = true, bg = nord.nord2 })
 
             -- Active statusbar: override 'StatusLine' u.Highlight with Nord-ish colours
             vim.api.nvim_set_hl(0, "StatusLine", { fg = statusline_active_fg, bg = statusline_active_bg })
@@ -292,7 +292,7 @@ return {
             vim.api.nvim_set_hl(0, "CmpDocFloatBorder", { link = "DimFloatBorder" })
 
             -- Indent guides
-            vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = nord.nord2 })
+            vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = nord.nord1 })
             vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = nord.nord3_bright })
 
             -- nvim-notify

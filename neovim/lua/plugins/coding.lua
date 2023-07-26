@@ -15,6 +15,7 @@ return {
     {
         -- Pair completion
         "windwp/nvim-autopairs",
+        event = "InsertEnter",
         opts = {
             -- Don't add pairs if the next char is alphanumeric
             ignored_next_char = "[%w%.%$]", -- will ignore alphanumeric, `$` and `.` symbol
