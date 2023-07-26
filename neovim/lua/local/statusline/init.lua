@@ -281,17 +281,26 @@ Statusline = setmetatable(M, {
 })
 
 -- Entry point to this module
--- TODO: port to Lua
 M.setup = function()
-    -- stylua: ignore
-    api.nvim_exec([[
-        augroup Statusline
-        au!
-        au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline('active')
-        au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline('inactive')
-        au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline('explorer')
-        augroup END
-    ]], false)
+    local statuslineGrp = api.nvim_create_augroup("Statusline", { clear = true })
+
+    api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+        pattern = "*",
+        command = "setlocal statusline=%!v:lua.Statusline('active')",
+        group = statuslineGrp,
+    })
+
+    api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+        pattern = "*",
+        command = "setlocal statusline=%!v:lua.Statusline('inactive')",
+        group = statuslineGrp,
+    })
+
+    api.nvim_create_autocmd({ "WinEnter", "BufEnter", "FileType" }, {
+        pattern = "NvimTree",
+        command = "setlocal statusline=%!v:lua.Statusline('explorer')",
+        group = statuslineGrp,
+    })
 end
 
 Statusline.get_lsp_diagnostic = function(self)
