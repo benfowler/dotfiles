@@ -176,10 +176,10 @@ M.tmuxnavigator = {
 
 -- Fast terminals
 local shell = vim.env.SHELL
-vim.keymap.set("n", M.misc.new_terminal_quick, string.format(":15sp term://%s<CR>", shell))
-vim.keymap.set("n", M.misc.new_terminal_here, ":terminal<CR>")
-vim.keymap.set("n", M.misc.new_terminal_split, string.format(":sp term://%s<CR>", shell))
-vim.keymap.set("n", M.misc.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell))
+vim.keymap.set("n", M.misc.new_terminal_quick, string.format(":15sp term://%s<CR>", shell), { silent = true})
+vim.keymap.set("n", M.misc.new_terminal_here, ":terminal<CR>", { silent = true})
+vim.keymap.set("n", M.misc.new_terminal_split, string.format(":sp term://%s<CR>", shell), { silent = true})
+vim.keymap.set("n", M.misc.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), { silent = true})
 
 -- Fast window splits
 vim.keymap.set("n", M.misc.new_split, ":split<cr>", { silent = true })
