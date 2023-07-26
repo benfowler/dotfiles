@@ -11,8 +11,8 @@ return {
         cmd = {
             "Files", "GFiles", "Buffers", "Colors", "Ag", "Rg", "Lines",
             "BLines", "Tags", "BTags", "Marks", "Windows", "Locate", "History",
-            "History", "Snippets", "Commits", "BCommits", "Commands", "Maps",
-            "Helptags", "Filetypes",
+            "Snippets", "Commits", "BCommits", "Commands", "Maps", "Helptags",
+            "Filetypes",
         },
         keys = {
             { maps.fzf.files, silent = true, ":Files<CR>", desc = "FZF Files" },
@@ -77,20 +77,47 @@ return {
             -- How are we invoking rg?
             vim.g.fzf_rg_cmd = "rg --column --line-number --no-heading --color=always --smart-case -- "
 
-      -- stylua: ignore
-      -- TODO: Port the following commands to Lua
-      vim.cmd [[
-
-        " Pop up Fuzzy Finder in a window when using Neovim
-        command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, g:fzf_custom_win_files, <bang>0)
-        command! -bang -nargs=? -complete=dir History call fzf#vim#history(g:fzf_custom_win_files, <bang>0)
-        command! -bang -nargs=? -complete=dir GFiles call fzf#vim#gitfiles(<q-args>, g:fzf_custom_win_files, <bang>0)
-        command! -bang -nargs=? -complete=dir GitFiles call fzf#vim#gitfiles(<q-args>, g:fzf_custom_win_files, <bang>0)
-        command! -bang -nargs=? -complete=buffer Buffers call fzf#vim#buffers(<q-args>, g:fzf_custom_win_buffers, <bang>0)
-        command! -bar -bang Windows call fzf#vim#windows(g:fzf_custom_win_windows, <bang>0)
-        command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, g:fzf_custom_win_grep, <bang>0)
-        command! -bang -nargs=* Rg call fzf#vim#grep( g:fzf_rg_cmd.shellescape(<q-args>), 1, g:fzf_custom_win_grep, <bang>0)
-      ]]
+            -- Pop up Fuzzy Finder in a window when using Neovim
+            vim.api.nvim_create_user_command(
+                "Files",
+                "call fzf#vim#files(<q-args>, g:fzf_custom_win_files, <bang>0)",
+                { bang = true, nargs = "?", complete = "dir" }
+            )
+            vim.api.nvim_create_user_command(
+                "History",
+                "call fzf#vim#history(g:fzf_custom_win_files, <bang>0)",
+                { bang = true, nargs = "?", complete = "dir" }
+            )
+            vim.api.nvim_create_user_command(
+                "GFiles",
+                "call fzf#vim#gitfiles(<q-args>, g:fzf_custom_win_files, <bang>0)",
+                { bang = true, nargs = "?", complete = "dir" }
+            )
+            vim.api.nvim_create_user_command(
+                "GitFiles",
+                "GitFiles call fzf#vim#gitfiles(<q-args>, g:fzf_custom_win_files, <bang>0)",
+                { bang = true, nargs = "?", complete = "dir" }
+            )
+            vim.api.nvim_create_user_command(
+                "Buffers",
+                "call fzf#vim#buffers(<q-args>, g:fzf_custom_win_buffers, <bang>0)",
+                { bang = true, nargs = "?", complete = "buffer" }
+            )
+            vim.api.nvim_create_user_command(
+                "Windows",
+                "call fzf#vim#windows(g:fzf_custom_win_windows, <bang>0)",
+                { bar = true, bang = true }
+            )
+            vim.api.nvim_create_user_command(
+                "Ag",
+                "Ag call fzf#vim#ag(<q-args>, g:fzf_custom_win_grep, <bang>0)",
+                { bang = true, nargs = "*" }
+            )
+            vim.api.nvim_create_user_command(
+                "Rg",
+                "Rg call fzf#vim#grep( g:fzf_rg_cmd.shellescape(<q-args>), 1, g:fzf_custom_win_grep, <bang>0)",
+                { bang = true, nargs = "*" }
+            )
         end,
     },
 }

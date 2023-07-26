@@ -285,13 +285,11 @@ M.setup = function()
     local statuslineGrp = api.nvim_create_augroup("Statusline", { clear = true })
 
     api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-        pattern = "*",
         command = "setlocal statusline=%!v:lua.Statusline('active')",
         group = statuslineGrp,
     })
 
     api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-        pattern = "*",
         command = "setlocal statusline=%!v:lua.Statusline('inactive')",
         group = statuslineGrp,
     })
