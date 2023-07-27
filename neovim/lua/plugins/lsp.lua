@@ -250,6 +250,20 @@ return {
         },
     },
 
+    -- Manage linters and formatters using Mason.nvim
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+        opts = {
+            ensure_installed = nil,
+            automatic_installation = true,
+        },
+    },
+
     -- LSP
     {
         "neovim/nvim-lspconfig",
@@ -257,8 +271,6 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
-            { "williamboman/mason-lspconfig.nvim" },
-            { "williamboman/mason.nvim", },
             { "j-hui/fidget.nvim" },
         },
         -- stylua: ignore
