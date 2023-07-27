@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+
 -- Useful custom command to yank current file location
 local yank_location_fn = function()
     local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
@@ -21,6 +22,7 @@ end
 
 vim.api.nvim_create_user_command("YankLocation", yank_location_fn, {})
 
+
 -- Restore cursor position
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     pattern = { "*" },
@@ -28,6 +30,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         vim.api.nvim_exec('silent! normal! g`"zv', false)
     end,
 })
+
+
+-- Highlight on yank
+local yankGrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function() vim.highlight.on_yank { timeout=700 } end,
+  group = yankGrp,
+})
+
 
 -- Show cursor line only in active window
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
@@ -49,6 +60,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
         end
     end,
 })
+
 
 -- Hide statusline for various filetypes
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnter", "TermEnter" }, {
