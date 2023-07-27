@@ -377,6 +377,7 @@ return {
 
             vim.api.nvim_set_hl(0, "markdownLinkText", { underline = true, fg = nord.nord9 })
             vim.api.nvim_set_hl(0, "mkdLink", { underline = true, fg = nord.nord9 })
+            vim.api.nvim_set_hl(0, "mkdCode", { fg = nord.nord7 })
 
             --
             -- Re-initialize web-devicons with Nord colours
