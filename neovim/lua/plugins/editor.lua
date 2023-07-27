@@ -20,12 +20,66 @@ return {
         -- EasyMotion-like navigation
         "phaazon/hop.nvim",
         keys = {
-            { maps.hop.easymotion_word_ac, ":HopWordAC<CR>", mode = { "n", "v" }, desc = "Hop word forward" },
-            { maps.hop.easymotion_word_bc, ":HopWordBC<CR>", mode = { "n", "v" }, desc = "Hop word backward" },
-            { maps.hop.easymotion_line_ac, ":HopLineAC<CR>", mode = { "n", "v" }, desc = "Hop line down" },
-            { maps.hop.easymotion_line_bc, ":HopLineBC<CR>", mode = { "n", "v" }, desc = "Hop line up" },
-            { maps.hop.sneak_char_ac, ":HopChar2AC<CR>", mode = { "n", "v" }, desc = "Sneak char forward" },
-            { maps.hop.sneak_char_bc, ":HopChar2BC<CR>", mode = { "n", "v" }, desc = "Sneak char backward" },
+            {
+                maps.hop.easymotion_word_ac,
+                function()
+                    require("hop").hint_words {
+                        direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+                    }
+                end,
+                mode = { "n", "v", "o" },
+                desc = "Hop word forward",
+            },
+            {
+                maps.hop.easymotion_word_bc,
+                function()
+                    require("hop").hint_words {
+                        direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+                    }
+                end,
+                mode = { "n", "v", "o" },
+                desc = "Hop word backward",
+            },
+            {
+                maps.hop.easymotion_line_ac,
+                function()
+                    require("hop").hint_lines {
+                        direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+                    }
+                end,
+                mode = { "n", "v", "o" },
+                desc = "Hop line down",
+            },
+            {
+                maps.hop.easymotion_line_bc,
+                function()
+                    require("hop").hint_lines {
+                        direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+                    }
+                end,
+                mode = { "n", "v", "o" },
+                desc = "Hop line up",
+            },
+            {
+                maps.hop.sneak_char_ac,
+                function()
+                    require("hop").hint_char1 {
+                        direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+                    }
+                end,
+                mode = { "n", "v", "o" },
+                desc = "Sneak forward",
+            },
+            {
+                maps.hop.sneak_char_bc,
+                function()
+                    require("hop").hint_char1 {
+                        direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+                    }
+                end,
+                mode = { "n", "v", "o" },
+                desc = "Sneak backward",
+            },
         },
         opts = {},
     },
