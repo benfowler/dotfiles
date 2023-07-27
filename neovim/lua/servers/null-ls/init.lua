@@ -13,11 +13,10 @@ null_ls.setup({
 
         -- Linters
         null_ls.builtins.diagnostics.chktex,
-        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.diagnostics.gitlint,
         null_ls.builtins.diagnostics.golangci_lint,
         null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
-        null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.diagnostics.jsonlint,
         null_ls.builtins.diagnostics.markdownlint.with {
             diagnostics_postprocess = function(diagnostic)
@@ -39,6 +38,7 @@ null_ls.setup({
 
         -- Code formatters
         null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.eslint_d,
         null_ls.builtins.formatting.fixjson,
         null_ls.builtins.formatting.goimports,
         null_ls.builtins.formatting.reorder_python_imports,
@@ -52,7 +52,7 @@ null_ls.setup({
         },
 
         -- Additional LSP code action contributions
-        null_ls.builtins.code_actions.eslint,
+        null_ls.builtins.code_actions.eslint_d,
         null_ls.builtins.code_actions.shellcheck,
     },
 })
