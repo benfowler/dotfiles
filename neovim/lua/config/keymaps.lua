@@ -101,6 +101,7 @@ M.telescope = {
     man_pages = "<leader>tm",
     keymaps = "<leader>tk",
     highlights = "<leader>ti",
+    select_snippet = "<leader>ts",
 
     -- LSP
     lsp_diagnostics = "<leader>lwd",
@@ -120,9 +121,6 @@ M.telescope = {
     git_branches = "<leader>gb",
     git_stash = "<leader>gs",
     git_files = "<leader>gf",
-
-    -- LuaSnip
-    select_snippet = "<leader>s",
 
     markdown_headings = "<leader>mh",
 
