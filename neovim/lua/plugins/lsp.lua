@@ -2,47 +2,8 @@ local maps = require "config.keymaps"
 local util = require "util"
 
 return {
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
-        lazy = true,
-        dependencies = {
-            { "jose-elias-alvarez/null-ls.nvim" }
-        },
-        config = function()
-            -- This is where you modify the settings for lsp-zero
-            -- Note: autocompletion settings will not take effect
 
-            local lsp = require("lsp-zero").preset {}
-
-            -- Keymaps
-            lsp.on_attach(function(_, bufnr)
-                lsp.default_keymaps { buffer = bufnr }
-            end)
-
-            -- Servers
-            lsp.ensure_installed {
-                "bashls",
-                "clangd",
-                "emmet_ls",
-                "gopls",
-                "jsonls",
-                "lua_ls",
-                "lemminx",
-                "texlab",
-                "tsserver",
-            }
-
-            -- Custom gutter icons
-            lsp.set_sign_icons(util.diagnostic_icons.filled)
-
-            -- Null-ls for linting and formatting
-            require "servers/null-ls"
-
-            lsp.setup()
-        end,
-    },
-
+    -- Snippets
     {
         "L3MON4D3/LuaSnip",
         build = (not jit.os:find "Windows")
@@ -235,65 +196,6 @@ return {
                     },
                 },
             }
-        end,
-    },
-
-    -- Manage external packages (language servers, DAP providers, linters, formatters)
-    {
-        "williamboman/mason.nvim",
-        build = function()
-            vim.cmd [[ MasonUpdate ]]
-        end,
-        opts = { },
-        keys = {
-            { maps.packages.mason, silent = true, ":Mason<cr>", desc = "Mason" },
-        },
-    },
-
-    -- Manage linters and formatters using Mason.nvim
-    {
-        "jay-babu/mason-null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            "williamboman/mason.nvim",
-            "jose-elias-alvarez/null-ls.nvim",
-        },
-        opts = {
-            ensure_installed = nil,
-            automatic_installation = true,
-        },
-    },
-
-    -- LSP
-    {
-        "neovim/nvim-lspconfig",
-        cmd = "LspInfo",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "j-hui/fidget.nvim" },
-        },
-        -- stylua: ignore
-        keys = {
-            { maps.lsp.lspinfo, ":LspInfo<cr>", desc = "LspInfo" },
-            { maps.lsp.prev_diag, function() vim.diagnostic.goto_prev() end, desc = "Prev diag", },
-            { maps.lsp.next_diag, function() vim.diagnostic.goto_next() end, desc = "Next diag", },
-            { maps.lsp.format, function() vim.lsp.buf.format() end, desc = "Format buffer", },
-        },
-
-        config = function()
-            -- This is where all the LSP shenanigans will live
-
-            local lsp = require "lsp-zero"
-
-            lsp.on_attach(function(_, bufnr)
-                lsp.default_keymaps { buffer = bufnr }
-            end)
-
-            -- (Optional) Configure lua language server for neovim
-            require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-
-            lsp.setup()
         end,
     },
 
