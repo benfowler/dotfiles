@@ -170,25 +170,24 @@ return {
 
             -- TODO: configure diagnostic icons here
 
-            -- diagnostics
-            -- for name, icon in pairs(require("lazyvim.config").icons.diagnostics) do
-            --     name = "DiagnosticSign" .. name
-            --     vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-            -- end
-            --
-            -- if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
-            --     opts.diagnostics.virtual_text.prefix = vim.fn.has "nvim-0.10.0" == 0 and "●"
-            --         or function(diagnostic)
-            --             local icons = require("lazyvim.config").icons.diagnostics
-            --             for d, icon in pairs(icons) do
-            --                 if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-            --                     return icon
-            --                 end
-            --             end
-            --         end
-            -- end
-            --
+            -- Diagnostics
+            local lsp_icons = require("util").diagnostic_icons.filled
+            local function lspSymbol(key, icon, sign_name)
+                vim.fn.sign_define(sign_name, {
+                    text = icon,
+                    texthl = "DiagnosticSign" .. key,
+                    linehl = nil,
+                    numhl = "DiagnosticLineNr" .. key,
+                })
+            end
+
+            lspSymbol("Error", lsp_icons.error, "DiagnosticSignError")
+            lspSymbol("Warn", lsp_icons.warn, "DiagnosticSignWarn")
+            lspSymbol("Info", lsp_icons.info, "DiagnosticSignInfo")
+            lspSymbol("Hint", lsp_icons.hint, "DiagnosticSignHint")
+
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
 
             local servers = opts.servers
             local capabilities = vim.tbl_deep_extend(
