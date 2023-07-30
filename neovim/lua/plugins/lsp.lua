@@ -1,5 +1,4 @@
 local maps = require "config.keymaps"
-local util = require "util"
 
 -- CREDIT: borrowed heavily - and pruned - from https://github.com/folke/LazyVim/
 
@@ -15,11 +14,8 @@ return {
             return {
                 root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
                 sources = {
-                    nls.builtins.formatting.fish_indent,
-                    nls.builtins.diagnostics.fish,
                     nls.builtins.formatting.stylua,
                     nls.builtins.formatting.shfmt,
-                    -- nls.builtins.diagnostics.flake8,
                 },
             }
         end,
@@ -37,7 +33,6 @@ return {
                 "shfmt",
             },
         },
-        ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
             local mr = require "mason-registry"
@@ -309,29 +304,39 @@ return {
                 timeout_ms = nil,
             },
             -- LSP Server Settings
-            ---@type lspconfig.options
             servers = {
                 jsonls = {},
                 lua_ls = {
                     -- mason = false, -- set to false if you don't want this server to be installed with mason
                     settings = {
                         Lua = {
+                            runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+                            completion = { enable = true, callSnippet = "Both" },
+                            diagnostics = {
+                                enable = true,
+                                globals = { "vim", "describe" },
+                                disable = { "lowercase-global" },
+                            },
                             workspace = {
-                                checkThirdParty = false,
+                                library = {
+                                    [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                                    [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+                                },
+                                maxPreload = 100000,
+                                preloadFileSize = 10000,
                             },
-                            completion = {
-                                callSnippet = "Replace",
+                            telemetry = {
+                                enable = false,
                             },
-                        },
-                    },
-                },
+                        }
+                    }
+                }
             },
 
             -- TODO: stitch in my custom LSP server configs here
 
             -- you can do any additional lsp server setup here
             -- return true if you don't want this server to be setup with lspconfig
-            ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
             setup = {
                 -- example to setup with typescript.nvim
                 -- tsserver = function(_, opts)
