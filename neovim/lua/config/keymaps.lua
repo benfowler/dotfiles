@@ -18,6 +18,7 @@ M.which_key_groups = {
         },
         m = { name = "Markdown" },
         p = { name = "PackageMgmt", },
+        T = { name = "Terminal" },
         t = { name = "Telescope" },
         u = { name = "UI" },
     },
@@ -82,10 +83,27 @@ M.nvimtree = {
 }
 
 M.lsp = {
-    lspinfo = "<leader>lI",
-    prev_diag = "<c-k>",
-    next_diag = "<c-j>",
-    format = "<leader>f",
+    line_diags = "<leader>cd",
+    info = "<leader>cl",
+    definitions = "gd",
+    references = "gr",
+    declaration = "gD",
+    implementations = "gI",
+    type_definitions = "gy",
+    hover = "K",
+    signature_help = "gK",
+    signature_help_insert = "<c-k>",
+    next_diag = "]d",
+    prev_diag = "[d",
+    next_error = "]e",
+    prev_error = "[e",
+    next_warning = "]w",
+    prev_warning = "[w",
+    format_doc = "<leader>cf",
+    format_range = "<leader>cf",
+    rename = "<leader>cr",
+    code_action = "<leader>ca",
+    source_action = "<leader>cA",
 }
 
 -- Telescope-specific mapping: help etc
@@ -136,7 +154,7 @@ M.trouble = {
 }
 
 M.fzf = {
-    buffers = ";",
+    buffers = "<M-e>",
     files = "<C-p>", -- quick file access
     gfiles = "<M-p>", -- quick file access (Git)
     history = "<M-o>", -- quick file access (history)

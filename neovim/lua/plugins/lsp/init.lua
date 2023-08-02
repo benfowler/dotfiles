@@ -99,16 +99,10 @@ return {
             },
             -- add any global capabilities here
             capabilities = {},
-            -- Automatically format on save
-            autoformat = true,
-            -- options for vim.lsp.buf.format
-            -- `bufnr` and `filter` is handled by the LazyVim formatter,
-            -- but can be also overridden when specified
-            format = {
-                formatting_options = nil,
-                timeout_ms = nil,
-            },
+            -- automatically format on save
+            autoformat = false,
             -- LSP Server Settings
+            -- TODO: stitch in my custom LSP server configs here
             servers = {
                 jsonls = {},
                 lua_ls = {
@@ -133,12 +127,10 @@ return {
                             telemetry = {
                                 enable = false,
                             },
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             },
-
-            -- TODO: stitch in my custom LSP server configs here
 
             -- you can do any additional lsp server setup here
             -- return true if you don't want this server to be setup with lspconfig
@@ -154,26 +146,19 @@ return {
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)
-
-            -- TODO: fix autoformat
-
             -- setup autoformat
-            -- require("lazyvim.plugins.lsp.format").autoformat = opts.autoformat
+            require("plugins.lsp.format").autoformat = opts.autoformat
+
             -- setup formatting and keymaps
-
-            -- TODO: fix LSP keybindings
-
-            -- util.on_attach(function(client, buffer)
-            --     require("lazyvim.plugins.lsp.format").on_attach(client, buffer)
-            --     require("lazyvim.plugins.lsp.keymaps").on_attach(client, buffer)
-            -- end)
-
-            -- TODO: configure diagnostic icons here
+            util.on_attach(function(client, buffer)
+                require("plugins.lsp.format").on_attach(client, buffer)
+                require("plugins.lsp.keymaps").on_attach(client, buffer)
+            end)
 
             -- Diagnostics
             local lsp_icons = require("util").diagnostic_icons.filled
-            local function lspSymbol(key, icon, sign_name)
-                vim.fn.sign_define(sign_name, {
+            local function lspSymbol(key, icon)
+                vim.fn.sign_define("DiagnosticSign" .. key, {
                     text = icon,
                     texthl = "DiagnosticSign" .. key,
                     linehl = nil,
@@ -181,13 +166,16 @@ return {
                 })
             end
 
-            lspSymbol("Error", lsp_icons.error, "DiagnosticSignError")
-            lspSymbol("Warn", lsp_icons.warn, "DiagnosticSignWarn")
-            lspSymbol("Info", lsp_icons.info, "DiagnosticSignInfo")
-            lspSymbol("Hint", lsp_icons.hint, "DiagnosticSignHint")
+            lspSymbol("Error", lsp_icons.error)
+            lspSymbol("Warn", lsp_icons.warn)
+            lspSymbol("Info", lsp_icons.info)
+            lspSymbol("Hint", lsp_icons.hint)
 
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
+            -- Popups get frames with rounded corners
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
             local servers = opts.servers
             local capabilities = vim.tbl_deep_extend(
@@ -239,8 +227,6 @@ return {
                 mlsp.setup { ensure_installed = ensure_installed }
                 mlsp.setup_handlers { setup }
             end
-
         end,
     },
-
 }
