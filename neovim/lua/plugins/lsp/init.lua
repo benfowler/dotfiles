@@ -73,6 +73,20 @@ return {
         },
     },
 
+    -- Show code action signs
+    {
+        "kosayoda/nvim-lightbulb",
+        opts = {
+            sign = {
+                text = " ",
+                hl = "DiagnosticSignWarn",
+            },
+            autocmd = {
+                enabled = true,
+            },
+        },
+    },
+
     -- lspconfig
     {
         "neovim/nvim-lspconfig",
@@ -82,6 +96,7 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "j-hui/fidget.nvim",
+            "kosayoda/nvim-lightbulb",
         },
         ---@class PluginLspOpts
         opts = {
@@ -174,8 +189,10 @@ return {
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
             -- Popups get frames with rounded corners
+            -- stylua: ignore start
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+            -- stylua: ignore end
 
             local servers = opts.servers
             local capabilities = vim.tbl_deep_extend(
