@@ -11,12 +11,72 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = { "mason.nvim" },
         opts = function()
-            local nls = require "null-ls"
+            local null_ls = require "null-ls"
+
+            -- Private custom null-ls sources
+            local priv_src_cfn_lint = require "servers.null-ls.sources.cfn-lint"
+
             return {
                 root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+                debug = true,
+                log = {
+                    enable = true,
+                    level = "info",
+                    use_console = "async",
+                },
                 sources = {
-                    nls.builtins.formatting.stylua,
-                    nls.builtins.formatting.shfmt,
+                    -- Linters
+                    null_ls.builtins.diagnostics.chktex,
+                    null_ls.builtins.diagnostics.eslint,
+                    null_ls.builtins.diagnostics.gitlint,
+                    null_ls.builtins.diagnostics.golangci_lint,
+                    null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
+                    null_ls.builtins.diagnostics.eslint,
+                    null_ls.builtins.diagnostics.jsonlint,
+                    null_ls.builtins.diagnostics.markdownlint.with {
+                        diagnostics_postprocess = function(diagnostic)
+                            diagnostic.severity = vim.diagnostic.severity["HINT"]
+                        end,
+                    },
+                    null_ls.builtins.diagnostics.mypy,
+                    null_ls.builtins.diagnostics.pylint,
+                    null_ls.builtins.diagnostics.shellcheck,
+                    null_ls.builtins.diagnostics.yamllint,
+
+                    null_ls.builtins.diagnostics.luacheck.with {
+                        extra_args = function()
+                            return { "--globals", "vim" }
+                        end,
+                    },
+
+                    priv_src_cfn_lint.diagnostics.cfn_lint, -- CloudFormation lints
+
+                    -- Code formatters
+                    null_ls.builtins.formatting.black,
+                    null_ls.builtins.formatting.fixjson,
+                    null_ls.builtins.formatting.goimports,
+                    null_ls.builtins.formatting.reorder_python_imports,
+                    null_ls.builtins.formatting.shellharden,
+                    null_ls.builtins.formatting.sqlformat,
+                    null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.formatting.terraform_fmt,
+
+                    null_ls.builtins.formatting.prettier.with {
+                        filetypes = {
+                            "html",
+                            "json",
+                            "js",
+                            "markdown",
+                            "typescript",
+                            "typescriptreact",
+                            "tsx",
+                            "yaml",
+                        },
+                    },
+
+                    -- Additional LSP code action contributions
+                    null_ls.builtins.code_actions.eslint,
+                    null_ls.builtins.code_actions.shellcheck,
                 },
             }
         end,
@@ -117,9 +177,60 @@ return {
             -- automatically format on save
             autoformat = false,
             -- LSP Server Settings
-            -- TODO: stitch in my custom LSP server configs here
             servers = {
-                jsonls = {},
+                clangd = {
+                    init_options = {
+                        clangdFileStatus = true,
+                    },
+                },
+                emmet_ls = {
+                    filetypes = { "html", "xml", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+                },
+                gopls = {
+                    cmd = { "gopls", "serve" },
+                    root_dir = function(fname)
+                        local has_lspconfig, lspconfig = pcall(require, "lspconfig")
+                        if has_lspconfig then
+                            local lspc_util = lspconfig.util
+                            return lspc_util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
+                        end
+                    end,
+                    settings = {
+                        gopls = {
+                            analyses = {
+                                unusedparams = true,
+                                unreachable = false,
+                            },
+                            codelenses = {
+                                generate = true, -- show the `go generate` lens.
+                                gc_details = true, --  // Show a code lens toggling the display of gc's choices.
+                                test = true,
+                                tidy = true,
+                            },
+                            usePlaceholders = true,
+                            completeUnimported = true,
+                            staticcheck = true,
+                            matcher = "Fuzzy",
+                        },
+                    },
+                    flags = { allow_incremental_sync = true },
+                },
+                jsonls = {
+                    settings = {
+                        json = {
+                            validate = { enable = true },
+                        },
+                    },
+                },
+                lemminx = {
+                    filetypes = { "xml", "pom", "xsd", "xsl", "svg" },
+                    root_dir = function(fname)
+                        local has_lspconfig, lspconfig = pcall(require, "lspconfig")
+                        if has_lspconfig then
+                            return lspconfig.util.find_git_ancestor(fname) or vim.ui.os_homedir()
+                        end
+                    end,
+                },
                 lua_ls = {
                     -- mason = false, -- set to false if you don't want this server to be installed with mason
                     settings = {
@@ -145,18 +256,51 @@ return {
                         },
                     },
                 },
+                texlab = {
+                    settings = {
+                        texlab = {
+                            build = {
+                                -- See `tectonic --help` for the format
+                                executable = "tectonic",
+                                args = {
+                                    -- Input
+                                    "%f",
+                                    -- Flags
+                                    "--synctex",
+                                    "--keep-logs",
+                                    "--keep-intermediates",
+                                    -- Options
+                                    -- OPTIONAL: If you want a custom out directory,
+                                    -- uncomment the following line.
+                                    --"--outdir out",
+                                },
+                                forwardSearchAfter = true,
+                                onSave = true,
+                            },
+                            forwardSearch = {
+                                executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+                                args = { "-g", "%l", "%p", "%f" },
+                                onSave = true,
+                            },
+                            chktex = {
+                                onOpenAndSave = true, -- extra lints
+                                onEdit = true, -- give me lints, good and hard
+                            },
+                            -- OPTIONAL: The server needs to be configured
+                            -- to read the logs from the out directory as well.
+                            -- auxDirectory = "out",
+                        },
+                    },
+                },
             },
 
             -- you can do any additional lsp server setup here
             -- return true if you don't want this server to be setup with lspconfig
             setup = {
-                -- example to setup with typescript.nvim
-                -- tsserver = function(_, opts)
-                --   require("typescript").setup({ server = opts })
-                --   return true
+                -- typescript = function(server, opts)
                 -- end,
                 -- Specify * to use this function as a fallback for any server
-                -- ["*"] = function(server, opts) end,
+                ["*"] = function(_, _) end, -- (server, opts)
             },
         },
         ---@param opts PluginLspOpts
