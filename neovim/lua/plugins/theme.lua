@@ -8,21 +8,6 @@ return {
         config = function()
             vim.cmd.colorscheme "nord"
 
-            -- Transparent background, including signcolumn and foldcolumn, but not linenr
-            vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
-            vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE", ctermbg = "NONE" })
-            vim.api.nvim_set_hl(0, "FoldColumn", { bg = "NONE", ctermbg = "NONE" })
-            vim.api.nvim_set_hl(0, "CursorLineFold", { bg = "NONE", ctermbg = "NONE" })
-            vim.api.nvim_set_hl(0, "VertSplit", { bg = "NONE", ctermbg = "NONE" })
-
-            -- Terminal supports undercurl and coloured underlines?
-            if string.find(vim.env.TERM, "xterm-kitty", 1, true) ~= nil then
-                vim.api.nvim_set_hl(0, "SpellBad", { fg = "NONE", bg = "NONE", undercurl = true })
-                vim.api.nvim_set_hl(0, "SpellCap", { fg = "NONE", bg = "NONE", undercurl = true })
-                vim.api.nvim_set_hl(0, "SpellLocal", { fg = "NONE", bg = "NONE", undercurl = true })
-                vim.api.nvim_set_hl(0, "SpellRare", { fg = "NONE", bg = "NONE", undercurl = true })
-            end
-
             -- Adapted from shaunsingh/nord.nvim
             local nord = {
                 --16 colors
@@ -153,6 +138,7 @@ return {
             vim.api.nvim_set_hl(0, "StatusLineNC", {})
             vim.api.nvim_set_hl(0, "StatusLineNC", { underline = true, fg = nord.nord3 })
             vim.api.nvim_set_hl(0, "VertSplit", { bg = "NONE", ctermbg = "NONE", fg = nord.nord3 })
+            vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE", ctermbg = "NONE", fg = nord.nord3 })
 
             -- Line numbers: tweaks to show current line
             vim.api.nvim_set_hl(0, "CursorLineNr", {})
@@ -351,6 +337,8 @@ return {
 
             vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderIcon", { link = "NvimTreeFolderIcon" })
             vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { link = "NvimTreeFolderIcon" })
+
+            vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { link = "WinSeparator" })
 
             -- Fidget: inlay LSP plugin status messages
             vim.api.nvim_set_hl(0, "FidgetTitle", { bold = true, fg = nord.nord15, bg = nord.nord0 })
