@@ -30,8 +30,8 @@ return {
     {
         -- Sane bullet handling in Markdown etc
         "dkarter/bullets.vim",
-        ft = { "markdown", "text" },
-        config = function()
+        event = { "BufRead" },
+        init = function()
             vim.g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
         end,
     },
