@@ -152,6 +152,9 @@ return {
             -- Winbar
             vim.api.nvim_set_hl(0, "WinBar", { fg = statusline_active_fg, italic = true })
 
+            -- Incremental search highlighting
+            vim.api.nvim_set_hl(0, "Search", { fg = nord.nord0, bg = nord.nord13, bold = true })
+
             vim.api.nvim_set_hl(0, "ErrorWinbarDiagIndic", { fg = error_fg })
             vim.api.nvim_set_hl(0, "WarnWinbarDiagIndic", { fg = warn_fg })
             vim.api.nvim_set_hl(0, "InfoWinbarDiagIndic", { fg = info_fg })
