@@ -90,8 +90,11 @@ return {
         opts = {
             ensure_installed = {
                 "lua-language-server",
-                "stylua",
+                "markdownlint",
+                "prettier",
+                "shellcheck",
                 "shfmt",
+                "stylua",
             },
         },
         config = function(_, opts)
