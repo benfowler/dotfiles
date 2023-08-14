@@ -128,7 +128,7 @@ return {
         lazy = false,
         config = function()
             vim.o.timeout = true
-            vim.o.timeoutlen = 300
+            vim.o.timeoutlen = 750
 
             local wk = require "which-key"
             wk.setup {
