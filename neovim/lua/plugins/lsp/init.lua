@@ -90,6 +90,7 @@ return {
         opts = {
             ensure_installed = {
                 "lua-language-server",
+                "luacheck",
                 "markdownlint",
                 "prettier",
                 "shellcheck",
