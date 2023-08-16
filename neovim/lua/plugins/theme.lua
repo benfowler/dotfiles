@@ -239,11 +239,12 @@ return {
             vim.api.nvim_set_hl(0, "FoldColumn", { fg = nord.nord3_bright })
             vim.api.nvim_set_hl(0, "CursorLineFold", { fg = nord.nord4_dim })
 
-            -- Git gutter signs
-            local diff_add_dim_20 = nord.nord14
-            local diff_change_dim_10 = nord.nord13
-            vim.api.nvim_set_hl(0, "GitSignsAdd", { bold = true, fg = diff_add_dim_20 })
-            vim.api.nvim_set_hl(0, "GitSignsChange", { fg = diff_change_dim_10 })
+            -- Git gutter signs.  Different palette for gutter decorations
+            --  vs regular diff colours, to increase contrast.
+            local diff_add_gutter = nord.nord12
+            local diff_change_gutter = nord.nord13
+            vim.api.nvim_set_hl(0, "GitSignsAdd", { bold = true, fg = diff_add_gutter })
+            vim.api.nvim_set_hl(0, "GitSignsChange", { fg = diff_change_gutter })
             vim.api.nvim_set_hl(0, "GitSignsDelete", { bold = true, fg = diff_delete })
             vim.api.nvim_set_hl(0, "GitSignsChangeDelete", { bold = true, fg = nord.nord11 })
 
