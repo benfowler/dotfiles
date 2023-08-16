@@ -89,6 +89,7 @@ return {
         keys = { { maps.packages.mason, "<cmd>Mason<cr>", desc = "Mason" } },
         opts = {
             ensure_installed = {
+                "jsonlint",
                 "lua-language-server",
                 "luacheck",
                 "markdownlint",
