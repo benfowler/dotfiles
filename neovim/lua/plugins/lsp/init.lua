@@ -96,6 +96,7 @@ return {
                 "shellcheck",
                 "shfmt",
                 "stylua",
+                "yamllint",
             },
         },
         config = function(_, opts)
