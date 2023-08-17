@@ -88,7 +88,7 @@ ls.add_snippets("markdown", {
         t ")",
     }),
 
-    -- Convert selection into Refinitiv JIRA link
+    -- Convert selection into Sainsbury's JIRA link
     s({
         trig = "jj",
         name = "Convert selection to JIRA issue hyperlink",
@@ -99,7 +99,7 @@ ls.add_snippets("markdown", {
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
             return snip.env.TM_SELECTED_TEXT[1] or {}
         end, {}),
-        t "](https://jira.refinitiv.com/browse/",
+        t "](https://sainsburys-jira.valiantys.net/browse/",
         f(function(_, snip)
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
             return snip.env.TM_SELECTED_TEXT[1] or {}
@@ -109,7 +109,7 @@ ls.add_snippets("markdown", {
         t '"',
     }),
 
-    -- POSTFIX: convert selection into Refinitiv JIRA link
+    -- POSTFIX: convert selection into Sainsbury's JIRA link
     pf({
         trig = ".j",
         match_pattern = "W%a%w%-%d+",
@@ -120,7 +120,7 @@ ls.add_snippets("markdown", {
         f(function(_, parent)
             return parent.snippet.env.POSTFIX_MATCH or {}
         end, {}),
-        t "](https://jira.refinitiv.com/browse/",
+        t "](https://sainsburys-jira.valiantys.net/browse/",
         f(function(_, parent)
             return parent.env.POSTFIX_MATCH
         end, {}),
