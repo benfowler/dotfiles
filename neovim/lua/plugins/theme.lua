@@ -368,6 +368,7 @@ return {
             vim.api.nvim_set_hl(0, "TSError", {})
 
             vim.api.nvim_set_hl(0, "markdownLinkText", { underline = true, fg = nord.nord9 })
+            vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "markdownLinkText" })
             vim.api.nvim_set_hl(0, "mkdLink", { underline = true, fg = nord.nord9 })
             vim.api.nvim_set_hl(0, "mkdCode", { fg = nord.nord7 })
 
