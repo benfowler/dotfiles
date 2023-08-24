@@ -112,7 +112,7 @@ ls.add_snippets("markdown", {
     -- POSTFIX: convert selection into Sainsbury's JIRA link
     pf({
         trig = ".j",
-        match_pattern = "W%a%w%-%d+",
+        match_pattern = "%a+-%d+",
         name = "Convert JIRA issue ID to link",
         dscr = "Make JIRA ID a link",
     }, {
