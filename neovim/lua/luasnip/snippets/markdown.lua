@@ -3,6 +3,7 @@ if not present then
     return
 end
 
+local extras = require "luasnip.extras"
 local postfix = require "luasnip.extras.postfix"
 
 local i = ls.insert_node
@@ -10,6 +11,7 @@ local s = ls.snippet
 local t = ls.text_node
 local f = ls.function_node
 local pf = postfix.postfix
+local l = extras.lambda
 
 ls.add_snippets("markdown", {
 
@@ -107,6 +109,26 @@ ls.add_snippets("markdown", {
         t '): "',
         i(1, { "title" }),
         t '"',
+    }),
+
+    -- POSTFIX: embolden a single word
+    pf({
+        trig = ".B",
+        hidden = true,
+    }, {
+        f(function(_, parent)
+            return "**" .. parent.snippet.env.POSTFIX_MATCH .. "**"
+        end, {}),
+    }),
+
+    -- POSTFIX: italicise a single word
+    pf({
+        trig = ".I",
+        hidden = true,
+    }, {
+        f(function(_, parent)
+            return "_" .. parent.snippet.env.POSTFIX_MATCH .. "_"
+        end, {}),
     }),
 
     -- POSTFIX: convert selection into Sainsbury's JIRA link
