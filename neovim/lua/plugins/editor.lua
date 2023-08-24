@@ -67,7 +67,7 @@ return {
                         direction = require("hop.hint").HintDirection.AFTER_CURSOR,
                     }
                 end,
-                mode = { "n", "v", "o" },
+                mode = { "n", "o" },
                 desc = "Sneak forward",
             },
             {
@@ -77,15 +77,22 @@ return {
                         direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
                     }
                 end,
-                mode = { "n", "v", "o" },
+                mode = { "n", "o" },
                 desc = "Sneak backward",
             },
         },
         opts = {},
     },
     {
-        -- Powerful surround functionality
+        -- powerful surround functionality
         "kylechui/nvim-surround",
+        version = "*", -- use for stability; omit to use `main` branch for the latest features
+        event = "BufRead",
+        config = function()
+            require("nvim-surround").setup {
+                -- configuration here, or leave empty to use defaults
+            }
+        end,
     },
     {
         -- Format tables etc
