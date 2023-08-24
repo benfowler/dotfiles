@@ -17,6 +17,11 @@ return {
         event = "BufRead",
     },
     {
+        -- Camel- and snake-case motions
+        "chaoren/vim-wordmotion",
+        event = "BufRead",
+    },
+    {
         -- EasyMotion-like navigation
         "phaazon/hop.nvim",
         keys = {
