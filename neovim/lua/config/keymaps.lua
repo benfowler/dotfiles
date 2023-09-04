@@ -40,7 +40,6 @@ M.misc = {
     new_terminal_split = "<leader>Tx",
     new_terminal_vsplit = "<leader>Tv",
     write_file = "<M-s>",
-    write_file_2 = "<leader>W",
 }
 
 M.packages = {
@@ -221,6 +220,10 @@ vim.keymap.set("n", M.packages.lazy_sync, ":Lazy sync<cr>", { silent = true })
 -- Leave selection intact in visual mode, for faster indenting
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
+
+-- Fast file save
+vim.keymap.set("n", M.misc.write_file, ":update<cr>")
+vim.keymap.set("i", M.misc.write_file, "<c-o>:update<cr>")
 
 -- Use 'cabbrev' to correct common typos.  I accidentally type :W instead of :w, and get :Windows (fzf)
 -- NOTE: no Lua equivalent of cabbrev exists yet.
