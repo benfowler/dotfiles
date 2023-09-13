@@ -38,7 +38,6 @@ return {
                             diagnostic.severity = vim.diagnostic.severity["HINT"]
                         end,
                     },
-                    null_ls.builtins.diagnostics.mypy,
                     null_ls.builtins.diagnostics.pylint,
                     null_ls.builtins.diagnostics.shellcheck,
                     null_ls.builtins.diagnostics.yamllint,
@@ -96,8 +95,8 @@ return {
                 "lua-language-server",
                 "luacheck",
                 "markdownlint",
-                "mypy",
                 "prettier",
+                "pyright",
                 "shellcheck",
                 "shfmt",
                 "stylua",
@@ -263,6 +262,17 @@ return {
                             },
                             telemetry = {
                                 enable = false,
+                            },
+                        },
+                    },
+                },
+                pyright = {
+                    settings = {
+                        python = {
+                            analysis = {
+                                autoSearchPaths = true,
+                                diagnosticMode = "openFilesOnly",
+                                useLibraryCodeForTypes = true,
                             },
                         },
                     },
