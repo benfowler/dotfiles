@@ -236,4 +236,10 @@ return {
             html = { css = true },
         },
     },
+
+    {
+        -- jsonnet support
+        "google/vim-jsonnet",
+        ft = "jsonnet",
+    }
 }
