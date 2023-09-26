@@ -15,10 +15,10 @@ return {
                 require("luasnip.loaders.from_vscode").lazy_load { paths = { "./vscode-snippets" } }
             end,
         },
-        opts = function()
+        config = function()
             local luasnip = require "luasnip"
             local types = require "luasnip.util.types"
-            luasnip.config.set_config {
+            luasnip.config.setup {
                 history = true, -- 'true' is annoying
                 delete_check_events = "InsertLeave,TextChanged",
                 updateevents = "InsertLeave,TextChanged,TextChangedI",
