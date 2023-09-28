@@ -67,6 +67,7 @@ return {
     -- Indent guides
     {
         "lukas-reineke/indent-blankline.nvim",
+        version = "2.20.8",
         event = { "BufRead" },
         opts = {
             char = "│",
