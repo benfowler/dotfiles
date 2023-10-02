@@ -101,7 +101,7 @@ ls.add_snippets("markdown", {
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
             return snip.env.TM_SELECTED_TEXT[1] or {}
         end, {}),
-        t "](https://sainsburys-jira.valiantys.net/browse/",
+        t "](https://sainsburys-tech.atlassian.net/browse/",
         f(function(_, snip)
             -- TM_SELECTED_TEXT is an array of lines.  Just use the first.
             return snip.env.TM_SELECTED_TEXT[1] or {}
@@ -142,7 +142,7 @@ ls.add_snippets("markdown", {
         f(function(_, parent)
             return parent.snippet.env.POSTFIX_MATCH or {}
         end, {}),
-        t "](https://sainsburys-jira.valiantys.net/browse/",
+        t "](https://sainsburys-tech.atlassian.net/browse/",
         f(function(_, parent)
             return parent.env.POSTFIX_MATCH
         end, {}),
