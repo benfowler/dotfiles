@@ -51,15 +51,14 @@ return {
                 },
             },
             select = {
-                backend = { "telescope" },
-                builtin = {
-                    min_height = { 3 },
-                    relative = "cursor",
-                    win_options = {
-                        winblend = 0,
-                        winhighlight = "FloatBorder:DressingFloatBorder",
-                    },
-                },
+                get_config = function(opts)
+                    if opts.kind == 'codeaction' then
+                        return {
+                            backend = 'telescope',
+                            telescope = require('telescope.themes').get_cursor()
+                        }
+                    end
+                end
             },
         },
     },
