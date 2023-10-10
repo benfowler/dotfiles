@@ -173,4 +173,10 @@ return {
         "nvim-tree/nvim-web-devicons",
         lazy = true,
     },
+
+    -- Debug slow startup
+    {
+        "dstein64/vim-startuptime",
+        lazy = false,
+    },
 }
