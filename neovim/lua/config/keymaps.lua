@@ -82,6 +82,14 @@ M.nvimtree = {
 }
 
 M.lsp = {
+    shortcuts = {
+        format_doc = "<leader>f",
+        format_range = "<leader>f",
+        rename = "<leader>R",
+        code_action = "<leader>a",
+        source_action = "<leader>A",
+    },
+
     line_diags = "<leader>cd",
     info = "<leader>cl",
     definitions = "gd",
@@ -107,6 +115,10 @@ M.lsp = {
 
 -- Telescope-specific mapping: help etc
 M.telescope = {
+    shortcuts = {
+        select_snippet = "<leader>S",
+    },
+
     telescope = "<leader>tt",
     files = "<leader>tf",
     buffers = "<leader>tb",

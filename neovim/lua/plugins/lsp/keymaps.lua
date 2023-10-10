@@ -45,6 +45,27 @@ function M.get()
         end,
         desc = "Source Action",
         has = "codeAction",
+      },
+
+      -- Additional bindings for convenience
+      { maps.lsp.shortcuts.format_doc, format, desc = "Format Document", has = "documentFormatting" },
+      { maps.lsp.shortcuts.format_range, format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
+      { maps.lsp.shortcuts.rename, vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+      { maps.lsp.shortcuts.code_action, vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+      {
+        maps.lsp.shortcuts.source_action,
+        function()
+          vim.lsp.buf.code_action({
+            context = {
+              only = {
+                "source",
+              },
+              diagnostics = {},
+            },
+          })
+        end,
+        desc = "Source Action",
+        has = "codeAction",
       }
     }
     end
