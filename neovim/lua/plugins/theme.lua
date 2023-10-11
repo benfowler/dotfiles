@@ -282,8 +282,8 @@ return {
             vim.api.nvim_set_hl(0, "CmpDocFloatBorder", { link = "DimFloatBorder" })
 
             -- Indent guides
-            vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = nord.nord1 })
-            vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = nord.nord3_bright })
+            vim.api.nvim_set_hl(0, "IblIndent", { fg = nord.nord1 })
+            vim.api.nvim_set_hl(0, "IblScope", { fg = nord.nord3_bright })
 
             -- nvim-notify
             vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = nord.nord3 })
