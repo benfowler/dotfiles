@@ -18,6 +18,7 @@ return {
                 "scala",
                 "tsx",
                 "vue",
+                "xml",
                 -- or "all" (not recommended)
             },
             autotag = {

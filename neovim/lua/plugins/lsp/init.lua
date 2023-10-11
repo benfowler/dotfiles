@@ -237,7 +237,7 @@ return {
                     root_dir = function(fname)
                         local has_lspconfig, lspconfig = pcall(require, "lspconfig")
                         if has_lspconfig then
-                            return lspconfig.util.find_git_ancestor(fname) or vim.ui.os_homedir()
+                            return lspconfig.util.find_git_ancestor(fname) or os.getenv("HOME")
                         end
                     end,
                 },

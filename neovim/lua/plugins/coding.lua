@@ -197,6 +197,11 @@ return {
     },
 
     {
+        -- XML autocomplete
+        "windwp/nvim-ts-autotag",
+    },
+
+    {
         -- Easy code commenting
         "terrortylor/nvim-comment",
         cmd = "CommentToggle",
