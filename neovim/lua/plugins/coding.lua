@@ -246,5 +246,5 @@ return {
         -- jsonnet support
         "google/vim-jsonnet",
         ft = "jsonnet",
-    }
+    },
 }

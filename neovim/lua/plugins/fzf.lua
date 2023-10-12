@@ -119,7 +119,6 @@ return {
                 "call fzf#vim#grep( g:fzf_rg_cmd.shellescape(<q-args>), 1, g:fzf_custom_win_grep, <bang>0)",
                 { bang = true, nargs = "*" }
             )
-
         end,
     },
 }

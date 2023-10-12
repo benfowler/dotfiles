@@ -10,7 +10,7 @@ return {
             "benfowler/telescope-luasnip.nvim",
         },
         opts = function()
-            local actions = require("telescope.actions")
+            local actions = require "telescope.actions"
             return {
                 defaults = {
                     mappings = {

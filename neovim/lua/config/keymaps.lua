@@ -17,7 +17,7 @@ M.which_key_groups = {
             },
         },
         m = { name = "Markdown" },
-        p = { name = "PackageMgmt", },
+        p = { name = "PackageMgmt" },
         T = { name = "Terminal" },
         t = { name = "Telescope" },
         u = { name = "UI" },
@@ -206,17 +206,16 @@ M.tmuxnavigator = {
     pane_right = "<M-l>",
 }
 
-
 -----------------------------------------------------------------------
 --  More-complex customisations
 --
 
 -- Fast terminals
 local shell = vim.env.SHELL
-vim.keymap.set("n", M.misc.new_terminal_quick, string.format(":15sp term://%s<CR>", shell), { silent = true})
-vim.keymap.set("n", M.misc.new_terminal_here, ":terminal<CR>", { silent = true})
-vim.keymap.set("n", M.misc.new_terminal_split, string.format(":sp term://%s<CR>", shell), { silent = true})
-vim.keymap.set("n", M.misc.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), { silent = true})
+vim.keymap.set("n", M.misc.new_terminal_quick, string.format(":15sp term://%s<CR>", shell), { silent = true })
+vim.keymap.set("n", M.misc.new_terminal_here, ":terminal<CR>", { silent = true })
+vim.keymap.set("n", M.misc.new_terminal_split, string.format(":sp term://%s<CR>", shell), { silent = true })
+vim.keymap.set("n", M.misc.new_terminal_vsplit, string.format(":vsp term://%s<CR>", shell), { silent = true })
 
 -- Fast window splits
 vim.keymap.set("n", M.misc.new_split, ":split<cr>", { silent = true })
@@ -246,6 +245,4 @@ vim.cmd [[ cabb W1 update ]]
 -- Trick: <c-l> in INSERT mode, attempts to fix the last spelling error
 vim.keymap.set("i", "<c-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { silent = true })
 
-
 return M
-

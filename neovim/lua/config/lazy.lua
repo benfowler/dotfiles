@@ -17,7 +17,7 @@ return function(opts)
         },
         checker = {
             enabled = true,
-            frequency = 86400,  -- once a day
+            frequency = 86400, -- once a day
         },
         diff = {
             cmd = "terminal_git",

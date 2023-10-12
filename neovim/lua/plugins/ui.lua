@@ -52,13 +52,13 @@ return {
             },
             select = {
                 get_config = function(opts)
-                    if opts.kind == 'codeaction' then
+                    if opts.kind == "codeaction" then
                         return {
-                            backend = 'telescope',
-                            telescope = require('telescope.themes').get_cursor()
+                            backend = "telescope",
+                            telescope = require("telescope.themes").get_cursor(),
                         }
                     end
-                end
+                end,
             },
         },
     },
@@ -82,8 +82,8 @@ return {
                         "^table",
                         "if_statement",
                         "while",
-                        "for"
-                    }
+                        "for",
+                    },
                 },
             },
             exclude = {
@@ -111,7 +111,7 @@ return {
                 },
                 buftypes = {
                     "terminal",
-                    "nofile"
+                    "nofile",
                 },
             },
         },
@@ -124,8 +124,8 @@ return {
         dependencies = "nvim-lua/plenary.nvim",
         opts = {
             highlight = {
-                comments_only = false
-            }
+                comments_only = false,
+            },
         },
     },
 

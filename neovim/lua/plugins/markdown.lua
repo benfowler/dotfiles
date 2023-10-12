@@ -34,7 +34,7 @@ return {
         init = function()
             vim.g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
             vim.g.bullets_checkbox_partials_toggle = 0
-            vim.g.bullets_checkbox_markers = '   X'
+            vim.g.bullets_checkbox_markers = "   X"
         end,
     },
 }

@@ -11,7 +11,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
-
 -- Useful custom command to yank current file location
 local yank_location_fn = function()
     local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
@@ -22,7 +21,6 @@ end
 
 vim.api.nvim_create_user_command("YankLocation", yank_location_fn, {})
 
-
 -- Restore cursor position
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     pattern = { "*" },
@@ -31,21 +29,20 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 
-
 -- Delete trailing whitespace on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*" },
-  command = [[%s/\s\+$//e]],
+    pattern = { "*" },
+    command = [[%s/\s\+$//e]],
 })
-
 
 -- Highlight on yank
 local yankGrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function() vim.highlight.on_yank { timeout=700 } end,
-  group = yankGrp,
+    callback = function()
+        vim.highlight.on_yank { timeout = 700 }
+    end,
+    group = yankGrp,
 })
-
 
 -- Show cursor line only in active window
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
@@ -68,7 +65,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
     end,
 })
 
-
 -- Hide statusline for various filetypes
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnter", "TermEnter" }, {
     callback = function()
@@ -79,7 +75,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnte
         end
     end,
 })
-
 
 -- Terminal customisations.
 
@@ -103,7 +98,6 @@ vim.api.nvim_create_autocmd("TermClose", {
     pattern = vim.fn.expand "$SHELL" .. "\\|zsh",
     command = ":bd",
 })
-
 
 -- Detect AWS CloudFormation templates
 vim.api.nvim_create_autocmd({ "BufRead" }, {
