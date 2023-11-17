@@ -19,7 +19,7 @@ return {
             local luasnip = require "luasnip"
             local types = require "luasnip.util.types"
             luasnip.config.setup {
-                history = true, -- 'true' is annoying
+                history = false, -- 'true' is annoying
                 delete_check_events = "InsertLeave,TextChanged",
                 updateevents = "InsertLeave,TextChanged,TextChangedI",
                 store_selection_keys = "<Tab>",
