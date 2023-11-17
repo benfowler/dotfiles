@@ -57,7 +57,7 @@ return {
             { "hrsh7th/cmp-nvim-lsp-document-symbol" },
             { "hrsh7th/cmp-nvim-lsp-signature-help" },
             { "saadparwaiz1/cmp_luasnip" },
-            { "kdheepak/cmp-latex-symbols" },
+            { "micangl/cmp-vimtex" },
         },
         config = function()
             local cmp = require "cmp"
@@ -181,7 +181,7 @@ return {
                     { name = "nvim_lua" },
                     { name = "path" },
                     { name = "luasnip" },
-                    { name = "latex_symbols" },
+                    { name = "vimtex" },
                     { name = "nvim_lsp_signature_help" },
                 },
                 experimental = {
