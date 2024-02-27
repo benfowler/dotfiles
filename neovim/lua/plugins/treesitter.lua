@@ -1,12 +1,9 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        enabled = false,
         build = ":TSUpdate",
         event = { "BufRead" },
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            "windwp/nvim-ts-autotag",
-        },
         opts = {
             ensure_installed = {
                 "bash",
@@ -20,9 +17,6 @@ return {
                 "vue",
                 "xml",
                 -- or "all" (not recommended)
-            },
-            autotag = {
-                enable = true,
             },
             highlight = {
                 enable = true,

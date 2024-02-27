@@ -51,10 +51,7 @@ return {
             { "onsails/lspkind.nvim" },
 
             -- Completion sources
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-path" },
             { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-nvim-lsp-document-symbol" },
             { "hrsh7th/cmp-nvim-lsp-signature-help" },
             { "saadparwaiz1/cmp_luasnip" },
             { "micangl/cmp-vimtex" },
