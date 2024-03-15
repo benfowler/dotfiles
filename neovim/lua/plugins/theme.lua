@@ -242,7 +242,7 @@ return {
             -- Git gutter signs.  Different palette for gutter decorations
             --  vs regular diff colours, to increase contrast.
             local diff_add_gutter = nord.nord12
-            local diff_change_gutter = nord.nord13
+            local diff_change_gutter = nord.nord7
             vim.api.nvim_set_hl(0, "GitSignsAdd", { bold = true, fg = diff_add_gutter })
             vim.api.nvim_set_hl(0, "GitSignsChange", { fg = diff_change_gutter })
             vim.api.nvim_set_hl(0, "GitSignsDelete", { bold = true, fg = diff_delete })
