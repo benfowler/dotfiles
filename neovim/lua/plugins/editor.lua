@@ -23,7 +23,7 @@ return {
     },
     {
         -- EasyMotion-like navigation
-        "phaazon/hop.nvim",
+        "smoka7/hop.nvim",
         keys = {
             {
                 maps.hop.easymotion_word_ac,
