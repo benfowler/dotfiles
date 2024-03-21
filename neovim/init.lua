@@ -13,7 +13,7 @@ require "config.keymaps"
 
 require "local.statusline"
 require "local.winbar"
-require "local.codelens"
+-- require "local.codelens"
 
 -- vim.g.profile_loaders = true
 require "config.lazy" {
