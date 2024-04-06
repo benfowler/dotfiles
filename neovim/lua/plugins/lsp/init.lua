@@ -55,6 +55,7 @@ return {
                     null_ls.builtins.formatting.fixjson,
                     null_ls.builtins.formatting.goimports,
                     null_ls.builtins.formatting.reorder_python_imports,
+                    null_ls.builtins.formatting.rustfmt,
                     null_ls.builtins.formatting.shellharden,
                     null_ls.builtins.formatting.sqlformat,
                     null_ls.builtins.formatting.stylua,
