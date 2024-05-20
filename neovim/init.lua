@@ -14,6 +14,7 @@ require "config.keymaps"
 require "local.statusline"
 require "local.winbar"
 -- require "local.codelens"
+require "local.highlights"
 
 -- vim.g.profile_loaders = true
 require "config.lazy" {
