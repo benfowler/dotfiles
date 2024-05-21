@@ -229,11 +229,17 @@ return {
         -- Make CSS colours stand out in files
         "norcalli/nvim-colorizer.lua",
         event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            "*",
-            css = { css = true },
-            html = { css = true },
-        },
+        config = function()
+            require("colorizer").setup({
+                '*',
+                'css',
+                'javascript',
+            }, {
+                RGB = true,
+                RRGGBB = true,
+                names = false
+            })
+        end,
     },
 
     {
