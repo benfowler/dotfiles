@@ -68,53 +68,31 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         event = { "BufRead" },
-        opts = {
-            scope = {
-                include = {
-                    node_type = {
-                        "class",
-                        "function",
-                        "method",
-                        "block",
-                        "list_literal",
-                        "selector",
-                        "^if",
-                        "^table",
-                        "if_statement",
-                        "while",
-                        "for",
+        config = function()
+            require("ibl").setup({
+                indent = { char = "┊" },
+                scope = {
+                    include = {
+                        node_type = {
+                            "class", "function", "method", "block", "list_literal", "selector",
+                            "^if", "^table", "if_statement", "while", "for"
+                        }
+                    }
+                },
+                exclude = {
+                    filetypes = {
+                        "startify", "dashboard", "dotooagenda", "log", "fugitive", "gitcommit",
+                        "packer", "vimwiki", "markdown", "txt", "vista", "help", "todoist",
+                        "NvimTree", "peekaboo", "git", "TelescopePrompt", "undotree",
+                        "flutterToolsOutline", ""  -- for all buffers without a file type
                     },
-                },
-            },
-            exclude = {
-                filetypes = {
-                    "startify",
-                    "dashboard",
-                    "dotooagenda",
-                    "log",
-                    "fugitive",
-                    "gitcommit",
-                    "packer",
-                    "vimwiki",
-                    "markdown",
-                    "txt",
-                    "vista",
-                    "help",
-                    "todoist",
-                    "NvimTree",
-                    "peekaboo",
-                    "git",
-                    "TelescopePrompt",
-                    "undotree",
-                    "flutterToolsOutline",
-                    "", -- for all buffers without a file type
-                },
-                buftypes = {
-                    "terminal",
-                    "nofile",
-                },
-            },
-        },
+                    buftypes = { "terminal", "nofile" }
+                }
+            })
+
+            local hooks = require("ibl.hooks")
+            hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+        end
     },
 
     -- Make to-dos stand out using custom highlights
