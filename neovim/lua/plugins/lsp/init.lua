@@ -253,6 +253,11 @@ return {
                                 globals = { "vim", "describe" },
                                 disable = { "lowercase-global" },
                             },
+                            hint = {
+                                enable = true,
+                                arrayIndex = "Disable",
+                                setType = true,
+                            },
                             workspace = {
                                 library = {
                                     [vim.fn.expand "$VIMRUNTIME/lua"] = true,
