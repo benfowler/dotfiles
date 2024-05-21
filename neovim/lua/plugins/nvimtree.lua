@@ -17,7 +17,7 @@ return {
             group_empty = true,
             highlight_git = true,
             indent_markers = {
-                enable = true,
+                enable = false,
             },
             icons = {
                 show = {
