@@ -147,6 +147,13 @@ return {
                 desc = "Toggle line blame",
             },
             {
+                maps.gitsigns.loclist,
+                function()
+                    require("gitsigns").setloclist "~"
+                end,
+                desc = "Loclist",
+            },
+            {
                 maps.gitsigns.diffthis2,
                 function()
                     require("gitsigns").diffthis "~"

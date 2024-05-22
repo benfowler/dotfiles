@@ -29,10 +29,6 @@ M.which_key_groups = {
 
 M.misc = {
     mapleader = " ",
-    toggle_listchars = "<leader>,",
-    toggle_spellcheck = "<F6>",
-    toggle_colorcolumn = "<leader>c",
-    cycle_conceal = "<leader>C",
     new_split = "<leader>-",
     new_vsplit = "<leader><bar>",
     new_terminal_quick = "<leader>TT",
@@ -52,7 +48,7 @@ M.packages = {
 }
 
 M.notify = {
-    delete_all = "<leader>un",
+    delete_all = "<leader>cn",
 }
 
 M.zenmode = {
@@ -70,10 +66,6 @@ M.hop = {
 
 M.easy_align = {
     easy_align = "ga",
-}
-
-M.comment_nvim = {
-    comment_toggle = "<leader>/",
 }
 
 M.nvimtree = {
@@ -97,11 +89,8 @@ M.lsp = {
     declaration = "gD",
     implementations = "gI",
     type_definitions = "gy",
-    hover = "K",
     signature_help = "gK",
     signature_help_insert = "<c-k>",
-    next_diag = "]d",
-    prev_diag = "[d",
     next_error = "]e",
     prev_error = "[e",
     next_warning = "]w",
@@ -160,10 +149,6 @@ M.lazygit = {
     lazygit = "<leader>G",
 }
 
-M.trouble = {
-    trouble = "<leader>d",
-}
-
 M.fzf = {
     buffers = "<M-e>",
     files = "<C-p>", -- quick file access
@@ -188,9 +173,8 @@ M.gitsigns = {
     reset_hunk = "<leader>hr",
     preview_hunk = "<leader>hp",
     blame_line = "<leader>hb",
-    quickfix = "<leader>hq",
+    loclist = "<leader>hl",
     diffthis = "<leader>hd",
-
     stage_buffer = "<leader>hS",
     reset_buffer = "<leader>hR",
     toggle_current_line_blame = "<leader>hB",

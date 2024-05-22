@@ -196,18 +196,6 @@ return {
     },
 
     {
-        -- Easy code commenting
-        "terrortylor/nvim-comment",
-        cmd = "CommentToggle",
-        config = function()
-            require("nvim_comment").setup()
-        end,
-        keys = {
-            { maps.comment_nvim.comment_toggle, ":CommentToggle<CR>", mode = { "n", "v" }, desc = "(Un)comment" },
-        },
-    },
-
-    {
         -- Pair completion
         "windwp/nvim-autopairs",
         event = "InsertEnter",
@@ -240,11 +228,5 @@ return {
                 names = false
             })
         end,
-    },
-
-    {
-        -- jsonnet support
-        "google/vim-jsonnet",
-        ft = "jsonnet",
-    },
+    }
 }
