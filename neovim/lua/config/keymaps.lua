@@ -100,6 +100,7 @@ M.lsp = {
     rename = "<leader>cr",
     code_action = "<leader>ca",
     source_action = "<leader>cA",
+    toggle_inlay_hints = "<leader>ci",
 }
 
 -- Telescope-specific mapping: help etc
