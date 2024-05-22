@@ -6,7 +6,7 @@ local SIGN_GROUP = "codelens-slightly-nicer"
 local SIGN_NAME = "CodeLensSign"
 
 if vim.tbl_isempty(vim.fn.sign_getdefined(SIGN_NAME)) then
-    vim.fn.sign_define(SIGN_NAME, { text = "󰄄 ", texthl = "LspCodeLens", numhl = "LspCodeLens" })
+    vim.fn.sign_define(SIGN_NAME, { text = "", texthl = "LspCodeLens", numhl = "LspCodeLens" })
 end
 
 local api = vim.api
@@ -46,7 +46,7 @@ local function display_code_lens(lenses, bufnr, client_id)
             -- Sign
             vim.fn.sign_place(i + 1, SIGN_GROUP, SIGN_NAME, bufnr, { lnum = i + 1, priority = 8 })
             -- Virtual text: padding and bullet
-            table.insert(chunks, { "    ", "LspCodeLens" })
+            table.insert(chunks, { "    ", "LspCodeLens" })
         end
 
         table.sort(line_lenses, function(a, b)

@@ -28,6 +28,7 @@ function M.get()
       { maps.lsp.format_range, format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
       { maps.lsp.rename, vim.lsp.buf.rename, desc = "Rename", has = "rename" },
       { maps.lsp.code_action, vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+      { maps.lsp.code_lens, function() vim.lsp.codelens.run() end, desc = "Run CodeLens" },
       { maps.lsp.toggle_inlay_hints, function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, desc = "Toggle Inlay Hints" },
       {
         maps.lsp.source_action,

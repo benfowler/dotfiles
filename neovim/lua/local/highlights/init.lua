@@ -2,6 +2,8 @@
 -- Customisations of stock highlights
 vim.api.nvim_set_hl(0, "mkdLink", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "mkdLinkDef" })
+vim.api.nvim_set_hl(0, "LspCodeLens", { link = "DiagnosticOk" })
+vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "NonText" })
 
 -- Inactive statusbars: make a thin rule; align vertsplit to match.
 vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE", underline = true })

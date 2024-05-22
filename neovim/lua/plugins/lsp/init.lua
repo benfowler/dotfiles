@@ -184,7 +184,7 @@ return {
                 update_in_insert = false,
             },
             -- add any global capabilities here
-            capabilities = {},
+            capabilities = { },
             -- automatically format on save
             autoformat = false,
             -- LSP Server Settings
@@ -339,6 +339,7 @@ return {
             util.on_attach(function(client, buffer)
                 require("plugins.lsp.format").on_attach(client, buffer)
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
+                require("plugins.lsp.codelens").on_attach(client, buffer)
                 require("plugins.lsp.highlight_symbol").on_attach(client, buffer)
             end)
 

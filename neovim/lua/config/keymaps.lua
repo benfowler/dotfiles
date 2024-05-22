@@ -99,6 +99,7 @@ M.lsp = {
     format_range = "<leader>cf",
     rename = "<leader>cr",
     code_action = "<leader>ca",
+    code_lens = "<leader>cc",
     source_action = "<leader>cA",
     toggle_inlay_hints = "<leader>ci",
 }
