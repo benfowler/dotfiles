@@ -1,5 +1,3 @@
-local maps = require "config.keymaps"
-
 return {
 
     {
@@ -19,7 +17,7 @@ return {
             local luasnip = require "luasnip"
             local types = require "luasnip.util.types"
             luasnip.config.setup {
-                history = false, -- 'true' is annoying
+                history = true,
                 delete_check_events = "InsertLeave,TextChanged",
                 updateevents = "InsertLeave,TextChanged,TextChangedI",
                 store_selection_keys = "<Tab>",
@@ -61,26 +59,17 @@ return {
             local luasnip = require "luasnip"
             local icons = require("lspkind").symbol_map
 
-            -- Supertab-like tab behaviour
-            local has_words_before = function()
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0
-                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-            end
+            -- Insert parenthesis after select function or method name
+            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+            cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
             cmp.setup {
-                confirmation = {
-                    get_commit_characters = function()
-                        return {}
-                    end,
-                },
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
                     end,
                 },
                 completion = {
-                    autocomplete = false,
                     completeopt = "menu,menuone,noinsert",
                     keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
                     keyword_length = 1,
@@ -104,28 +93,18 @@ return {
                     entries = { name = "custom" },
                 },
                 mapping = {
-                    ["<C-Y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-                    -- NOTE: to be truly IntelliJ-like, C-J must trigger the docs_view
-                    -- ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
                     ["<C-N>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i" }),
                     ["<C-P>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i" }),
-                    ["<C-D>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
-                    ["<C-F>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
+                    ["<C-F>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),  -- reverse doc-scrolling direction for comfort
+                    ["<C-B>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
+                    ["<Esc>"] = cmp.mapping(cmp.mapping.abort(), { "i" }),
                     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i" }),
-                    ["<C-E>"] = cmp.mapping(function(fallback)
+                    ["<C-E>"] = cmp.mapping(function()
                         if luasnip.choice_active() then
                             luasnip.change_choice(1)
-                        else
-                            fallback()
                         end
                     end, { "i", "s" }),
-                    -- NOTE: to be truly IntelliJ-like, Esc should just dismiss the docs_view if visible... and only then, dismiss the autocompletion popup
-                    ["<Esc>"] = cmp.mapping {
-                        i = cmp.mapping.abort(),
-                    },
                     ["<Tab>"] = cmp.mapping(function(fallback)
-                        -- IntelliJ-like mapping (see nvim-cmp wiki)
-                        -- Confirm with tab, and if no entry is selected, confirm first item
                         if cmp.visible() then
                             local entry = cmp.get_selected_entry()
                             if not entry then
@@ -139,9 +118,16 @@ return {
                             fallback()
                         end
                     end, { "i", "s" }),
-                    -- NOTE: to be truly IntelliJ-like, <Enter> should do the same as <Tab>
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                     ["<Enter>"] = cmp.mapping(function(fallback)
-                        -- Try to emulate IntelliJ's completion popup behaviour
                         if cmp.visible() then
                             local entry = cmp.get_selected_entry()
                             if not entry then
@@ -153,20 +139,16 @@ return {
                             fallback()
                         end
                     end, { "i", "s" }),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
                 },
                 enabled = function()
+
+                    -- Enable/disable via buffer variable
+                    if not vim.b.cmp then return true end    -- implicitly enabled
+                    if vim.b.cmp == 0 then return false end  -- explicitly disabled
+
                     -- Disable completion in Treesitter comments
                     local context = require "cmp.config.context"
-                    if vim.api.nvim_get_mode().mode == "c" then -- keep command mode completion enabled when cursor is in a comment
+                    if vim.api.nvim_get_mode().mode == "c" then   -- keep command mode completion enabled when cursor is in a comment
                         return true
                     else
                         return not context.in_treesitter_capture "comment" and not context.in_syntax_group "Comment"
@@ -174,16 +156,16 @@ return {
                 end,
                 preselect = cmp.PreselectMode.None,
                 sources = {
+                    { name = "nvim_lsp_signature_help" },
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
                     { name = "path" },
                     { name = "luasnip" },
                     { name = "vimtex" },
-                    { name = "nvim_lsp_signature_help" },
                 },
                 experimental = {
                     ghost_text = {
-                        hl_group = "CmpGhostText",
+                        hl_group = "NonText",
                     },
                 },
             }
