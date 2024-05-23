@@ -70,6 +70,7 @@ return {
                     end,
                 },
                 completion = {
+                    autocomplete = false,
                     completeopt = "menu,menuone,noinsert",
                     keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
                     keyword_length = 1,
@@ -143,8 +144,8 @@ return {
                 enabled = function()
 
                     -- Enable/disable via buffer variable
-                    if not vim.b.cmp then return true end    -- implicitly enabled
-                    if vim.b.cmp == 0 then return false end  -- explicitly disabled
+                    --if not vim.b.cmp then return true end    -- implicitly enabled
+                    --if vim.b.cmp == 0 then return false end  -- explicitly disabled
 
                     -- Disable completion in Treesitter comments
                     local context = require "cmp.config.context"
