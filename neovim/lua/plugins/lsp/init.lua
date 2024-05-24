@@ -178,6 +178,11 @@ return {
                     source = "if_many",
                     prefix = "󰓛",
                 },
+                float = {
+                    header = false,
+                    border = 'rounded',
+                    focusable = true,
+                },
                 signs = true,
                 severity_sort = true,
                 underline = true,
