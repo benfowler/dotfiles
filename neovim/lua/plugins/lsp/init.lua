@@ -90,6 +90,7 @@ return {
         opts = {
             ensure_installed = {
                 "emmet-ls",
+                "hadolint",
                 "jsonlint",
                 "jsonnet-language-server",
                 "lemminx",
