@@ -9,6 +9,3 @@ setlocal spell
 setlocal complete+=k
 setlocal dictionary+=/usr/share/dict/words
 
-" Disable nvim-cmp
-let b:cmp=0
-

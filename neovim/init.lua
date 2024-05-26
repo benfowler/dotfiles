@@ -15,6 +15,7 @@ require "local.statusline"
 require "local.winbar"
 require "local.codelens"
 require "local.highlights"
+require "local.autocomplete"
 
 -- vim.g.profile_loaders = true
 require "config.lazy" {

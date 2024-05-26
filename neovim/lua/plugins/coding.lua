@@ -70,7 +70,6 @@ return {
                     end,
                 },
                 completion = {
-                    autocomplete = false,
                     completeopt = "menu,menuone,noinsert",
                     keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
                     keyword_length = 1,
@@ -170,6 +169,13 @@ return {
                     },
                 },
             }
+
+            -- filetype-specific setup is done here
+            cmp.setup.filetype({ 'markdown' }, {
+                completion = {
+                    autocomplete = false,
+                }
+            })
         end,
     },
 
