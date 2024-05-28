@@ -35,6 +35,7 @@ vim.opt.termguicolors = true                      -- enable true colors support
 
 -- Mouse
 vim.opt.mouse:append("a")
+vim.opt.mousemodel = "extend"
 
 -- Turn off swapfiles and backups, like all the cool kids
 vim.opt.swapfile = false
