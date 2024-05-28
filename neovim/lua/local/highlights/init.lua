@@ -34,6 +34,10 @@ vim.api.nvim_create_autocmd('OptionSet', {
         vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "mkdLinkDef" })
         vim.api.nvim_set_hl(0, "LspCodeLens", { link = "DiagnosticOk" })
         vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "NonText" })
+        vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "NonText" })
+        vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { link = "NonText" })
+        vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { link = "NonText" })
+        vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { link = "NonText" })
 
         -- Inactive statusbars: make a thin rule; align vertsplit to match.
         vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE", underline = true })
