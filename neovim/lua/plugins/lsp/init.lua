@@ -40,7 +40,6 @@ return {
                     },
                     null_ls.builtins.diagnostics.pylint,
                     null_ls.builtins.diagnostics.shellcheck,
-                    null_ls.builtins.diagnostics.yamllint,
 
                     null_ls.builtins.diagnostics.luacheck.with {
                         extra_args = function()
@@ -103,7 +102,6 @@ return {
                 "shfmt",
                 "stylua",
                 "texlab",
-                "yamllint",
             },
         },
         config = function(_, opts)
