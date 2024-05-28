@@ -30,12 +30,8 @@ if vim.fn.has('win16') == 1 or vim.fn.has('win32') == 1 then
   }
 end
 
--- Appearance settings
+--- Appearance settings
 vim.opt.termguicolors = true                      -- enable true colors support
-vim.opt.signcolumn = "yes:1"                      -- make sign column grow automatically
---vim.opt.colorcolumn:append("81")                -- enable right-hand margin by default
---vim.opt.cursorline = true                       -- highlight cursor row
-vim.opt.shortmess:append("a")
 
 -- Mouse
 vim.opt.mouse:append("a")
@@ -63,14 +59,6 @@ vim.opt.wrap = false                              -- most file types don't get w
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = 'screen'
-
--- Folding
-vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-
-vim.opt.numberwidth = 1                           -- required for GitSigns to render in correct pos wrt folds, signs and numbers
-vim.opt.foldenable = true                         --   "
-vim.opt.foldcolumn = '0'                          --   "
-vim.opt.foldlevel = 99                            --   "
 
 -- Completions - basic settings
 vim.opt.completeopt = "menu"                      -- Onmicomplete to not create annoying split when activated
