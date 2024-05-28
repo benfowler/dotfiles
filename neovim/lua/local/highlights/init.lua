@@ -33,7 +33,7 @@ vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { link = "NonText" })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { link = "NonText" })
 
 -- Inactive statusbars: make a thin rule; align vertsplit to match.
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE", underline = true })
+vim.cmd [[ highlight StatusLineNC guifg=NONE guisp=NvimDarkGrey4 guibg=NONE gui=underline ]]
 vim.api.nvim_set_hl(0, "VertSplit", { link = "NonText" })
 vim.api.nvim_set_hl(0, "WinSeparator", { link = "NonText" })
 
