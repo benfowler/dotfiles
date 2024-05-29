@@ -83,6 +83,7 @@ M.lsp = {
     },
 
     line_diags = "<leader>cd",
+    next_line_diags = "<C-j>",
     info = "<leader>cl",
     definitions = "gd",
     references = "gr",

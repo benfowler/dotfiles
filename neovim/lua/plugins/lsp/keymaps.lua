@@ -20,6 +20,7 @@ function M.get()
       { maps.lsp.type_definitions, "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto T[y]pe Definition" },
       { maps.lsp.signature_help, vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
       { maps.lsp.signature_help_insert, vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+      { maps.lsp.next_line_diags, function() vim.diagnostic.goto_next({ float = true }) end, desc = "Line Diagnostics" },
       { maps.lsp.next_error, M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
       { maps.lsp.prev_error, M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
       { maps.lsp.next_warning, M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
