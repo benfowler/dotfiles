@@ -104,22 +104,36 @@ return {
             require("statuscol").setup {
                 relculright = true,
                 segments = {
+                    { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
                     {
-                        sign = { namespace = { "gitsigns" }, name = { ".*" }, maxwidth = 1, colwidth = 2, auto = true },
-                        click = "v:lua.ScSa",
-                    },
-                    { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-                    {
-                        sign = { namespace = { "diagnostic" }, maxwidth = 1, colwidth = 2, auto = true, wrap = true },
+                        sign = { namespace = { "diagnostic", "gitsigns" }, name = { ".*" }, maxwidth = 1, colwidth = 1, auto = true, wrap = true },
                         click = "v:lua.ScSa",
                     },
                     {
-                        text = { builtin.foldfunc },
+                        text = { builtin.foldfunc, " " },
                         click = "v:lua.ScFa",
                     },
                 },
             }
         end,
+    },
+
+    -- Better folding
+    {
+        "kevinhwang91/nvim-ufo",
+        event = { "BufRead" },
+        dependencies = "kevinhwang91/promise-async",
+        config = function ()
+            require("ufo").setup({
+                provider_selector = function(_, _, _)
+                    return {"treesitter", "indent"}
+                end
+            })
+
+            vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+            vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+            vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+        end
     },
 
     -- Make to-dos stand out using custom highlights
