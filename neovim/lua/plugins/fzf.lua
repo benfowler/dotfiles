@@ -37,23 +37,6 @@ return {
                 ["ctrl-v"] = "vsplit",
             }
 
-            -- Pull colours from current theme
-            vim.g.fzf_colors = {
-                ["fg"] = { "fg", "FzfFg" },
-                ["bg"] = { "bf", "FzfBg" },
-                ["hl"] = { "fg", "FzfHl" },
-                ["fg+"] = { "fg", "FzfFg_" },
-                ["bg+"] = { "bg", "FzfBg_" },
-                ["hl+"] = { "fg", "FzfHl_" },
-                ["info"] = { "fg", "FzfInfo" },
-                ["border"] = { "fg", "FzfBorder" },
-                ["prompt"] = { "fg", "FzfPrompt" },
-                ["pointer"] = { "fg", "FzfPointer" },
-                ["marker"] = { "fg", "FzfMarker" },
-                ["spinner"] = { "fg", "FzfSpinner" },
-                ["header"] = { "fg", "FzfHeader" },
-            }
-
             -- Window setups for FZF
             vim.g.fzf_custom_win_files = {
                 window = { width = 0.6, height = 0.75, border = "rounded", highlight = "Comment" },
