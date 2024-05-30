@@ -1,33 +1,34 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        enabled = false,
+        lazy = false,
         build = ":TSUpdate",
-        event = { "BufRead" },
-        opts = {
-            ensure_installed = {
-                "bash",
-                "html",
-                "java",
-                "javascript",
-                "lua",
-                "python",
-                "scala",
-                "tsx",
-                "vue",
-                "xml",
-                -- or "all" (not recommended)
-            },
-            highlight = {
-                enable = true,
-                use_languagetree = true,
-            },
-            indent = {
-                enable = true,
-            },
-            matchup = {
-                enable = true,
-            },
-        },
-    },
+        config = function ()
+            local configs = require("nvim-treesitter.configs")
+
+            configs.setup({
+                ensure_installed = {
+                    "bash",
+                    "html",
+                    "java",
+                    "javascript",
+                    "json",
+                    "kotlin",
+                    "lua",
+                    "python",
+                    "scala",
+                    "toml",
+                    "tsx",
+                    "vue",
+                    "xml",
+                    "yaml",
+                    -- or "all" (not recommended)
+                },
+                sync_install = false,
+                highlight = { enable = true },
+                indent = { enable = true },
+                matchup = { enable = true, }
+            })
+        end
+    }
 }
