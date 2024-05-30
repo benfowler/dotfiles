@@ -14,6 +14,7 @@ return {
                     "javascript",
                     "json",
                     "kotlin",
+                    "latex",
                     "lua",
                     "python",
                     "scala",

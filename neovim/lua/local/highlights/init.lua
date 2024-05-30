@@ -23,6 +23,8 @@ if vim.g.colors_name == nil or vim.g.colors_name == "default" then
 end
 
 -- Customisations of stock highlights
+vim.api.nvim_set_hl(0, "ColorColumn", { link = "Pmenu" })
+
 vim.api.nvim_set_hl(0, "mkdLink", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { link = "mkdLinkDef" })
