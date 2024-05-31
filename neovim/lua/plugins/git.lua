@@ -28,10 +28,10 @@ return {
         event = "BufRead",
         opts = {
             signs = {
-                add = { text = "│ ", numhl = "GitSignsAddNr" },
-                change = { text = "│ ", numhl = "GitSignsChangeNr" },
-                delete = { text = "_", numhl = "GitSignsDeleteNr" },
-                topdelete = { text = "‾", numhl = "GitSignsDeleteNr" },
+                add = { text = "🮌 ", numhl = "GitSignsAddNr" },
+                change = { text = "🮌 ", numhl = "GitSignsChangeNr" },
+                delete = { numhl = "GitSignsDeleteNr" },
+                topdelete = { numhl = "GitSignsDeleteNr" },
                 changedelete = { text = "~", numhl = "GitSignsChangeNr" },
             },
             watch_gitdir = { interval = 2000, follow_files = true },
