@@ -1,3 +1,28 @@
+
+-- Taken from Neovim source code
+local nvimStockColours = {
+    NvimDarkBlue     = "#004c73",
+    NvimDarkCyan     = "#007373",
+    NvimDarkGreen    = "#005523",
+    NvimDarkGrey1    = "#07080d",
+    NvimDarkGrey2    = "#14161b",
+    NvimDarkGrey3    = "#2c2e33",
+    NvimDarkGrey4    = "#4f5258",
+    NvimDarkMagenta  = "#470045",
+    NvimDarkRed      = "#590008",
+    NvimDarkYellow   = "#6b5300",
+    NvimLightBlue    = "#a6dbff",
+    NvimLightCyan    = "#8cf8f7",
+    NvimLightGreen   = "#b3f6c0",
+    NvimLightGrey1   = "#eef1f8",
+    NvimLightGrey2   = "#e0e2ea",
+    NvimLightGrey3   = "#c4c6cd",
+    NvimLightGrey4   = "#9b9ea4",
+    NvimLightMagenta = "#ffcaff",
+    NvimLightRed     = "#ffc0b9",
+    NvimLightYellow  = "#fce094",
+}
+
 -- If using the default Neovim color scheme, force-reset all highlight groups
 if vim.g.colors_name == nil or vim.g.colors_name == "default" then
 
