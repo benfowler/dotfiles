@@ -1,7 +1,6 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        lazy = false,
         build = ":TSUpdate",
         config = function ()
             local configs = require("nvim-treesitter.configs")
@@ -26,9 +25,16 @@ return {
                     -- or "all" (not recommended)
                 },
                 sync_install = false,
-                highlight = { enable = true },
-                indent = { enable = true },
-                matchup = { enable = true, }
+                highlight = {
+                    enable = true,
+                    disable = { "markdown" }
+                },
+                indent = {
+                    enable = true,
+                },
+                matchup = {
+                    enable = true,
+                }
             })
         end
     }
