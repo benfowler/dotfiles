@@ -27,13 +27,6 @@ return {
         dependencies = "nvim-lua/plenary.nvim",
         event = "BufRead",
         opts = {
-            signs = {
-                add = { text = "🮌 ", numhl = "GitSignsAddNr" },
-                change = { text = "🮌 ", numhl = "GitSignsChangeNr" },
-                delete = { numhl = "GitSignsDeleteNr" },
-                topdelete = { numhl = "GitSignsDeleteNr" },
-                changedelete = { text = "~", numhl = "GitSignsChangeNr" },
-            },
             watch_gitdir = { interval = 2000, follow_files = true },
             sign_priority = 6,
             update_debounce = 100,
