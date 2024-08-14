@@ -9,9 +9,9 @@ return {
             vim.opt.formatoptions = "jtcqlnr"
 
             vim.g.vim_markdown_auto_insert_bullets = 0
+            vim.g.vim_markdown_new_list_item_indent = 0
             vim.g.vim_markdown_folding_disabled = 1
             vim.g.vim_markdown_math = 1
-            vim.g.vim_markdown_new_list_item_indent = 2
             vim.g.vim_markdown_strikethrough = 1
         end,
     },
@@ -31,7 +31,7 @@ return {
 
     {
         -- Sane bullet handling in Markdown etc
-        "dkarter/bullets.vim",
+        "bullets-vim/bullets.vim",
         lazy = false,
         init = function()
             vim.g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
