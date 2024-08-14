@@ -6,22 +6,16 @@ local M = {}
 
 -- Document keymapping groups in which-key.nvim
 M.which_key_groups = {
-    ["<leader>"] = {
-        c = { name = "Commands" },
-        g = { name = "Git" },
-        h = { name = "GitSigns" },
-        l = {
-            name = "LSP",
-            w = {
-                name = "Workspace",
-            },
-        },
-        m = { name = "Markdown" },
-        p = { name = "PackageMgmt" },
-        T = { name = "Terminal" },
-        t = { name = "Telescope" },
-        u = { name = "UI" },
-    },
+    { "<leader>T", group = "Terminal" },
+    { "<leader>c", group = "Commands" },
+    { "<leader>g", group = "Git" },
+    { "<leader>h", group = "GitSigns" },
+    { "<leader>l", group = "LSP" },
+    { "<leader>lw", group = "Workspace" },
+    { "<leader>m", group = "Markdown" },
+    { "<leader>p", group = "PackageMgmt" },
+    { "<leader>t", group = "Telescope" },
+    { "<leader>u", group = "UI" },
 }
 
 -- Keybindings, hoisted from the options and plugins configuration. Expose and
@@ -125,11 +119,11 @@ M.telescope = {
     select_snippet = "<leader>ts",
 
     -- LSP
-    lsp_diagnostics = "<leader>lwd",
-    lsp_diagnostics_doc = "<leader>ldd",
+    lsp_diagnostics = "<leader>lwD",
+    lsp_diagnostics_doc = "<leader>lD",
 
     lsp_symbols = "<leader>lws",
-    lsp_symbols_doc = "<leader>lds",
+    lsp_symbols_doc = "<leader>ls",
 
     lsp_definitions = "<leader>ld",
     lsp_implementations = "<leader>li",
@@ -137,8 +131,8 @@ M.telescope = {
     lsp_type_definitions = "<leader>lt",
 
     -- Git objects
-    git_commits = "<leader>gc",
-    git_bcommits = "<leader>gC",
+    git_commits = "<leader>gL",
+    git_bcommits = "<leader>gl",
     git_branches = "<leader>gb",
     git_stash = "<leader>gs",
     git_files = "<leader>gf",

@@ -157,13 +157,7 @@ return {
             vim.o.timeoutlen = 750
 
             local wk = require "which-key"
-            wk.setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-            }
-
-            -- Apply customised labels to groups
-            wk.register(require("config.keymaps").which_key_groups)
+            wk.add(require("config.keymaps").which_key_groups)
         end,
     },
 
@@ -197,6 +191,10 @@ return {
     -- Icons
     {
         "nvim-tree/nvim-web-devicons",
+    },
+
+    {
+        "echasnovski/mini.icons",
     },
 
     -- Debug slow startup
