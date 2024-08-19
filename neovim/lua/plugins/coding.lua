@@ -17,9 +17,7 @@ return {
             local luasnip = require "luasnip"
             local types = require "luasnip.util.types"
             luasnip.config.setup {
-                history = true,
-                delete_check_events = "InsertLeave,TextChanged",
-                updateevents = "InsertLeave,TextChanged,TextChangedI",
+                history = false,
                 store_selection_keys = "<Tab>",
                 ext_opts = {
                     [types.choiceNode] = {
