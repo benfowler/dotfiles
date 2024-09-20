@@ -154,7 +154,7 @@ return {
         lazy = false,
         config = function()
             vim.o.timeout = true
-            vim.o.timeoutlen = 750
+            vim.o.timeoutlen = 2000
 
             local wk = require "which-key"
             wk.add(require("config.keymaps").which_key_groups)
