@@ -102,6 +102,7 @@ return {
                 "shfmt",
                 "stylua",
                 "texlab",
+                "typescript-language-server",
             },
         },
         config = function(_, opts)

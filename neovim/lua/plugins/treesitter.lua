@@ -19,6 +19,7 @@ return {
                     "scala",
                     "toml",
                     "tsx",
+                    "typescript",
                     "vue",
                     "xml",
                     "yaml",
