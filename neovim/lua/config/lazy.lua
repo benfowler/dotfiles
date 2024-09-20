@@ -13,7 +13,7 @@ return function(opts)
         defaults = { lazy = true },
         install = {
             missing = true,
-            colorscheme = { "nord" },
+            colorscheme = { "base16-tomorrow-night" },
         },
         checker = {
             enabled = true,

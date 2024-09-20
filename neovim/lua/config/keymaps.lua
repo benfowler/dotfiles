@@ -78,7 +78,7 @@ M.lsp = {
 
     line_diags = "<leader>cd",
     next_line_diags = "<C-j>",
-    info = "<leader>cl",
+    info = "<leader>ci",
     definitions = "gd",
     references = "gr",
     declaration = "gD",
@@ -94,9 +94,9 @@ M.lsp = {
     format_range = "<leader>cf",
     rename = "<leader>cr",
     code_action = "<leader>ca",
-    code_lens = "<leader>cc",
+    code_lens = "<leader>cl",
     source_action = "<leader>cA",
-    toggle_inlay_hints = "<leader>ci",
+    toggle_inlay_hints = "<leader>ch",
 }
 
 -- Telescope-specific mapping: help etc
@@ -152,6 +152,7 @@ M.fzf = {
     gfiles = "<M-p>", -- quick file access (Git)
     history = "<M-o>", -- quick file access (history)
     ripgrep = "<Leader>r", -- search everywhere (but fast)
+    colors = "<Leader>cc", -- fast preview/switch colorscheme
 }
 
 M.fugitive = {

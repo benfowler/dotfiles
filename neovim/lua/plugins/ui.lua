@@ -188,6 +188,12 @@ return {
         },
     },
 
+    -- Theme
+    {
+        "RRethy/base16-nvim",
+        lazy = false,
+    },
+
     -- Icons
     {
         "nvim-tree/nvim-web-devicons",
