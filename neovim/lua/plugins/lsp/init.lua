@@ -89,6 +89,7 @@ return {
         opts = {
             ensure_installed = {
                 "emmet-ls",
+                "eslint_d",
                 "hadolint",
                 "jsonlint",
                 "jsonnet-language-server",
@@ -101,6 +102,7 @@ return {
                 "shellcheck",
                 "shfmt",
                 "stylua",
+                "tailwindcss-language-server",
                 "texlab",
                 "typescript-language-server",
             },
