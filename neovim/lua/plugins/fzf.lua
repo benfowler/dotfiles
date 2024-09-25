@@ -20,7 +20,6 @@ return {
             { maps.fzf.history, silent = true, ":History<CR>", desc = "FZF History" },
             { maps.fzf.buffers, silent = true, ":Buffers<CR>", desc = "FZF Buffers" },
             { maps.fzf.ripgrep, silent = true, ":Rg<CR>", desc = "FZF RipGrep" },
-            { maps.fzf.colors, silent = true, ":Colors<CR>", desc = "FZF Colorschemes" },
         },
         config = function()
             -- General config options
