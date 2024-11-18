@@ -132,24 +132,6 @@ return {
         end,
     },
 
-    -- Better folding
-    {
-        "kevinhwang91/nvim-ufo",
-        event = { "BufRead" },
-        dependencies = "kevinhwang91/promise-async",
-        config = function ()
-            require("ufo").setup({
-                provider_selector = function(_, _, _)
-                    return {"treesitter", "indent"}
-                end
-            })
-
-            vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-            vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-            vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
-        end
-    },
-
     -- Make to-dos stand out using custom highlights
     {
         "folke/todo-comments.nvim",
