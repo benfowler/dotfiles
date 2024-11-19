@@ -9,6 +9,7 @@ return {
         priority = 1000,
         init = function()
             require "onedark".load()
+            require "local.highlights.init"   -- highlights need reapplying
         end,
         opts = {
             style = "darker"

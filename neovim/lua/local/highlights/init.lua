@@ -25,20 +25,19 @@ end
 
 -- Customisations of stock highlights
 vim.api.nvim_set_hl(0, "ColorColumn", { link = "Pmenu" })
+vim.api.nvim_set_hl(0, "FoldColumn", { link = "NonText" })
 
+vim.api.nvim_set_hl(0, "mkdLinkDef", { fg="#4fa6ed", underline=true })
 vim.api.nvim_set_hl(0, "mkdLink", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "@markup.quote.markdown", { link = "mkdBlockQuote" })
 vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { link = "mkdCode" })
+vim.api.nvim_set_hl(0, "Identifier", { link="NonText" })
 
 vim.api.nvim_set_hl(0, "LspCodeLens", { link = "DiagnosticOk" })
 vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "NonText" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "NonText" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { link = "NonText" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { link = "NonText" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { link = "NonText" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrWarn", { link = "DiagnosticWarn" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrInfo", { link = "DiagnosticInfo" })
