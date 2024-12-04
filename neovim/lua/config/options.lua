@@ -43,6 +43,7 @@ vim.o.foldenable = true
 -- Mouse
 vim.opt.mouse:append("a")
 vim.opt.mousemodel = "extend"
+vim.opt.mousescroll = "ver:1,hor:0"
 
 -- Turn off swapfiles and backups, like all the cool kids
 vim.opt.swapfile = false
