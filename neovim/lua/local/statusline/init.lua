@@ -109,13 +109,13 @@ M.modes = setmetatable({
     ["R"] = { "Replace", "R", "%#StatusLineModeReplace#" },
     ["Rv"] = { "V·Replace", "V·R", "%#StatusLineModeReplace#" },
     ["c"] = { "Command", "C", "%#StatusLineModeCommand#" },
-    ["cv"] = { "Vim·Ex ", "V·E", "%#StatusLineModeEx#" },
-    ["ce"] = { "Ex ", "E", "%#StatusLineModeEx#" },
-    ["r"] = { "Prompt ", "P", "%#StatusLineModeNormal#" },
-    ["rm"] = { "More ", "M", "%#StatusLineModeNormal#" },
-    ["r?"] = { "Confirm ", "C", "%#StatusLineModeNormal#" },
-    ["!"] = { "Shell ", "S", "%#StatusLineModeTerminal#" },
-    ["t"] = { "Terminal ", "T", "%#StatusLineModeTerminal#" },
+    ["cv"] = { "Vim·Ex", "V·E", "%#StatusLineModeEx#" },
+    ["ce"] = { "Ex", "E", "%#StatusLineModeEx#" },
+    ["r"] = { "Prompt", "P", "%#StatusLineModeNormal#" },
+    ["rm"] = { "More", "M", "%#StatusLineModeNormal#" },
+    ["r?"] = { "Confirm", "C", "%#StatusLineModeNormal#" },
+    ["!"] = { "Shell", "S", "%#StatusLineModeTerminal#" },
+    ["t"] = { "Terminal", "T", "%#StatusLineModeTerminal#" },
 }, {
     __index = function()
         return { "Unknown", "U" } -- handle edge cases

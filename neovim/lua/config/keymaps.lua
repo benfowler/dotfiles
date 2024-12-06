@@ -102,7 +102,7 @@ M.lsp = {
 -- Telescope-specific mapping: help etc
 M.telescope = {
     shortcuts = {
-        select_snippet = "<leader>S",
+        select_snippet = "<M-i>",
     },
 
     telescope = "<leader>tt",
@@ -215,7 +215,7 @@ vim.keymap.set("v", "<", "<gv")
 
 -- Fast file save
 vim.keymap.set("n", M.misc.write_file, ":update<cr>")
-vim.keymap.set("i", M.misc.write_file, "<c-o>:update<cr>")
+vim.keymap.set("i", M.misc.write_file, "<esc>:update<cr>")
 
 -- Use 'cabbrev' to correct common typos.  I accidentally type :W instead of :w, and get :Windows (fzf)
 -- NOTE: no Lua equivalent of cabbrev exists yet.
