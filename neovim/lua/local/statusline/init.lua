@@ -129,9 +129,9 @@ M.get_current_mode = function(self)
 
     local hl_group = self.modes[current_mode][3]
     if not self.use_long_modes or self:is_truncated(self.trunc_width.mode) then
-        return string.format(" %s%s ", hl_group, self.modes[current_mode][2]):upper()
+        return string.format("%s %s ", hl_group, self.modes[current_mode][2]):upper()
     end
-    return string.format(" %s%s ", hl_group, self.modes[current_mode][1]):upper()
+    return string.format("%s %s ", hl_group, self.modes[current_mode][1]):upper()
 end
 
 M.get_git_status = function(self)
