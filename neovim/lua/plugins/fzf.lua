@@ -3,10 +3,9 @@ local maps = require "config.keymaps"
 return {
     {
         "junegunn/fzf.vim",
-        dependencies = { "junegunn/fzf" },
-        build = function()
-            vim.cmd [[ call fzf#install() ]]
-        end,
+        dependencies = "junegunn/fzf",
+        install = ":call fzf#install()",
+        lazy = false,
         -- stylua: ignore
         cmd = {
             "Files", "GFiles", "Buffers", "Colors", "Ag", "Rg", "Lines",
