@@ -79,4 +79,5 @@ vim.api.nvim_set_hl(0, "StatusLineModeInsert", { link="MiniStatusLineModeOther" 
 vim.api.nvim_set_hl(0, "StatusLineModeReplace", { link="MiniStatusLineModeReplace" })
 vim.api.nvim_set_hl(0, "StatusLineModeTerminal", { link="MiniStatusLineModeNormal" })
 vim.api.nvim_set_hl(0, "StatusLineModeVisual", { link="MiniStatusLineModeCommand" })
+vim.api.nvim_set_hl(0, "StatusLineModeSelect", { link="MiniStatusLineModeVisual" })
 
