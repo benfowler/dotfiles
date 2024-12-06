@@ -31,6 +31,10 @@ return {
                     fzf = {
                         fuzzy = true, -- false will only do exact matching
                     },
+                    luasnip = {
+                        prompt_title = "Snippets",
+                        results_title = ""
+                    }
                 },
             }
         end,
@@ -52,11 +56,11 @@ return {
                 { maps.telescope.autocommands, ":Telescope autocommands<CR>", desc = "Autocmds" },
 
                 -- Pick snippet to preview and insert
-                { maps.telescope.select_snippet, ":Telescope luasnip theme=dropdown layout_config={'height':0.5,'width':120}<CR>", desc = "Telescope insert snippet", silent = true },
+                { maps.telescope.select_snippet, ":Telescope luasnip theme=dropdown layout_config={'height':0.5,'width':120}<CR>", desc = "Snippets", silent = true },
 
                 -- (shortcut)
-                { maps.telescope.shortcuts.select_snippet, ":Telescope luasnip theme=ivy<CR>", desc = "Telescope insert snippet", silent = true },
-                { maps.telescope.shortcuts.select_snippet, "<c-o>:Telescope luasnip theme=ivy<CR>", mode="i", desc = "Telescope insert snippet", silent = true },
+                { maps.telescope.shortcuts.select_snippet, ":Telescope luasnip theme=ivy<CR>", desc = "Snippets", silent = true },
+                { maps.telescope.shortcuts.select_snippet, "<c-o>:Telescope luasnip theme=ivy<CR>", mode="i", desc = "Snippets", silent = true },
 
                 -- LSP
                 { maps.telescope.lsp_diagnostics, ":Telescope diagnostics theme=dropdown<CR>", desc = "Diagnostics" },
