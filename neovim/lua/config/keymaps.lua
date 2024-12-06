@@ -214,8 +214,8 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 
 -- Fast file save
-vim.keymap.set("n", M.misc.write_file, ":update<cr>")
-vim.keymap.set("i", M.misc.write_file, "<esc>:update<cr>")
+vim.keymap.set("n", M.misc.write_file, ":update<cr>", { silent = true })
+vim.keymap.set("i", M.misc.write_file, "<esc>:update<cr>", { silent = true })
 
 -- Use 'cabbrev' to correct common typos.  I accidentally type :W instead of :w, and get :Windows (fzf)
 -- NOTE: no Lua equivalent of cabbrev exists yet.
