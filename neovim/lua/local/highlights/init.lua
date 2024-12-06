@@ -71,3 +71,12 @@ vim.api.nvim_set_hl(0, "WarnWinbarDiagIndic", { link = "DiagnosticWarn" })
 vim.api.nvim_set_hl(0, "InfoWinbarDiagIndic", { link = "DiagnosticInfo" })
 vim.api.nvim_set_hl(0, "HintWinbarDiagIndic", { link = "DiagnosticHint" })
 vim.api.nvim_set_hl(0, "OkWinbarDiagIndic", { link = "DiagnosticOk" })
+
+-- My custom statusbar
+vim.api.nvim_set_hl(0, "StatusLineModeCommand", { link="MiniStatusLineModeCommand" })
+vim.api.nvim_set_hl(0, "StatusLineModeEx", { link="MiniStatusLineModeCommand" })
+vim.api.nvim_set_hl(0, "StatusLineModeInsert", { link="MiniStatusLineModeInsert" })
+vim.api.nvim_set_hl(0, "StatusLineModeReplace", { link="MiniStatusLineModeReplace" })
+vim.api.nvim_set_hl(0, "StatusLineModeTerminal", { link="MiniStatusLineModeTerminal" })
+vim.api.nvim_set_hl(0, "StatusLineModeVisual", { link="MiniStatusLineModeVisual" })
+
