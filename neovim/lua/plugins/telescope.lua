@@ -60,7 +60,7 @@ return {
 
                 -- (shortcut)
                 { maps.telescope.shortcuts.select_snippet, ":Telescope luasnip theme=ivy<CR>", desc = "Snippets", silent = true },
-                { maps.telescope.shortcuts.select_snippet, "<c-o>:Telescope luasnip theme=ivy<CR>", mode="i", desc = "Snippets", silent = true },
+                { maps.telescope.shortcuts.select_snippet, "<cmd>:Telescope luasnip theme=ivy<CR>", mode="i", desc = "Snippets", silent = true },
 
                 -- LSP
                 { maps.telescope.lsp_diagnostics, ":Telescope diagnostics theme=dropdown<CR>", desc = "Diagnostics" },
