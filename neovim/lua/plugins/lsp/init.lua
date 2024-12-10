@@ -5,6 +5,64 @@ local util = require "util"
 
 return {
 
+    -- Diagnostic servers (linters and formatters)
+    {
+        "nvimtools/none-ls.nvim",    -- a community-supported fork of jose-elias-alvarez/null-ls
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "mason.nvim" },
+        opts = function()
+            local null_ls = require "null-ls"
+
+            -- Private custom null-ls sources
+            local priv_src_cfn_lint = require "servers.null-ls.sources.cfn-lint"
+
+            return {
+                root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+                debug = true,
+                log = {
+                    enable = true,
+                    level = "info",
+                    use_console = "async",
+                },
+                sources = {
+                    -- Linters
+                    null_ls.builtins.diagnostics.gitlint,
+                    null_ls.builtins.diagnostics.golangci_lint,
+                    null_ls.builtins.diagnostics.hadolint, -- Dockerfiles
+                    null_ls.builtins.diagnostics.markdownlint.with {
+                        diagnostics_postprocess = function(diagnostic)
+                            diagnostic.severity = vim.diagnostic.severity["HINT"]
+                        end,
+                    },
+                    null_ls.builtins.diagnostics.pylint,
+
+                    priv_src_cfn_lint.diagnostics.cfn_lint, -- CloudFormation lints
+
+                    -- Code formatters
+                    null_ls.builtins.formatting.black,
+                    null_ls.builtins.formatting.goimports,
+                    null_ls.builtins.formatting.shellharden,
+                    null_ls.builtins.formatting.sqlformat,
+                    null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.formatting.terraform_fmt,
+
+                    null_ls.builtins.formatting.prettier.with {
+                        filetypes = {
+                            "html",
+                            "json",
+                            "js",
+                            "markdown",
+                            "typescript",
+                            "typescriptreact",
+                            "tsx",
+                            "yaml",
+                        },
+                    }
+                },
+            }
+        end,
+    },
+
     -- Command-line tools and diagnostic servers
     {
         "williamboman/mason.nvim",
@@ -116,6 +174,8 @@ return {
             },
             -- add any global capabilities here
             capabilities = { },
+            -- automatically format on save
+            autoformat = false,
             -- LSP Server Settings
             servers = {
                 clangd = {
@@ -261,7 +321,12 @@ return {
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)
+            -- setup autoformat
+            require("plugins.lsp.format").autoformat = opts.autoformat
+
+            -- setup formatting and keymaps
             util.on_attach(function(client, buffer)
+                require("plugins.lsp.format").on_attach(client, buffer)
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
                 require("plugins.lsp.codelens").on_attach(client, buffer)
                 require("plugins.lsp.highlight_symbol").on_attach(client, buffer)
