@@ -14,7 +14,7 @@ local winbar_file = function()
     local worst = nil
     local worst_str = ""
 
-    if #vim.lsp.buf_get_clients() ~= 0 then
+    if #vim.lsp.get_clients() ~= 0 then
         local bufnr = vim.fn.bufnr()
         local diagnostics = vim.diagnostic.get(bufnr)
         worst = 5 -- sentinel value for 'ok'

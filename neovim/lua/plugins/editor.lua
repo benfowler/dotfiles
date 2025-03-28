@@ -2,16 +2,6 @@ local maps = require "config.keymaps"
 
 return {
     {
-        -- Pairs of handy bracket mappings
-        "tpope/vim-unimpaired",
-        event = "BufRead",
-    },
-    {
-        -- Enable repeating supported plugins (like vim-unimpaired)
-        "tpope/vim-repeat",
-        event = "BufRead",
-    },
-    {
         -- Delete buffers without changing window layout
         "famiu/bufdelete.nvim",
         event = "BufRead",

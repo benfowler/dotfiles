@@ -63,6 +63,7 @@ vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { link = "NonText" })
 -- My custom winbar
 vim.cmd [[
     highlight Winbar gui=italic guibg=NONE guifg=#535965
+    highlight WinbarNC gui=italic guibg=NONE guifg=#535965
 ]]
 
 vim.api.nvim_set_hl(0, "ErrorWinbarDiagIndic", { link = "DiagnosticError" })
