@@ -30,7 +30,6 @@ return function(opts)
             rtp = {
                 disabled_plugins = {
                     "gzip",
-                    "netrwPlugin",
                     "rplugin",
                     "tarPlugin",
                     "tohtml",
