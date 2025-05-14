@@ -65,7 +65,8 @@ return {
 
     -- Command-line tools and diagnostic servers
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
+        version = "1.11.0",
         cmd = "Mason",
         keys = { { maps.packages.mason, "<cmd>Mason<cr>", desc = "Mason" } },
         opts = {
@@ -144,11 +145,16 @@ return {
 
     -- lspconfig
     {
+        "mason-org/mason-lspconfig.nvim",
+        version="1.32.0"
+    },
+
+    {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
+            "mason-org/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "j-hui/fidget.nvim",
             "kosayoda/nvim-lightbulb",
