@@ -32,6 +32,9 @@ return {
                 },
                 indent = {
                     enable = true,
+                    disable = {
+                        "markdown", -- indentation at bullet points is worse
+                    },
                 },
                 matchup = {
                     enable = true,
