@@ -139,7 +139,15 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = "nvim-lua/plenary.nvim",
         opts = {
+            keywords = {
+                FIX = {
+                    icon = " ", -- icon used for the sign, and in search results
+                    color = "error", -- can be a hex color, or a named color (see below)
+                    alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "DANGER" }
+                }
+            },
             highlight = {
+                pattern = { [[.*<(KEYWORDS)\s*:]], [[.*!!! <(KEYWORDS)\s*]] },
                 comments_only = false,
             },
         },
