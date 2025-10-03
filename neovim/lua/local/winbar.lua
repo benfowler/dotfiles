@@ -51,7 +51,6 @@ local exclude_filetype = {
 
 local exclude_buftype = {
     "terminal",
-    "nofile",
 }
 
 local excludes = function()

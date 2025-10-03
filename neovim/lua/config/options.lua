@@ -34,7 +34,7 @@ end
 vim.opt.termguicolors = true                      -- enable true colors support
 
 -- (the following is required for nvim-ufo)
-vim.opt.fillchars = [[fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.fillchars = [[fold: ,foldopen:,foldsep: ,foldclose:,diff: ]]
 vim.o.foldcolumn = '1'                                                  -- '0' is not bad
 vim.o.foldlevel = 99                                                    -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
@@ -101,6 +101,10 @@ vim.opt.wildignorecase = true
 
 -- Hidden characters                              -- and mapping to switch it
 vim.opt.listchars = "tab:»·,nbsp:␣,eol:↲,extends:»,precedes:«,trail:•"
+
+-- Diff
+vim.opt.diffopt:append('algorithm:patience')
+vim.opt.diffopt:append('indent-heuristic')
 
 -- Security
 vim.opt.secure = true                             -- also load .vimrc from directory where Vim launched

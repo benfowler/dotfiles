@@ -136,14 +136,11 @@ return {
     -- Popup keymapping help
     {
         "folke/which-key.nvim",
-        lazy = false,
-        config = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 2000
-
-            local wk = require "which-key"
-            wk.add(require("config.keymaps").which_key_groups)
-        end,
+        event = "VeryLazy",
+        opts = {
+            -- Set a custom delay in milliseconds
+            delay = 1500,
+        },
     },
 
     -- Make to-dos stand out using custom highlights
