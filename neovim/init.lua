@@ -10,6 +10,7 @@ end
 require "config.options"
 require "config.autocmds"
 require "config.keymaps"
+require "config.lsp"
 
 require "local.statusline"
 require "local.winbar"

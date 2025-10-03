@@ -92,10 +92,10 @@ return {
             diagnostics = {
                 enable = true,
                 icons = {
-                    error = require("util").diagnostic_icons.filled.error,
-                    warning = require("util").diagnostic_icons.filled.warn,
-                    info = require("util").diagnostic_icons.filled.info,
-                    hint = require("util").diagnostic_icons.filled.hint,
+                    error = require("util").diagnostic_icons.outline.error,
+                    warning = require("util").diagnostic_icons.outline.warn,
+                    info = require("util").diagnostic_icons.outline.info,
+                    hint = require("util").diagnostic_icons.outline.hint,
                 },
             },
         },
