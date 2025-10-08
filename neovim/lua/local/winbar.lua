@@ -31,54 +31,13 @@ local winbar_file = function()
     return "%#WinBar#%= %m %f " .. worst_str
 end
 
-local exclude_filetype = {
-    "help",
-    "startify",
-    "dashboard",
-    "packer",
-    "neogitstatus",
-    "NvimTree",
-    "Trouble",
-    "alpha",
-    "lir",
-    "Outline",
-    "spectre_panel",
-    "TelescopePrompt",
-    "toggleterm",
-    "terminal",
-    "qf",
-}
-
-local exclude_buftype = {
-    "terminal",
-}
-
-local excludes = function()
-    local ftype = vim.bo.filetype
-    local btype = vim.bo.buftype
-    if
-        vim.tbl_contains(exclude_buftype, btype)
-        or ftype == nil
-        or ftype == ""
-        or vim.tbl_contains(exclude_filetype, ftype)
-    then
-        vim.opt_local.winbar = nil
-        return true
-    end
-
-    return false
-end
-
 M.show_winbar = function()
-    if excludes() then
-        return
-    end
-
-    local value = winbar_file()
-
-    local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
-    if not status_ok then
-        return
+    if vim.bo.filetype ~= "" and vim.bo.buftype == "" then
+        local value = winbar_file()
+        local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
+        if not status_ok then
+            return
+        end
     end
 end
 
