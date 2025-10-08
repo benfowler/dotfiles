@@ -12,6 +12,12 @@ return {
         "saghen/blink.cmp",
         build = 'cargo build --release',
         opts = {
+            -- General completion options
+            completion = {
+                ghost_text = {
+                    enabled = true,
+                },
+            },
             -- Enable snippet support (requires luasnip or mini.snippets)
             snippets = {
                 preset = "luasnip",
