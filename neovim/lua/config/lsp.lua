@@ -8,6 +8,7 @@ local lsp_icons = util.diagnostic_icons.outline
 -- Enabled language servers
 vim.lsp.enable('clangd')
 vim.lsp.enable('lua_ls')
+vim.lsp.enable('texlab')
 
 
 -- Global defaults
