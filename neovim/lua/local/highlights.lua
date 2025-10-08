@@ -43,6 +43,7 @@ vim.api.nvim_set_hl(0, "DiagnosticLineNrError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrWarn", { link = "DiagnosticWarn" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrInfo", { link = "DiagnosticInfo" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrHint", { link = "DiagnosticHint" })
+vim.cmd [[ highlight LspInlayHint guifg=NvimDarkGrey4 guibg=NONE gui=italic ]]
 
 -- Inactive statusbars: make a thin rule; align vertsplit to match.
 vim.cmd [[ highlight StatusLineNC guifg=NONE guisp=NvimDarkGrey4 guibg=NONE gui=underline ]]

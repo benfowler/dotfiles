@@ -7,6 +7,23 @@ return {
         opts = { },
     },
 
+    -- Use blink.cmp for fuzzy autocomplete in LSP
+    {
+        "saghen/blink.cmp",
+        build = 'cargo build --release',
+        opts = {
+            -- Enable snippet support (requires luasnip or mini.snippets)
+            snippets = {
+                preset = "luasnip",
+            },
+            -- Enable function signature help
+            signature = {
+                enabled = true,
+                window = { border = "rounded" },
+            },
+        },
+    },
+
     -- Show code action signs
     {
         "kosayoda/nvim-lightbulb",

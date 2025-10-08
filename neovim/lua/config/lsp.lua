@@ -71,6 +71,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Customise sensible builtin LSP keymaps
     vim.keymap.set({ "n", "i" }, maps.lsp.prev_line_diags, function() vim.diagnostic.jump({ count=-1, float = true }) end, { desc = "prev line diag" })
     vim.keymap.set({ "n", "i" }, maps.lsp.next_line_diags, function() vim.diagnostic.jump({ count=1, float = true }) end, { desc = "next line diag" })
+    vim.keymap.set({ "n" }, maps.lsp.toggle_inlay_hints, function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
+
+    -- LSP capabilities
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    -- ... extend to handle autocomplete (saghen/blink.cmp)
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+
+    -- ... add my own capabilities
+    capabilities = vim.tbl_deep_extend('force', capabilities, {
+        textDocument = {
+            foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true
+            }
+        }
+    })
 
     -- Configure rounded corners for LSP floats only
     local _open_floating_preview = vim.lsp.util.open_floating_preview
