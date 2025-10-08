@@ -12,7 +12,7 @@ vim.opt.updatetime = 2000                         -- number of milliseconds befo
 
 -- Enable the following to bind yank to system clipboard by default
 -- CAVEAT: slows system startup, and makes 'x' overwrite the system clipboard
-vim.opt.clipboard:append("unnamedplus")
+--vim.opt.clipboard:append("unnamedplus")
 
 -- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
 if vim.fn.has('win16') == 1 or vim.fn.has('win32') == 1 then
