@@ -29,6 +29,41 @@ return {
         },
     },
 
+    -- Better vim.ui
+    {
+        "stevearc/dressing.nvim",
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                require("lazy").load { plugins = { "dressing.nvim" } }
+                return vim.ui.select(...)
+            end
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.input = function(...)
+                require("lazy").load { plugins = { "dressing.nvim" } }
+                return vim.ui.input(...)
+            end
+        end,
+        opts = {
+            input = {
+                win_options = {
+                    winblend = 0,
+                    winhighlight = "FloatBorder:DressingFloatBorder",
+                },
+            },
+            select = {
+                get_config = function(opts)
+                    if opts.kind == "codeaction" then
+                        return {
+                            backend = "telescope",
+                            telescope = require("telescope.themes").get_cursor(),
+                        }
+                    end
+                end,
+            },
+        },
+    },
+
     {
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTreeToggle", "NvimTreeFocus" },
