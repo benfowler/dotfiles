@@ -114,17 +114,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         })
     end
 
-    -- ... CodeLenses
-    if client ~= nil and client.server_capabilities.codeLensProvider then
-        vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "InsertLeave"}, {
-            group = vim.api.nvim_create_augroup("LspCodeLens." .. bufnr, {}),
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.codelens.refresh({ bufnr = 0 })
-            end,
-        })
-    end
-
     -- Configure rounded corners for LSP floats only
     local _open_floating_preview = vim.lsp.util.open_floating_preview
     vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)

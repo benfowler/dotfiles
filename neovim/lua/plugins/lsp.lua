@@ -23,7 +23,7 @@ return {
     -- Use blink.cmp for fuzzy autocomplete in LSP
     {
         "saghen/blink.cmp",
-        build = 'cargo build --release',
+        version = "v1.7.0",  -- pin this to a release to keep running; use pre-built fuzzy finder binary
         opts = {
             -- General completion options
             completion = {
@@ -41,6 +41,28 @@ return {
                 window = { border = "rounded" },
             },
         },
+    },
+
+    -- CodeLens support
+    {
+        'oribarilan/lensline.nvim',
+        branch = 'release/2.x',
+        event = 'LspAttach',
+        config = function()
+            require('lensline').setup {
+                profiles = {
+                    {
+                        name = 'minimal',
+                        style = {
+                            -- placement = 'inline',
+                            highlight = "LspCodeLens",
+                            prefix = "▪ ",
+                            -- render = "focused",  -- optionally render lenses only for focused function
+                        },
+                    },
+                },
+            }
+        end,
     },
 
     -- Show code action signs
