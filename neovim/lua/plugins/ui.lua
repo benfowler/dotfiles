@@ -2,20 +2,6 @@ local maps = require "config.keymaps"
 
 return {
 
-    -- OneDark theme
-    {
-        "navarasu/onedark.nvim",
-        lazy = false,
-        priority = 1000,
-        init = function()
-            require "onedark".load()
-            require "local.highlights"   -- highlights need reapplying
-        end,
-        opts = {
-            style = "darker"
-        }
-    },
-
     -- Better `vim.notify()`
     {
         "rcarriga/nvim-notify",

@@ -4,7 +4,7 @@
 
 ### Neovim
 
-OneDark-themed, super-clean Neovim configuration.  Intended to keep keybindings
+My attempt at a minimal Neovim configuration.  Intended to keep keybindings
 as 'standard' as possible to keep everything aligned with the VS Code and
 IntelliJ Vim plugins, but be usable for productive scripting.
 

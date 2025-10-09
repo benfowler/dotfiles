@@ -4,7 +4,13 @@ return {
     {
         "j-hui/fidget.nvim",
         lazy = false,
-        opts = { },
+        opts = {
+            notification = {
+                window = {
+                    winblend = 0,
+                  },
+            },
+        },
     },
 
     -- Use blink.cmp for fuzzy autocomplete in LSP

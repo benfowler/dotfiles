@@ -1,4 +1,18 @@
 
+  -- // Default Neovim palettes.
+  -- // Dark/light palette is used for background in dark/light color scheme and
+  -- // for foreground in light/dark color scheme.
+  --
+  -- NvimDarkBlue, NvimDarkCyan, NvimDarkGray1, NvimDarkGray2, NvimDarkGray3,
+  -- NvimDarkGray4, NvimDarkGreen, NvimDarkGrey1, NvimDarkGrey2, NvimDarkGrey3,
+  -- NvimDarkGrey4, NvimDarkMagenta, NvimDarkRed, NvimDarkYellow,
+  --
+  -- NvimLightBlue, NvimLightCyan, NvimLightGray1, NvimLightGray2,
+  -- NvimLightGray3, NvimLightGray4, NvimLightGreen, NvimLightGrey1,
+  -- NvimLightGrey2, NvimLightGrey3, NvimLightGrey4, NvimLightMagenta,
+  -- NvimLightRed, NvimLightYellow,
+
+
 -- If using the default Neovim color scheme, force-reset all highlight groups
 if vim.g.colors_name == nil or vim.g.colors_name == "default" then
 
@@ -21,6 +35,11 @@ if vim.g.colors_name == nil or vim.g.colors_name == "default" then
             highlight DiagnosticUnderlineHint gui=undercurl
         ]]
     end
+
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "none"})
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none"})
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
 end
 
 -- Customisations of stock highlights
@@ -28,7 +47,7 @@ vim.api.nvim_set_hl(0, "ColorColumn", { link = "Pmenu" })
 vim.api.nvim_set_hl(0, "FoldColumn", { link = "NonText" })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { link = "NonText" })
 
-vim.api.nvim_set_hl(0, "mkdLinkDef", { fg="#4fa6ed", underline=true })
+vim.api.nvim_set_hl(0, "mkdLinkDef", { fg="NvimLightBlue", underline=true })
 vim.api.nvim_set_hl(0, "mkdLink", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { link = "mkdLinkDef" })
@@ -39,6 +58,9 @@ vim.api.nvim_set_hl(0, "Identifier", { link="NonText" })
 
 vim.api.nvim_set_hl(0, "LspCodeLens", { link = "DiagnosticOk" })
 vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "NonText" })
+vim.api.nvim_set_hl(0, "LspReferenceRead", { fg="Black", bg= "NvimLightGreen" })
+vim.api.nvim_set_hl(0, "LspReferenceWrite", { fg="Black", bg= "NvimLightRed" })
+
 vim.api.nvim_set_hl(0, "DiagnosticLineNrError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrWarn", { link = "DiagnosticWarn" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrInfo", { link = "DiagnosticInfo" })
@@ -75,11 +97,12 @@ vim.api.nvim_set_hl(0, "HintWinbarDiagIndic", { link = "DiagnosticHint" })
 vim.api.nvim_set_hl(0, "OkWinbarDiagIndic", { link = "DiagnosticOk" })
 
 -- My custom statusbar  (NOTE: linked highlights chosen to look nicer, not match logicically)
-vim.api.nvim_set_hl(0, "StatusLineModeCommand", { link="MiniStatusLineModeInsert" })
-vim.api.nvim_set_hl(0, "StatusLineModeEx", { link="MiniStatusLineModeCommand" })
-vim.api.nvim_set_hl(0, "StatusLineModeInsert", { link="MiniStatusLineModeOther" })
-vim.api.nvim_set_hl(0, "StatusLineModeReplace", { link="MiniStatusLineModeReplace" })
-vim.api.nvim_set_hl(0, "StatusLineModeTerminal", { link="MiniStatusLineModeNormal" })
-vim.api.nvim_set_hl(0, "StatusLineModeVisual", { link="MiniStatusLineModeCommand" })
-vim.api.nvim_set_hl(0, "StatusLineModeSelect", { link="MiniStatusLineModeVisual" })
+vim.api.nvim_set_hl(0, "StatusLineModeNormal", { bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeCommand", { bg="NvimLightBlue", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeEx", { bg="NvimLightBlue", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeInsert", { bg="NvimLightCyan", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeReplace", { bg="NvimLightRed", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeTerminal", { bg="NvimLightGreen", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeVisual", { bg="NvimLightYellow", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineModeSelect", { bg="NvimLightMagenta", bold = true })
 

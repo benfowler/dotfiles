@@ -15,6 +15,8 @@ require "config.lsp"
 require "local.statusline"
 require "local.winbar"
 
+require "local.highlights"  -- apply highlights as late as possible
+
 -- vim.g.profile_loaders = true
 require "config.lazy" {
     debug = false,
