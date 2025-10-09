@@ -7,14 +7,13 @@ else
     end)
 end
 
+require "local.statusline"
+require "local.winbar"
+
 require "config.options"
 require "config.autocmds"
 require "config.keymaps"
 require "config.lsp"
-
-require "local.statusline"
-require "local.winbar"
-require "local.codelens"
 
 require "local.highlights"  -- apply highlights as late as possible
 

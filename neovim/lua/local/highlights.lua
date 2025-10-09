@@ -56,10 +56,9 @@ vim.api.nvim_set_hl(0, "@markup.quote.markdown", { link = "mkdBlockQuote" })
 vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { link = "mkdCode" })
 vim.api.nvim_set_hl(0, "Identifier", { link="NonText" })
 
-vim.api.nvim_set_hl(0, "LspCodeLens", { link = "DiagnosticOk" })
-vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "NonText" })
+vim.api.nvim_set_hl(0, "LspCodeLens", { fg="NvimLightMagenta" })
+vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "Comment" })
 vim.api.nvim_set_hl(0, "LspReferenceRead", { fg="Black", bg= "NvimLightGreen" })
-vim.api.nvim_set_hl(0, "LspReferenceWrite", { fg="Black", bg= "NvimLightRed" })
 
 vim.api.nvim_set_hl(0, "DiagnosticLineNrError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrWarn", { link = "DiagnosticWarn" })
@@ -83,6 +82,9 @@ vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", { link = "NvimTreeNormal" })
 vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderIcon", { link = "NvimTreeFolderIcon" })
 vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { link = "NvimTreeFolderIcon" })
 vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { link = "NonText" })
+
+-- Plugin: Notify
+vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "NvimDarkGrey1" })
 
 -- My custom winbar
 vim.cmd [[
