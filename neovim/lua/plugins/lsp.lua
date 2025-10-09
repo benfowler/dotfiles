@@ -1,5 +1,12 @@
 
 return {
+
+    -- nvim-lspconfig (for canned configs only; requires v0.11+)
+    {
+        "neovim/nvim-lspconfig",
+        lazy=false,
+    },
+
     -- Show LSP server activity as an overlay
     {
         "j-hui/fidget.nvim",

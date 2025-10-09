@@ -7,6 +7,7 @@ local lsp_icons = util.diagnostic_icons.outline
 
 -- Enabled language servers
 vim.lsp.enable('clangd')
+vim.lsp.enable('gopls')
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('texlab')
@@ -14,14 +15,18 @@ vim.lsp.enable('texlab')
 
 -- Global defaults
 vim.lsp.config('*', {
-  capabilities = {
-    textDocument = {
-      semanticTokens = {
-        multilineTokenSupport = true,
-      }
-    }
-  },
-  root_markers = { '.git' },
+    capabilities = {
+        textDocument = {
+            foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true
+            },
+            semanticTokens = {
+                multilineTokenSupport = true,
+            },
+        }
+    },
+    root_markers = { '.git' },
 })
 
 
@@ -74,21 +79,51 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({ "n", "i" }, maps.lsp.next_line_diags, function() vim.diagnostic.jump({ count=1, float = true }) end, { desc = "next line diag" })
     vim.keymap.set({ "n" }, maps.lsp.toggle_inlay_hints, function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
 
-    -- LSP capabilities
+    -- LSP client capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
     -- ... extend to handle autocomplete (saghen/blink.cmp)
     capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
 
-    -- ... add my own capabilities
-    capabilities = vim.tbl_deep_extend('force', capabilities, {
-        textDocument = {
-            foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true
-            }
+
+    -- Surface LSP server capabilites if available
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local bufnr = args.buf
+
+    -- ... reference highlighting
+    if client ~= nil and client.server_capabilities.documentHighlightProvider then
+        vim.api.nvim_create_augroup("lsp_document_highlight", {
+            clear = false,
+        })
+        vim.api.nvim_clear_autocmds {
+            buffer = bufnr,
+            group = "lsp_document_highlight",
         }
-    })
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            group = "lsp_document_highlight",
+            buffer = bufnr,
+            callback = function ()
+                -- if cmp_available and cmp.visible() then return end   -- don't mess up nvim-cmp ghost text
+                vim.lsp.buf.document_highlight()
+            end,
+        })
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            group = "lsp_document_highlight",
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+        })
+    end
+
+    -- ... CodeLenses
+    if client ~= nil and client.server_capabilities.codeLensProvider then
+        vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "InsertLeave"}, {
+            group = vim.api.nvim_create_augroup("LspCodeLens." .. bufnr, {}),
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.codelens.refresh({ bufnr = 0 })
+            end,
+        })
+    end
 
     -- Configure rounded corners for LSP floats only
     local _open_floating_preview = vim.lsp.util.open_floating_preview
