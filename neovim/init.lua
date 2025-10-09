@@ -14,6 +14,7 @@ require "config.lsp"
 
 require "local.statusline"
 require "local.winbar"
+require "local.codelens"
 
 require "local.highlights"  -- apply highlights as late as possible
 
