@@ -47,6 +47,26 @@ vim.api.nvim_set_hl(0, "ColorColumn", { link = "Pmenu" })
 vim.api.nvim_set_hl(0, "FoldColumn", { link = "NonText" })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { link = "NonText" })
 
+
+---
+--- See <https://gist.github.com/swarn/fb37d9eefe1bc616c2a7e476c0bc0316>
+--- for a comprehensive guide to Semantic highlighting in Neovim.
+---
+
+-- (Vim highlights)
+vim.api.nvim_set_hl(0, "Constant", { fg="NvimLightCyan" })
+
+-- (Treesitter highlights)
+vim.api.nvim_set_hl(0, "@property", { link="Normal" })
+vim.api.nvim_set_hl(0, "@constant", { fg="NvimLightCyan", italic=true })
+vim.api.nvim_set_hl(0, "@variable.parameter", { fg="NvimLightMagenta" })
+
+-- (Semantic highlights)
+vim.api.nvim_set_hl(0, "@lsp.mod.global", { fg="NvimLightRed" })
+vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg="NvimLightMagenta" })
+vim.api.nvim_set_hl(0, "@lsp.type.property", { link="Normal" })
+vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg="NvimLightBlue" })
+
 vim.api.nvim_set_hl(0, "mkdLinkDef", { fg="NvimLightBlue", underline=true })
 vim.api.nvim_set_hl(0, "mkdLink", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "mkdInlineURL", { link = "mkdLinkDef" })
@@ -54,11 +74,11 @@ vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { link = "mkdLinkDe
 vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { link = "mkdLinkDef" })
 vim.api.nvim_set_hl(0, "@markup.quote.markdown", { link = "mkdBlockQuote" })
 vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { link = "mkdCode" })
-vim.api.nvim_set_hl(0, "Identifier", { link="NonText" })
 
-vim.api.nvim_set_hl(0, "LspCodeLens", { fg="NvimLightMagenta" })
+vim.api.nvim_set_hl(0, "LspCodeLens", { link = "NonText" })
 vim.api.nvim_set_hl(0, "LspCodeLensSeparator", { link = "Comment" })
 vim.api.nvim_set_hl(0, "LspReferenceRead", { fg="Black", bg= "NvimLightGreen" })
+vim.api.nvim_set_hl(0, "LspReferenceWrite", { fg="Black", bg= "NvimLightRed" })
 
 vim.api.nvim_set_hl(0, "DiagnosticLineNrError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticLineNrWarn", { link = "DiagnosticWarn" })
