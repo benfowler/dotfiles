@@ -76,7 +76,6 @@ M.lsp = {
         source_action = "<leader>A",
     },
 
-    line_diags = "<leader>cd",
     prev_line_diags = "<C-k>",
     next_line_diags = "<C-j>",
     info = "<leader>cl",
@@ -91,9 +90,11 @@ M.lsp = {
     format_range = "<leader>cf",
     code_lens = "grc",
     source_action = "<leader>cA",
+    open_diags_float = "<leader>cd",
     toggle_inlay_hints = "<leader>ci",
     show_doc_references = "<leader>cr",
     clear_doc_references = "<leader>cc",
+    send_diags_to_quickfix = "<leader>cq",
 }
 
 -- Telescope-specific mapping: help etc

@@ -75,11 +75,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
     })
 
     -- Customise sensible builtin LSP keymaps
-    vim.keymap.set({ "n", "i" }, maps.lsp.prev_line_diags, function() vim.diagnostic.jump({ count=-1, float = true }) end, { desc = "prev line diag" })
-    vim.keymap.set({ "n", "i" }, maps.lsp.next_line_diags, function() vim.diagnostic.jump({ count=1, float = true }) end, { desc = "next line diag" })
+    vim.keymap.set({ "n", "i" }, maps.lsp.prev_line_diags, function() vim.diagnostic.jump({ count=-1, float = true }) end, { desc = "Prev Diag" })
+    vim.keymap.set({ "n", "i" }, maps.lsp.next_line_diags, function() vim.diagnostic.jump({ count=1, float = true }) end, { desc = "Next Diag" })
     vim.keymap.set({ "n" }, maps.lsp.toggle_inlay_hints, function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
-    vim.keymap.set({ "n" }, maps.lsp.show_doc_references, function() vim.lsp.buf.document_highlight() end, { desc = "Show doc references" })
-    vim.keymap.set({ "n" }, maps.lsp.clear_doc_references, vim.lsp.buf.clear_references, { desc = "Clear doc references" })
+    vim.keymap.set({ "n" }, maps.lsp.open_diags_float, vim.diagnostic.open_float, { desc = "Show Line Diags" })
+    vim.keymap.set({ "n" }, maps.lsp.next_error, function() vim.diagnostic.jump({ count=1, severity=vim.diagnostic.severity.ERROR }) end, { desc = "Next Error" })
+    vim.keymap.set({ "n" }, maps.lsp.prev_error, function()  vim.diagnostic.jump({ count=-1, severity=vim.diagnostic.severity.ERROR }) end, { desc = "Prev Error" })
+    vim.keymap.set({ "n" }, maps.lsp.next_warning, function() vim.diagnostic.jump({ count=1, severity=vim.diagnostic.severity.WARN }) end, { desc = "Next Warning" })
+    vim.keymap.set({ "n" }, maps.lsp.prev_warning, function() vim.diagnostic.jump({ count=-1, severity=vim.diagnostic.severity.WARN }) end, { desc = "Prev Warning" })
+    vim.keymap.set({ "n" }, maps.lsp.show_doc_references, vim.lsp.buf.document_highlight, { desc = "Show Doc Refs" })
+    vim.keymap.set({ "n" }, maps.lsp.clear_doc_references, vim.lsp.buf.clear_references, { desc = "Clear Doc Refs" })
+    vim.keymap.set({ "n" }, maps.lsp.send_diags_to_quickfix, vim.diagnostic.setqflist, { desc = "Send Diags to QF" })
 
     -- LSP client capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()

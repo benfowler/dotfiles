@@ -29,7 +29,12 @@ return {
     -- better quickfix buffer
     {
         "kevinhwang91/nvim-bqf",
-        ft = 'qf'
+        ft = 'qf',
+        config = {
+            preview = {
+                winblend = 0,
+            },
+        },
     },
 
     -- Format tables etc
