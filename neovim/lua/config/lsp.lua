@@ -7,10 +7,16 @@ local lsp_icons = util.diagnostic_icons.outline
 
 -- Enabled language servers
 vim.lsp.enable('basedpyright')
+vim.lsp.enable('bashls')
 vim.lsp.enable('clangd')
+vim.lsp.enable('cssls')
+vim.lsp.enable('emmet_language_server')
 vim.lsp.enable('gopls')
+vim.lsp.enable('html')
+vim.lsp.enable('jsonls')
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('texlab')
+vim.lsp.enable('yamlls')
 
 
 -- Global defaults
