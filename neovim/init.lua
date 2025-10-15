@@ -15,8 +15,6 @@ require "config.autocmds"
 require "config.keymaps"
 require "config.lsp"
 
-require "local.highlights"  -- apply highlights as late as possible
-
 -- vim.g.profile_loaders = true
 require "config.lazy" {
     debug = false,
@@ -30,3 +28,6 @@ require "config.lazy" {
         },
     },
 }
+
+require "local.qf"
+require "local.highlights"  -- apply highlights as late as possible
