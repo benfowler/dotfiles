@@ -92,6 +92,8 @@ M.lsp = {
     code_lens = "grc",
     source_action = "<leader>cA",
     toggle_inlay_hints = "<leader>ci",
+    show_doc_references = "<leader>cr",
+    clear_doc_references = "<leader>cc",
 }
 
 -- Telescope-specific mapping: help etc
