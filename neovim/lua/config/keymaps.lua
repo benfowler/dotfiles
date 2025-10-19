@@ -135,7 +135,7 @@ M.telescope = {
     git_stash = "<leader>gs",
     git_files = "<leader>gf",
 
-    markdown_headings = "<leader>mh",
+    markdown_headings = "<localleader>mh",
 
     spell_suggest = "z=",
 }
