@@ -23,6 +23,7 @@ return {
         ft = "markdown",
         keys = {
             { "<leader>mm", ":MarkdownPreview<cr>", desc = "Preview" },
+            { "<leader>mh", ":Telescope heading theme=dropdown<cr>", desc = "MD Headings" },
         },
         config = function()
             vim.g.nvim_markdown_preview_format = "gfm"
