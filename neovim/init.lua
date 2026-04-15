@@ -8,7 +8,6 @@ else
 end
 
 require "local.statusline"
-require "local.winbar"
 
 require "config.options"
 require "config.autocmds"

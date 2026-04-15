@@ -110,18 +110,6 @@ vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { link = "NonText" })
 -- Plugin: Notify
 vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "NvimDarkGrey1" })
 
--- My custom winbar
-vim.cmd [[
-    highlight Winbar gui=italic guibg=NONE guifg=#535965
-    highlight WinbarNC gui=italic guibg=NONE guifg=#535965
-]]
-
-vim.api.nvim_set_hl(0, "ErrorWinbarDiagIndic", { link = "DiagnosticError" })
-vim.api.nvim_set_hl(0, "WarnWinbarDiagIndic", { link = "DiagnosticWarn" })
-vim.api.nvim_set_hl(0, "InfoWinbarDiagIndic", { link = "DiagnosticInfo" })
-vim.api.nvim_set_hl(0, "HintWinbarDiagIndic", { link = "DiagnosticHint" })
-vim.api.nvim_set_hl(0, "OkWinbarDiagIndic", { link = "DiagnosticOk" })
-
 -- My custom statusbar  (NOTE: linked highlights chosen to look nicer, not match logicically)
 
 vim.cmd [[
