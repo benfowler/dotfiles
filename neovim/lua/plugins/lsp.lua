@@ -43,28 +43,6 @@ return {
         },
     },
 
-    -- CodeLens support
-    {
-        'oribarilan/lensline.nvim',
-        branch = 'release/2.x',
-        event = 'LspAttach',
-        config = function()
-            require('lensline').setup {
-                profiles = {
-                    {
-                        name = 'minimal',
-                        style = {
-                            -- placement = 'inline',
-                            highlight = "LspCodeLens",
-                            prefix = "▪ ",
-                            -- render = "focused",  -- optionally render lenses only for focused function
-                        },
-                    },
-                },
-            }
-        end,
-    },
-
     -- Show code action signs
     {
         "kosayoda/nvim-lightbulb",
