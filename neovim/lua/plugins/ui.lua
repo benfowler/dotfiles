@@ -106,10 +106,6 @@ return {
                 update_cwd = false,
                 ignore_list = {},
             },
-            system_open = {
-                cmd = nil,
-                args = {},
-            },
             diagnostics = {
                 enable = true,
                 icons = {
