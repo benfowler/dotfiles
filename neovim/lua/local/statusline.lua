@@ -225,7 +225,7 @@ M.set_active = function(self)
     local mode = colors.mode .. self:get_current_mode()
     local mode_alt = colors.mode_alt .. self.separators[active_sep][1]
     local filetype_icon, filetype_label = self:get_filetype()
-    local filename = colors.active .. self:get_filename()
+    local filename = colors.active .. self:format_filename(nil, self:get_filename())
     local lsp_diagnostic = self:get_lsp_diagnostic()
     local git_status = colors.git .. self:get_git_status()
     local git_branch = colors.git .. self:get_git_branch()
@@ -239,10 +239,9 @@ M.set_active = function(self)
     -- stylua: ignore
     return table.concat({
         -- left hand side
-        mode, mode_alt, colors.active, git_status,
+        mode, mode_alt, colors.active, filename, git_status,
         "%=",
         -- centre
-        -- filename,
         "%=",
         -- right hand side
         lsp_diagnostic, git_alt, git_branch, filetype_alt, filetype, line_info_alt, line_info,

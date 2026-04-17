@@ -130,3 +130,13 @@ vim.api.nvim_set_hl(0, "StatusLineModeTerminal", { link = "MiniStatusLineModeNor
 vim.api.nvim_set_hl(0, "StatusLineModeVisual", { link = "MiniStatusLineModeCommand" })
 vim.api.nvim_set_hl(0, "StatusLineModeSelect", { link = "MiniStatusLineModeVisual" })
 
+vim.api.nvim_set_hl(0, "StatusLineOk", { link = "DiagnosticOk" })
+vim.api.nvim_set_hl(0, "StatusLineError", { link = "DiagnosticError" })
+vim.api.nvim_set_hl(0, "StatusLineWarn", { link = "DiagnosticWarn" })
+vim.api.nvim_set_hl(0, "StatusLineInfo", { link = "DiagnosticInfo" })
+vim.api.nvim_set_hl(0, "StatusLineHint", { link = "DiagnosticHint" })
+
+vim.api.nvim_set_hl(0, "StatusLineAdd", { link = "@diff.plus" })
+vim.api.nvim_set_hl(0, "StatusLineChange", { link = "@diff.delta" })
+vim.api.nvim_set_hl(0, "StatusLineDelete", { link = "@diff.minus" })
+
