@@ -127,6 +127,9 @@ M.use_long_modes = true
 M.get_current_mode = function(self)
     local current_mode = api.nvim_get_mode().mode
 
+    -- Hide "NORMAL" status
+    if current_mode == "n" then return "" end
+
     local hl_group = self.modes[current_mode][3]
     if not self.use_long_modes or self:is_truncated(self.trunc_width.mode) then
         return string.format("%s %s ", hl_group, self.modes[current_mode][2]):upper()
