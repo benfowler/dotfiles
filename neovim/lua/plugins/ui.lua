@@ -31,37 +31,16 @@ return {
 
     -- Better vim.ui
     {
-        "stevearc/dressing.nvim",
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lazy").load { plugins = { "dressing.nvim" } }
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lazy").load { plugins = { "dressing.nvim" } }
-                return vim.ui.input(...)
-            end
-        end,
+        "folke/snacks.nvim",
+        lazy = false,
+        priority = 1000,
+        ---@type snacks.Config
         opts = {
             input = {
-                win_options = {
-                    winblend = 0,
-                    winhighlight = "FloatBorder:DressingFloatBorder",
-                },
-            },
-            select = {
-                get_config = function(opts)
-                    if opts.kind == "codeaction" then
-                        return {
-                            backend = "telescope",
-                            telescope = require("telescope.themes").get_cursor(),
-                        }
-                    end
-                end,
-            },
-        },
+            -- your input configuration comes here
+            -- or leave it empty to use the default settings
+            }
+        }
     },
 
     {
