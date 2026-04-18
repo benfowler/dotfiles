@@ -113,6 +113,18 @@ M.modes = setmetatable({
 
 M.use_long_modes = true
 
+-- filetype for 'Explorer mode'
+M.explorer_filetype = "NvimTree"
+
+-- filetypes to hide statusbar for
+M.hidden_filetypes = {
+    fugitiveblame   = true,
+    fzf             = true,
+    lazy            = true,
+    telescopeprompt = true,
+}
+
+
 M.get_current_mode = function(self)
     local current_mode = api.nvim_get_mode().mode
 
@@ -286,8 +298,20 @@ M.setup = function()
     })
 
     api.nvim_create_autocmd({ "WinEnter", "BufEnter", "FileType" }, {
-        pattern = "NvimTree",
+        pattern = M.explorer_filetype,
         command = "setlocal statusline=%!v:lua.Statusline('explorer')",
+        group = statuslineGrp,
+    })
+
+    -- Hide statusline for various filetypes
+    api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnter", "TermEnter" }, {
+        callback = function()
+            if M.hidden_filetypes[vim.bo.ft] or ("" == vim.bo.ft and "nofile" == vim.bo.buftype) then
+                vim.go.laststatus = 0
+            else
+                vim.go.laststatus = 2
+            end
+        end,
         group = statuslineGrp,
     })
 end
