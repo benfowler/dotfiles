@@ -39,7 +39,7 @@ vim.lsp.config('*', {
 
 -- Remove or override BUFFER-LOCAL defaults
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
+  callback = function(_)
 
     -- Customise diagnostics
     local dg_error = vim.diagnostic.severity.ERROR
@@ -49,8 +49,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.diagnostic.config({
         float = {
-            header = false,
-            border = 'rounded',
             focusable = true,
         },
         signs = {
@@ -64,7 +62,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 [dg_error] = "DiagnosticLineNrError", [dg_warn] = "DiagnosticLineNrWarn", [dg_info] = "DiagnosticLineNrInfo", [dg_hint] = "DiagnosticLineNrHint",
             },
             linehl = {
-                [dg_error] = nil, [dg_warn] = nil, [dg_info] = nil, [dg_hint] = nil,
+                [dg_error] = nil , [dg_warn] = nil, [dg_info] = nil, [dg_hint] = nil,
             },
 
         },
