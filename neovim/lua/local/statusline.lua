@@ -1,5 +1,5 @@
 -- Handwritten statusline
--- Based on <https://elianiva.my.id/post/neovim-lua-statusline>
+-- Based on <https://elianiva.my.id/post/neovim-lua-status line>
 
 local fn = vim.fn
 local api = vim.api
@@ -80,34 +80,34 @@ M.is_truncated = function(_, width)
 end
 
 M.modes = setmetatable({
-    ["n"] = { "Normal", "N", "%#StatusLineModeNormal#" },
-    ["no"] = { "N·Pending", "N·P", "%#StatusLineModeNormal#" },
-    ["niI"] = { "N·Insert", "N·I", "%#StatusLineModeNormal#" }, -- C-o 'insert-normal' mode
-    ["niR"] = { "N·Replace", "N·R", "%#StatusLineModeReplace#" }, -- C-o 'replace-normal' mode
-    ["niV"] = { "N·Visual", "N·R", "%#StatusLineModeVisual#" }, -- C-o 'virtual-replace' mode
-    ["nt"] = { "N·Terminal", "N·T", "%#StatusLineModeNormal#" },
-    ["v"] = { "Visual", "V", "%#StatusLineModeVisual#" },
-    ["V"] = { "V·Line", "V·L", "%#StatusLineModeVisual#" },
-    [""] = { "V·Block", "V·B", "%#StatusLineModeVisual#" }, -- this is not ^V, but it's , they're different
-    ["s"] = { "Select", "S", "%#StatusLineModeSelect#" },
-    ["S"] = { "S·Line", "S·L", "%#StatusLineModeSelect#" },
-    [""] = { "S·Block", "S·B", "%#StatusLineModeSelect#" }, -- same with this one, it's not ^S but it's 
-    ["i"] = { "Insert", "I", "%#StatusLineModeInsert#" },
-    ["ic"] = { "Insert", "I", "%#StatusLineModeInsert#" },
-    ["ix"] = { "Insert", "I", "%#StatusLineModeInsert#" },
-    ["R"] = { "Replace", "R", "%#StatusLineModeReplace#" },
-    ["Rv"] = { "V·Replace", "V·R", "%#StatusLineModeReplace#" },
-    ["c"] = { "Command", "C", "%#StatusLineModeCommand#" },
-    ["cv"] = { "Vim·Ex", "V·E", "%#StatusLineModeEx#" },
-    ["ce"] = { "Ex", "E", "%#StatusLineModeEx#" },
-    ["r"] = { "Prompt", "P", "%#StatusLineModeNormal#" },
-    ["rm"] = { "More", "M", "%#StatusLineModeNormal#" },
-    ["r?"] = { "Confirm", "C", "%#StatusLineModeNormal#" },
-    ["!"] = { "Shell", "S", "%#StatusLineModeTerminal#" },
-    ["t"] = { "Terminal", "T", "%#StatusLineModeTerminal#" },
+    ["n"]   = { "Normal",     "N",   "%#StatusLineModeNormal#"   },
+    ["no"]  = { "N·Pending",  "N·P", "%#StatusLineModeNormal#"   },
+    ["niI"] = { "N·Insert",   "N·I", "%#StatusLineModeNormal#"   },   -- C-o 'insert-normal' mode
+    ["niR"] = { "N·Replace",  "N·R", "%#StatusLineModeReplace#"  },   -- C-o 'replace-normal' mode
+    ["niV"] = { "N·Visual",   "N·R", "%#StatusLineModeVisual#"   },   -- C-o 'virtual-replace' mode
+    ["nt"]  = { "N·Terminal", "N·T", "%#StatusLineModeNormal#"   },
+    ["v"]   = { "Visual",     "V",   "%#StatusLineModeVisual#"   },
+    ["V"]   = { "V·Line",     "V·L", "%#StatusLineModeVisual#"   },
+    [""]  = { "V·Block",    "V·B", "%#StatusLineModeVisual#"   },   -- this is not ^V, but it's , they're different
+    ["s"]   = { "Select",     "S",   "%#StatusLineModeSelect#"   },
+    ["S"]   = { "S·Line",     "S·L", "%#StatusLineModeSelect#"   },
+    [""]  = { "S·Block",    "S·B", "%#StatusLineModeSelect#"   },   -- same with this one, it's not ^S but it's 
+    ["i"]   = { "Insert",     "I",   "%#StatusLineModeInsert#"   },
+    ["ic"]  = { "Insert",     "I",   "%#StatusLineModeInsert#"   },
+    ["ix"]  = { "Insert",     "I",   "%#StatusLineModeInsert#"   },
+    ["R"]   = { "Replace",    "R",   "%#StatusLineModeReplace#"  },
+    ["Rv"]  = { "V·Replace",  "V·R", "%#StatusLineModeReplace#"  },
+    ["c"]   = { "Command",    "C",   "%#StatusLineModeCommand#"  },
+    ["cv"]  = { "Vim·Ex",     "V·E", "%#StatusLineModeEx#"       },
+    ["ce"]  = { "Ex",         "E",   "%#StatusLineModeEx#"       },
+    ["r"]   = { "Prompt",     "P",   "%#StatusLineModeNormal#"   },
+    ["rm"]  = { "More",       "M",   "%#StatusLineModeNormal#"   },
+    ["r?"]  = { "Confirm",    "C",   "%#StatusLineModeNormal#"   },
+    ["!"]   = { "Shell",      "S",   "%#StatusLineModeTerminal#" },
+    ["t"]   = { "Terminal",   "T",   "%#StatusLineModeTerminal#" },
 }, {
     __index = function()
-        return { "Unknown", "U" } -- handle edge cases
+        return { "Unknown", "U" }   -- handle edge cases
     end,
 })
 
