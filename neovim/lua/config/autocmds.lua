@@ -81,18 +81,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
     end,
 })
 
--- Hide statusline for various filetypes
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnter", "TermEnter" }, {
-    group = augroup "hide_statusline_for_win",
-    callback = function()
-        if vim.bo.ft == "NvimTree" then
-            vim.go.laststatus = 0
-        else
-            vim.go.laststatus = 2
-        end
-    end,
-})
-
 -- Terminal customisations.
 
 vim.api.nvim_create_autocmd("TermOpen", {
