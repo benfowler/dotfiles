@@ -27,7 +27,7 @@ return {
             vim.g.fzf_prefer_tmux = 1
 
             -- FZF mode tweaks
-            vim.env.FZF_DEFAULT_OPTS = " --layout=reverse --border --margin=1,1 --no-separator"
+            vim.env.FZF_DEFAULT_OPTS = " --layout=reverse --no-separator"
 
             -- This is the default extra key bindings
             vim.g.fzf_action = {
@@ -38,22 +38,22 @@ return {
 
             -- Window setups for FZF
             vim.g.fzf_custom_win_files = {
-                window = { width = 0.6, height = 0.75, border = "rounded", highlight = "Comment" },
+                window = { width = 0.6, height = 0.75 },
             }
 
             vim.g.fzf_custom_win_buffers = {
-                window = { width = 0.4, height = 0.5, border = "rounded", highlight = "Comment" },
+                window = { width = 0.4, height = 0.5 },
                 placeholder = "{1}",
             }
 
             vim.g.fzf_custom_win_windows = {
-                window = { width = 0.4, height = 0.5, border = "rounded", highlight = "Comment" },
+                window = { width = 0.4, height = 0.5 },
                 placeholder = "{1}",
                 options = "--prompt='Win> '",
             }
 
             vim.g.fzf_custom_win_grep = {
-                window = { width = 0.9, height = 0.75, border = "rounded", highlight = "Comment" },
+                window = { width = 0.9, height = 0.75 },
             }
 
             -- How are we invoking rg?
