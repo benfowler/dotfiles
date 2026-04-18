@@ -17,6 +17,7 @@ return {
                 "kotlin",
                 "lua",
                 "python",
+                "regex",
                 "scala",
                 "toml",
                 "tsx",
