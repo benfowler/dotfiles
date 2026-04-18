@@ -2,34 +2,7 @@ local maps = require "config.keymaps"
 
 return {
 
-    -- Better `vim.notify()`
-    {
-        "rcarriga/nvim-notify",
-        event = "VeryLazy",
-        init = function()
-            vim.notify = require "notify"
-        end,
-        keys = {
-            {
-                maps.notify.delete_all,
-                function()
-                    require("notify").dismiss { silent = true, pending = true }
-                end,
-                desc = "Delete all notifications",
-            },
-        },
-        opts = {
-            timeout = 3000,
-            max_height = function()
-                return math.floor(vim.o.lines * 0.75)
-            end,
-            max_width = function()
-                return math.floor(vim.o.columns * 0.75)
-            end,
-        },
-    },
-
-    -- Better vim.ui
+    -- Better vim.ui and vim.notify
     {
         "folke/snacks.nvim",
         lazy = false,
@@ -37,8 +10,13 @@ return {
         ---@type snacks.Config
         opts = {
             input = {
-            -- your input configuration comes here
-            -- or leave it empty to use the default settings
+                -- your input configuration comes here
+                -- or leave it empty to use the default settings
+            },
+            notifier = {
+                -- your notifier configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
             }
         }
     },
