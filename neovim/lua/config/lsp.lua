@@ -49,7 +49,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.diagnostic.config({
         float = {
+            border = "rounded",
             focusable = true,
+            source = true,
         },
         signs = {
             text = {
@@ -69,14 +71,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         severity_sort = true,
         underline = true,
         update_in_insert = false,
-        -- virtual_lines = {
-        --     current_line = true,
+        -- virtual_text = {
+        --     spacing = 4,
+        --     source = "if_many",
+        --     prefix = "󰓛",
         -- },
-        virtual_text = {
-            spacing = 4,
-            source = "if_many",
-            prefix = "󰓛",
-        },
     })
 
     -- Customise sensible builtin LSP keymaps
@@ -97,14 +96,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- ... extend to handle autocomplete (saghen/blink.cmp)
     capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
-
-    -- Configure rounded corners for LSP floats only
-    local _open_floating_preview = vim.lsp.util.open_floating_preview
-    vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.border = opts.border or 'rounded' -- or whichever border kind you want
-        return _open_floating_preview(contents, syntax, opts, ...)
-    end
 
   end,
 })
