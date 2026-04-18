@@ -13,13 +13,13 @@ local active_sep = "custom3"
 
 -- change them if you want to different separator
 M.separators = {
-    arrow = { "", "" },
+    arrow       = { "", "" },
     arrow_light = { "", "" },
-    rounded = { "", "" },
-    blank = { "", "" },
-    custom = { "", "" },
-    custom2 = { "│", "" },
-    custom3 = { "", "" },
+    rounded     = { "", "" },
+    blank       = { "", "" },
+    custom      = { "", "" },
+    custom2     = { "│", "" },
+    custom3     = { "", "" },
 }
 
 M.filetype_icon_overrides = {
@@ -28,41 +28,30 @@ M.filetype_icon_overrides = {
 
 -- highlight groups
 M.colors = {
-    active = "%#StatusLine#",
-    inactive = "%#StatuslineNC#",
-    mode = "%#Mode#",
-    mode_alt = "%#ModeAlt#",
-    search_info = "%#SearchInfo#",
-    git = "%#Git#",
-    git_alt = "%#GitAlt#",
-    git_add = "%#StatusLineAdd#",
-    git_change = "%#StatusLineChange#",
-    git_delete = "%#StatusLineDelete#",
-    filetype = "%#Filetype#",
-    filetype_alt = "%#FiletypeAlt#",
-    line_info = "%#LineCol#",
+    active        = "%#StatusLine#",
+    inactive      = "%#StatuslineNC#",
+    mode          = "%#Mode#",
+    mode_alt      = "%#ModeAlt#",
+    search_info   = "%#SearchInfo#",
+    git           = "%#Git#",
+    git_alt       = "%#GitAlt#",
+    git_add       = "%#StatusLineAdd#",
+    git_change    = "%#StatusLineChange#",
+    git_delete    = "%#StatusLineDelete#",
+    filetype      = "%#Filetype#",
+    filetype_alt  = "%#FiletypeAlt#",
+    line_info     = "%#LineCol#",
     line_info_alt = "%#LineColAlt#",
 }
 
 M.lsp_diags_hl_group_prefix = "StatusLine"
 
+---@type { [string]: [string, string, integer, string] }[]
 M.lsp_diags_config = {
-    errors = {
-        key = "ERROR",
-        icon = icons.error,
-    },
-    warnings = {
-        key = "WARN",
-        icon = icons.warn,
-    },
-    info = {
-        key = "INFO",
-        icon = icons.info,
-    },
-    hints = {
-        key = "HINT",
-        icon = icons.hint,
-    },
+    { "errors",   "ERROR", vim.diagnostic.severity.ERROR, icons.error },
+    { "warnings", "WARN",  vim.diagnostic.severity.WARN,  icons.warn },
+    { "info",     "INFO",  vim.diagnostic.severity.INFO,  icons.info },
+    { "hints",    "HINT",  vim.diagnostic.severity.HINT,  icons.hint },
 }
 
 M.lsp_last_message = ""
@@ -74,11 +63,11 @@ M.git_show_changes = true
 M.lsp_show_status_messages = false
 
 M.trunc_width = setmetatable({
-    mode = 80,
+    mode       = 80,
     git_status = 90,
-    lsp_diags = 90,
-    filename = 140,
-    line_info = 60,
+    lsp_diags  = 90,
+    filename   = 140,
+    line_info  = 60,
 }, {
     __index = function()
         return 80
@@ -304,10 +293,6 @@ M.setup = function()
 end
 
 Statusline.get_lsp_diagnostic = function(self)
-    local function isempty(s)
-        return s == nil or s == ""
-    end
-
     -- Statusline too short
     if self:is_truncated(self.trunc_width.lsp_diags) then
         return ""
@@ -321,18 +306,20 @@ Statusline.get_lsp_diagnostic = function(self)
     -- Otherwise, fish out and display stats
     local lsp_status_str = ""
 
-    for key, level in pairs(self.lsp_diags_config) do
-        local count = #vim.diagnostic.get(0, { severity = level.key })
-
+    for _, entry in ipairs(self.lsp_diags_config) do
+        local _, highlight_suffix, severity, icon = unpack(entry)
+        local count = #vim.diagnostic.get(0, { severity = severity })
         if count > 0 then
             -- stylua: ignore
             lsp_status_str = " " ..
                 lsp_status_str ..
-                "%#" .. M.lsp_diags_hl_group_prefix .. level.key .. "#" ..
-                level.icon .. " " .. count ..
+                "%#" .. M.lsp_diags_hl_group_prefix .. highlight_suffix .. "#" ..
+                icon .. " " .. count ..
                 " "
         end
     end
+
+
     if lsp_status_str ~= "" then
         return lsp_status_str
     else
