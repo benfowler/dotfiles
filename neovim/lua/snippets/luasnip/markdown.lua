@@ -6,16 +6,100 @@ end
 local extras = require "luasnip.extras"
 local postfix = require "luasnip.extras.postfix"
 
+local d = ls.dynamic_node
 local i = ls.insert_node
 local s = ls.snippet
+local sn = ls.snippet_node
 local t = ls.text_node
 local f = ls.function_node
 local pf = postfix.postfix
 local l = extras.lambda
 
+-- ---------------------------------------------------------------------------
+-- Helpers for the "today" diary entry snippet
+-- ---------------------------------------------------------------------------
+
+local function _diary_today_heading()
+    local days = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
+    local dt = os.date "*t"
+    return string.format("### %s %02d/%02d", days[dt.wday], dt.day, dt.month)
+end
+
+-- Extract the content lines of a named section (#### SectionName) from a
+-- list of lines belonging to a single diary entry.  Returns a list of
+-- trimmed content lines, or nil if the section is absent or empty.
+local function _diary_extract_section(entry_lines, section_name)
+    local in_section = false
+    local content = {}
+    for _, line in ipairs(entry_lines) do
+        if not in_section then
+            -- Match "### SectionName" or "#### SectionName"
+            if line:match("^###+ " .. section_name .. "%s*$") then
+                in_section = true
+            end
+        else
+            if line:match "^###" then
+                break
+            end
+            table.insert(content, line)
+        end
+    end
+    while #content > 0 and content[1] == "" do
+        table.remove(content, 1)
+    end
+    while #content > 0 and content[#content] == "" do
+        table.remove(content)
+    end
+    return #content > 0 and content or nil
+end
+
+-- Scan the current buffer for the most recent previous diary entry and
+-- return its Context and Priorities section contents as two lists-of-strings.
+-- Uses cursor position rather than date comparison, so duplicate or
+-- misdated headings don't cause incorrect results.
+local function _diary_prev_sections()
+    local cursor_row = vim.api.nvim_win_get_cursor(0)[1] -- 1-indexed
+    local all_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+    -- For newest-first files the previous entry sits below the cursor;
+    -- fall back to scanning upward for oldest-first files.
+    local prev_idx = nil
+    for idx = cursor_row + 1, #all_lines do
+        if all_lines[idx]:match "^### %a%a%a %d%d/%d%d" then
+            prev_idx = idx
+            break
+        end
+    end
+    if not prev_idx then
+        for idx = cursor_row - 1, 1, -1 do
+            if all_lines[idx]:match "^### %a%a%a %d%d/%d%d" then
+                prev_idx = idx
+                break
+            end
+        end
+    end
+
+    if not prev_idx then
+        return nil, nil
+    end
+
+    local entry_lines = {}
+    for idx = prev_idx + 1, #all_lines do
+        if all_lines[idx]:match "^### %a%a%a %d%d/%d%d" then
+            break
+        end
+        table.insert(entry_lines, all_lines[idx])
+    end
+
+    return _diary_extract_section(entry_lines, "Context"),
+        _diary_extract_section(entry_lines, "Priorities")
+end
+
+-- ---------------------------------------------------------------------------
+
 ls.add_snippets("markdown", {
 
-    -- Snippet overrides.  Overridden here, because I wasn't happent with the
+    -- Snippet overrides.  Overridden here, because I wasn't happy with the
     -- way whitespace was being handled in the LSP-format equivalents from
     -- friendly-snippets.
 
@@ -148,4 +232,29 @@ ls.add_snippets("markdown", {
         end, {}),
         t ")",
     }, {}),
+
+    -- Today's diary entry.  Carries forward Context and Priorities from the
+    -- most recent previous entry found in the buffer.
+    s({
+        trig = "ND",
+        name = "Insert today's diary entry",
+        dscr = "Insert today's diary entry, carrying forward Context and Priorities from the previous entry",
+        priority = 1010,
+    }, {
+        f(function()
+            local ctx, pri = _diary_prev_sections()
+            local lines = { _diary_today_heading(), "", "#### Achievements", "", "- ?" }
+            vim.list_extend(lines, { "", "#### Context", "" })
+            vim.list_extend(lines, ctx or { "- ?" })
+            vim.list_extend(lines, { "", "#### Priorities", "" })
+            vim.list_extend(lines, pri or { "- ?" })
+            vim.list_extend(lines, {
+                "", "#### Conversations", "", "- ?",
+                "", "#### Notes", "", "- ?",
+                "", "#### Reflections", "", "- ?",
+                "", "",
+            })
+            return lines
+        end, {}),
+    }),
 })
