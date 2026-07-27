@@ -19,7 +19,7 @@ local l = extras.lambda
 -- Helpers for the "today" diary entry snippet
 -- ---------------------------------------------------------------------------
 
-local _DIARY_PROPAGATED_SECTIONS = { "Context", "Priorities" }
+local _DIARY_PROPAGATED_SECTIONS = { "Priorities" }
 
 local function _diary_today_heading()
     local days = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
