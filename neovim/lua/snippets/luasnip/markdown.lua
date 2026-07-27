@@ -19,6 +19,8 @@ local l = extras.lambda
 -- Helpers for the "today" diary entry snippet
 -- ---------------------------------------------------------------------------
 
+local _DIARY_PROPAGATED_SECTIONS = { "Context", "Priorities" }
+
 local function _diary_today_heading()
     local days = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
     local dt = os.date "*t"
@@ -54,7 +56,7 @@ local function _diary_extract_section(entry_lines, section_name)
 end
 
 -- Scan the current buffer for the most recent previous diary entry and
--- return its Context and Priorities section contents as two lists-of-strings.
+-- return a table mapping section name to copied section content.
 -- Uses cursor position rather than date comparison, so duplicate or
 -- misdated headings don't cause incorrect results.
 local function _diary_prev_sections()
@@ -80,7 +82,7 @@ local function _diary_prev_sections()
     end
 
     if not prev_idx then
-        return nil, nil
+        return {}
     end
 
     local entry_lines = {}
@@ -91,8 +93,11 @@ local function _diary_prev_sections()
         table.insert(entry_lines, all_lines[idx])
     end
 
-    return _diary_extract_section(entry_lines, "Context"),
-        _diary_extract_section(entry_lines, "Priorities")
+    local sections = {}
+    for _, section_name in ipairs(_DIARY_PROPAGATED_SECTIONS) do
+        sections[section_name] = _diary_extract_section(entry_lines, section_name)
+    end
+    return sections
 end
 
 -- ---------------------------------------------------------------------------
@@ -233,21 +238,21 @@ ls.add_snippets("markdown", {
         t ")",
     }, {}),
 
-    -- Today's diary entry.  Carries forward Context and Priorities from the
-    -- most recent previous entry found in the buffer.
+    -- Today's diary entry. Carries forward configured sections from the most
+    -- recent previous entry found in the buffer.
     s({
         trig = "ND",
         name = "Insert today's diary entry",
-        dscr = "Insert today's diary entry, carrying forward Context and Priorities from the previous entry",
+        dscr = "Insert today's diary entry, carrying forward configured sections from the previous entry",
         priority = 1010,
     }, {
         f(function()
-            local ctx, pri = _diary_prev_sections()
+            local prev_sections = _diary_prev_sections()
             local lines = { _diary_today_heading(), "", "#### Achievements", "", "- ?" }
-            vim.list_extend(lines, { "", "#### Context", "" })
-            vim.list_extend(lines, ctx or { "- ?" })
-            vim.list_extend(lines, { "", "#### Priorities", "" })
-            vim.list_extend(lines, pri or { "- ?" })
+            for _, section_name in ipairs(_DIARY_PROPAGATED_SECTIONS) do
+                vim.list_extend(lines, { "", "#### " .. section_name, "" })
+                vim.list_extend(lines, prev_sections[section_name] or { "- ?" })
+            end
             vim.list_extend(lines, {
                 "", "#### Conversations", "", "- ?",
                 "", "#### Notes", "", "- ?",
