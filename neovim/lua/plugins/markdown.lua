@@ -33,12 +33,13 @@ return {
 
     {
         -- Sane bullet handling in Markdown etc
-        "bullets-vim/bullets.vim",
+        "bullets-vim/bullets.nvim",
         lazy = false,
-        init = function()
-            vim.g.bullets_outline_levels = { "ROM", "ABC", "num", "abc", "rom", "std-" }
-            vim.g.bullets_checkbox_partials_toggle = 0
-            vim.g.bullets_checkbox_markers = "   X"
-        end,
+        ---@type bullets.Config
+        opts = {
+            enable_roman_list = false,
+            outline_levels = { "std-" },  -- keep markdown bullets stable across promote/demote operations
+        },
     },
+
 }
