@@ -23,12 +23,16 @@ return {
     -- Use blink.cmp for fuzzy autocomplete in LSP
     {
         "saghen/blink.cmp",
-        version = "v1.7.0",  -- pin this to a release to keep running; use pre-built fuzzy finder binary
+        version = "v1.10.2",  -- pin this to a release to keep running; use pre-built fuzzy finder binary
         opts = {
             -- General completion options
             completion = {
+                menu = {
+                    auto_show = false,
+                },
                 ghost_text = {
                     enabled = true,
+                    show_with_menu = false, -- only show when menu is closed
                 },
             },
             -- Enable snippet support (requires luasnip or mini.snippets)
