@@ -95,6 +95,34 @@ vim.cmd [[ highlight StatusLineNC guifg=NONE guisp=NvimDarkGrey4 guibg=NONE gui=
 vim.api.nvim_set_hl(0, "VertSplit", { link = "NonText" })
 vim.api.nvim_set_hl(0, "WinSeparator", { link = "NonText" })
 
+-- Plugin: blink.cmp :: Main completion menu window and selected item
+vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "Comment" })
+vim.api.nvim_set_hl(0, "BlinkCmpLabel", { link = "Normal" })
+vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = "NvimDarkGrey4" })
+vim.api.nvim_set_hl(0, "BlinkCmpScrollBarThumb", { bg = "NvimLightGrey4" })
+vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "NvimDarkGrey3" })
+
+-- Plugin: blink.cmp :: Documentation and signature help pop-ups
+vim.api.nvim_set_hl(0, "BlinkCmpDoc", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { link = "FloatBorder" })
+vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelp", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelpBorder", { link = "FloatBorder" })
+
+-- Plugin: blink.cmp :: Matching characters inside the menu (makes filtered text stand out)
+vim.api.nvim_set_hl(0, "BlinkCmpMatch", { link = "@lsp.type.string" })
+vim.api.nvim_set_hl(0, 'BlinkCmpLabelMatch', { link = "@lsp.type.parameter" })
+
+-- Plugin: blink.cmp :: Kind highlights
+vim.api.nvim_set_hl(0, "BlinkCmpKindEnum", { link = "@lsp.type.enum" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindField", { link = "@lsp.type.variable" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindFunction", { link = "@lsp.type.function" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindKeyword", { link = "@lsp.type.keyword" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindMethod", { link = "@lsp.type.method" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindSnippet", { link = "@lsp.mod.global" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindText", { link = "@lsp.type.string" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindVariable", { link = "@lsp.type.variable" })
+
 -- Plugin: Luasnip
 vim.api.nvim_set_hl(0, "LuasnipChoiceNodeVirtualText", { link = "@diff.minus" })
 vim.api.nvim_set_hl(0, "LuasnipInsertNodeVirtualText", { link = "@diff.delta" })
