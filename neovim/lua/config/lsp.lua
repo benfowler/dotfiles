@@ -107,6 +107,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('x', maps.lsp.shortcuts.format_range, _format_range, { desc = 'LSP: Format visual selection', buffer = args.buf })
     end
 
+    -- Configure rounded borders
+    local opts = { buffer = args.buf, silent = true }
+
+    -- Setup hover with border
+    vim.keymap.set('n', maps.lsp.hover, function()
+        vim.lsp.buf.hover({ border = 'rounded' })
+    end, vim.tbl_extend('force', opts, { desc = 'LSP Hover' }))
+
+    -- Setup signature help with border
+    vim.keymap.set('i', maps.lsp.signature_help, function()
+        vim.lsp.buf.signature_help({ border = 'rounded' })
+    end, vim.tbl_extend('force', opts, { desc = 'LSP Signature Help' }))
+
     -- LSP client capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
