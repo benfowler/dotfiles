@@ -114,6 +114,8 @@ vim.api.nvim_set_hl(0, "BlinkCmpMatch", { link = "@lsp.type.string" })
 vim.api.nvim_set_hl(0, 'BlinkCmpLabelMatch', { link = "@lsp.type.parameter" })
 
 -- Plugin: blink.cmp :: Kind highlights
+vim.api.nvim_set_hl(0, "BlinkCmpKindClass", { link = "@lsp.type.class" })
+vim.api.nvim_set_hl(0, "BlinkCmpKindCopilot", { link = "@lsp.type.parameter" })
 vim.api.nvim_set_hl(0, "BlinkCmpKindEnum", { link = "@lsp.type.enum" })
 vim.api.nvim_set_hl(0, "BlinkCmpKindField", { link = "@lsp.type.variable" })
 vim.api.nvim_set_hl(0, "BlinkCmpKindFunction", { link = "@lsp.type.function" })

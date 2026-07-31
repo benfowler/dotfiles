@@ -1,10 +1,9 @@
-
 return {
 
     -- nvim-lspconfig (for canned configs only; requires v0.11+)
     {
         "neovim/nvim-lspconfig",
-        lazy=false,
+        lazy = false,
     },
 
     -- Show LSP server activity as an overlay
@@ -15,7 +14,27 @@ return {
             notification = {
                 window = {
                     winblend = 0,
-                  },
+                },
+            },
+        },
+    },
+
+    -- Core Copilot integration
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        opts = {
+            -- Disable native ghost text UI modules to prevent overlapping renders
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+            filetypes = {
+                ["*"] = true,
+                -- Disable Copilot in certain filetypes
+                ["TelescopePrompt"] = false,
+                ["NvimTree"] = false,
+                ["markdown"] = false,
+                ["text"] = false,
             },
         },
     },
@@ -23,7 +42,8 @@ return {
     -- Use blink.cmp for fuzzy autocomplete in LSP
     {
         "saghen/blink.cmp",
-        version = "v1.10.2",  -- pin this to a release to keep running; use pre-built fuzzy finder binary
+        version = "v1.10.2", -- pin this to a release to keep running; use pre-built fuzzy finder binary
+        dependencies = { "fang2hou/blink-copilot" },
         opts = {
 
             -- Menu formatting and colorisation
@@ -57,15 +77,25 @@ return {
                 },
             },
 
+            -- Register Copilot as a backend completion provider
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer", "copilot" },
+                providers = {
+                    copilot = {
+                        name = "copilot",
+                        module = "blink-copilot",
+                        score_offset = 100, -- Forces Copilot to the top for instant ghost text
+                        async = true,
+                        opts = {
+                            max_completions = 3,
+                        }
+                    },
+                },
+            },
+
             -- Enable snippet support (requires luasnip or mini.snippets)
             snippets = {
                 preset = "luasnip",
-            },
-
-            -- Enable function signature help
-            signature = {
-                enabled = true,
-                window = { border = "rounded" },
             },
         },
     },
