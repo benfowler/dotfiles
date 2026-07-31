@@ -39,7 +39,7 @@ vim.lsp.config('*', {
 
 -- Remove or override BUFFER-LOCAL defaults
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(_)
+  callback = function(args)
 
     -- Customise diagnostics
     local dg_error = vim.diagnostic.severity.ERROR
@@ -69,11 +69,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         severity_sort = true,
         underline = true,
         update_in_insert = false,
-        -- virtual_text = {
-        --     spacing = 4,
-        --     source = "if_many",
-        --     prefix = "󰓛",
-        -- },
     })
 
     -- Customise sensible builtin LSP keymaps
@@ -88,6 +83,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({ "n" }, maps.lsp.show_doc_references, vim.lsp.buf.document_highlight, { desc = "Show Doc Refs" })
     vim.keymap.set({ "n" }, maps.lsp.clear_doc_references, vim.lsp.buf.clear_references, { desc = "Clear Doc Refs" })
     vim.keymap.set({ "n" }, maps.lsp.send_diags_to_quickfix, vim.diagnostic.setqflist, { desc = "Send Diags to QF" })
+
+    -- Enable LSP-powered formatting if available
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then return end
+
+    if client:supports_method('textDocument/formatting') then
+        local _format_buffer = function()
+            vim.lsp.buf.format({ bufnr = args.buf, async = true })
+            vim.notify("Formatted current buffer", vim.log.levels.INFO, { title = "LSP" })
+        end
+        vim.keymap.set('n', maps.lsp.format_doc, _format_buffer, { desc = 'LSP: Format current buffer', buffer = args.buf })
+        vim.keymap.set('n', maps.lsp.shortcuts.format_doc, _format_buffer, { desc = 'LSP: Format current buffer', buffer = args.buf })
+    end
+
+    -- Enable LSP-powered _range_ formatting if available
+    if client:supports_method('textDocument/rangeFormatting') then
+        local _format_range = function()
+            vim.lsp.buf.format({ bufnr = args.buf, async = true })
+            vim.notify("Formatted visual selection", vim.log.levels.INFO, { title = "LSP" })
+        end
+        vim.keymap.set('x', maps.lsp.format_range, _format_range, { desc = 'LSP: Format visual selection', buffer = args.buf })
+        vim.keymap.set('x', maps.lsp.shortcuts.format_range, _format_range, { desc = 'LSP: Format visual selection', buffer = args.buf })
+    end
 
     -- LSP client capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()
