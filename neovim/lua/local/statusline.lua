@@ -287,32 +287,35 @@ Statusline = setmetatable(M, {
 M.setup = function()
     local statuslineGrp = api.nvim_create_augroup("Statusline", { clear = true })
 
-    api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-        command = "setlocal statusline=%!v:lua.Statusline('active')",
+    -- Main autocommand to handle active/inactive/explorer states
+    api.nvim_create_autocmd({ "WinEnter", "BufEnter", "WinLeave", "BufLeave", "FileType" }, {
         group = statuslineGrp,
-    })
+        callback = function(args)
+            -- 1. Ignore floating/popup windows entirely
+            local win_id = api.nvim_get_current_win()
+            local win_config = api.nvim_win_get_config(win_id)
+            if win_config.relative and win_config.relative ~= "" then
+                -- floating wins have relative key of 'editor' or 'win'; bail out early
+                return
+            end
 
-    api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-        command = "setlocal statusline=%!v:lua.Statusline('inactive')",
-        group = statuslineGrp,
-    })
+            -- 2. Check for hidden filetypes or specific popup buffer setups
+            if M.hidden_filetypes[vim.bo.ft] or (vim.bo.ft == "" and vim.bo.buftype == "nofile") then
+                vim.wo.statusline = ""   -- completely clear local statusline for this window
+                return
+            end
 
-    api.nvim_create_autocmd({ "WinEnter", "BufEnter", "FileType" }, {
-        pattern = M.explorer_filetype,
-        command = "setlocal statusline=%!v:lua.Statusline('explorer')",
-        group = statuslineGrp,
-    })
+            -- 3. Determine the correct state to apply
+            local event = args.event
 
-    -- Hide statusline for various filetypes
-    api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "WinEnter", "CmdwinEnter", "TermEnter" }, {
-        callback = function()
-            if M.hidden_filetypes[vim.bo.ft] or ("" == vim.bo.ft and "nofile" == vim.bo.buftype) then
-                vim.go.laststatus = 0
-            else
-                vim.go.laststatus = 2
+            if vim.bo.ft == M.explorer_filetype then
+                vim.wo.statusline = "%!v:lua.Statusline('explorer')"
+            elseif event == "WinEnter" or event == "BufEnter" then
+                vim.wo.statusline = "%!v:lua.Statusline('active')"
+            elseif event == "WinLeave" or event == "BufLeave" then
+                vim.wo.statusline = "%!v:lua.Statusline('inactive')"
             end
         end,
-        group = statuslineGrp,
     })
 end
 
