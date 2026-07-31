@@ -30,7 +30,7 @@ return {
     {
         "kevinhwang91/nvim-bqf",
         ft = 'qf',
-        config = {
+        opts = {
             preview = {
                 winblend = 0,
             },
