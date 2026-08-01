@@ -1,5 +1,16 @@
 # dotfiles: Ben's public dotfiles
 
+## Development
+
+This project uses [mise](https://mise.jdx.dev/) to manage tool versions and run tasks.
+Install mise, then from the `neovim/` directory:
+
+```sh
+mise install        # install pinned tool versions
+mise run fmt        # format Lua files with StyLua
+mise run fmt-check  # check formatting without modifying files
+```
+
 ## What's here?
 
 ### Neovim

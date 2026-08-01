@@ -1,0 +1,10 @@
+[tools]
+stylua = "2.5.2"
+
+[tasks.fmt]
+description = "Format Lua files with StyLua"
+run = "stylua ."
+
+[tasks.fmt-check]
+description = "Check Lua formatting without modifying files"
+run = "stylua --check ."
