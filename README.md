@@ -9,7 +9,11 @@ Install mise, then from the `neovim/` directory:
 mise install        # install pinned tool versions
 mise run fmt        # format Lua files with StyLua
 mise run fmt-check  # check formatting without modifying files
+mise run lint       # lint Lua files with luacheck
+mise run smoke      # headless Neovim startup smoke test
 ```
+
+See [`neovim/README.md`](neovim/README.md) for full details including the plugin lockfile workflow.
 
 ## What's here?
 
