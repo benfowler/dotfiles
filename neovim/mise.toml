@@ -1,6 +1,6 @@
 [tools]
 stylua = "2.5.2"
-luacheck = "1.2.0"
+# luacheck is not available in the mise registry; install via Homebrew: brew install luacheck
 
 [tasks.fmt]
 description = "Format Lua files with StyLua"

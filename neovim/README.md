@@ -16,7 +16,9 @@ ln -s ~/Repos/github.com/benfowler/dotfiles/neovim/lazy-lock.json ~/.config/nvim
 This project uses [mise](https://mise.jdx.dev/) to manage tool versions and tasks.
 
 ```sh
-mise install   # install pinned tool versions (stylua, luacheck)
+mise install   # install pinned tool versions (stylua)
+# luacheck is not in the mise registry — install separately:
+brew install luacheck
 ```
 
 ### Tasks
