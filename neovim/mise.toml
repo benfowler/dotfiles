@@ -12,7 +12,7 @@ run = "stylua --check ."
 
 [tasks.lint]
 description = "Lint Lua files with luacheck"
-run = "luacheck lua/ ftplugin/ --globals vim --no-unused-args"
+run = "luacheck lua/ ftplugin/"
 
 [tasks.smoke]
 description = "Headless Neovim startup smoke test"
