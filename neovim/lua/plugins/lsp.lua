@@ -24,6 +24,7 @@ return {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
         event = "InsertEnter",
+        ---@type CopilotConfig
         opts = {
             -- Disable native ghost text UI modules to prevent overlapping renders
             suggestion = { enabled = false },
@@ -44,6 +45,7 @@ return {
         "saghen/blink.cmp",
         version = "v1.10.2", -- pin this to a release to keep running; use pre-built fuzzy finder binary
         dependencies = { "fang2hou/blink-copilot" },
+        ---@type blink.cmp.Config
         opts = {
 
             -- Menu formatting and colorisation
@@ -111,6 +113,7 @@ return {
     {
         "kosayoda/nvim-lightbulb",
         lazy = false,
+        ---@type nvim-lightbulb.Config
         opts = {
             sign = {
                 text = " ",
@@ -122,4 +125,19 @@ return {
 
         },
     },
+
+    -- Lua plugin dev: faster lua_ls startup: provides plugin type stubs on demand instead of
+    -- indexing the entire lazy plugin directory up front
+    {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        ---@type lazydev.Config
+        opts = {
+            library = {
+                { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+                { path = 'lazy.nvim',          words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
+            },
+        },
+    },
+
 }

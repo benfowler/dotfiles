@@ -26,6 +26,7 @@ return {
         "lewis6991/gitsigns.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         event = "BufRead",
+        ---@type Gitsigns.Config
         opts = {
             watch_gitdir = { interval = 2000, follow_files = true },
             sign_priority = 6,

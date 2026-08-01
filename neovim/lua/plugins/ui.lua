@@ -45,6 +45,7 @@ return {
             { maps.nvimtree.treetoggle, ":NvimTreeToggle<CR>", silent = true, desc = "NvimTree toggle" },
             { maps.nvimtree.treefocus, ":NvimTreeFocus<CR>", silent = true, desc = "NvimTree focus file" },
         },
+        ---@type nvim_tree.config
         opts = {
             respect_buf_cwd = true,
             view = {
@@ -128,6 +129,7 @@ return {
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
+        ---@type wk.Opts
         opts = {
             -- Set a custom delay in milliseconds
             delay = 1500,
