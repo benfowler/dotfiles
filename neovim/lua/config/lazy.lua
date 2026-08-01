@@ -18,6 +18,7 @@ return function(opts)
             enabled = true,
             frequency = 86400, -- once a day
         },
+        lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
         diff = {
             cmd = "terminal_git",
         },
