@@ -1,5 +1,6 @@
 [tools]
 stylua = "2.5.2"
+luacheck = "1.2.0"
 
 [tasks.fmt]
 description = "Format Lua files with StyLua"
@@ -8,3 +9,11 @@ run = "stylua ."
 [tasks.fmt-check]
 description = "Check Lua formatting without modifying files"
 run = "stylua --check ."
+
+[tasks.lint]
+description = "Lint Lua files with luacheck"
+run = "luacheck lua/ ftplugin/ --globals vim --no-unused-args"
+
+[tasks.smoke]
+description = "Headless Neovim startup smoke test"
+run = "nvim --headless -c 'lua vim.print(\"startup ok\")' -c 'qa!' 2>&1"
