@@ -4,28 +4,45 @@ return {
 
     -- Better vim.ui and vim.notify
     {
-        "folke/snacks.nvim",
+        'folke/snacks.nvim',
         lazy = false,
         priority = 1000,
         ---@type snacks.Config
         opts = {
             input = {
-                -- your input configuration comes here
-                -- or leave it empty to use the default settings
+                border = "rounded",
+                win_options = {
+                    winblend = 5,
+                },
             },
             notifier = {
-                -- your notifier configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        }
+                timeout = 3000,
+                background_colour = "#000000",
+                icons = { ERROR = "", WARN = "", INFO = "", DEBUG = "", TRACE = "✎", },
+                win_options = {
+                    winblend = 5,
+                },
+            },
+            select = {
+                backend = "telescope",
+                win_options = {
+                    winblend = 5,
+                },
+            },
+            picker = {
+                backend = "telescope",
+                win_options = {
+                    winblend = 5,
+                },
+            },
+        },
     },
 
     {
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTreeToggle", "NvimTreeFocus" },
         keys = {
-            { maps.nvimtree.treetoggle, ":NvimTreeToggle<CR>", silent = true, desc = "NvimTree goggle" },
+            { maps.nvimtree.treetoggle, ":NvimTreeToggle<CR>", silent = true, desc = "NvimTree toggle" },
             { maps.nvimtree.treefocus, ":NvimTreeFocus<CR>", silent = true, desc = "NvimTree focus file" },
         },
         opts = {
