@@ -79,7 +79,14 @@ return {
 
             -- Register Copilot as a backend completion provider
             sources = {
-                default = { "lsp", "path", "snippets", "buffer", "copilot" },
+                default = function()
+                    local ok = pcall(require, "copilot")
+                    if ok then
+                        return { "lsp", "path", "snippets", "buffer", "copilot" }
+                    else
+                        return { "lsp", "path", "snippets", "buffer" }
+                    end
+                end,
                 providers = {
                     copilot = {
                         name = "copilot",
