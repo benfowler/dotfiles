@@ -7,6 +7,11 @@
   "diagnostics.globals": ["vim"],
   "workspace.checkThirdParty": false,
   "workspace.library": [
-    "$VIMRUNTIME"
+    "$VIMRUNTIME",
+    "${3rd}/luv/library",
+    "~/.local/share/nvim/lazy"
+  ],
+  "workspace.ignoreDir": [
+    "~/.local/share/nvim/lazy/copilot.lua/copilot"
   ]
 }
