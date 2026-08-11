@@ -13,22 +13,21 @@ ln -s ~/Repos/github.com/benfowler/dotfiles/neovim/lazy-lock.json ~/.config/nvim
 
 ## Development tooling
 
-This project uses [mise](https://mise.jdx.dev/) to manage tool versions and tasks.
+This project uses [task](https://task.jdx.dev/) to manage tool versions and tasks.
 
 ```sh
-mise install   # install pinned tool versions (stylua)
-# luacheck is not in the mise registry — install separately:
-brew install luacheck
+# make sure mandatory tools are installed
+brew install go-task luacheck stylua
 ```
 
 ### Tasks
 
 | Task | Description |
 |------|-------------|
-| `mise run fmt` | Format all Lua files with StyLua |
-| `mise run fmt-check` | Check formatting without modifying files |
-| `mise run lint` | Lint Lua files with luacheck |
-| `mise run smoke` | Headless Neovim startup smoke test |
+| `task run fmt` | Format all Lua files with StyLua |
+| `task run fmt-check` | Check formatting without modifying files |
+| `task run lint` | Lint Lua files with luacheck |
+| `task run smoke` | Headless Neovim startup smoke test |
 
 ## Plugin lockfile
 

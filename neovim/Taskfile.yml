@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  fmt:
+    desc: Format Lua files with StyLua
+    cmd: stylua .
+
+  fmt-check:
+    desc: Check Lua formatting without modifying files
+    cmd: stylua --check .
+
+  lint:
+    desc: Lint Lua files with luacheck
+    cmd: luacheck lua/ ftplugin/
+
+  smoke:
+    desc: Headless Neovim startup smoke test
+    cmd: nvim --headless -c 'lua vim.print("startup ok")' -c 'qa!' 2>&1

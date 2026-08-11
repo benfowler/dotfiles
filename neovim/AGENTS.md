@@ -4,17 +4,16 @@ Short workflow for making safe, consistent changes in this Neovim config.
 
 ## Agent loop
 1. Make the smallest focused change.
-2. Run `mise run fmt-check` (or `mise run fmt` if needed).
-3. Run `mise run lint`.
-4. Run `mise run smoke`.
+2. Run `task fmt-check` (or `task fmt` if needed).
+3. Run `task lint`.
+4. Run `task smoke`.
 5. Summarize what changed and why.
 
 ## Tooling
-- `mise install` — install pinned tools (StyLua).
-- `mise run fmt` — format Lua files.
-- `mise run fmt-check` — verify formatting only.
-- `mise run lint` — run luacheck (`brew install luacheck` first if missing).
-- `mise run smoke` — headless startup check.
+- `task fmt` — format Lua files.
+- `task fmt-check` — verify formatting only.
+- `task lint` — run luacheck (`brew install luacheck` first if missing).
+- `task smoke` — headless startup check.
 
 ## Principles
 - **DRY** — don't duplicate config, keymaps, or logic; extract to `util/` or a shared table.
