@@ -109,14 +109,37 @@ return {
         },
     },
 
+    -- CodeLenses
+    {
+        'oribarilan/lensline.nvim',
+        event = 'LspAttach',
+        config = function()
+            require("lensline").setup {
+                profiles = {
+                    {
+                        name = 'minimal',
+                        style = {
+                            highlight = 'Conceal',
+                            placement = 'inline',
+                            prefix = '',
+                            render = "focused", -- optionally render lenses only for focused function
+                        },
+                    },
+                },
+            }
+        end,
+    },
+
     -- Show code action signs
     {
         'kosayoda/nvim-lightbulb',
         lazy = false,
         ---@type nvim-lightbulb.Config
         opts = {
+            code_lenses = true,
             sign = {
                 text = ' ',
+                lens_text = ' ',
                 hl = 'DiagnosticSignWarn',
             },
             autocmd = {
@@ -134,7 +157,7 @@ return {
         opts = {
             library = {
                 { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-                { path = 'lazy.nvim', words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
+                { path = 'lazy.nvim',          words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
             },
         },
     },

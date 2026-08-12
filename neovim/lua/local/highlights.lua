@@ -71,8 +71,8 @@ vim.api.nvim_set_hl(0, '@markup.link.url.markdown_inline', { link = 'mkdLinkDef'
 vim.api.nvim_set_hl(0, '@markup.quote.markdown', { link = 'mkdBlockQuote' })
 vim.api.nvim_set_hl(0, '@markup.raw.markdown_inline', { link = 'mkdCode' })
 
-vim.api.nvim_set_hl(0, 'LspCodeLens', { link = 'NonText' })
-vim.api.nvim_set_hl(0, 'LspCodeLensSeparator', { link = 'Comment' })
+vim.api.nvim_set_hl(0, 'LspCodeLens', { link = 'Conceal' })
+vim.api.nvim_set_hl(0, 'LspCodeLensSeparator', { link = 'Conceal' })
 vim.api.nvim_set_hl(0, 'LspReferenceRead', { fg = 'Black', bg = 'NvimLightGreen' })
 vim.api.nvim_set_hl(0, 'LspReferenceWrite', { fg = 'Black', bg = 'NvimLightRed' })
 
