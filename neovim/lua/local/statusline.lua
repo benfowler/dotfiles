@@ -4,70 +4,71 @@
 local fn = vim.fn
 local api = vim.api
 
-local icons = require("util").diagnostic_icons.outline
+local icons = require('util').diagnostic_icons.outline
 
 local M = {}
 
 -- possible values are 'arrow' | 'rounded' | 'blank'
-local active_sep = "custom3"
+local active_sep = 'custom3'
 
 -- change them if you want to different separator
 M.separators = {
-    arrow       = { "", "" },
-    arrow_light = { "", "" },
-    rounded     = { "", "" },
-    blank       = { "", "" },
-    custom      = { "", "" },
-    custom2     = { "│", "" },
-    custom3     = { "", "" },
+    arrow = { '', '' },
+    arrow_light = { '', '' },
+    rounded = { '', '' },
+    blank = { '', '' },
+    custom = { '', '' },
+    custom2 = { '│', '' },
+    custom3 = { '', '' },
 }
 
 M.filetype_icon_overrides = {
-    md = " ",
+    md = ' ',
 }
 
 -- highlight groups
 M.colors = {
-    active        = "%#StatusLine#",
-    inactive      = "%#StatuslineNC#",
-    mode          = "%#Mode#",
-    mode_alt      = "%#ModeAlt#",
-    search_info   = "%#SearchInfo#",
-    git           = "%#Git#",
-    git_alt       = "%#GitAlt#",
-    git_add       = "%#StatusLineAdd#",
-    git_change    = "%#StatusLineChange#",
-    git_delete    = "%#StatusLineDelete#",
-    filetype      = "%#Filetype#",
-    filetype_alt  = "%#FiletypeAlt#",
-    line_info     = "%#LineCol#",
-    line_info_alt = "%#LineColAlt#",
+    active = '%#StatusLine#',
+    inactive = '%#StatuslineNC#',
+    mode = '%#Mode#',
+    mode_alt = '%#ModeAlt#',
+    search_info = '%#SearchInfo#',
+    git = '%#Git#',
+    git_alt = '%#GitAlt#',
+    git_add = '%#StatusLineAdd#',
+    git_change = '%#StatusLineChange#',
+    git_delete = '%#StatusLineDelete#',
+    filetype = '%#Filetype#',
+    filetype_alt = '%#FiletypeAlt#',
+    line_info = '%#LineCol#',
+    line_info_alt = '%#LineColAlt#',
 }
 
-M.lsp_diags_hl_group_prefix = "StatusLine"
+M.lsp_diags_hl_group_prefix = 'StatusLine'
 
 ---@type { [string]: [string, string, integer, string] }[]
 M.lsp_diags_config = {
-    { "errors",   "ERROR", vim.diagnostic.severity.ERROR, icons.error },
-    { "warnings", "WARN",  vim.diagnostic.severity.WARN,  icons.warn },
-    { "info",     "INFO",  vim.diagnostic.severity.INFO,  icons.info },
-    { "hints",    "HINT",  vim.diagnostic.severity.HINT,  icons.hint },
+    { 'errors', 'ERROR', vim.diagnostic.severity.ERROR, icons.error },
+    { 'warnings', 'WARN', vim.diagnostic.severity.WARN, icons.warn },
+    { 'info', 'INFO', vim.diagnostic.severity.INFO, icons.info },
+    { 'hints', 'HINT', vim.diagnostic.severity.HINT, icons.hint },
 }
 
-M.lsp_last_message = ""
+M.lsp_last_message = ''
 
-M.git_icon = ""
+M.git_icon = ''
 
 M.git_show_changes = true
 
 M.lsp_show_status_messages = false
 
 M.trunc_width = setmetatable({
+    line_info  = 60,
+    lsp_diags  = 60,
     mode       = 80,
     git_status = 90,
-    lsp_diags  = 90,
+    lsp_status = 90,
     filename   = 140,
-    line_info  = 60,
 }, {
     __index = function()
         return 80
@@ -80,129 +81,130 @@ M.is_truncated = function(_, width)
 end
 
 M.modes = setmetatable({
-    ["n"]   = { "Normal",     "N",   "%#StatusLineModeNormal#"   },
-    ["no"]  = { "N·Pending",  "N·P", "%#StatusLineModeNormal#"   },
-    ["niI"] = { "N·Insert",   "N·I", "%#StatusLineModeNormal#"   },   -- C-o 'insert-normal' mode
-    ["niR"] = { "N·Replace",  "N·R", "%#StatusLineModeReplace#"  },   -- C-o 'replace-normal' mode
-    ["niV"] = { "N·Visual",   "N·R", "%#StatusLineModeVisual#"   },   -- C-o 'virtual-replace' mode
-    ["nt"]  = { "N·Terminal", "N·T", "%#StatusLineModeNormal#"   },
-    ["v"]   = { "Visual",     "V",   "%#StatusLineModeVisual#"   },
-    ["V"]   = { "V·Line",     "V·L", "%#StatusLineModeVisual#"   },
-    [""]  = { "V·Block",    "V·B", "%#StatusLineModeVisual#"   },   -- this is not ^V, but it's , they're different
-    ["s"]   = { "Select",     "S",   "%#StatusLineModeSelect#"   },
-    ["S"]   = { "S·Line",     "S·L", "%#StatusLineModeSelect#"   },
-    [""]  = { "S·Block",    "S·B", "%#StatusLineModeSelect#"   },   -- same with this one, it's not ^S but it's 
-    ["i"]   = { "Insert",     "I",   "%#StatusLineModeInsert#"   },
-    ["ic"]  = { "Insert",     "I",   "%#StatusLineModeInsert#"   },
-    ["ix"]  = { "Insert",     "I",   "%#StatusLineModeInsert#"   },
-    ["R"]   = { "Replace",    "R",   "%#StatusLineModeReplace#"  },
-    ["Rv"]  = { "V·Replace",  "V·R", "%#StatusLineModeReplace#"  },
-    ["c"]   = { "Command",    "C",   "%#StatusLineModeCommand#"  },
-    ["cv"]  = { "Vim·Ex",     "V·E", "%#StatusLineModeEx#"       },
-    ["ce"]  = { "Ex",         "E",   "%#StatusLineModeEx#"       },
-    ["r"]   = { "Prompt",     "P",   "%#StatusLineModeNormal#"   },
-    ["rm"]  = { "More",       "M",   "%#StatusLineModeNormal#"   },
-    ["r?"]  = { "Confirm",    "C",   "%#StatusLineModeNormal#"   },
-    ["!"]   = { "Shell",      "S",   "%#StatusLineModeTerminal#" },
-    ["t"]   = { "Terminal",   "T",   "%#StatusLineModeTerminal#" },
+    ['n'] = { 'Normal', 'N', '%#StatusLineModeNormal#' },
+    ['no'] = { 'N·Pending', 'N·P', '%#StatusLineModeNormal#' },
+    ['niI'] = { 'N·Insert', 'N·I', '%#StatusLineModeNormal#' }, -- C-o 'insert-normal' mode
+    ['niR'] = { 'N·Replace', 'N·R', '%#StatusLineModeReplace#' }, -- C-o 'replace-normal' mode
+    ['niV'] = { 'N·Visual', 'N·R', '%#StatusLineModeVisual#' }, -- C-o 'virtual-replace' mode
+    ['nt'] = { 'N·Terminal', 'N·T', '%#StatusLineModeNormal#' },
+    ['v'] = { 'Visual', 'V', '%#StatusLineModeVisual#' },
+    ['V'] = { 'V·Line', 'V·L', '%#StatusLineModeVisual#' },
+    [''] = { 'V·Block', 'V·B', '%#StatusLineModeVisual#' }, -- this is not ^V, but it's , they're different
+    ['s'] = { 'Select', 'S', '%#StatusLineModeSelect#' },
+    ['S'] = { 'S·Line', 'S·L', '%#StatusLineModeSelect#' },
+    [''] = { 'S·Block', 'S·B', '%#StatusLineModeSelect#' }, -- same with this one, it's not ^S but it's 
+    ['i'] = { 'Insert', 'I', '%#StatusLineModeInsert#' },
+    ['ic'] = { 'Insert', 'I', '%#StatusLineModeInsert#' },
+    ['ix'] = { 'Insert', 'I', '%#StatusLineModeInsert#' },
+    ['R'] = { 'Replace', 'R', '%#StatusLineModeReplace#' },
+    ['Rv'] = { 'V·Replace', 'V·R', '%#StatusLineModeReplace#' },
+    ['c'] = { 'Command', 'C', '%#StatusLineModeCommand#' },
+    ['cv'] = { 'Vim·Ex', 'V·E', '%#StatusLineModeEx#' },
+    ['ce'] = { 'Ex', 'E', '%#StatusLineModeEx#' },
+    ['r'] = { 'Prompt', 'P', '%#StatusLineModeNormal#' },
+    ['rm'] = { 'More', 'M', '%#StatusLineModeNormal#' },
+    ['r?'] = { 'Confirm', 'C', '%#StatusLineModeNormal#' },
+    ['!'] = { 'Shell', 'S', '%#StatusLineModeTerminal#' },
+    ['t'] = { 'Terminal', 'T', '%#StatusLineModeTerminal#' },
 }, {
     __index = function()
-        return { "Unknown", "U" }   -- handle edge cases
+        return { 'Unknown', 'U' } -- handle edge cases
     end,
 })
 
 M.use_long_modes = true
 
 -- filetype for 'Explorer mode'
-M.explorer_filetype = "NvimTree"
+M.explorer_filetype = 'NvimTree'
 
 -- filetypes to hide statusbar for
 M.hidden_filetypes = {
-    fugitiveblame   = true,
-    fzf             = true,
-    lazy            = true,
+    fugitiveblame = true,
+    fzf = true,
+    lazy = true,
     telescopeprompt = true,
 }
-
 
 M.get_current_mode = function(self)
     local current_mode = api.nvim_get_mode().mode
 
     -- Hide "NORMAL" status
-    if current_mode == "n" then return "" end
+    if current_mode == 'n' then
+        return ''
+    end
 
     local hl_group = self.modes[current_mode][3]
     if not self.use_long_modes or self:is_truncated(self.trunc_width.mode) then
-        return string.format("%s %s ", hl_group, self.modes[current_mode][2]):upper()
+        return string.format('%s %s ', hl_group, self.modes[current_mode][2]):upper()
     end
-    return string.format("%s %s ", hl_group, self.modes[current_mode][1]):upper()
+    return string.format('%s %s ', hl_group, self.modes[current_mode][1]):upper()
 end
 
 M.get_git_status = function(self)
     -- use fallback because it doesn't set this variable on the initial `BufEnter`
-    local signs = vim.b.gitsigns_status_dict or { head = "", added = 0, changed = 0, removed = 0 }
-    local is_head_empty = signs.head ~= ""
+    local signs = vim.b.gitsigns_status_dict or { head = '', added = 0, changed = 0, removed = 0 }
+    local is_head_empty = signs.head ~= ''
 
     if is_head_empty and not self:is_truncated(self.trunc_width.git_status) then
-        local git_indicator = ""
+        local git_indicator = ''
         if signs.added ~= nil and signs.added > 0 then
-            git_indicator = git_indicator .. " " .. self.colors.git_add .. "+" .. signs.added
+            git_indicator = git_indicator .. ' ' .. self.colors.git_add .. '+' .. signs.added
         end
         if signs.changed ~= nil and signs.changed > 0 then
-            git_indicator = git_indicator .. " " .. self.colors.git_change .. "~" .. signs.changed
+            git_indicator = git_indicator .. ' ' .. self.colors.git_change .. '~' .. signs.changed
         end
         if signs.removed ~= nil and signs.removed > 0 then
-            git_indicator = git_indicator .. " " .. self.colors.git_delete .. "-" .. signs.removed
+            git_indicator = git_indicator .. ' ' .. self.colors.git_delete .. '-' .. signs.removed
         end
 
         return git_indicator
     else
-        return ""
+        return ''
     end
 end
 
 M.get_git_branch = function(self)
     -- use fallback because it doesn't set this variable on the initial `BufEnter`
-    local signs = vim.b.gitsigns_status_dict or { head = "" }
-    local is_head_empty = signs.head ~= ""
+    local signs = vim.b.gitsigns_status_dict or { head = '' }
+    local is_head_empty = signs.head ~= ''
 
-    return is_head_empty and string.format(" %s %s ", self.git_icon, signs.head or "") or ""
+    return is_head_empty and string.format(' %s %s ', self.git_icon, signs.head or '') or ''
 end
 
 M.get_filename = function(_)
-    return "%<%f"
+    return '%<%f'
 end
 
 M.get_filetype = function(self)
-    local file_name, file_ext = fn.expand "%:t", fn.expand "%:e"
+    local file_name, file_ext = fn.expand('%:t'), fn.expand('%:e')
     local filetype = vim.bo.filetype
-    if filetype == "" then
+    if filetype == '' then
         return nil, nil
     end
     local icon = self.filetype_icon_overrides[file_ext]
     if icon == nil then
-        icon = require("nvim-web-devicons").get_icon(file_name, file_ext, { default = true })
+        icon = require('nvim-web-devicons').get_icon(file_name, file_ext, { default = true })
     end
     return icon, filetype
 end
 
 M.format_filename = function(_, icon, name)
     if name == nil then
-        return ""
+        return ''
     end
 
     if icon == nil then
-        return string.format(" %s ", name)
+        return string.format(' %s ', name)
     else
-        return string.format(" %s %s ", icon, name)
+        return string.format(' %s %s ', icon, name)
     end
 end
 
 M.format_filetype = function(_, icon, label)
     if label == nil then
-        return ""
+        return ''
     end
-    return string.format(" %s %s ", icon, label):lower()
+    return string.format(' %s %s ', icon, label):lower()
 end
 
 M.get_line_info = function(self)
@@ -215,10 +217,10 @@ M.get_line_info = function(self)
 end
 
 M.get_search_info = function(_)
-    local search = vim.fn.searchcount { maxcount = 0 } -- maxcount = 0 makes the number not be capped at 99
-    local result = ""
+    local search = vim.fn.searchcount({ maxcount = 0 }) -- maxcount = 0 makes the number not be capped at 99
+    local result = ''
     if search.total > 0 then
-        result = " " .. search.current .. "/" .. search.total
+        result = ' ' .. search.current .. '/' .. search.total
     end
     return result
 end
@@ -230,6 +232,7 @@ M.set_active = function(self)
     local mode_alt = colors.mode_alt .. self.separators[active_sep][1]
     local filetype_icon, filetype_label = self:get_filetype()
     local filename = colors.active .. self:format_filename(nil, self:get_filename())
+    local lsp_status = self:get_lsp_status()
     local lsp_diagnostic = self:get_lsp_diagnostic()
     local git_status = colors.git .. self:get_git_status()
     local git_branch = colors.git .. self:get_git_branch()
@@ -243,17 +246,17 @@ M.set_active = function(self)
     -- stylua: ignore
     return table.concat({
         -- left hand side
-        mode, mode_alt, colors.active, filename, git_status,
+        mode, mode_alt, colors.active, filename, git_branch, git_status,
         "%=",
         -- centre
         "%=",
         -- right hand side
-        lsp_diagnostic, git_alt, git_branch, filetype_alt, filetype, line_info_alt, line_info,
+        lsp_status, git_alt, filetype_alt, filetype, lsp_diagnostic, line_info_alt, line_info,
     })
 end
 
 M.set_inactive = function(self)
-    return self.colors.inactive .. ""
+    return self.colors.inactive .. ''
 
     -- (Example code:)
     -- '%= %F %='
@@ -263,21 +266,21 @@ M.set_inactive = function(self)
 end
 
 M.set_explorer = function(self)
-    local title = self.colors.mode .. "   "
+    local title = self.colors.mode .. '   '
     local title_alt = self.colors.mode_alt .. self.separators[active_sep][2]
 
-    return table.concat { self.colors.active, title, title_alt }
+    return table.concat({ self.colors.active, title, title_alt })
 end
 
 Statusline = setmetatable(M, {
     __call = function(statusline, mode)
-        if mode == "active" then
+        if mode == 'active' then
             return statusline:set_active()
         end
-        if mode == "inactive" then
+        if mode == 'inactive' then
             return statusline:set_inactive()
         end
-        if mode == "explorer" then
+        if mode == 'explorer' then
             return statusline:set_explorer()
         end
     end,
@@ -285,23 +288,23 @@ Statusline = setmetatable(M, {
 
 -- Entry point to this module
 M.setup = function()
-    local statuslineGrp = api.nvim_create_augroup("Statusline", { clear = true })
+    local statuslineGrp = api.nvim_create_augroup('Statusline', { clear = true })
 
     -- Main autocommand to handle active/inactive/explorer states
-    api.nvim_create_autocmd({ "WinEnter", "BufEnter", "WinLeave", "BufLeave", "FileType" }, {
+    api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'WinLeave', 'BufLeave', 'FileType' }, {
         group = statuslineGrp,
         callback = function(args)
             -- 1. Ignore floating/popup windows entirely
             local win_id = api.nvim_get_current_win()
             local win_config = api.nvim_win_get_config(win_id)
-            if win_config.relative and win_config.relative ~= "" then
+            if win_config.relative and win_config.relative ~= '' then
                 -- floating wins have relative key of 'editor' or 'win'; bail out early
                 return
             end
 
             -- 2. Check for hidden filetypes or specific popup buffer setups
-            if M.hidden_filetypes[vim.bo.ft] or (vim.bo.ft == "" and vim.bo.buftype == "nofile") then
-                vim.wo.statusline = ""   -- completely clear local statusline for this window
+            if M.hidden_filetypes[vim.bo.ft] or (vim.bo.ft == '' and vim.bo.buftype == 'nofile') then
+                vim.wo.statusline = '' -- completely clear local statusline for this window
                 return
             end
 
@@ -310,28 +313,78 @@ M.setup = function()
 
             if vim.bo.ft == M.explorer_filetype then
                 vim.wo.statusline = "%!v:lua.Statusline('explorer')"
-            elseif event == "WinEnter" or event == "BufEnter" then
+            elseif event == 'WinEnter' or event == 'BufEnter' then
                 vim.wo.statusline = "%!v:lua.Statusline('active')"
-            elseif event == "WinLeave" or event == "BufLeave" then
+            elseif event == 'WinLeave' or event == 'BufLeave' then
                 vim.wo.statusline = "%!v:lua.Statusline('inactive')"
             end
         end,
     })
 end
 
+Statusline.get_lsp_status = function(self)
+    -- Statusline too short
+    if self:is_truncated(self.trunc_width.lsp_status) then
+        return ''
+    end
+
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    if #clients == 0 then
+        return ' %#' .. M.lsp_diags_hl_group_prefix .. '#' .. '󰈉  '
+    end
+
+    -- Categorize clients by state
+    local healthy = {}
+    local initializing = {}
+    local unhealthy = {}
+
+    for _, client in ipairs(clients) do
+        if client:is_stopped() then
+            table.insert(unhealthy, client.name)
+        elseif not client.initialized then
+            table.insert(initializing, client.name)
+        else
+            table.insert(healthy, client.name)
+        end
+    end
+
+    local result = ''
+
+    -- Healthy servers (green open eye)
+    if #healthy > 0 then
+        local icon_style = ' %#' .. M.lsp_diags_hl_group_prefix .. 'Ok#'
+        result = result .. icon_style .. '󰈈 ' .. M.colors.active .. table.concat(healthy, ' ')
+    end
+
+    -- Initializing servers (yellow open eye)
+    if #initializing > 0 then
+        local icon_style = ' %#' .. M.lsp_diags_hl_group_prefix .. 'WARN#'
+        result = result .. icon_style .. '󰈈 ' .. M.colors.active .. table.concat(initializing, ' ')
+    end
+
+    -- Unhealthy servers (red slash-eye)
+    if #unhealthy > 0 then
+        local icon_style = ' %#' .. M.lsp_diags_hl_group_prefix .. 'ERROR#'
+        result = result .. icon_style .. '󰈉 ' .. M.colors.active .. table.concat(unhealthy, ' ')
+    end
+
+    -- if 'result' isn't empty, append an extra space at the end
+    if #result > 0 then
+        result = result .. ' '
+    end
+
+    return result
+end
+
 Statusline.get_lsp_diagnostic = function(self)
     -- Statusline too short
     if self:is_truncated(self.trunc_width.lsp_diags) then
-        return ""
-    end
-
-    -- LSP supported, but not connected
-    if #vim.lsp.get_clients() == 0 then
-        return " %#" .. M.lsp_diags_hl_group_prefix .. "#" .. "󰈉  "
+        return ''
     end
 
     -- Otherwise, fish out and display stats
-    local lsp_status_str = ""
+    local lsp_status_str = ''
 
     for _, entry in ipairs(self.lsp_diags_config) do
         local _, highlight_suffix, severity, icon = unpack(entry)
@@ -346,12 +399,12 @@ Statusline.get_lsp_diagnostic = function(self)
         end
     end
 
-
-    if lsp_status_str ~= "" then
+    if lsp_status_str ~= '' then
         return lsp_status_str
     else
         -- No errors
-        return " %#" .. M.lsp_diags_hl_group_prefix .. "Ok#" .. "󰈈  "
+        --return ' %#' .. M.lsp_diags_hl_group_prefix .. 'Ok#' .. '  '
+        return ''
     end
 end
 
