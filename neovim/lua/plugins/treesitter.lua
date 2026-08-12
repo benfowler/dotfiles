@@ -16,6 +16,8 @@ return {
                 'json',
                 'kotlin',
                 'lua',
+                'markdown',
+                'markdown_inline',
                 'python',
                 'regex',
                 'toml',
