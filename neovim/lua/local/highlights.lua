@@ -68,7 +68,7 @@ vim.api.nvim_set_hl(0, 'mkdLink', { link = 'mkdLinkDef' })
 vim.api.nvim_set_hl(0, 'mkdInlineURL', { link = 'mkdLinkDef' })
 vim.api.nvim_set_hl(0, '@markup.link.label.markdown_inline', { link = 'mkdLinkDef' })
 vim.api.nvim_set_hl(0, '@markup.link.url.markdown_inline', { link = 'mkdLinkDef' })
-vim.api.nvim_set_hl(0, '@markup.quote.markdown', { link = 'mkdBlockQuote' })
+vim.api.nvim_set_hl(0, '@markup.quote.markdown', { italic = true })
 vim.api.nvim_set_hl(0, '@markup.raw.markdown_inline', { link = 'mkdCode' })
 
 vim.api.nvim_set_hl(0, 'LspCodeLens', { link = 'Conceal' })
