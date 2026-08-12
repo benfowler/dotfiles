@@ -1,14 +1,14 @@
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system { "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", lazypath }
-    vim.fn.system { "git", "-C", lazypath, "checkout", "tags/stable" } -- last stable release
+    vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', lazypath })
+    vim.fn.system({ 'git', '-C', lazypath, 'checkout', 'tags/stable' }) -- last stable release
 end
 vim.opt.rtp:prepend(lazypath)
 
 return function(opts)
-    opts = vim.tbl_deep_extend("force", {
+    opts = vim.tbl_deep_extend('force', {
         spec = {
-            { import = "plugins" },
+            { import = 'plugins' },
         },
         defaults = { lazy = true },
         install = {
@@ -18,9 +18,9 @@ return function(opts)
             enabled = true,
             frequency = 86400, -- once a day
         },
-        lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
+        lockfile = vim.fn.stdpath('config') .. '/lazy-lock.json',
         diff = {
-            cmd = "terminal_git",
+            cmd = 'terminal_git',
         },
         performance = {
             cache = {
@@ -29,16 +29,16 @@ return function(opts)
             },
             rtp = {
                 disabled_plugins = {
-                    "gzip",
-                    "rplugin",
-                    "tarPlugin",
-                    "tohtml",
-                    "tutor",
-                    "zipPlugin",
+                    'gzip',
+                    'rplugin',
+                    'tarPlugin',
+                    'tohtml',
+                    'tutor',
+                    'zipPlugin',
                 },
             },
         },
         debug = false,
     }, opts or {})
-    require("lazy").setup(opts)
+    require('lazy').setup(opts)
 end

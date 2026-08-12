@@ -1,40 +1,38 @@
 return {
 
     {
-        "nvim-treesitter/nvim-treesitter",
+        'nvim-treesitter/nvim-treesitter',
         lazy = false,
-        build = ":TSUpdate",
+        build = ':TSUpdate',
         dependencies = {
-            { "windwp/nvim-ts-autotag" },
+            { 'windwp/nvim-ts-autotag' },
         },
         config = function()
             require('nvim-treesitter').install({
-                "bash",
-                "html",
-                "java",
-                "javascript",
-                "json",
-                "kotlin",
-                "lua",
-                "python",
-                "regex",
-                "scala",
-                "toml",
-                "tsx",
-                "typescript",
-                "vue",
-                "xml",
-                "yaml"
-             })
+                'bash',
+                'html',
+                'java',
+                'javascript',
+                'json',
+                'kotlin',
+                'lua',
+                'python',
+                'regex',
+                'toml',
+                'tsx',
+                'typescript',
+                'vue',
+                'xml',
+                'yaml',
+            })
         end,
     },
 
     {
         -- XML autocomplete
-        "windwp/nvim-ts-autotag",
+        'windwp/nvim-ts-autotag',
         config = function()
-            require("nvim-ts-autotag").setup()
+            require('nvim-ts-autotag').setup()
         end,
     },
-
 }

@@ -2,13 +2,13 @@ return {
 
     -- nvim-lspconfig (for canned configs only; requires v0.11+)
     {
-        "neovim/nvim-lspconfig",
+        'neovim/nvim-lspconfig',
         lazy = false,
     },
 
     -- Show LSP server activity as an overlay
     {
-        "j-hui/fidget.nvim",
+        'j-hui/fidget.nvim',
         lazy = false,
         opts = {
             notification = {
@@ -21,36 +21,36 @@ return {
 
     -- Core Copilot integration
     {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
+        'zbirenbaum/copilot.lua',
+        cmd = 'Copilot',
+        event = 'InsertEnter',
         ---@type CopilotConfig
         opts = {
             -- Disable native ghost text UI modules to prevent overlapping renders
             suggestion = { enabled = false },
             panel = { enabled = false },
             filetypes = {
-                ["*"] = true,
+                ['*'] = true,
                 -- Disable Copilot in certain filetypes
-                ["TelescopePrompt"] = false,
-                ["NvimTree"] = false,
-                ["markdown"] = false,
-                ["text"] = false,
+                ['TelescopePrompt'] = false,
+                ['NvimTree'] = false,
+                ['markdown'] = false,
+                ['text'] = false,
             },
         },
     },
 
     -- Use blink.cmp for fuzzy autocomplete in LSP
     {
-        "saghen/blink.cmp",
-        version = "v1.10.2", -- pin this to a release to keep running; use pre-built fuzzy finder binary
-        dependencies = { "fang2hou/blink-copilot" },
+        'saghen/blink.cmp',
+        version = 'v1.10.2', -- pin this to a release to keep running; use pre-built fuzzy finder binary
+        dependencies = { 'fang2hou/blink-copilot' },
         ---@type blink.cmp.Config
         opts = {
 
             -- Menu formatting and colorisation
             appearance = {
-                nerd_font_variant = "mono",
+                nerd_font_variant = 'mono',
             },
 
             -- General completion options
@@ -61,7 +61,7 @@ return {
                     auto_show = true,
                     auto_show_delay_ms = 250,
                     treesitter_highlighting = true,
-                    window = { border = "rounded" },
+                    window = { border = 'rounded' },
                 },
 
                 ghost_text = {
@@ -72,7 +72,7 @@ return {
                 menu = {
                     auto_show = false,
                     draw = {
-                        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
+                        columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } },
                     },
                     max_height = 15,
                     winblend = 5,
@@ -82,47 +82,46 @@ return {
             -- Register Copilot as a backend completion provider
             sources = {
                 default = function()
-                    local ok = pcall(require, "copilot")
+                    local ok = pcall(require, 'copilot')
                     if ok then
-                        return { "lsp", "path", "snippets", "buffer", "copilot" }
+                        return { 'lsp', 'path', 'snippets', 'buffer', 'copilot' }
                     else
-                        return { "lsp", "path", "snippets", "buffer" }
+                        return { 'lsp', 'path', 'snippets', 'buffer' }
                     end
                 end,
                 providers = {
                     copilot = {
-                        name = "copilot",
-                        module = "blink-copilot",
+                        name = 'copilot',
+                        module = 'blink-copilot',
                         score_offset = 100, -- Forces Copilot to the top for instant ghost text
                         async = true,
                         opts = {
                             max_completions = 3,
-                        }
+                        },
                     },
                 },
             },
 
             -- Enable snippet support (requires luasnip or mini.snippets)
             snippets = {
-                preset = "luasnip",
+                preset = 'luasnip',
             },
         },
     },
 
     -- Show code action signs
     {
-        "kosayoda/nvim-lightbulb",
+        'kosayoda/nvim-lightbulb',
         lazy = false,
         ---@type nvim-lightbulb.Config
         opts = {
             sign = {
-                text = " ",
-                hl = "DiagnosticSignWarn",
+                text = ' ',
+                hl = 'DiagnosticSignWarn',
             },
             autocmd = {
                 enabled = true,
             },
-
         },
     },
 
@@ -135,9 +134,8 @@ return {
         opts = {
             library = {
                 { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-                { path = 'lazy.nvim',          words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
+                { path = 'lazy.nvim', words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
             },
         },
     },
-
 }

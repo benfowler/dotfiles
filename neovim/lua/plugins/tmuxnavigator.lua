@@ -1,8 +1,8 @@
-local maps = require "config.keymaps"
+local maps = require('config.keymaps')
 
 return {
     {
-        "christoomey/vim-tmux-navigator",
+        'christoomey/vim-tmux-navigator',
         init = function()
             vim.g.tmux_navigator_no_mappings = 1
         end,

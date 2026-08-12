@@ -1,30 +1,29 @@
-
 return {
     {
-        "nvim-telescope/telescope.nvim",
-        cmd = "Telescope",
+        'nvim-telescope/telescope.nvim',
+        cmd = 'Telescope',
         dependencies = {
-            "plenary.nvim",
+            'plenary.nvim',
 
             -- Extensions
-            "crispgm/telescope-heading.nvim",
-            "benfowler/telescope-luasnip.nvim",
+            'crispgm/telescope-heading.nvim',
+            'benfowler/telescope-luasnip.nvim',
         },
         opts = function()
-            local actions = require "telescope.actions"
+            local actions = require('telescope.actions')
             return {
                 defaults = {
                     mappings = {
                         i = {
-                            ["<Esc>"] = actions.close,
-                            ["<C-c>"] = function()
-                                vim.cmd [[stopinsert]]
+                            ['<Esc>'] = actions.close,
+                            ['<C-c>'] = function()
+                                vim.cmd([[stopinsert]])
                             end,
                         },
                     },
-                    prompt_prefix = "   ",
-                    selection_caret = "❯ ",
-                    path_display = { "smart" },
+                    prompt_prefix = '   ',
+                    selection_caret = '❯ ',
+                    path_display = { 'smart' },
                     color_devicons = true,
                     sort_lastused = true,
                 },
@@ -33,9 +32,9 @@ return {
                         fuzzy = true, -- false will only do exact matching
                     },
                     luasnip = {
-                        prompt_title = "Snippets",
-                        results_title = ""
-                    }
+                        prompt_title = 'Snippets',
+                        results_title = '',
+                    },
                 },
             }
         end,

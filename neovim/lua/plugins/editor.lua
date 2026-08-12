@@ -1,34 +1,34 @@
-local maps = require "config.keymaps"
+local maps = require('config.keymaps')
 
 return {
 
     -- Delete buffers without changing window layout
     {
-        "famiu/bufdelete.nvim",
-        event = "BufRead",
+        'famiu/bufdelete.nvim',
+        event = 'BufRead',
     },
 
     -- Camel- and snake-case motions
     {
-        "chaoren/vim-wordmotion",
-        event = "BufRead",
+        'chaoren/vim-wordmotion',
+        event = 'BufRead',
     },
 
     -- powerful surround functionality
     {
-        "kylechui/nvim-surround",
-        version = "*", -- use for stability; omit to use `main` branch for the latest features
-        event = "BufRead",
+        'kylechui/nvim-surround',
+        version = '*', -- use for stability; omit to use `main` branch for the latest features
+        event = 'BufRead',
         config = function()
-            require("nvim-surround").setup {
+            require('nvim-surround').setup({
                 -- configuration here, or leave empty to use defaults.  Plugin won't work without this.
-            }
+            })
         end,
     },
 
     -- better quickfix buffer
     {
-        "kevinhwang91/nvim-bqf",
+        'kevinhwang91/nvim-bqf',
         ft = 'qf',
         ---@type BqfConfig
         opts = {
@@ -40,10 +40,10 @@ return {
 
     -- Format tables etc
     {
-        "junegunn/vim-easy-align",
-        cmd = { "EasyAlign", "LiveEasyAlign" },
+        'junegunn/vim-easy-align',
+        cmd = { 'EasyAlign', 'LiveEasyAlign' },
         keys = {
-            { maps.easy_align.easy_align, "<Plug>(EasyAlign)", mode = { "n", "x" }, desc = "EasyAlign" },
+            { maps.easy_align.easy_align, '<Plug>(EasyAlign)', mode = { 'n', 'x' }, desc = 'EasyAlign' },
         },
     },
 }

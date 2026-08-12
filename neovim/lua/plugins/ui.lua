@@ -1,4 +1,4 @@
-local maps = require "config.keymaps"
+local maps = require('config.keymaps')
 
 return {
 
@@ -10,27 +10,27 @@ return {
         ---@type snacks.Config
         opts = {
             input = {
-                border = "rounded",
+                border = 'rounded',
                 win_options = {
                     winblend = 5,
                 },
             },
             notifier = {
                 timeout = 3000,
-                background_colour = "#000000",
-                icons = { ERROR = "", WARN = "", INFO = "", DEBUG = "", TRACE = "✎", },
+                background_colour = '#000000',
+                icons = { ERROR = '', WARN = '', INFO = '', DEBUG = '', TRACE = '✎' },
                 win_options = {
                     winblend = 5,
                 },
             },
             select = {
-                backend = "telescope",
+                backend = 'telescope',
                 win_options = {
                     winblend = 5,
                 },
             },
             picker = {
-                backend = "telescope",
+                backend = 'telescope',
                 win_options = {
                     winblend = 5,
                 },
@@ -39,11 +39,11 @@ return {
     },
 
     {
-        "kyazdani42/nvim-tree.lua",
-        cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+        'kyazdani42/nvim-tree.lua',
+        cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
         keys = {
-            { maps.nvimtree.treetoggle, ":NvimTreeToggle<CR>", silent = true, desc = "NvimTree toggle" },
-            { maps.nvimtree.treefocus, ":NvimTreeFocus<CR>", silent = true, desc = "NvimTree focus file" },
+            { maps.nvimtree.treetoggle, ':NvimTreeToggle<CR>', silent = true, desc = 'NvimTree toggle' },
+            { maps.nvimtree.treefocus, ':NvimTreeFocus<CR>', silent = true, desc = 'NvimTree focus file' },
         },
         ---@type nvim_tree.config
         opts = {
@@ -61,20 +61,30 @@ return {
                 icons = {
                     show = {
                         git = false,
+                        folder_arrow = false,
                     },
                     glyphs = {
                         git = {
-                            unstaged = "",
-                            staged = "",
-                            unmerged = "",
-                            renamed = "➜",
-                            untracked = "★",
-                            deleted = "",
-                            ignored = "◌",
+                            unstaged = ' ',
+                            staged = ' ',
+                            unmerged = ' ',
+                            renamed = '➜ ',
+                            untracked = '★ ',
+                            deleted = ' ',
+                            ignored = '◌ ',
                         },
                     },
                 },
-                special_files = { "Cargo.toml", "Makefile", "pom.xml", "package.json", "Dockerfile" },
+                special_files = {
+                    'build.gradle',
+                    'Cargo.toml',
+                    'Dockerfile',
+                    'Makefile',
+                    'pom.xml',
+                    'package.json',
+                    'pyproject.toml',
+                    'Taskfile.yml',
+                },
             },
             update_focused_file = {
                 enable = true,
@@ -84,10 +94,10 @@ return {
             diagnostics = {
                 enable = true,
                 icons = {
-                    error = require("util").diagnostic_icons.outline.error,
-                    warning = require("util").diagnostic_icons.outline.warn,
-                    info = require("util").diagnostic_icons.outline.info,
-                    hint = require("util").diagnostic_icons.outline.hint,
+                    error = require('util').diagnostic_icons.outline.error,
+                    warning = require('util').diagnostic_icons.outline.warn,
+                    info = require('util').diagnostic_icons.outline.info,
+                    hint = require('util').diagnostic_icons.outline.hint,
                 },
             },
         },
@@ -95,40 +105,64 @@ return {
 
     -- Indent guides
     {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        event = { "BufRead" },
+        'lukas-reineke/indent-blankline.nvim',
+        main = 'ibl',
+        event = { 'BufRead' },
         config = function()
-            require("ibl").setup({
-                indent = { char = "┊" },
+            require('ibl').setup({
+                indent = { char = '┊' },
                 scope = {
                     include = {
                         node_type = {
-                            "class", "function", "method", "block", "list_literal", "selector",
-                            "^if", "^table", "if_statement", "while", "for"
-                        }
-                    }
+                            'class',
+                            'function',
+                            'method',
+                            'block',
+                            'list_literal',
+                            'selector',
+                            '^if',
+                            '^table',
+                            'if_statement',
+                            'while',
+                            'for',
+                        },
+                    },
                 },
                 exclude = {
                     filetypes = {
-                        "startify", "dashboard", "dotooagenda", "log", "fugitive", "gitcommit",
-                        "packer", "vimwiki", "txt", "vista", "help", "todoist", "NvimTree",
-                        "peekaboo", "git", "TelescopePrompt", "undotree", "flutterToolsOutline",
-                        ""  -- for all buffers without a file type
+                        'startify',
+                        'dashboard',
+                        'dotooagenda',
+                        'log',
+                        'fugitive',
+                        'gitcommit',
+                        'packer',
+                        'vimwiki',
+                        'txt',
+                        'vista',
+                        'help',
+                        'todoist',
+                        'NvimTree',
+                        'peekaboo',
+                        'git',
+                        'TelescopePrompt',
+                        'undotree',
+                        'flutterToolsOutline',
+                        '', -- for all buffers without a file type
                     },
-                    buftypes = { "terminal", "nofile" }
-                }
+                    buftypes = { 'terminal', 'nofile' },
+                },
             })
 
-            local hooks = require("ibl.hooks")
+            local hooks = require('ibl.hooks')
             hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-        end
+        end,
     },
 
     -- Popup keymapping help
     {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
         ---@type wk.Opts
         opts = {
             -- Set a custom delay in milliseconds
@@ -138,16 +172,16 @@ return {
 
     -- Make to-dos stand out using custom highlights
     {
-        "folke/todo-comments.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = "nvim-lua/plenary.nvim",
+        'folke/todo-comments.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        dependencies = 'nvim-lua/plenary.nvim',
         opts = {
             keywords = {
                 FIX = {
-                    icon = " ", -- icon used for the sign, and in search results
-                    color = "error", -- can be a hex color, or a named color (see below)
-                    alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "DANGER" }
-                }
+                    icon = ' ', -- icon used for the sign, and in search results
+                    color = 'error', -- can be a hex color, or a named color (see below)
+                    alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'DANGER' },
+                },
             },
             highlight = {
                 pattern = { [[.*<(KEYWORDS)\s*:]], [[.*!!! <(KEYWORDS)\s*]] },
@@ -158,7 +192,6 @@ return {
 
     -- Icons
     {
-        "nvim-tree/nvim-web-devicons",
+        'nvim-tree/nvim-web-devicons',
     },
-
 }

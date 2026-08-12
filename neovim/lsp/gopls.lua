@@ -15,7 +15,7 @@ return {
             usePlaceholders = true,
             completeUnimported = true,
             staticcheck = true,
-            matcher = "Fuzzy",
+            matcher = 'Fuzzy',
         },
     },
 }
