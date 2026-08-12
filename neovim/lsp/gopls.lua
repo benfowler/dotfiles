@@ -3,8 +3,8 @@ return {
     settings = {
         gopls = {
             analyses = {
+                unreachable = true,
                 unusedparams = true,
-                unreachable = false,
             },
             codelenses = {
                 generate = true, -- show the `go generate` lens.
@@ -12,10 +12,12 @@ return {
                 test = true,
                 tidy = true,
             },
-            usePlaceholders = true,
             completeUnimported = true,
-            staticcheck = true,
+            gofumpt = true,
             matcher = 'Fuzzy',
+            semanticTokens = true,
+            staticcheck = true,
+            usePlaceholders = true,
         },
     },
 }
