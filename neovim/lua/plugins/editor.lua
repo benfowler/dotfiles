@@ -38,6 +38,12 @@ return {
         },
     },
 
+    -- Auto-detect indentation from file content (tabs vs spaces, indent size)
+    {
+        'tpope/vim-sleuth',
+        lazy = false,
+    },
+
     -- Format tables etc
     {
         'junegunn/vim-easy-align',
