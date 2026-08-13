@@ -166,4 +166,3 @@ vim.api.nvim_set_hl(0, 'StatusLineChange', { link = '@diff.delta' })
 vim.api.nvim_set_hl(0, 'StatusLineDelete', { link = '@diff.minus' })
 
 vim.api.nvim_set_hl(0, 'Git', { bold = true })
-

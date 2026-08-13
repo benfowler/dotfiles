@@ -114,7 +114,7 @@ return {
         'oribarilan/lensline.nvim',
         event = 'LspAttach',
         config = function()
-            require("lensline").setup {
+            require('lensline').setup({
                 profiles = {
                     {
                         name = 'minimal',
@@ -122,11 +122,11 @@ return {
                             highlight = 'Conceal',
                             placement = 'inline',
                             prefix = '',
-                            render = "focused", -- optionally render lenses only for focused function
+                            render = 'focused', -- optionally render lenses only for focused function
                         },
                     },
                 },
-            }
+            })
         end,
     },
 
@@ -157,7 +157,7 @@ return {
         opts = {
             library = {
                 { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-                { path = 'lazy.nvim',          words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
+                { path = 'lazy.nvim', words = { 'lazy', 'LazySpec', 'LazyConfig', 'LazyPlugin', 'LazyKeys' } },
             },
         },
     },

@@ -63,12 +63,12 @@ M.git_show_changes = true
 M.lsp_show_status_messages = false
 
 M.trunc_width = setmetatable({
-    line_info  = 60,
-    lsp_diags  = 60,
-    mode       = 80,
+    line_info = 60,
+    lsp_diags = 60,
+    mode = 80,
     git_status = 90,
     lsp_status = 90,
-    filename   = 140,
+    filename = 140,
 }, {
     __index = function()
         return 80
