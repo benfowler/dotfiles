@@ -3,6 +3,28 @@ local util = require('util')
 
 local lsp_icons = util.diagnostic_icons.outline
 
+-- Extend Emmet defaults to support XML as well.
+vim.lsp.config('emmet_language_server', {
+    cmd = { 'emmet-language-server', '--stdio' },
+    filetypes = {
+        'astro',
+        'css',
+        'eruby',
+        'html',
+        'htmlangular',
+        'htmldjango',
+        'javascriptreact',
+        'less',
+        'sass',
+        'scss',
+        'svelte',
+        'typescriptreact',
+        'vue',
+        'xml',
+    },
+    root_markers = { '.git' },
+})
+
 -- Enabled language servers
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('bashls')
@@ -135,44 +157,40 @@ vim.api.nvim_create_autocmd('LspAttach', {
             return
         end
 
-        if client:supports_method('textDocument/formatting') then
-            local _format_buffer = function()
-                vim.lsp.buf.format({ bufnr = args.buf, async = true })
-                vim.notify('Formatted current buffer', vim.log.levels.INFO, { title = 'LSP' })
-            end
-            vim.keymap.set(
-                'n',
-                maps.lsp.format_doc,
-                _format_buffer,
-                { desc = 'LSP: Format current buffer', buffer = args.buf }
-            )
-            vim.keymap.set(
-                'n',
-                maps.lsp.shortcuts.format_doc,
-                _format_buffer,
-                { desc = 'LSP: Format current buffer', buffer = args.buf }
-            )
+        local _format_buffer = function()
+            vim.lsp.buf.format({ bufnr = args.buf, async = true })
+            vim.notify('Formatted current buffer', vim.log.levels.INFO, { title = 'LSP' })
         end
+        vim.keymap.set(
+            'n',
+            maps.lsp.format_doc,
+            _format_buffer,
+            { desc = 'LSP: Format current buffer', buffer = args.buf }
+        )
+        vim.keymap.set(
+            'n',
+            maps.lsp.shortcuts.format_doc,
+            _format_buffer,
+            { desc = 'LSP: Format current buffer', buffer = args.buf }
+        )
 
         -- Enable LSP-powered _range_ formatting if available
-        if client:supports_method('textDocument/rangeFormatting') then
-            local _format_range = function()
-                vim.lsp.buf.format({ bufnr = args.buf, async = true })
-                vim.notify('Formatted visual selection', vim.log.levels.INFO, { title = 'LSP' })
-            end
-            vim.keymap.set(
-                'x',
-                maps.lsp.format_range,
-                _format_range,
-                { desc = 'LSP: Format visual selection', buffer = args.buf }
-            )
-            vim.keymap.set(
-                'x',
-                maps.lsp.shortcuts.format_range,
-                _format_range,
-                { desc = 'LSP: Format visual selection', buffer = args.buf }
-            )
+        local _format_range = function()
+            vim.lsp.buf.format({ bufnr = args.buf, async = true })
+            vim.notify('Formatted visual selection', vim.log.levels.INFO, { title = 'LSP' })
         end
+        vim.keymap.set(
+            'x',
+            maps.lsp.format_range,
+            _format_range,
+            { desc = 'LSP: Format visual selection', buffer = args.buf }
+        )
+        vim.keymap.set(
+            'x',
+            maps.lsp.shortcuts.format_range,
+            _format_range,
+            { desc = 'LSP: Format visual selection', buffer = args.buf }
+        )
 
         -- Configure rounded borders
         local opts = { buffer = args.buf, silent = true }
