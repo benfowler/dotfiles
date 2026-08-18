@@ -148,6 +148,13 @@ return {
         },
     },
 
+    -- Show colors inline
+    {
+        'brenoprata10/nvim-highlight-colors',
+        ft = { 'typescriptreact', 'typescript', 'javascriptreact', 'javascript', 'css', 'scss', 'sass', 'less' },
+        config = true,
+    },
+
     -- Lua plugin dev: faster lua_ls startup: provides plugin type stubs on demand instead of
     -- indexing the entire lazy plugin directory up front
     {
