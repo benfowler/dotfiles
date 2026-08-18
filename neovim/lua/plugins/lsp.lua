@@ -161,4 +161,57 @@ return {
             },
         },
     },
+
+    -- Linting (diagnostics from external CLI tools, e.g. eslint_d).
+    --
+    -- Prereq: `brew install eslint_d`
+    {
+        'mfussenegger/nvim-lint',
+        event = { 'BufWritePost', 'BufReadPost', 'InsertLeave' },
+        config = function()
+            local lint = require('lint')
+
+            lint.linters_by_ft = {
+                javascript = { 'eslint_d' },
+                javascriptreact = { 'eslint_d' },
+                typescript = { 'eslint_d' },
+                typescriptreact = { 'eslint_d' },
+            }
+
+            -- Lint on save (and after leaving insert mode, so diagnostics stay fresh
+            -- without needing a manual trigger). eslint_d manages its own background
+            -- daemon, so this stays fast even on repeated invocations.
+            vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave' }, {
+                group = vim.api.nvim_create_augroup('my_nvim_lint', { clear = true }),
+                callback = function()
+                    lint.try_lint()
+                end,
+            })
+        end,
+    },
+
+    -- Formatting via external CLI tools (e.g. Prettier), with format-on-save.
+    --
+    -- Prereq: `brew install prettierd`
+    {
+        'stevearc/conform.nvim',
+        event = { 'BufWritePre' },
+        cmd = { 'ConformInfo' },
+        ---@type conform.setupOpts
+        opts = {
+            formatters_by_ft = {
+                javascript = { 'prettierd' },
+                javascriptreact = { 'prettierd' },
+                typescript = { 'prettierd' },
+                typescriptreact = { 'prettierd' },
+                json = { 'prettierd' },
+                jsonc = { 'prettierd' },
+                css = { 'prettierd' },
+            },
+            format_on_save = {
+                lsp_format = 'never',
+                timeout_ms = 1000,
+            },
+        },
+    },
 }

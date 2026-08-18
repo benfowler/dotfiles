@@ -36,7 +36,9 @@ vim.lsp.enable('html')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('lemminx')
 vim.lsp.enable('lua_ls')
+vim.lsp.enable('marksman')
 vim.lsp.enable('texlab')
+vim.lsp.enable('vtsls')
 vim.lsp.enable('yamlls')
 
 -- Global defaults
