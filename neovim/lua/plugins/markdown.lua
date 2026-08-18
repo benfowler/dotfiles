@@ -38,7 +38,15 @@ return {
         ---@type bullets.Config
         opts = {
             enable_roman_list = false,
-            outline_levels = { 'std-' }, -- keep markdown bullets stable across promote/demote operations
+
+            -- BUGFIX:
+            --
+            -- Repeat 'std-' across levels: keeps the '-' marker stable across promote/demote
+            -- while still giving auto_indent_after_colon a "next level" to indent into
+            -- (a single-entry list leaves no next level, silently disabling that feature).
+
+            outline_levels = { 'std-', 'std-', 'std-', 'std-', 'std-', 'std-', 'std-', 'std-' },
+            auto_indent_after_colon = true,
         },
     },
 }
