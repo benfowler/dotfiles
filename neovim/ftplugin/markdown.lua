@@ -1,3 +1,6 @@
+-- Prevent vim-sleuth from overriding indentation settings for Markdown.
+vim.b.sleuth_automatic = 0
+
 -- Pmenu max height
 vim.opt.pumheight = 7
 
