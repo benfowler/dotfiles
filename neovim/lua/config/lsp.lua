@@ -157,6 +157,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
             return
         end
 
+        -- Enable inlay hints by default where the server supports them (e.g. vtsls)
+        if client:supports_method('textDocument/inlayHint', args.buf) then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+        end
+
         local _format_buffer = function()
             vim.lsp.buf.format({ bufnr = args.buf, async = true })
             vim.notify('Formatted current buffer', vim.log.levels.INFO, { title = 'LSP' })
