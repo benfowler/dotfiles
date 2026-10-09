@@ -14,6 +14,19 @@ vim.opt.dictionary:append('/usr/share/dict/words')
 
 vim.opt.spell = true
 
+-- Provide command to file away Teams meeting AI summaries into the proper place in my notes
+if not vim.b.meeting_filer_command then
+    require('local.meeting_filer').setup()
+    vim.b.meeting_filer_command = true
+
+    local undo_ftplugin = vim.b.undo_ftplugin or ''
+    if undo_ftplugin ~= '' then
+        undo_ftplugin = undo_ftplugin .. ' | '
+    end
+    vim.b.undo_ftplugin = undo_ftplugin
+        .. 'call nvim_buf_del_user_command(bufnr(), "FileMeetingAiSummary") | unlet! b:meeting_filer_command'
+end
+
 -- vim-markdown is lazy-loaded on FileType, so its ftplugin fires AFTER ours
 -- and overrides gx with a syntax-based opener that breaks under Treesitter
 -- (synID() returns nothing, so it always reports "not on a link").
