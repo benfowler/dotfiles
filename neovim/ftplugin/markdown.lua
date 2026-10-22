@@ -1,6 +1,11 @@
 -- Prevent vim-sleuth from overriding indentation settings for Markdown.
 vim.b.sleuth_automatic = 0
 
+vim.bo.expandtab = true
+vim.bo.shiftwidth = 4
+vim.bo.softtabstop = 4
+vim.bo.tabstop = 4
+
 -- Pmenu max height
 vim.opt.pumheight = 7
 
