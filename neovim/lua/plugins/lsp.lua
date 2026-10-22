@@ -19,27 +19,6 @@ return {
         },
     },
 
-    -- Core Copilot integration
-    {
-        'zbirenbaum/copilot.lua',
-        cmd = 'Copilot',
-        event = 'InsertEnter',
-        ---@type CopilotConfig
-        opts = {
-            -- Disable native ghost text UI modules to prevent overlapping renders
-            suggestion = { enabled = false },
-            panel = { enabled = false },
-            filetypes = {
-                ['*'] = true,
-                -- Disable Copilot in certain filetypes
-                ['TelescopePrompt'] = false,
-                ['NvimTree'] = false,
-                ['markdown'] = false,
-                ['text'] = false,
-            },
-        },
-    },
-
     -- Use blink.cmp for fuzzy autocomplete in LSP
     {
         'saghen/blink.cmp',

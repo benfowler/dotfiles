@@ -174,12 +174,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             _format_buffer,
             { desc = 'LSP: Format current buffer', buffer = args.buf }
         )
-        vim.keymap.set(
-            'n',
-            maps.lsp.shortcuts.format_doc,
-            _format_buffer,
-            { desc = 'LSP: Format current buffer', buffer = args.buf }
-        )
 
         -- Enable LSP-powered _range_ formatting if available
         local _format_range = function()
@@ -189,12 +183,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set(
             'x',
             maps.lsp.format_range,
-            _format_range,
-            { desc = 'LSP: Format visual selection', buffer = args.buf }
-        )
-        vim.keymap.set(
-            'x',
-            maps.lsp.shortcuts.format_range,
             _format_range,
             { desc = 'LSP: Format visual selection', buffer = args.buf }
         )

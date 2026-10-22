@@ -7,6 +7,7 @@ local M = {}
 -- Document keymapping groups in which-key.nvim
 M.which_key_groups = {
     { '<leader>T', group = 'Terminal' },
+    { '<leader>a', group = 'AI', mode = { 'n', 'v' } },
     { '<leader>c', group = 'Commands' },
     { '<leader>g', group = 'Git' },
     { '<leader>h', group = 'GitSigns' },
@@ -41,6 +42,12 @@ M.packages = {
     lazy_sync = '<leader>ps',
 }
 
+M.ai = {
+    inline = '<leader>ai',
+    actions = '<leader>aa',
+    chat = '<leader>ac',
+}
+
 M.notify = {
     delete_all = '<leader>cn',
 }
@@ -68,43 +75,32 @@ M.nvimtree = {
 }
 
 M.lsp = {
-    shortcuts = {
-        format_doc = '<leader>f',
-        format_range = '<leader>f',
-        rename = '<leader>R',
-        code_action = '<leader>a',
-        source_action = '<leader>A',
-    },
-
+    send_diags_to_quickfix = '<leader>cq',
     clear_doc_references = '<leader>cc',
-    code_lens = 'grc',
-    declaration = 'gD',
-    definitions = 'gd',
+    open_diags_float = '<leader>cd',
+    show_doc_references = '<leader>cr',
+    code_action = '<leader>ca',
+    source_action = '<leader>cA',
+    toggle_inlay_hints = '<leader>ci',
+    code_lens = '<leader>cl',
     format_doc = '<leader>cf',
     format_range = '<leader>cf',
+    declaration = 'gD',
+    definitions = 'gd',
     hover = 'K',
-    info = '<leader>cl',
     next_error = ']e',
     next_line_diags = '<C-j>',
     next_warning = ']w',
-    open_diags_float = '<leader>cd',
     prev_error = '[e',
     prev_line_diags = '<C-k>',
     prev_warning = '[w',
-    send_diags_to_quickfix = '<leader>cq',
-    show_doc_references = '<leader>cr',
     signature_help = '<C-s>',
-    source_action = '<leader>cA',
-    toggle_inlay_hints = '<leader>ci',
     type_definitions = 'gy',
+    rename = '<leader>R',
 }
 
 -- Telescope-specific mapping: help etc
 M.telescope = {
-    shortcuts = {
-        select_snippet = '<M-i>',
-    },
-
     telescope = '<leader>tt',
     files = '<leader>tf',
     buffers = '<leader>tb',
@@ -117,6 +113,7 @@ M.telescope = {
     keymaps = '<leader>tk',
     highlights = '<leader>ti',
     select_snippet = '<leader>ts',
+    select_snippet_insert = '<M-i>',
 
     -- LSP
     lsp_diagnostics = '<leader>lwD',
