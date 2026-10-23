@@ -18,6 +18,7 @@ return {
         cmd = { 'LazyGit' },
         keys = {
             { maps.lazygit.lazygit, ':LazyGit<CR>', desc = 'Open LazyGit' },
+            { maps.lazygit.lazygit_old, ':LazyGit<CR>', desc = 'Open LazyGit' },
         },
         lazy = true,
     },

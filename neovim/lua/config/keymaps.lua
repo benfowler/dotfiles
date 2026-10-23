@@ -141,7 +141,8 @@ M.telescope = {
 }
 
 M.lazygit = {
-    lazygit = '<leader>G',
+    lazygit = '<M-g>',
+    lazygit_old = '<leader>G',
 }
 
 M.fzf = {
@@ -149,7 +150,7 @@ M.fzf = {
     files = '<C-p>', -- quick file access
     gfiles = '<M-p>', -- quick file access (Git)
     history = '<M-o>', -- quick file access (history)
-    ripgrep = '<Leader>r', -- search everywhere (but fast)
+    ripgrep = '<leader>r', -- search everywhere (but fast)
 }
 
 M.fugitive = {
