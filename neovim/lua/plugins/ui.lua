@@ -2,6 +2,19 @@ local maps = require('config.keymaps')
 
 return {
 
+    -- Show LSP server activity as an overlay
+    {
+        'j-hui/fidget.nvim',
+        lazy = false,
+        opts = {
+            notification = {
+                window = {
+                    winblend = 0,
+                },
+            },
+        },
+    },
+
     -- Better vim.ui and vim.notify
     {
         'folke/snacks.nvim',

@@ -6,19 +6,6 @@ return {
         lazy = false,
     },
 
-    -- Show LSP server activity as an overlay
-    {
-        'j-hui/fidget.nvim',
-        lazy = false,
-        opts = {
-            notification = {
-                window = {
-                    winblend = 0,
-                },
-            },
-        },
-    },
-
     -- Use blink.cmp for fuzzy autocomplete in LSP
     {
         'saghen/blink.cmp',
