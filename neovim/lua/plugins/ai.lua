@@ -1,17 +1,14 @@
 local maps = require('config.keymaps')
 
--- Pick the first available backend. Copilot is preferred (already authenticated
--- via copilot.lua), then Claude, then Codex.
+-- Prefer Copilot CLI, then Claude, then Codex.
 local function pick_adapters()
-    local has_copilot = pcall(require, 'copilot')
-    if has_copilot then
-        return { chat = 'copilot', inline = 'copilot' }
+    if vim.fn.executable('copilot') == 1 then
+        return { chat = 'copilot_acp', inline = 'copilot_acp' }
     end
     if vim.env.ANTHROPIC_API_KEY then
         return { chat = 'anthropic', inline = 'anthropic' }
     end
     if vim.fn.executable('claude') == 1 then
-        -- ACP adapters don't support inline edits, so inline needs an HTTP adapter
         return { chat = { name = 'claude_code', type = 'acp' }, inline = vim.env.OPENAI_API_KEY and 'openai' or nil }
     end
     if vim.fn.executable('codex') == 1 then
